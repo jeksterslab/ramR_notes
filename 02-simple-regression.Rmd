@@ -204,8 +204,6 @@ To include all variables, use the following filter matrix
   \end{bmatrix} .
 \end{equation}
 
-### Path Diagram
-
 ```{tikz, regression-01, echo = FALSE, fig.width = 4, fig.cap = "The Simple Linear Regression Model (with $u$)", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
@@ -302,7 +300,7 @@ To include all variables, use the following filter matrix
     &=
     \mathbb{E}
     \left(
-      m_1 + a_{1, 2} v_2 + \varepsilon
+      m_1 + a_{1, 2} v_2 + u
     \right) \\
     &=
     \mathbb{E}
@@ -317,7 +315,7 @@ To include all variables, use the following filter matrix
     +
     \mathbb{E}
     \left(
-      \varepsilon
+      u
     \right) \\
     &=
     m_1
@@ -327,16 +325,6 @@ To include all variables, use the following filter matrix
     \left(
       v_2
     \right)
-    +
-    \mathbb{E}
-    \left(
-      \varepsilon
-    \right) \\
-    &=
-    m_1
-    +
-    a_{1, 2}
-    m_2
     +
     0 \\
     &=
@@ -478,19 +466,27 @@ To include all variables, use the following filter matrix
     +
     \mathrm{Cov} \left( u, u \right) \\
     &=
-    a_{1, 2}^{2} \mathrm{Cov} \left( v_2 \right)
+    a_{1, 2}^{2} \mathrm{Cov} \left( v_2, v_2 \right)
     +
     a_{1, 2} \mathrm{Cov} \left( v_2, u \right)
     +
     a_{1, 2} \mathrm{Cov} \left( v_2, u \right)
     +
-    \mathrm{Var} \left( u, u \right) \\
+    \mathrm{Var} \left( u \right) \\
     &=
     a_{1, 2}^{2} \mathrm{Var} \left( v_2 \right)
     +
-    a_{1, 2} 0
+    a_{1, 2} \cdot 0
     +
-    a_{1, 2} 0
+    a_{1, 2} \cdot 0
+    +
+    \omega_{3, 3} \\
+    &=
+    a_{1, 2}^{2} \mathrm{Var} \left( v_2 \right)
+    +
+    0
+    +
+    0
     +
     \omega_{3, 3} \\
     &=
@@ -663,8 +659,6 @@ filter <- filter[1:2, 1:2]
     `r filter[2, 1]` & `r filter[2, 2]`
   \end{bmatrix}
 \end{equation}
-
-### Path Diagram
 
 ```{tikz, regression-02, echo = FALSE, fig.width = 4, fig.cap = "The Simple Linear Regression Model (without $u$)", fig.ext = "png", cache = TRUE}
 \usetikzlibrary{er, arrows, positioning}
