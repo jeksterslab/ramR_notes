@@ -1,0 +1,38 @@
+--- 
+title: "Reticular Action Model (RAM) Notation"
+author: "Ivan Jacob Agaloos Pesigan"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "Notes on the Reticular Action Model (RAM) Notation"
+---
+
+# Description
+
+This is a collection of my personal notes on the Reticular Action Model (RAM) notation
+that accompanies the `ram` package. 
+You can install the released version of `ram` from [GitHub](https://github.com/jeksterslab/ram) with:
+
+```r
+remotes::install_github("jeksterslab/ram")
+```
+
+```{r, echo = FALSE, message = FALSE}
+if (!require("remotes")) install.packages("remotes")
+if (!require("ram")) remotes::install_github("jeksterslab/ram")
+```
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'ram'
+), 'packages.bib')
+```
+
+See [GitHub Pages](https://jeksterslab.github.io/ram_notes/index.html)
+for the html deployment.

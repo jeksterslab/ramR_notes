@@ -1,0 +1,17 @@
+language: r
+cache: packages
+pandoc_version: 2.9.2.1
+
+addons:
+  apt:
+    packages:
+    - ghostscript
+
+before_script:
+  - Rscript -e 'if (!require("remotes")) install.packages("remotes")'
+  - Rscript -e 'if (!require("bookdown")) install.packages("bookdown")'
+  - Rscript -e 'remotes::install_github("jeksterslab/ram")'
+  - chmod +x ./_build.sh
+
+script:
+  - ./_build.sh
