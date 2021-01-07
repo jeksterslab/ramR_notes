@@ -150,6 +150,43 @@ You can install the released version of \texttt{ram} from \href{https://github.c
 See \href{https://jeksterslab.github.io/ram_notes/index.html}{GitHub Pages}
 for the html deployment.
 
+\hypertarget{ram-matrix-notation}{%
+\chapter{Reticular Action Model (RAM) Matrix Notation}\label{ram-matrix-notation}}
+
+The model-implied mean vector
+\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
+as a function of Reticular Action Model (RAM) matrices
+is given by
+
+\begin{equation}
+  \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+  =
+  \mathbf{F}
+  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+  \mathbf{m} .
+\end{equation}
+
+\noindent The \texttt{ram::mutheta()} function can be used
+to derive the model-implied mean vector.
+
+The model-implied variance-covariance matrix
+\(\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)\)
+as a function of Reticular Action Model (RAM) matrices
+is given by
+
+\begin{equation}
+  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+  =
+  \mathbf{F}
+  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+  \boldsymbol{\Omega}
+  \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+  \mathbf{F}^{\mathsf{T}} .
+\end{equation}
+
+\noindent The \texttt{ram::Sigmatheta()} function can be used
+to derive the model-implied variance-covariance matrix.
+
 \hypertarget{simple-regression}{%
 \chapter{Simple Regression}\label{simple-regression}}
 
@@ -584,12 +621,17 @@ To include all variables, use the following filter matrix
     \AttributeTok{filter =}\NormalTok{ filter}
 \NormalTok{  ),}
   \AttributeTok{col.names =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{mu\}$"}\NormalTok{,}
+  \AttributeTok{caption =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{mu\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{left( }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{theta\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{right)$"}\NormalTok{,}
   \AttributeTok{escape =} \ConstantTok{FALSE}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tabular}{l|r}
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-3}$\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)$}
+\centering
+\begin{tabular}[t]{l|r}
 \hline
   & $\boldsymbol{\mu}$\\
 \hline
@@ -600,6 +642,7 @@ $v_2$ & 13.03833\\
 $u$ & 0.00000\\
 \hline
 \end{tabular}
+\end{table}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -609,12 +652,17 @@ $u$ & 0.00000\\
     \AttributeTok{Omega =}\NormalTok{ Omega,}
     \AttributeTok{filter =}\NormalTok{ filter}
 \NormalTok{  ),}
+  \AttributeTok{caption =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Sigma\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{left( }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{theta\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{right)$"}\NormalTok{,}
   \AttributeTok{escape =} \ConstantTok{FALSE}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tabular}{l|r|r|r}
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-4}$\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)$}
+\centering
+\begin{tabular}[t]{l|r|r|r}
 \hline
   & $v_1$ & $v_2$ & $u$\\
 \hline
@@ -625,6 +673,7 @@ $v_2$ & 9.076802 & 7.151261 & 0.00000\\
 $u$ & 47.659854 & 0.000000 & 47.65985\\
 \hline
 \end{tabular}
+\end{table}
 
 \hypertarget{specification-2---observed-variables}{%
 \section{Specification 2 - Observed Variables}\label{specification-2---observed-variables}}
@@ -713,12 +762,17 @@ $u$ & 47.659854 & 0.000000 & 47.65985\\
     \AttributeTok{filter =}\NormalTok{ filter}
 \NormalTok{  ),}
   \AttributeTok{col.names =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{mu\}$"}\NormalTok{,}
+  \AttributeTok{caption =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{mu\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{left( }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{theta\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{right)$"}\NormalTok{,}
   \AttributeTok{escape =} \ConstantTok{FALSE}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tabular}{l|r}
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-6}$\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)$}
+\centering
+\begin{tabular}[t]{l|r}
 \hline
   & $\boldsymbol{\mu}$\\
 \hline
@@ -727,6 +781,7 @@ $v_1$ & 12.59781\\
 $v_2$ & 13.03833\\
 \hline
 \end{tabular}
+\end{table}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -736,12 +791,17 @@ $v_2$ & 13.03833\\
     \AttributeTok{Omega =}\NormalTok{ Omega,}
     \AttributeTok{filter =}\NormalTok{ filter}
 \NormalTok{  ),}
+  \AttributeTok{caption =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Sigma\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{left( }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{theta\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{right)$"}\NormalTok{,}
   \AttributeTok{escape =} \ConstantTok{FALSE}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tabular}{l|r|r}
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-7}$\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)$}
+\centering
+\begin{tabular}[t]{l|r|r}
 \hline
   & $v_1$ & $v_2$\\
 \hline
@@ -750,6 +810,7 @@ $v_1$ & 59.180667 & 9.076802\\
 $v_2$ & 9.076802 & 7.151261\\
 \hline
 \end{tabular}
+\end{table}
 
   \bibliography{book.bib,packages.bib}
 

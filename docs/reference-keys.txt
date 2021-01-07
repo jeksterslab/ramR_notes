@@ -1,6 +1,11 @@
 fig:regression-01
+tab:unnamed-chunk-3
+tab:unnamed-chunk-4
 fig:regression-02
+tab:unnamed-chunk-6
+tab:unnamed-chunk-7
 description
+ram-matrix-notation
 simple-regression
 specification-1---includes-error-term-as-a-latent-variable
 matrix-notation

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Reticular Action Model (RAM) Notation</title>
+  <title>Chapter 2 Reticular Action Model (RAM) Matrix Notation | Reticular Action Model (RAM) Notation</title>
   <meta name="description" content="Notes on the Reticular Action Model (RAM) Notation" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Reticular Action Model (RAM) Notation" />
+  <meta property="og:title" content="Chapter 2 Reticular Action Model (RAM) Matrix Notation | Reticular Action Model (RAM) Notation" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Reticular Action Model (RAM) Notation" />
+  <meta name="twitter:title" content="Chapter 2 Reticular Action Model (RAM) Matrix Notation | Reticular Action Model (RAM) Notation" />
   
   <meta name="twitter:description" content="Notes on the Reticular Action Model (RAM) Notation" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="ram-matrix-notation.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="simple-regression.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -169,19 +169,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Reticular Action Model (RAM) Notation</h1>
-<p class="author"><em>Ivan Jacob Agaloos Pesigan</em></p>
-<p class="date"><em>2021-01-08</em></p>
-</div>
-<div id="description" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Description</h1>
-<p>This is a collection of my personal notes on the Reticular Action Model (RAM) notation
-that accompanies the <code>ram</code> package.
-You can install the released version of <code>ram</code> from <a href="https://github.com/jeksterslab/ram">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;jeksterslab/ram&quot;</span>)</span></code></pre></div>
-<p>See <a href="https://jeksterslab.github.io/ram_notes/index.html">GitHub Pages</a>
-for the html deployment.</p>
+<div id="ram-matrix-notation" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Reticular Action Model (RAM) Matrix Notation</h1>
+<p>The model-implied mean vector
+<span class="math inline">\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)</span>
+as a function of Reticular Action Model (RAM) matrices
+is given by</p>
+<p><span class="math display">\[\begin{equation}
+  \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+  =
+  \mathbf{F}
+  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+  \mathbf{m} .
+\end{equation}\]</span></p>
+<p>The <code>ram::mutheta()</code> function can be used
+to derive the model-implied mean vector.</p>
+<p>The model-implied variance-covariance matrix
+<span class="math inline">\(\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)\)</span>
+as a function of Reticular Action Model (RAM) matrices
+is given by</p>
+<p><span class="math display">\[\begin{equation}
+  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+  =
+  \mathbf{F}
+  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+  \boldsymbol{\Omega}
+  \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+  \mathbf{F}^{\mathsf{T}} .
+\end{equation}\]</span></p>
+<p>The <code>ram::Sigmatheta()</code> function can be used
+to derive the model-implied variance-covariance matrix.</p>
 
 </div>
             </section>
@@ -189,8 +206,8 @@ for the html deployment.</p>
           </div>
         </div>
       </div>
-
-<a href="ram-matrix-notation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simple-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -221,7 +238,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jeksterslab/ram/edit/master/index.Rmd",
+"link": "https://github.com/jeksterslab/ram/edit/master/01-ram-matrix-notation.Rmd",
 "text": "Edit"
 },
 "history": {
