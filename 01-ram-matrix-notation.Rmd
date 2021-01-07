@@ -1,0 +1,35 @@
+# Reticular Action Model (RAM) Matrix Notation {#ram-matrix-notation}
+
+The model-implied mean vector
+$\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)$
+as a function of Reticular Action Model (RAM) matrices
+is given by
+
+\begin{equation}
+  \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+  =
+  \mathbf{F}
+  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+  \mathbf{m} .
+\end{equation}
+
+\noindent The `ram::mutheta()` function can be used
+to derive the model-implied mean vector.
+
+The model-implied variance-covariance matrix
+$\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)$
+as a function of Reticular Action Model (RAM) matrices
+is given by
+
+\begin{equation}
+  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+  =
+  \mathbf{F}
+  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+  \boldsymbol{\Omega}
+  \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+  \mathbf{F}^{\mathsf{T}} .
+\end{equation}
+
+\noindent The `ram::Sigmatheta()` function can be used
+to derive the model-implied variance-covariance matrix.
