@@ -250,13 +250,24 @@ The second specification only includes the observed variables.</p>
     0
   \end{bmatrix}
 \end{equation}\]</span></p>
+<p>To filter the observed variables, use the following filter matrix</p>
 <p><span class="math display">\[\begin{equation}
   \mathbf{F}
   =
   \begin{bmatrix}
     1 &amp; 0 &amp; 0 \\
     0 &amp; 1 &amp; 0
-  \end{bmatrix}
+  \end{bmatrix} .
+\end{equation}\]</span></p>
+<p>To include all variables, use the following filter matrix</p>
+<p><span class="math display">\[\begin{equation}
+  \mathbf{F}
+  =
+  \begin{bmatrix}
+    1 &amp; 0 &amp; 0 \\
+    0 &amp; 1 &amp; 0 \\
+    0 &amp; 0 &amp; 1
+  \end{bmatrix} .
 \end{equation}\]</span></p>
 </div>
 <div id="path-diagram" class="section level3" number="2.1.2">
