@@ -1,4 +1,5 @@
 book_filename: "ram-notes"
+output_dir: "docs"
 language:
   ui:
     chapter_name: "Chapter "

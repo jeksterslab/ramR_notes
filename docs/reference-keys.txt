@@ -1,0 +1,13 @@
+fig:regression-01
+fig:regression-02
+description
+simple-regression
+specification-1---includes-error-term-as-a-latent-variable
+matrix-notation
+path-diagram
+expectations
+using-the-ram-package
+specification-2---observed-variables
+matrix-notation-1
+path-diagram-1
+using-the-ram-package-1
