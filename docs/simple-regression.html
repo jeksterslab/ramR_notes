@@ -140,13 +140,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="simple-regression.html"><a href="simple-regression.html#specification-1---includes-error-term-as-a-latent-variable"><i class="fa fa-check"></i><b>3.1</b> Specification 1 - Includes Error Term as a Latent Variable</a>
 <ul>
 <li class="chapter" data-level="3.1.1" data-path="simple-regression.html"><a href="simple-regression.html#matrix-notation"><i class="fa fa-check"></i><b>3.1.1</b> Matrix Notation</a></li>
-<li class="chapter" data-level="3.1.2" data-path="simple-regression.html"><a href="simple-regression.html#path-diagram"><i class="fa fa-check"></i><b>3.1.2</b> Path Diagram</a></li>
-<li class="chapter" data-level="3.1.3" data-path="simple-regression.html"><a href="simple-regression.html#expectations"><i class="fa fa-check"></i><b>3.1.3</b> Expectations</a></li>
+<li class="chapter" data-level="3.1.2" data-path="simple-regression.html"><a href="simple-regression.html#expectations"><i class="fa fa-check"></i><b>3.1.2</b> Expectations</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="simple-regression.html"><a href="simple-regression.html#specification-2---observed-variables"><i class="fa fa-check"></i><b>3.2</b> Specification 2 - Observed Variables</a>
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="simple-regression.html"><a href="simple-regression.html#matrix-notation-1"><i class="fa fa-check"></i><b>3.2.1</b> Matrix Notation</a></li>
-<li class="chapter" data-level="3.2.2" data-path="simple-regression.html"><a href="simple-regression.html#path-diagram-1"><i class="fa fa-check"></i><b>3.2.2</b> Path Diagram</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -270,9 +268,6 @@ The second specification only includes the observed variables.</p>
     0 &amp; 0 &amp; 1
   \end{bmatrix} .
 \end{equation}\]</span></p>
-</div>
-<div id="path-diagram" class="section level3" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> Path Diagram</h3>
 <div class="figure"><span id="fig:regression-01"></span>
 <img src="ram-notes_files/figure-html/regression-01-1.png" alt="The Simple Linear Regression Model (with $u$)" width="384" />
 <p class="caption">
@@ -280,8 +275,8 @@ Figure 3.1: The Simple Linear Regression Model (with <span class="math inline">\
 </p>
 </div>
 </div>
-<div id="expectations" class="section level3" number="3.1.3">
-<h3><span class="header-section-number">3.1.3</span> Expectations</h3>
+<div id="expectations" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Expectations</h3>
 <p><span class="math display">\[\begin{equation}
   \mathbb{E}
   \left(
@@ -311,7 +306,7 @@ Figure 3.1: The Simple Linear Regression Model (with <span class="math inline">\
     &amp;=
     \mathbb{E}
     \left(
-      m_1 + a_{1, 2} v_2 + \varepsilon
+      m_1 + a_{1, 2} v_2 + u
     \right) \\
     &amp;=
     \mathbb{E}
@@ -326,7 +321,7 @@ Figure 3.1: The Simple Linear Regression Model (with <span class="math inline">\
     +
     \mathbb{E}
     \left(
-      \varepsilon
+      u
     \right) \\
     &amp;=
     m_1
@@ -336,16 +331,6 @@ Figure 3.1: The Simple Linear Regression Model (with <span class="math inline">\
     \left(
       v_2
     \right)
-    +
-    \mathbb{E}
-    \left(
-      \varepsilon
-    \right) \\
-    &amp;=
-    m_1
-    +
-    a_{1, 2}
-    m_2
     +
     0 \\
     &amp;=
@@ -482,19 +467,27 @@ Figure 3.1: The Simple Linear Regression Model (with <span class="math inline">\
     +
     \mathrm{Cov} \left( u, u \right) \\
     &amp;=
-    a_{1, 2}^{2} \mathrm{Cov} \left( v_2 \right)
+    a_{1, 2}^{2} \mathrm{Cov} \left( v_2, v_2 \right)
     +
     a_{1, 2} \mathrm{Cov} \left( v_2, u \right)
     +
     a_{1, 2} \mathrm{Cov} \left( v_2, u \right)
     +
-    \mathrm{Var} \left( u, u \right) \\
+    \mathrm{Var} \left( u \right) \\
     &amp;=
     a_{1, 2}^{2} \mathrm{Var} \left( v_2 \right)
     +
-    a_{1, 2} 0
+    a_{1, 2} \cdot 0
     +
-    a_{1, 2} 0
+    a_{1, 2} \cdot 0
+    +
+    \omega_{3, 3} \\
+    &amp;=
+    a_{1, 2}^{2} \mathrm{Var} \left( v_2 \right)
+    +
+    0
+    +
+    0
     +
     \omega_{3, 3} \\
     &amp;=
@@ -563,8 +556,8 @@ Figure 3.1: The Simple Linear Regression Model (with <span class="math inline">\
     \end{bmatrix}
   \end{split}
 \end{equation}\]</span></p>
-<div id="using-the-ram-package" class="section level4" number="3.1.3.1">
-<h4><span class="header-section-number">3.1.3.1</span> Using the <code>ram()</code> Package</h4>
+<div id="using-the-ram-package" class="section level4" number="3.1.2.1">
+<h4><span class="header-section-number">3.1.2.1</span> Using the <code>ram()</code> Package</h4>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="simple-regression.html#cb2-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
 <span id="cb2-2"><a href="simple-regression.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  ram<span class="sc">::</span><span class="fu">mutheta</span>(</span>
 <span id="cb2-3"><a href="simple-regression.html#cb2-3" aria-hidden="true" tabindex="-1"></a>    m,</span>
@@ -700,17 +693,14 @@ Figure 3.1: The Simple Linear Regression Model (with <span class="math inline">\
     0 &amp; 1
   \end{bmatrix}
 \end{equation}\]</span></p>
-</div>
-<div id="path-diagram-1" class="section level3" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Path Diagram</h3>
 <div class="figure"><span id="fig:regression-02"></span>
 <img src="ram-notes_files/figure-html/regression-02-1.png" alt="The Simple Linear Regression Model (without $u$)" width="384" />
 <p class="caption">
 Figure 3.2: The Simple Linear Regression Model (without <span class="math inline">\(u\)</span>)
 </p>
 </div>
-<div id="using-the-ram-package-1" class="section level4" number="3.2.2.1">
-<h4><span class="header-section-number">3.2.2.1</span> Using the <code>ram()</code> Package</h4>
+<div id="using-the-ram-package-1" class="section level4" number="3.2.1.1">
+<h4><span class="header-section-number">3.2.1.1</span> Using the <code>ram()</code> Package</h4>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="simple-regression.html#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
 <span id="cb4-2"><a href="simple-regression.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  ram<span class="sc">::</span><span class="fu">mutheta</span>(</span>
 <span id="cb4-3"><a href="simple-regression.html#cb4-3" aria-hidden="true" tabindex="-1"></a>    m,</span>
