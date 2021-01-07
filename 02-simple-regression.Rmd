@@ -206,8 +206,6 @@ To include all variables, use the following filter matrix
 
 ### Path Diagram
 
-
-
 ```{tikz, regression-01, echo = FALSE, fig.width = 4, fig.cap = "The Simple Linear Regression Model (with $u$)", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
@@ -575,6 +573,7 @@ knitr::kable(
     filter = filter
   ),
   col.names = "$\\boldsymbol{\\mu}$",
+  caption = "$\\boldsymbol{\\mu} \\left( \\boldsymbol{\\theta} \\right)$",
   escape = FALSE
 )
 ```
@@ -585,6 +584,7 @@ knitr::kable(
     Omega = Omega,
     filter = filter
   ),
+  caption = "$\\boldsymbol{\\Sigma} \\left( \\boldsymbol{\\theta} \\right)$",
   escape = FALSE
 )
 ```
@@ -737,6 +737,7 @@ knitr::kable(
     filter = filter
   ),
   col.names = "$\\boldsymbol{\\mu}$",
+  caption = "$\\boldsymbol{\\mu} \\left( \\boldsymbol{\\theta} \\right)$",
   escape = FALSE
 )
 ```
@@ -747,6 +748,7 @@ knitr::kable(
     Omega = Omega,
     filter = filter
   ),
+  caption = "$\\boldsymbol{\\Sigma} \\left( \\boldsymbol{\\theta} \\right)$",
   escape = FALSE
 )
 ```
