@@ -6,9 +6,11 @@ addons:
    update: true
    sources:
      - sourceline: 'ppa:opencpu/imagemagick'
+     - sourceline: 'ppa:cran/poppler'
    packages:
      - ghostscript
      - libmagick++-dev
+     - libpoppler-cpp-dev
 
 before_script:
   - chmod +x ./_build.sh
