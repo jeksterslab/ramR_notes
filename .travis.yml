@@ -11,7 +11,7 @@ addons:
      - ghostscript
      - libmagick++-dev
      - libpoppler-cpp-dev
-     - texlive-math-extra
+     - texlive-full
 
 before_script:
   - chmod +x ./_build.sh
