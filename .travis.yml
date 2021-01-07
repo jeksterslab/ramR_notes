@@ -1,5 +1,12 @@
 language: r
-cache: packages
+cache:
+  packages: true
+  directories:
+    - $HOME/.TinyTeX
+latex: false
+env:
+  global:
+    - PATH=$HOME/bin:$PATH
 pandoc_version: 2.9.2.1
 addons:
  apt:
@@ -13,6 +20,7 @@ addons:
      - libpoppler-cpp-dev
 
 before_script:
+  - wget -qO- https://yihui.org/tinytex/download-travis-linux.sh | sh
   - chmod +x ./_build.sh
 
 script:
