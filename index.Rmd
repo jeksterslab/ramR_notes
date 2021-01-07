@@ -22,11 +22,6 @@ You can install the released version of `ram` from [GitHub](https://github.com/j
 remotes::install_github("jeksterslab/ram")
 ```
 
-```{r, echo = FALSE, message = FALSE}
-if (!require("remotes")) install.packages("remotes")
-if (!require("ram")) remotes::install_github("jeksterslab/ram")
-```
-
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
