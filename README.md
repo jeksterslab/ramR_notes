@@ -1,3 +1,4 @@
+[![bookdown](https://github.com/jeksterslab/ram_notes/workflows/bookdown/badge.svg?branch=master)](https://github.com/jeksterslab/ram_notes/actions?workflow=bookdown)
 [![Travis build status](https://travis-ci.com/jeksterslab/ram_notes.svg?branch=master)](https://travis-ci.com/jeksterslab/ram_notes)
 
 This is a collection of my personal notes on the Reticular Action Model (RAM) notation
