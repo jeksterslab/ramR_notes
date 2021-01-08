@@ -63,7 +63,7 @@
   \right]
 \end{equation}
 
-- the $\mathbf{F}$ acts as a filter to select the manifest variables
+- the $\mathbf{F}$ matrix acts as a *filter* to select the manifest variables
   out of the full set of manifest and latent variables
 
 ## Model-Implied Matrices
