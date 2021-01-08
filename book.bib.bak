@@ -1,0 +1,49 @@
+% Encoding: UTF-8
+
+@InCollection{Boker-2005,
+  author    = {Boker, Steven M. and McArdle, John J.},
+  booktitle = {Encyclopedia of Statistics in Behavioral Science},
+  publisher = {John Wiley \& Sons, Ltd},
+  title     = {Path Analysis and Path Diagrams},
+  year      = {2005},
+  address   = {Chichester, UK},
+  editor    = {Brian S. Everitt and David C. Howell},
+  isbn      = {9780470013199},
+  pages     = {1529--1531},
+  abstract  = {Abstract Path analysis refers to the calculation of moment structures within and between variables, for example, covariances or correlations, implied by a set of simultaneous linear regression equations - one type of structural equation model. Path diagrams of structural equation models offer a graphical representation with exact one-to-one mapping to the simultaneous linear regression equations. Path analysis allows one to decompose the covariance between two variables in a structural equation model into additive components, thus helping to understand how the interrelationships between many variables in a model predict the covariance between two selected variables. By performing path analysis calculations on all variables and pairs of variables in a model, one may calculate the expected moment structure implied by that model. Path analysis preceded and led to the development of modern structural equation modeling methods of parameter estimation.},
+  doi       = {10.1002/0470013192.bsa471},
+}
+
+@InCollection{McArdle-2005,
+  author    = {McArdle, John J.},
+  booktitle = {Contemporary psychometrics: A festschrift for {Roderick P. McDonald}},
+  publisher = {Lawrence Erlbaum Associates},
+  title     = {The Development of the {RAM} Rules for Latent Variable Structural Equation Modeling},
+  year      = {2005},
+  address   = {Mahwah, NJ},
+  editor    = {Maydeu-Olivares, Albert and McArdle, John J.},
+  isbn      = {0805846085},
+  pages     = {225--273},
+  series    = {Multivariate applications book series},
+  abstract  = {This chapter describes the original basis of the Reticular Action Model (RAM) approach to structural equation modeling (SEM). The RAM rules were initially presented (1978-1981) to simplify and unify structural equation models based on path analysis graphics. The mathematical representation of RAM is presented as a second-order moment structure model that includes two parameter matrices, one of which is a patterned inverse. The graphic representation of RAM is presented through a series of definitions and axioms that provide a complete and concise isomorphism between graphics and algebra. Comparisons to other traditional models, such as those of multiple linear regression, path analysis, and factor analysis, show how these models may be easily and economically represented using RAM rules. Two other general modeling foundations, LISREL and COSAN, are presented as special cases and, somewhat paradoxically, as generalizations of RAM. These results are then used to develop some important technical features of the RAM rules, including efficient algorithmic estimation procedures and the further development of statistical indicators. Issues of conceptual representation are provided from a general systems perspective. Finally, some of the current limitations and benefits of the RAM rules are considered. (PsycINFO Database Record (c) 2019 APA, all rights reserved)},
+  keywords  = {Mathematical Modeling, Structural Equation Modeling, Latent Variables; Simulation},
+}
+
+@Article{McArdle-1984,
+  author    = {McArdle, John J. and McDonald, Roderick P.},
+  journal   = {British Journal of Mathematical and Statistical Psychology},
+  title     = {Some algebraic properties of the Reticular Action Model for moment structures.},
+  year      = {1984},
+  issn      = {2044-8317},
+  month     = nov,
+  number    = {2},
+  pages     = {234--251},
+  volume    = {37},
+  abstract  = {A number of models for the analysis of moment structures, such as linear structural relations, have recently been shown to be capable of being given a particularly simple and economical representation, in terms of the reticular action model (RAM). A formal algebraic treatment is presented that shows that RAM directly incorporates many common structural models, including models describing the structure of means. It is also shown that RAM treats coefficient matrices with patterned inverses simply and generally. (52 ref) (PsycINFO Database Record (c) 2016 APA, all rights reserved)},
+  address   = {United Kingdom},
+  doi       = {10.1111/j.2044-8317.1984.tb00802.x},
+  keywords  = {Analysis of Covariance, Mathematical Modeling, Mean},
+  publisher = {British Psychological Society},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
