@@ -29,5 +29,11 @@ knitr::write_bib(c(
 ), 'packages.bib')
 ```
 
+These notes are based on the following resources:
+
+- @Boker-2005
+- @McArdle-1984
+- @McArdle-2005
+
 See [GitHub Pages](https://jeksterslab.github.io/ram_notes/index.html)
 for the html deployment.
