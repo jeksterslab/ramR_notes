@@ -147,11 +147,123 @@ You can install the released version of \texttt{ram} from \href{https://github.c
 \end{Highlighting}
 \end{Shaded}
 
+These notes are based on the following resources:
+
+\begin{itemize}
+\tightlist
+\item
+  \citet{Boker-2005}
+\item
+  \citet{McArdle-1984}
+\item
+  \citet{McArdle-2005}
+\end{itemize}
+
 See \href{https://jeksterslab.github.io/ram_notes/index.html}{GitHub Pages}
 for the html deployment.
 
 \hypertarget{ram-matrix-notation}{%
 \chapter{Reticular Action Model (RAM) Matrix Notation}\label{ram-matrix-notation}}
+
+\begin{equation}
+  \mathbf{v}
+  =
+  \mathbf{A} \mathbf{v} + \mathbf{u}
+\end{equation}
+
+\noindent where
+
+\begin{itemize}
+\tightlist
+\item
+  \(\mathbf{v}\) is a \(t \times 1\) vector of random variables
+\item
+  \(u_i\) represent the residual of \(v_i\)
+\item
+  \(\mathbf{A}\) is a \(t \times t\) matrix of \emph{directed} or \emph{asymmetric} relationship
+  from column variable \(v_j\) to row variable \(v_i\)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    regression of each of the \(t\) variables on the other \(t - 1\) variables
+  \item
+    diagonal \(a_{i,i}\) is zero
+  \item
+    if all regression coefficients on other variables are zero,
+    then the variable \(v_i\) is considered the same as its own residual \(u_i\)
+  \end{itemize}
+\end{itemize}
+
+\begin{equation}
+  \boldsymbol{\Omega}
+  =
+  \mathbb{E}
+  \left(
+    \mathbf{u} \mathbf{u}^{\prime}
+  \right)
+\end{equation}
+
+\noindent where
+
+\begin{itemize}
+\tightlist
+\item
+  \(\boldsymbol{\Omega}\) is a \(t \times t\) matrix of \emph{undirected} or \emph{symmetric} relationship
+\end{itemize}
+
+\begin{equation}
+  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+  =
+  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+  \boldsymbol{\Omega}
+  \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)\) is a \(t \times t\) symmetric matrix
+  of associations between \(v_i\) and \(v_j\)
+\end{itemize}
+
+\begin{equation}
+  \mathbf{v}^{\mathsf{T}}
+  =
+  \left[
+    \mathbf{m}, \mathbf{l}
+  \right]^{\mathsf{T}}
+\end{equation}
+
+\noindent where
+
+\begin{itemize}
+\tightlist
+\item
+  \(\mathbf{m}\) are observed or manifest variables of \(j\) components
+\item
+  \(\mathbf{l}\) are observed or manifest variables of \(k\) components
+\item
+  \(t = j + k\)
+\end{itemize}
+
+\begin{equation}
+  \mathbf{F}
+  =
+  \left[
+    \mathbf{I}_{j} \colon \mathbf{O}_{j \times k}
+  \right]
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  the \(\mathbf{F}\) acts as a filter to select the manifest variables
+  out of the full set of manifest and latent variables
+\end{itemize}
+
+\hypertarget{model-implied-matrices}{%
+\section{Model-Implied Matrices}\label{model-implied-matrices}}
 
 The model-implied mean vector
 \(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
@@ -187,153 +299,95 @@ is given by
 \noindent The \texttt{ram::Sigmatheta()} function can be used
 to derive the model-implied variance-covariance matrix.
 
+\hypertarget{parameters}{%
+\section{Parameters}\label{parameters}}
+
+\hypertarget{mean-structure}{%
+\subsection{Mean Structure}\label{mean-structure}}
+
+\begin{equation}
+  \mathbf{m}
+  =
+  \left[
+    \mathbf{F}
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+  \right]^{-1}
+  \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+\end{equation}
+
+\noindent The \texttt{ram::m()} function can be used
+to derive the mean structure vector.
+
+\hypertarget{covariance-structure}{%
+\subsection{Covariance Structure}\label{covariance-structure}}
+
+\begin{equation}
+  \boldsymbol{\Omega}
+  =
+  \left( \mathbf{I} - \mathbf{A} \right)
+  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+  \left( \mathbf{I} - \mathbf{A} \right)^{\mathsf{T}}
+\end{equation}
+
+\noindent The \texttt{ram::Omega()} function can be used
+to derive the \emph{symmetric} matrix \(\boldsymbol{\Omega}\).
+
+TODO: Figure out how to isolate the A matrix
+
 \hypertarget{simple-regression}{%
 \chapter{Simple Regression}\label{simple-regression}}
 
-Let \(v_1\), \(v_2\), and \(u\) be random variables whose associations are given by the regression equation
+Let \(v_1\), \(v_2\), and \(v_3\) be random variables whose associations are given by the regression equation
 
 \begin{equation}
   \begin{split}
     v_1
     &=
-    m_1 + a_{1, 2} v_2 + u \\
+    m_1 + a_{1, 2} v_2 + v_3 \\
     &=
-    -3.951208 + 1.269259 \cdot v_2 + u .
+    -3.951208 + 1.269259 \cdot v_2 + v_3 .
   \end{split}
 \end{equation}
 
 \noindent \(v_1\) and \(v_2\) are observed variables and
-\(u\) is a stochastic error term which is normally distributed around zero
+\(v_3\) is a stochastic error term which is normally distributed around zero
 with constant variance across values of \(v_2\)
 
 \begin{equation}
-  u 
+  v_3 
   \sim 
   \mathcal{N} \left( m_3 = 0, \omega_{3, 3} = 47.659854 \right) .
 \end{equation}
 
 \noindent \(v_2\) has a mean of \(m_2 = 13.038328\) and a variance of \(\omega_{2, 2} = 7.151261\).
 
-Below are two ways of specifying this model.
-The first specification includes the error term \(u\) as a latent variable.
-The second specification only includes the observed variables.
-
-\hypertarget{specification-1---includes-error-term-as-a-latent-variable}{%
-\section{Specification 1 - Includes Error Term as a Latent Variable}\label{specification-1---includes-error-term-as-a-latent-variable}}
-
-\hypertarget{matrix-notation}{%
-\subsection{Matrix Notation}\label{matrix-notation}}
-
-\begin{equation}
-  \mathrm{variables}
-  =
-  \begin{bmatrix}
-    v_1 \\
-    v_2 \\
-    u
-  \end{bmatrix}
-\end{equation}
-
-\begin{equation}
-  \mathbf{A}
-  =
-  \begin{bmatrix}
-    0 & a_{1, 2} & 1 \\
-    0 & 0        & 0 \\
-    0 & 0        & 0
-  \end{bmatrix}
-  =
-  \begin{bmatrix}
-    0 & 1.269259 & 1 \\
-    0 & 0 & 0 \\
-    0 & 0 & 0
-  \end{bmatrix}
-\end{equation}
-
-\begin{equation}
-  \boldsymbol{\Omega}
-  =
-  \begin{bmatrix}
-    0 & 0             & 0 \\
-    0 & \omega_{2, 2} & 0 \\
-    0 & 0             & \omega_{3, 3}
-  \end{bmatrix}
-  =
-  \begin{bmatrix}
-    0 & 0 & 0 \\
-    0 & 7.151261 & 0 \\
-    0 & 0 & 47.659854
-  \end{bmatrix}
-\end{equation}
-
-\begin{equation}
-  \mathbf{m}
-  =
-  \begin{bmatrix}
-    m_1 \\
-    m_2 \\
-    m_3
-  \end{bmatrix}
-  =
-  \begin{bmatrix}
-    -3.951208 \\
-    13.038328 \\
-    0
-  \end{bmatrix}
-\end{equation}
-
-To filter the observed variables, use the following filter matrix
-
-\begin{equation}
-  \mathbf{F}
-  =
-  \begin{bmatrix}
-    1 & 0 & 0 \\
-    0 & 1 & 0
-  \end{bmatrix} .
-\end{equation}
-
-To include all variables, use the following filter matrix
-
-\begin{equation}
-  \mathbf{F}
-  =
-  \begin{bmatrix}
-    1 & 0 & 0 \\
-    0 & 1 & 0 \\
-    0 & 0 & 1
-  \end{bmatrix} .
-\end{equation}
-
-\begin{figure}
-\centering
-\includegraphics{ram-notes_files/figure-latex/regression-01-1.pdf}
-\caption{\label{fig:regression-01}The Simple Linear Regression Model (with \(u\))}
-\end{figure}
-
 \hypertarget{expectations}{%
 \subsection{Expectations}\label{expectations}}
 
 \begin{equation}
-  \mathbb{E}
-  \left(
-    u
-  \right)
-  =
-  m_3
-  =
-  0
+  \begin{split}
+    \mathbb{E}
+    \left(
+      v_3
+    \right)
+    &=
+    m_3 \\
+    &=
+    0
+  \end{split}
 \end{equation}
 
 \begin{equation}
-  \mathbb{E}
-  \left(
-    v_2
-  \right)
-  =
-  m_2
-  =
+  \begin{split}
+    \mathbb{E}
+    \left(
+      v_2
+    \right)
+    &=
+    m_2 \\
+    &=
   13.038328
+  \end{split}
 \end{equation}
 
 \begin{equation}
@@ -345,7 +399,7 @@ To include all variables, use the following filter matrix
     &=
     \mathbb{E}
     \left(
-      m_1 + a_{1, 2} v_2 + u
+      m_1 + a_{1, 2} v_2 + v_3
     \right) \\
     &=
     \mathbb{E}
@@ -360,7 +414,7 @@ To include all variables, use the following filter matrix
     +
     \mathbb{E}
     \left(
-      u
+      v_3
     \right) \\
     &=
     m_1
@@ -395,7 +449,7 @@ To include all variables, use the following filter matrix
       \begin{bmatrix}
         v_1 \\
         v_2 \\
-        u
+        v_3
       \end{bmatrix}
     \right)
     &=
@@ -417,13 +471,13 @@ To include all variables, use the following filter matrix
   \begin{split}
     \mathrm{Cov}
     \left(
-      u,
-      u 
+      v_3,
+      v_3
     \right)
     &=
     \mathrm{Var}
     \left(
-      u 
+      v_3
     \right) \\
     &=
     \omega_{3, 3} \\
@@ -437,34 +491,34 @@ To include all variables, use the following filter matrix
     \mathrm{Cov}
     \left(
       v_1,
-      u 
+      v_3
     \right)
     &=
     \mathrm{Cov}
     \left(
-      a_{1, 2} v_2 + u,
-      u 
+      a_{1, 2} v_2 + v_3,
+      v_3 
     \right) \\
     &=
     \mathrm{Cov}
     \left(
-      a_{1, 2} v_2, u
+      a_{1, 2} v_2, v_3
     \right)
     +
     \mathrm{Cov}
     \left(
-      u, u
+      v_3, v_3
     \right) \\
     &=
     a_{1, 2}^{2}
     \mathrm{Cov}
     \left(
-      v_2, u
+      v_2, v_3
     \right)
     +
     \mathrm{Var}
     \left(
-      u
+      v_3
     \right) \\
     &=
     a_{1, 2}^{2}
@@ -487,7 +541,7 @@ To include all variables, use the following filter matrix
   \mathrm{Cov}
   \left(
     v_2,
-    u 
+    v_3
   \right)
   =
   0
@@ -499,25 +553,25 @@ To include all variables, use the following filter matrix
     &=
     \mathrm{Cov}
     \left(
-      a_{1, 2} v_2 + u,
-      a_{1, 2} v_2 + u 
+      a_{1, 2} v_2 + v_3,
+      a_{1, 2} v_2 + v_3
     \right) \\
     &=
     \mathrm{Cov} \left( a_{1, 2} v_2, a_{1, 2} v_2 \right)
     +
-    \mathrm{Cov} \left( a_{1, 2} v_2, u \right)
+    \mathrm{Cov} \left( a_{1, 2} v_2, v_3 \right)
     +
-    \mathrm{Cov} \left( a_{1, 2} v_2, u \right)
+    \mathrm{Cov} \left( a_{1, 2} v_2, v_3 \right)
     +
-    \mathrm{Cov} \left( u, u \right) \\
+    \mathrm{Cov} \left( v_3, v_3 \right) \\
     &=
     a_{1, 2}^{2} \mathrm{Cov} \left( v_2, v_2 \right)
     +
-    a_{1, 2} \mathrm{Cov} \left( v_2, u \right)
+    a_{1, 2} \mathrm{Cov} \left( v_2, v_3 \right)
     +
-    a_{1, 2} \mathrm{Cov} \left( v_2, u \right)
+    a_{1, 2} \mathrm{Cov} \left( v_2, v_3 \right)
     +
-    \mathrm{Var} \left( u \right) \\
+    \mathrm{Var} \left( v_3 \right) \\
     &=
     a_{1, 2}^{2} \mathrm{Var} \left( v_2 \right)
     +
@@ -547,11 +601,11 @@ To include all variables, use the following filter matrix
   \begin{split}
     \mathrm{Cov} \left( v_2, v_1 \right)
     &=
-    \mathrm{Cov} \left( v_2, a_{1, 2} v_2 + u \right) \\
+    \mathrm{Cov} \left( v_2, a_{1, 2} v_2 + v_3 \right) \\
     &=
     \mathrm{Cov} \left( v_2, a_{1, 2} v_2 \right)
     +
-    \mathrm{Cov} \left( v_2, u \right) \\
+    \mathrm{Cov} \left( v_2, v_3 \right) \\
     &=
     a_{1, 2} \mathrm{Cov} \left( v_2, v_2 \right)
     +
@@ -586,7 +640,7 @@ To include all variables, use the following filter matrix
       \begin{bmatrix}
         v_1 \\
         v_2 \\
-        u
+        v_3
       \end{bmatrix}
     \right)
     &=
@@ -603,6 +657,109 @@ To include all variables, use the following filter matrix
     \end{bmatrix}
   \end{split}
 \end{equation}
+
+Below are two ways of specifying this model.
+The first specification includes the error term \(v_3\) as a latent variable.
+The second specification only includes the observed variables.
+
+\hypertarget{specification-1---includes-error-term-as-a-latent-variable}{%
+\section{Specification 1 - Includes Error Term as a Latent Variable}\label{specification-1---includes-error-term-as-a-latent-variable}}
+
+\hypertarget{matrix-notation}{%
+\subsection{Matrix Notation}\label{matrix-notation}}
+
+\begin{equation}
+  \mathbf{v}
+  =
+  \begin{bmatrix}
+    v_1 \\
+    v_2 \\
+    v_3
+  \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+  \begin{split}
+    \mathbf{A}
+    &=
+    \begin{bmatrix}
+      0 & a_{1, 2} & 1 \\
+      0 & 0        & 0 \\
+      0 & 0        & 0
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+      0 & 1.269259 & 1 \\
+      0 & 0 & 0 \\
+      0 & 0 & 0
+    \end{bmatrix}
+  \end{split}
+\end{equation}
+
+\begin{equation}
+  \begin{split}
+    \boldsymbol{\Omega}
+    &=
+    \begin{bmatrix}
+      0 & 0             & 0 \\
+      0 & \omega_{2, 2} & 0 \\
+      0 & 0             & \omega_{3, 3}
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+      0 & 0 & 0 \\
+      0 & 7.151261 & 0 \\
+      0 & 0 & 47.659854
+    \end{bmatrix}
+  \end{split}
+\end{equation}
+
+\begin{equation}
+  \begin{split}
+    \mathbf{m}
+    &=
+    \begin{bmatrix}
+      m_1 \\
+      m_2 \\
+      m_3
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+      -3.951208 \\
+      13.038328 \\
+      0
+    \end{bmatrix}
+  \end{split}
+\end{equation}
+
+To filter the observed variables, use the following filter matrix
+
+\begin{equation}
+  \mathbf{F}
+  =
+  \begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0
+  \end{bmatrix} .
+\end{equation}
+
+To include all variables, use the following filter matrix
+
+\begin{equation}
+  \mathbf{F}
+  =
+  \begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+  \end{bmatrix} .
+\end{equation}
+
+\begin{figure}
+\centering
+\includegraphics{ram-notes_files/figure-latex/regression-01-1.pdf}
+\caption{\label{fig:regression-01}The Simple Linear Regression Model (with \(v_3\))}
+\end{figure}
 
 \hypertarget{using-the-ram-package}{%
 \subsubsection{\texorpdfstring{Using the \texttt{ram()} Package}{Using the ram() Package}}\label{using-the-ram-package}}
@@ -634,7 +791,7 @@ $v_1$ & 12.59781\\
 \hline
 $v_2$ & 13.03833\\
 \hline
-$u$ & 0.00000\\
+$v_3$ & 0.00000\\
 \hline
 \end{tabular}
 \end{table}
@@ -659,13 +816,13 @@ $u$ & 0.00000\\
 \centering
 \begin{tabular}[t]{l|r|r|r}
 \hline
-  & $v_1$ & $v_2$ & $u$\\
+  & $v_1$ & $v_2$ & $v_3$\\
 \hline
 $v_1$ & 59.180667 & 9.076802 & 47.65985\\
 \hline
 $v_2$ & 9.076802 & 7.151261 & 0.00000\\
 \hline
-$u$ & 47.659854 & 0.000000 & 47.65985\\
+$v_3$ & 47.659854 & 0.000000 & 47.65985\\
 \hline
 \end{tabular}
 \end{table}
@@ -677,7 +834,7 @@ $u$ & 47.659854 & 0.000000 & 47.65985\\
 \subsection{Matrix Notation}\label{matrix-notation-1}}
 
 \begin{equation}
-  \mathrm{variables}
+  \mathbf{v}
   =
   \begin{bmatrix}
     v_1 \\
@@ -686,45 +843,51 @@ $u$ & 47.659854 & 0.000000 & 47.65985\\
 \end{equation}
 
 \begin{equation}
-  \mathbf{A}
-  =
-  \begin{bmatrix}
-    0 & a_{1, 2} \\
-    0 & 0
-  \end{bmatrix}
-  =
-  \begin{bmatrix}
-    0 & 1.269259 \\
-    0 & 0
-  \end{bmatrix}
+  \begin{split}
+    \mathbf{A}
+    &=
+    \begin{bmatrix}
+      0 & a_{1, 2} \\
+      0 & 0
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+      0 & 1.269259 \\
+      0 & 0
+    \end{bmatrix}
+  \end{split}
 \end{equation}
 
 \begin{equation}
-  \boldsymbol{\Omega}
-  =
-  \begin{bmatrix}
-    \omega_{1, 1} & 0             \\
-    0             & \omega_{2, 2}
-  \end{bmatrix}
-  =
-  \begin{bmatrix}
-    47.659854 & 0 \\
-    0 & 7.151261
-  \end{bmatrix}
+  \begin{split}
+    \boldsymbol{\Omega}
+    &=
+    \begin{bmatrix}
+      \omega_{1, 1} & 0             \\
+      0             & \omega_{2, 2}
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+      47.659854 & 0 \\
+      0 & 7.151261
+    \end{bmatrix}
+  \end{split}
 \end{equation}
 
 \begin{equation}
-  \mathbf{m}
-  =
-  \begin{bmatrix}
-    m_1 \\
-    m_2
-  \end{bmatrix}
-  =
-  \begin{bmatrix}
-    -3.951208 \\
-    13.038328
-  \end{bmatrix}
+  \begin{split}
+    \mathbf{m}
+    &=
+    \begin{bmatrix}
+      m_1 \\
+      m_2
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+      -3.951208 \\
+      13.038328
+    \end{bmatrix}
+  \end{split}
 \end{equation}
 
 \begin{equation}
@@ -739,7 +902,7 @@ $u$ & 47.659854 & 0.000000 & 47.65985\\
 \begin{figure}
 \centering
 \includegraphics{ram-notes_files/figure-latex/regression-02-1.png}
-\caption{\label{fig:regression-02}The Simple Linear Regression Model (without \(u\))}
+\caption{\label{fig:regression-02}The Simple Linear Regression Model (without \(v_3\))}
 \end{figure}
 
 \hypertarget{using-the-ram-package-1}{%

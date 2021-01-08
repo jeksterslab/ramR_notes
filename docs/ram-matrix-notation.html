@@ -134,19 +134,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Description</a></li>
-<li class="chapter" data-level="2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html"><i class="fa fa-check"></i><b>2</b> Reticular Action Model (RAM) Matrix Notation</a></li>
+<li class="chapter" data-level="2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html"><i class="fa fa-check"></i><b>2</b> Reticular Action Model (RAM) Matrix Notation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#model-implied-matrices"><i class="fa fa-check"></i><b>2.1</b> Model-Implied Matrices</a></li>
+<li class="chapter" data-level="2.2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#parameters"><i class="fa fa-check"></i><b>2.2</b> Parameters</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#mean-structure"><i class="fa fa-check"></i><b>2.2.1</b> Mean Structure</a></li>
+<li class="chapter" data-level="2.2.2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#covariance-structure"><i class="fa fa-check"></i><b>2.2.2</b> Covariance Structure</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="simple-regression.html"><a href="simple-regression.html"><i class="fa fa-check"></i><b>3</b> Simple Regression</a>
 <ul>
+<li class="chapter" data-level="3.0.1" data-path="simple-regression.html"><a href="simple-regression.html#expectations"><i class="fa fa-check"></i><b>3.0.1</b> Expectations</a></li>
 <li class="chapter" data-level="3.1" data-path="simple-regression.html"><a href="simple-regression.html#specification-1---includes-error-term-as-a-latent-variable"><i class="fa fa-check"></i><b>3.1</b> Specification 1 - Includes Error Term as a Latent Variable</a>
 <ul>
 <li class="chapter" data-level="3.1.1" data-path="simple-regression.html"><a href="simple-regression.html#matrix-notation"><i class="fa fa-check"></i><b>3.1.1</b> Matrix Notation</a></li>
-<li class="chapter" data-level="3.1.2" data-path="simple-regression.html"><a href="simple-regression.html#expectations"><i class="fa fa-check"></i><b>3.1.2</b> Expectations</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="simple-regression.html"><a href="simple-regression.html#specification-2---observed-variables"><i class="fa fa-check"></i><b>3.2</b> Specification 2 - Observed Variables</a>
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="simple-regression.html"><a href="simple-regression.html#matrix-notation-1"><i class="fa fa-check"></i><b>3.2.1</b> Matrix Notation</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -169,6 +178,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="ram-matrix-notation" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Reticular Action Model (RAM) Matrix Notation</h1>
+<p><span class="math display">\[\begin{equation}
+  \mathbf{v}
+  =
+  \mathbf{A} \mathbf{v} + \mathbf{u}
+\end{equation}\]</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\mathbf{v}\)</span> is a <span class="math inline">\(t \times 1\)</span> vector of random variables</li>
+<li><span class="math inline">\(u_i\)</span> represent the residual of <span class="math inline">\(v_i\)</span></li>
+<li><span class="math inline">\(\mathbf{A}\)</span> is a <span class="math inline">\(t \times t\)</span> matrix of <em>directed</em> or <em>asymmetric</em> relationship
+from column variable <span class="math inline">\(v_j\)</span> to row variable <span class="math inline">\(v_i\)</span>
+<ul>
+<li>regression of each of the <span class="math inline">\(t\)</span> variables on the other <span class="math inline">\(t - 1\)</span> variables</li>
+<li>diagonal <span class="math inline">\(a_{i,i}\)</span> is zero</li>
+<li>if all regression coefficients on other variables are zero,
+then the variable <span class="math inline">\(v_i\)</span> is considered the same as its own residual <span class="math inline">\(u_i\)</span></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+  \boldsymbol{\Omega}
+  =
+  \mathbb{E}
+  \left(
+    \mathbf{u} \mathbf{u}^{\prime}
+  \right)
+\end{equation}\]</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\boldsymbol{\Omega}\)</span> is a <span class="math inline">\(t \times t\)</span> matrix of <em>undirected</em> or <em>symmetric</em> relationship</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+  =
+  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+  \boldsymbol{\Omega}
+  \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+\end{equation}\]</span></p>
+<ul>
+<li><span class="math inline">\(\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)\)</span> is a <span class="math inline">\(t \times t\)</span> symmetric matrix
+of associations between <span class="math inline">\(v_i\)</span> and <span class="math inline">\(v_j\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+  \mathbf{v}^{\mathsf{T}}
+  =
+  \left[
+    \mathbf{m}, \mathbf{l}
+  \right]^{\mathsf{T}}
+\end{equation}\]</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\mathbf{m}\)</span> are observed or manifest variables of <span class="math inline">\(j\)</span> components</li>
+<li><span class="math inline">\(\mathbf{l}\)</span> are observed or manifest variables of <span class="math inline">\(k\)</span> components</li>
+<li><span class="math inline">\(t = j + k\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+  \mathbf{F}
+  =
+  \left[
+    \mathbf{I}_{j} \colon \mathbf{O}_{j \times k}
+  \right]
+\end{equation}\]</span></p>
+<ul>
+<li>the <span class="math inline">\(\mathbf{F}\)</span> acts as a filter to select the manifest variables
+out of the full set of manifest and latent variables</li>
+</ul>
+<div id="model-implied-matrices" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Model-Implied Matrices</h2>
 <p>The model-implied mean vector
 <span class="math inline">\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)</span>
 as a function of Reticular Action Model (RAM) matrices
@@ -197,7 +273,38 @@ is given by</p>
 \end{equation}\]</span></p>
 <p>The <code>ram::Sigmatheta()</code> function can be used
 to derive the model-implied variance-covariance matrix.</p>
+</div>
+<div id="parameters" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Parameters</h2>
+<div id="mean-structure" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Mean Structure</h3>
+<p><span class="math display">\[\begin{equation}
+  \mathbf{m}
+  =
+  \left[
+    \mathbf{F}
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+  \right]^{-1}
+  \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+\end{equation}\]</span></p>
+<p>The <code>ram::m()</code> function can be used
+to derive the mean structure vector.</p>
+</div>
+<div id="covariance-structure" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Covariance Structure</h3>
+<p><span class="math display">\[\begin{equation}
+  \boldsymbol{\Omega}
+  =
+  \left( \mathbf{I} - \mathbf{A} \right)
+  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+  \left( \mathbf{I} - \mathbf{A} \right)^{\mathsf{T}}
+\end{equation}\]</span></p>
+<p>The <code>ram::Omega()</code> function can be used
+to derive the <em>symmetric</em> matrix <span class="math inline">\(\boldsymbol{\Omega}\)</span>.</p>
+<p>TODO: Figure out how to isolate the A matrix</p>
 
+</div>
+</div>
 </div>
             </section>
 
@@ -236,7 +343,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jeksterslab/ram/edit/master/01-ram-matrix-notation.Rmd",
+"link": "https://github.com/jeksterslab/ram_notes/edit/master/01-ram-matrix-notation.Rmd",
 "text": "Edit"
 },
 "history": {
