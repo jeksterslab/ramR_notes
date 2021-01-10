@@ -275,7 +275,7 @@ is given by
   =
   \mathbf{F}
   \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-  \mathbf{m} .
+  \mathbf{M} .
 \end{equation}
 
 \noindent The \texttt{ramR::mutheta()} function can be used
@@ -306,7 +306,7 @@ to derive the model-implied variance-covariance matrix.
 \subsection{Mean Structure}\label{mean-structure}}
 
 \begin{equation}
-  \mathbf{m}
+  \mathbf{M}
   =
   \left[
     \mathbf{F}
@@ -315,7 +315,7 @@ to derive the model-implied variance-covariance matrix.
   \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
 \end{equation}
 
-\noindent The \texttt{ramR::m()} function can be used
+\noindent The \texttt{ramR::M()} function can be used
 to derive the mean structure vector.
 
 \hypertarget{covariance-structure}{%
@@ -716,7 +716,7 @@ The second specification only includes the observed variables.
 
 \begin{equation}
   \begin{split}
-    \mathbf{m}
+    \mathbf{M}
     &=
     \begin{bmatrix}
       m_1 \\
@@ -768,7 +768,7 @@ To include all variables, use the following filter matrix
 \begin{Highlighting}[]
 \NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
 \NormalTok{  ramR}\SpecialCharTok{::}\FunctionTok{mutheta}\NormalTok{(}
-\NormalTok{    m,}
+    \AttributeTok{M =}\NormalTok{ M,}
     \AttributeTok{A =}\NormalTok{ A,}
     \AttributeTok{filter =}\NormalTok{ filter}
 \NormalTok{  ),}
@@ -876,7 +876,7 @@ $v_3$ & 47.659854 & 0.000000 & 47.65985\\
 
 \begin{equation}
   \begin{split}
-    \mathbf{m}
+    \mathbf{M}
     &=
     \begin{bmatrix}
       m_1 \\
@@ -912,7 +912,7 @@ $v_3$ & 47.659854 & 0.000000 & 47.65985\\
 \begin{Highlighting}[]
 \NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
 \NormalTok{  ramR}\SpecialCharTok{::}\FunctionTok{mutheta}\NormalTok{(}
-\NormalTok{    m,}
+    \AttributeTok{M =}\NormalTok{ M,}
     \AttributeTok{A =}\NormalTok{ A,}
     \AttributeTok{filter =}\NormalTok{ filter}
 \NormalTok{  ),}

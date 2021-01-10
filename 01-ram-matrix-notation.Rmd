@@ -78,7 +78,7 @@ is given by
   =
   \mathbf{F}
   \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-  \mathbf{m} .
+  \mathbf{M} .
 \end{equation}
 
 \noindent The `ramR::mutheta()` function can be used
@@ -107,7 +107,7 @@ to derive the model-implied variance-covariance matrix.
 ### Mean Structure
 
 \begin{equation}
-  \mathbf{m}
+  \mathbf{M}
   =
   \left[
     \mathbf{F}
@@ -116,7 +116,7 @@ to derive the model-implied variance-covariance matrix.
   \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
 \end{equation}
 
-\noindent The `ramR::m()` function can be used
+\noindent The `ramR::M()` function can be used
 to derive the mean structure vector.
 
 ### Covariance Structure
