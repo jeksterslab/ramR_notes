@@ -24,7 +24,7 @@
 <meta name="author" content="Ivan Jacob Agaloos Pesigan" />
 
 
-<meta name="date" content="2021-01-08" />
+<meta name="date" content="2021-01-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -570,15 +570,15 @@ The second specification only includes the observed variables.</p>
   \end{bmatrix} .
 \end{equation}\]</span></p>
 <div class="figure"><span id="fig:regression-01"></span>
-<img src="ram-notes_files/figure-html/regression-01-1.png" alt="The Simple Linear Regression Model (with $v_3$)" width="384" />
+<img src="ramR_notes_files/figure-html/regression-01-1.png" alt="The Simple Linear Regression Model (with $v_3$)" width="384" />
 <p class="caption">
 Figure 3.1: The Simple Linear Regression Model (with <span class="math inline">\(v_3\)</span>)
 </p>
 </div>
-<div id="using-the-ram-package" class="section level4" number="3.1.1.1">
-<h4><span class="header-section-number">3.1.1.1</span> Using the <code>ram()</code> Package</h4>
+<div id="using-the-ramr-package" class="section level4" number="3.1.1.1">
+<h4><span class="header-section-number">3.1.1.1</span> Using the <code>ramR</code> Package</h4>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="simple-regression.html#cb2-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb2-2"><a href="simple-regression.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  ram<span class="sc">::</span><span class="fu">mutheta</span>(</span>
+<span id="cb2-2"><a href="simple-regression.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  ramR<span class="sc">::</span><span class="fu">mutheta</span>(</span>
 <span id="cb2-3"><a href="simple-regression.html#cb2-3" aria-hidden="true" tabindex="-1"></a>    m,</span>
 <span id="cb2-4"><a href="simple-regression.html#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">A =</span> A,</span>
 <span id="cb2-5"><a href="simple-regression.html#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">filter =</span> filter</span>
@@ -611,7 +611,7 @@ Figure 3.1: The Simple Linear Regression Model (with <span class="math inline">\
 </tbody>
 </table>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="simple-regression.html#cb3-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb3-2"><a href="simple-regression.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  ram<span class="sc">::</span><span class="fu">Sigmatheta</span>(</span>
+<span id="cb3-2"><a href="simple-regression.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  ramR<span class="sc">::</span><span class="fu">Sigmatheta</span>(</span>
 <span id="cb3-3"><a href="simple-regression.html#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">A =</span> A,</span>
 <span id="cb3-4"><a href="simple-regression.html#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Omega =</span> Omega,</span>
 <span id="cb3-5"><a href="simple-regression.html#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">filter =</span> filter</span>
@@ -719,15 +719,15 @@ Figure 3.1: The Simple Linear Regression Model (with <span class="math inline">\
   \end{bmatrix}
 \end{equation}\]</span></p>
 <div class="figure"><span id="fig:regression-02"></span>
-<img src="ram-notes_files/figure-html/regression-02-1.png" alt="The Simple Linear Regression Model (without $v_3$)" width="384" />
+<img src="ramR_notes_files/figure-html/regression-02-1.png" alt="The Simple Linear Regression Model (without $v_3$)" width="384" />
 <p class="caption">
 Figure 3.2: The Simple Linear Regression Model (without <span class="math inline">\(v_3\)</span>)
 </p>
 </div>
-<div id="using-the-ram-package-1" class="section level4" number="3.2.1.1">
+<div id="using-the-ram-package" class="section level4" number="3.2.1.1">
 <h4><span class="header-section-number">3.2.1.1</span> Using the <code>ram()</code> Package</h4>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="simple-regression.html#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb4-2"><a href="simple-regression.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  ram<span class="sc">::</span><span class="fu">mutheta</span>(</span>
+<span id="cb4-2"><a href="simple-regression.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  ramR<span class="sc">::</span><span class="fu">mutheta</span>(</span>
 <span id="cb4-3"><a href="simple-regression.html#cb4-3" aria-hidden="true" tabindex="-1"></a>    m,</span>
 <span id="cb4-4"><a href="simple-regression.html#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">A =</span> A,</span>
 <span id="cb4-5"><a href="simple-regression.html#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">filter =</span> filter</span>
@@ -756,7 +756,7 @@ Figure 3.2: The Simple Linear Regression Model (without <span class="math inline
 </tbody>
 </table>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="simple-regression.html#cb5-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb5-2"><a href="simple-regression.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  ram<span class="sc">::</span><span class="fu">Sigmatheta</span>(</span>
+<span id="cb5-2"><a href="simple-regression.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  ramR<span class="sc">::</span><span class="fu">Sigmatheta</span>(</span>
 <span id="cb5-3"><a href="simple-regression.html#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">A =</span> A,</span>
 <span id="cb5-4"><a href="simple-regression.html#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Omega =</span> Omega,</span>
 <span id="cb5-5"><a href="simple-regression.html#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">filter =</span> filter</span>
@@ -828,7 +828,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jeksterslab/ram_notes/edit/master/02-simple-regression.Rmd",
+"link": "https://github.com/jeksterslab/ramR_notes/edit/master/02-simple-regression.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -839,7 +839,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["ram-notes.pdf", "ram-notes.epub"],
+"download": ["ramR_notes.pdf", "ramR_notes.epub"],
 "toc": {
 "collapse": "subsection"
 }

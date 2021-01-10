@@ -14,7 +14,7 @@ simple-regression
 expectations
 specification-1---includes-error-term-as-a-latent-variable
 matrix-notation
-using-the-ram-package
+using-the-ramr-package
 specification-2---observed-variables
 matrix-notation-1
-using-the-ram-package-1
+using-the-ram-package

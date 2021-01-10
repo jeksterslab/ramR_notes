@@ -125,7 +125,7 @@
 
 \title{Reticular Action Model (RAM) Notation}
 \author{Ivan Jacob Agaloos Pesigan}
-\date{2021-01-08}
+\date{2021-01-10}
 
 \begin{document}
 \maketitle
@@ -138,12 +138,12 @@
 \chapter{Description}\label{description}}
 
 This is a collection of my personal notes on the Reticular Action Model (RAM) notation
-that accompanies the \texttt{ram} package.
-You can install the released version of \texttt{ram} from \href{https://github.com/jeksterslab/ram}{GitHub} with:
+that accompanies the \texttt{ramR} package.
+You can install the released version of \texttt{ramR} from \href{https://github.com/jeksterslab/ramR}{GitHub} with:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{"jeksterslab/ram"}\NormalTok{)}
+\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{"jeksterslab/ramR"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -159,7 +159,7 @@ These notes are based on the following resources:
   \citet{McArdle-2005}
 \end{itemize}
 
-See \href{https://jeksterslab.github.io/ram_notes/index.html}{GitHub Pages}
+See \href{https://jeksterslab.github.io/ramR_notes/index.html}{GitHub Pages}
 for the html deployment.
 
 \hypertarget{ram-matrix-notation}{%
@@ -278,7 +278,7 @@ is given by
   \mathbf{m} .
 \end{equation}
 
-\noindent The \texttt{ram::mutheta()} function can be used
+\noindent The \texttt{ramR::mutheta()} function can be used
 to derive the model-implied mean vector.
 
 The model-implied variance-covariance matrix
@@ -296,7 +296,7 @@ is given by
   \mathbf{F}^{\mathsf{T}} .
 \end{equation}
 
-\noindent The \texttt{ram::Sigmatheta()} function can be used
+\noindent The \texttt{ramR::Sigmatheta()} function can be used
 to derive the model-implied variance-covariance matrix.
 
 \hypertarget{parameters}{%
@@ -315,7 +315,7 @@ to derive the model-implied variance-covariance matrix.
   \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
 \end{equation}
 
-\noindent The \texttt{ram::m()} function can be used
+\noindent The \texttt{ramR::m()} function can be used
 to derive the mean structure vector.
 
 \hypertarget{covariance-structure}{%
@@ -329,7 +329,7 @@ to derive the mean structure vector.
   \left( \mathbf{I} - \mathbf{A} \right)^{\mathsf{T}}
 \end{equation}
 
-\noindent The \texttt{ram::Omega()} function can be used
+\noindent The \texttt{ramR::Omega()} function can be used
 to derive the \emph{symmetric} matrix \(\boldsymbol{\Omega}\).
 
 TODO: Figure out how to isolate the A matrix
@@ -757,17 +757,17 @@ To include all variables, use the following filter matrix
 
 \begin{figure}
 \centering
-\includegraphics{ram-notes_files/figure-latex/regression-01-1.pdf}
+\includegraphics{ramR_notes_files/figure-latex/regression-01-1.pdf}
 \caption{\label{fig:regression-01}The Simple Linear Regression Model (with \(v_3\))}
 \end{figure}
 
-\hypertarget{using-the-ram-package}{%
-\subsubsection{\texorpdfstring{Using the \texttt{ram()} Package}{Using the ram() Package}}\label{using-the-ram-package}}
+\hypertarget{using-the-ramr-package}{%
+\subsubsection{\texorpdfstring{Using the \texttt{ramR} Package}{Using the ramR Package}}\label{using-the-ramr-package}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
-\NormalTok{  ram}\SpecialCharTok{::}\FunctionTok{mutheta}\NormalTok{(}
+\NormalTok{  ramR}\SpecialCharTok{::}\FunctionTok{mutheta}\NormalTok{(}
 \NormalTok{    m,}
     \AttributeTok{A =}\NormalTok{ A,}
     \AttributeTok{filter =}\NormalTok{ filter}
@@ -799,7 +799,7 @@ $v_3$ & 0.00000\\
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
-\NormalTok{  ram}\SpecialCharTok{::}\FunctionTok{Sigmatheta}\NormalTok{(}
+\NormalTok{  ramR}\SpecialCharTok{::}\FunctionTok{Sigmatheta}\NormalTok{(}
     \AttributeTok{A =}\NormalTok{ A,}
     \AttributeTok{Omega =}\NormalTok{ Omega,}
     \AttributeTok{filter =}\NormalTok{ filter}
@@ -901,17 +901,17 @@ $v_3$ & 47.659854 & 0.000000 & 47.65985\\
 
 \begin{figure}
 \centering
-\includegraphics{ram-notes_files/figure-latex/regression-02-1.png}
+\includegraphics{ramR_notes_files/figure-latex/regression-02-1.png}
 \caption{\label{fig:regression-02}The Simple Linear Regression Model (without \(v_3\))}
 \end{figure}
 
-\hypertarget{using-the-ram-package-1}{%
-\subsubsection{\texorpdfstring{Using the \texttt{ram()} Package}{Using the ram() Package}}\label{using-the-ram-package-1}}
+\hypertarget{using-the-ram-package}{%
+\subsubsection{\texorpdfstring{Using the \texttt{ram()} Package}{Using the ram() Package}}\label{using-the-ram-package}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
-\NormalTok{  ram}\SpecialCharTok{::}\FunctionTok{mutheta}\NormalTok{(}
+\NormalTok{  ramR}\SpecialCharTok{::}\FunctionTok{mutheta}\NormalTok{(}
 \NormalTok{    m,}
     \AttributeTok{A =}\NormalTok{ A,}
     \AttributeTok{filter =}\NormalTok{ filter}
@@ -941,7 +941,7 @@ $v_2$ & 13.03833\\
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
-\NormalTok{  ram}\SpecialCharTok{::}\FunctionTok{Sigmatheta}\NormalTok{(}
+\NormalTok{  ramR}\SpecialCharTok{::}\FunctionTok{Sigmatheta}\NormalTok{(}
     \AttributeTok{A =}\NormalTok{ A,}
     \AttributeTok{Omega =}\NormalTok{ Omega,}
     \AttributeTok{filter =}\NormalTok{ filter}

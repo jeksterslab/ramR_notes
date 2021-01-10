@@ -81,7 +81,7 @@ is given by
   \mathbf{m} .
 \end{equation}
 
-\noindent The `ram::mutheta()` function can be used
+\noindent The `ramR::mutheta()` function can be used
 to derive the model-implied mean vector.
 
 The model-implied variance-covariance matrix
@@ -99,7 +99,7 @@ is given by
   \mathbf{F}^{\mathsf{T}} .
 \end{equation}
 
-\noindent The `ram::Sigmatheta()` function can be used
+\noindent The `ramR::Sigmatheta()` function can be used
 to derive the model-implied variance-covariance matrix.
 
 ## Parameters
@@ -116,7 +116,7 @@ to derive the model-implied variance-covariance matrix.
   \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
 \end{equation}
 
-\noindent The `ram::m()` function can be used
+\noindent The `ramR::m()` function can be used
 to derive the mean structure vector.
 
 ### Covariance Structure
@@ -129,7 +129,7 @@ to derive the mean structure vector.
   \left( \mathbf{I} - \mathbf{A} \right)^{\mathsf{T}}
 \end{equation}
 
-\noindent The `ram::Omega()` function can be used
+\noindent The `ramR::Omega()` function can be used
 to derive the *symmetric* matrix $\boldsymbol{\Omega}$.
 
 TODO: Figure out how to isolate the A matrix

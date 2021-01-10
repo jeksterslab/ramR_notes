@@ -570,11 +570,11 @@ To include all variables, use the following filter matrix
 ```
 
 
-#### Using the `ram()` Package
+#### Using the `ramR` Package
 
 ```{r}
 knitr::kable(
-  ram::mutheta(
+  ramR::mutheta(
     m,
     A = A,
     filter = filter
@@ -586,7 +586,7 @@ knitr::kable(
 ```
 ```{r}
 knitr::kable(
-  ram::Sigmatheta(
+  ramR::Sigmatheta(
     A = A,
     Omega = Omega,
     filter = filter
@@ -742,7 +742,7 @@ filter <- filter[1:2, 1:2]
 
 ```{r}
 knitr::kable(
-  ram::mutheta(
+  ramR::mutheta(
     m,
     A = A,
     filter = filter
@@ -754,7 +754,7 @@ knitr::kable(
 ```
 ```{r}
 knitr::kable(
-  ram::Sigmatheta(
+  ramR::Sigmatheta(
     A = A,
     Omega = Omega,
     filter = filter

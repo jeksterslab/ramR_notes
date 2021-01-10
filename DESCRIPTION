@@ -1,6 +1,7 @@
-Package: placeholder
+Package: Reticular Action Model (RAM) Notation Notes
 Type: Book
-Title: Does not matter.
+Title: This is a collection of my personal notes on the Reticular Action Model (RAM) notation
+    that accompanies the `ramR` package.
 Version: 0.0.1
 Imports: bookdown
 Remotes: rstudio/bookdown

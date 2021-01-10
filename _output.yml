@@ -6,7 +6,7 @@ bookdown::gitbook:
         <li><a href="./">Reticular Action Model (RAM) Notation</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/jeksterslab/ram_notes/edit/master/%s
+    edit: https://github.com/jeksterslab/ramR_notes/edit/master/%s
     download: ["pdf", "epub"]
 bookdown::pdf_book:
   includes:
