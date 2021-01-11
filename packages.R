@@ -14,5 +14,6 @@ if (!require("remotes")) install.packages("remotes")
 if (!require("magick")) install.packages("magick")
 if (!require("pdftools")) install.packages("pdftools")
 if (!require("bookdown")) install.packages("bookdown")
-if (!require("ramR")) remotes::install_github("jeksterslab/ramR")
+# ensures that the latest version is installed
+remotes::install_github("jeksterslab/ramR")
 styler::style_dir()
