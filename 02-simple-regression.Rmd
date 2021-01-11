@@ -108,8 +108,8 @@ $v_3$ is a stochastic error term which is normally distributed around zero
 with constant variance across values of $v_2$
 
 \begin{equation}
-  v_3 
-  \sim 
+  v_3
+  \sim
   \mathcal{N} \left( m_3 = 0, \omega_{3, 3} = `r omega33` \right) .
 \end{equation}
 
@@ -250,7 +250,7 @@ with constant variance across values of $v_2$
     \mathrm{Cov}
     \left(
       a_{1, 2} v_2 + v_3,
-      v_3 
+      v_3
     \right) \\
     &=
     \mathrm{Cov}
@@ -368,9 +368,9 @@ with constant variance across values of $v_2$
     &=
     a_{1, 2} \omega_{2, 2} \\
     &=
-    `r a12` \times `r omega22` \\ 
+    `r a12` \times `r omega22` \\
     &=
-    `r a12 * omega22` \\ 
+    `r a12 * omega22` \\
   \end{split}
 \end{equation}
 
@@ -763,3 +763,41 @@ knitr::kable(
   escape = FALSE
 )
 ```
+
+## Data Generation
+
+Random data from the multivariate normal distribution using the Reticular Action Model (RAM) notation
+can be generated using the `ramR::mvn()` function.
+
+```{r}
+X <- ramR::mvn(
+  n = 1000,
+  A = A,
+  Omega = Omega,
+  M = M,
+  filter = filter
+)
+```
+
+```{r}
+muhat <- matrix(
+    data = colMeans(X),
+    ncol = 1
+  )
+rownames(muhat) <- j
+knitr::kable(
+  muhat,
+  col.names = "$\\boldsymbol{\\hat{\\mu}}$",
+  caption = "$\\boldsymbol{\\hat{\\mu}}$",
+  escape = FALSE
+)
+```
+
+```{r}
+knitr::kable(
+  cov(X),
+  caption = "$\\boldsymbol{\\hat{\\Sigma}}$",
+  escape = FALSE
+)
+```
+
