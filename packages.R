@@ -14,6 +14,7 @@ if (!require("remotes")) install.packages("remotes")
 if (!require("magick")) install.packages("magick")
 if (!require("pdftools")) install.packages("pdftools")
 if (!require("bookdown")) install.packages("bookdown")
+if (!require("lavaan")) install.packages("lavaan")
 if (!require("Ryacas")) install.packages("Ryacas")
 # ensures that the latest version is installed
 remotes::install_github("jeksterslab/ramR")

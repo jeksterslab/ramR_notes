@@ -457,13 +457,19 @@ hist(
 )
 ```
 
+### $t$-test
+
 ```{r}
 t.test(y ~ x, data = df)
 ```
 
+### Linear Regression
+
 ```{r}
 summary(lm(y ~ x, data = df))
 ```
+
+### Structural Equation Modeling
 
 ```{r}
 model <- "

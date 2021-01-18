@@ -19,4 +19,7 @@ ram-t
 symbolic
 using-the-ramr-package
 numerical-example
+t-test
+linear-regression
+structural-equation-modeling
 using-the-ramr-package-1

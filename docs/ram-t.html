@@ -149,7 +149,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="ram-t.html"><a href="ram-t.html#numerical-example"><i class="fa fa-check"></i><b>4.2</b> Numerical Example</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="ram-t.html"><a href="ram-t.html#using-the-ramr-package-1"><i class="fa fa-check"></i><b>4.2.1</b> Using the <code>ramR</code> Package</a></li>
+<li class="chapter" data-level="4.2.1" data-path="ram-t.html"><a href="ram-t.html#t-test"><i class="fa fa-check"></i><b>4.2.1</b> <span class="math inline">\(t\)</span>-test</a></li>
+<li class="chapter" data-level="4.2.2" data-path="ram-t.html"><a href="ram-t.html#linear-regression"><i class="fa fa-check"></i><b>4.2.2</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.2.3" data-path="ram-t.html"><a href="ram-t.html#structural-equation-modeling"><i class="fa fa-check"></i><b>4.2.3</b> Structural Equation Modeling</a></li>
+<li class="chapter" data-level="4.2.4" data-path="ram-t.html"><a href="ram-t.html#using-the-ramr-package-1"><i class="fa fa-check"></i><b>4.2.4</b> Using the <code>ramR</code> Package</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -281,6 +284,8 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 ##  3rd Qu.: 1.2618   3rd Qu.:1.0  
 ##  Max.   : 5.7839   Max.   :1.0</code></pre>
 <p><img src="ramR_notes_files/figure-html/unnamed-chunk-33-1.png" width="672" /><img src="ramR_notes_files/figure-html/unnamed-chunk-33-2.png" width="672" /><img src="ramR_notes_files/figure-html/unnamed-chunk-33-3.png" width="672" /></p>
+<div id="t-test" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> <span class="math inline">\(t\)</span>-test</h3>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="ram-t.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
@@ -293,6 +298,9 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 ## sample estimates:
 ## mean in group 0 mean in group 1 
 ##    0.0005737398    0.9994574009</code></pre>
+</div>
+<div id="linear-regression" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Linear Regression</h3>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="ram-t.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df))</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -312,6 +320,9 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 ## Residual standard error: 1 on 1999998 degrees of freedom
 ## Multiple R-squared:  0.1995, Adjusted R-squared:  0.1995 
 ## F-statistic: 4.985e+05 on 1 and 1999998 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="structural-equation-modeling" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Structural Equation Modeling</h3>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ram-t.html#cb26-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
 <span id="cb26-2"><a href="ram-t.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ x</span></span>
 <span id="cb26-3"><a href="ram-t.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ 1</span></span>
@@ -382,8 +393,9 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 </tr>
 </tbody>
 </table>
-<div id="using-the-ramr-package-1" class="section level3" number="4.2.1">
-<h3><span class="header-section-number">4.2.1</span> Using the <code>ramR</code> Package</h3>
+</div>
+<div id="using-the-ramr-package-1" class="section level3" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Using the <code>ramR</code> Package</h3>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="ram-t.html#cb28-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
 <pre><code>##   y         x e
 ## y 0 0.9988837 1
