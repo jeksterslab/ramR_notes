@@ -1,0 +1,325 @@
+# Reticular Action Model (RAM) Path Diagram {#ram-diagram}
+
+```{tikz, ram-diagram-01, echo = FALSE, fig.width = 4, fig.cap = "Path Diagram Elements", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 15mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 15mm,
+    align = center
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 7mm,
+    align = center
+  },
+  mean/.style={
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+  \node[manifest] (Manifest) {$y$};
+  \node[latent] (Latent) [below = of Manifest] {$\eta$};
+  \node[mean] (Constant) [below = of Latent] {1};
+  \node[inv] (ManifestLabel) [right = of Manifest] {Manifest/measured/observed/given variable.};
+  \node[inv] (LatentLabel) [below = of ManifestLabel] {Latent/unmeasured/unobserved/hidden variable.};
+  \node[inv] (ConstantLabel) [below = of LatentLabel] {Constant with a value of 1.};
+  \node[inv] (RegressionLabel) [below = of ConstantLabel] {Regression coefficient.};
+  \node[inv] (CovarianceLabel) [below = of RegressionLabel] {Covariance between variables.};
+  \node[inv] (VarianceLabel) [below = of CovarianceLabel] {Variance (total or residual).};
+  \node[manifest] (y) [below left = of Constant] {$y$};
+  \node[manifest] (x1) [below right = of Constant] {$x$};
+  \node[manifest] (x2) [below = of x1] {$x$};
+  \node[manifest] (z) [below = of y] {$z$};
+  \node[manifest] (w) [below right = of z] {$w$};
+  \draw[path] (x1) to node[above] {Regression} (y);
+  \draw[cov] (x2) to node[above] {Covariance} (z);
+  \draw[cov] (w) to[out=70,in=110,looseness=5] node[above] {Variance} (w);
+\end{tikzpicture}
+```
+
+```{tikz, ram-diagram-02, echo = FALSE, fig.width = 4, fig.cap = "Two-Variable Regression Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 15mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 15mm,
+    align = center
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 7mm,
+    align = center
+  },
+  mean/.style={
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+  \node[manifest] (y) {$y$};
+  \node[manifest] (x) [right = of y] {$x$};
+  \node[mean] (1) [above = of y] {1};
+  \node[error] (varepsilon) [left = of y] {$\varepsilon$};
+  \draw[path] (1) to node[right] {$\beta_1$} (y);
+  \draw[path] (x) to node[above] {$\beta_2$} (y);
+  \draw[path] (varepsilon) to node[above] {$1$} (y);
+  \draw[cov] (1) to[out=70,in=110,looseness=5] node[above] {$1$} (1);
+  \draw[cov] (x) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x}^{2}$} (x);
+  \draw[cov] (varepsilon) to[out=70,in=110,looseness=5] node[above] {$\sigma_{\varepsilon}^{2}$} (varepsilon);
+  \node[inv] (eq) [below = of y] {$y = \alpha + \beta x + \varepsilon$};
+\end{tikzpicture}
+```
+
+```{tikz, ram-diagram-03, echo = FALSE, fig.width = 4, fig.cap = "$k$-Variable Regression Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 15mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 15mm,
+    align = center
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 7mm,
+    align = center
+  },
+  mean/.style={
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+  \node[manifest] (y) {$y$};
+  \node[mean] (1) [above = of y] {$x_1$};
+  \node[manifest] (x_j) [right = of y] {$x_j$};
+  \node[manifest] (x_2) [above = of x_j] {$x_2$};
+  \node[manifest] (x_k) [below = of x_j] {$x_k$};
+  \node[error] (varepsilon) [left = of y] {$\varepsilon$};
+  \draw[path] (x_k) to node[above] {$\beta_k$} (y);
+  \draw[path] (x_j) to node[above] {$\beta_{j}$} (y);
+  \draw[path] (x_2) to node[above] {$\beta_2$} (y);
+  \draw[path] (1) to node[right] {$\beta_1$} (y);
+  \draw[path] (varepsilon) to node[above] {$1$} (y);
+  \draw[cov] (1) to[out=70,in=110,looseness=5] node[above] {$1$} (1);
+  \draw[cov] (x_2) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x_{2}}^{2}$} (x_2);
+  \draw[cov] (x_j) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x_{j}}^{2}$} (x_j);
+  \draw[cov] (x_k) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x_{k}}^{2}$} (x_k);
+  \draw[cov] (x_2) to[out=360,in=360,looseness=1] node[right] {$\sigma_{x_{2}, x_{k}}$} (x_k);
+  \draw[cov] (x_2) to[out=360,in=360,looseness=1] node[right] {$\sigma_{x_{2}, x_{j}}$} (x_j);
+  \draw[cov] (x_k) to[out=360,in=360,looseness=1] node[right] {$\sigma_{x_{k}, x_{j}}$} (x_j);
+  \draw[cov] (varepsilon) to[out=70,in=110,looseness=5] node[above] {$\sigma_{\varepsilon}^{2}$} (varepsilon);
+  \node[inv] (eq) [below = of y] {$\mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon}$};
+\end{tikzpicture}
+```
+
+```{tikz, ram-diagram-04, echo = FALSE, fig.width = 4, fig.cap = "Two-Factor Confirmatory Factor Analysis Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 15mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 15mm,
+    align = center
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 7mm,
+    align = center
+  },
+  mean/.style={
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+  \node[manifest] (y_1) {$y_1$};
+  \node[manifest] (y_2) [below = of y_1] {$y_2$};
+  \node[manifest] (y_3) [below = of y_2] {$y_3$};
+  \node[manifest] (y_4) [below = of y_3] {$y_4$};
+  \node[manifest] (y_5) [below = of y_4] {$y_5$};
+  \node[manifest] (y_6) [below = of y_5] {$y_6$};
+  \node[error] (varepsilon_1) [left = of y_1] {$\varepsilon_1$};
+  \node[error] (varepsilon_2) [left = of y_2] {$\varepsilon_2$};
+  \node[error] (varepsilon_3) [left = of y_3] {$\varepsilon_3$};
+  \node[error] (varepsilon_4) [left = of y_4] {$\varepsilon_4$};
+  \node[error] (varepsilon_5) [left = of y_5] {$\varepsilon_5$};
+  \node[error] (varepsilon_6) [left = of y_6] {$\varepsilon_6$}; 
+  \node[latent] (eta_1) [right = of y_2] {$\eta_1$};
+  \node[latent] (eta_2) [right = of y_5] {$\eta_2$};
+  \draw[path] (eta_1) to node[left] {$\lambda_1 = 1$} (y_1);
+  \draw[path] (eta_1) to node[above] {$\lambda_2$} (y_2);
+  \draw[path] (eta_1) to node[above] {$\lambda_3$} (y_3);
+  \draw[path] (eta_2) to node[left] {$\lambda_4 = 1$} (y_4);
+  \draw[path] (eta_2) to node[above] {$\lambda_5$} (y_5);
+  \draw[path] (eta_2) to node[above] {$\lambda_6$} (y_6);
+  \draw[path] (varepsilon_1) to node[above] {$1$} (y_1);
+  \draw[path] (varepsilon_2) to node[above] {$1$} (y_2);
+  \draw[path] (varepsilon_3) to node[above] {$1$} (y_3);
+  \draw[path] (varepsilon_4) to node[above] {$1$} (y_4);
+  \draw[path] (varepsilon_5) to node[above] {$1$} (y_5);
+  \draw[path] (varepsilon_6) to node[above] {$1$} (y_6);
+  \draw[cov] (varepsilon_1) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{1}}$} (varepsilon_1);
+  \draw[cov] (varepsilon_2) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{2}}$} (varepsilon_2);
+  \draw[cov] (varepsilon_3) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{3}}$} (varepsilon_3);
+  \draw[cov] (varepsilon_4) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{4}}$} (varepsilon_4);
+  \draw[cov] (varepsilon_5) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{5}}$} (varepsilon_5);
+  \draw[cov] (varepsilon_6) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{6}}$} (varepsilon_6);
+  \draw[cov] (eta_1) to[out=70,in=110,looseness=3] node[above] {$\psi_{\eta_1}$} (eta_1);
+  \draw[cov] (eta_2) to[out=-70,in=-110,looseness=3] node[below] {$\psi_{\eta_2}$} (eta_2);
+  \draw[cov] (eta_1) to node[right] {$\psi_{\eta_1, \eta_2}$} (eta_2);
+  \node[inv] (eq) [below = of eta_2] {$\mathbf{y} = \boldsymbol{\Lambda} \boldsymbol{\eta} + \boldsymbol{\varepsilon}$};
+\end{tikzpicture}
+```

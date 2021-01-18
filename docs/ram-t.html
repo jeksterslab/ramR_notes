@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Student’s \(t\)-test | Reticular Action Model (RAM) Notation Notes</title>
+  <meta name="description" content="Notes on the Reticular Action Model (RAM) Notation" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Student’s \(t\)-test | Reticular Action Model (RAM) Notation Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes on the Reticular Action Model (RAM) Notation" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Student’s \(t\)-test | Reticular Action Model (RAM) Notation Notes" />
+  
+  <meta name="twitter:description" content="Notes on the Reticular Action Model (RAM) Notation" />
+  
+
+<meta name="author" content="Ivan Jacob Agaloos Pesigan" />
+
+
+<meta name="date" content="2021-01-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ram-diagram.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Reticular Action Model (RAM) Notation</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Description</a></li>
+<li class="chapter" data-level="2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html"><i class="fa fa-check"></i><b>2</b> Reticular Action Model (RAM) Matrix Notation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#full-model"><i class="fa fa-check"></i><b>2.1</b> Full Model</a></li>
+<li class="chapter" data-level="2.2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#observedmanifestgiven-variables-vs.-unobservedlatenthidden-variables"><i class="fa fa-check"></i><b>2.2</b> Observed/Manifest/Given Variables vs. Unobserved/Latent/Hidden Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ram-diagram.html"><a href="ram-diagram.html"><i class="fa fa-check"></i><b>3</b> Reticular Action Model (RAM) Path Diagram</a></li>
+<li class="chapter" data-level="4" data-path="ram-t.html"><a href="ram-t.html"><i class="fa fa-check"></i><b>4</b> Student’s <span class="math inline">\(t\)</span>-test</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ram-t.html"><a href="ram-t.html#symbolic"><i class="fa fa-check"></i><b>4.1</b> Symbolic</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ram-t.html"><a href="ram-t.html#using-the-ramr-package"><i class="fa fa-check"></i><b>4.1.1</b> Using the <code>ramR</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ram-t.html"><a href="ram-t.html#numerical-example"><i class="fa fa-check"></i><b>4.2</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ram-t.html"><a href="ram-t.html#using-the-ramr-package-1"><i class="fa fa-check"></i><b>4.2.1</b> Using the <code>ramR</code> Package</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reticular Action Model (RAM) Notation Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ram-t" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Student’s <span class="math inline">\(t\)</span>-test</h1>
+<p>In this section,
+the Student’s <span class="math inline">\(t\)</span>-test is presented as a structural equation model
+using the RAM notation.
+Let <span class="math inline">\(y\)</span> be a continuous dependent variable,
+<span class="math inline">\(x\)</span> be a dichotomous independent variable
+<span class="math inline">\(\left( x = \{0, 1\} \right)\)</span>,
+and <span class="math inline">\(\varepsilon\)</span> be the stochastic error term
+with mean 0 and constant variance of <span class="math inline">\(\sigma_{\varepsilon}^{2}\)</span>
+across the values of <span class="math inline">\(x\)</span>.
+The associations of the variables are given by</p>
+<p><span class="math display">\[\begin{equation*}
+  y
+  =
+  \alpha + \beta x + \varepsilon
+\end{equation*}\]</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> is the expected value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x = 0\)</span></li>
+<li><span class="math inline">\(\beta\)</span> is the unit change in <span class="math inline">\(y\)</span> for unit change in <span class="math inline">\(x\)</span></li>
+<li><span class="math inline">\(\alpha + \beta\)</span> is the expected value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x = 1\)</span></li>
+</ul>
+<div class="figure"><span id="fig:ram-t-01"></span>
+<img src="ramR_notes_files/figure-html/ram-t-01-1.png" alt="Student's $t$-test" width="384" />
+<p class="caption">
+Figure 4.1: Student’s <span class="math inline">\(t\)</span>-test
+</p>
+</div>
+<div id="symbolic" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Symbolic</h2>
+<p>Let <span class="math inline">\(\left\{ y, x, \varepsilon \right\}\)</span> be the variables of interest.</p>
+<p><span class="math display">\[\begin{align*}\mathbf{A} &amp;=\left( \begin{array}{ccc} 0 &amp; \beta  &amp; 1 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{S} &amp;=\left( \begin{array}{ccc} 0 &amp; 0 &amp; 0 \\ 0 &amp; \sigma  _{x} ^{2} &amp; 0 \\ 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{C} &amp;=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \\\\ &amp;=\mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{ccc} 1 &amp; \beta  &amp; 1 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{array} \right)\left( \begin{array}{ccc} 0 &amp; 0 &amp; 0 \\ 0 &amp; \sigma  _{x} ^{2} &amp; 0 \\ 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{ccc} 1 &amp; \beta  &amp; 1 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{array} \right)^{\mathsf{T}}\\ &amp;=\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  \sigma  _{x} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x} ^{2} \beta  &amp; \sigma  _{x} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{F} &amp;=\left( \begin{array}{ccc} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{M} &amp;=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \mathbf{F}^{\mathsf{T}}\\ &amp;=\mathbf{F} \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \mathbf{F}^{\mathsf{T}} \\\\ &amp;=\mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{ccc} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \end{array} \right)\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  \sigma  _{x} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x} ^{2} \beta  &amp; \sigma  _{x} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{ccc} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \end{array} \right)^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{cc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  &amp; \sigma  _{x} ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{v} &amp;=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &amp;=\left[\left( \begin{array}{ccc} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{ccc} 0 &amp; \beta  &amp; 1 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{array} \right)\right]^{\mathsf{-1}}\left( \begin{array}{c} \alpha  \\ \mu  _{x} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{u} &amp;=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &amp;=\left[\left( \begin{array}{ccc} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{ccc} 0 &amp; \beta  &amp; 1 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{array} \right)\right]\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \alpha  \\ \mu  _{x} \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{g} &amp;=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &amp;=\left[\left( \begin{array}{ccc} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{ccc} 0 &amp; \beta  &amp; 1 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{array} \right)\right]^{-1}\left( \begin{array}{c} \alpha  \\ \mu  _{x} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{align*}\]</span></p>
+<div id="using-the-ramr-package" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Using the <code>ramR</code> Package</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="ram-t.html#cb2-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<pre><code>##      [,1] [,2]   [,3]
+## [1,] &quot;0&quot;  &quot;beta&quot; &quot;1&quot; 
+## [2,] &quot;0&quot;  &quot;0&quot;    &quot;0&quot; 
+## [3,] &quot;0&quot;  &quot;0&quot;    &quot;0&quot;</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="ram-t.html#cb4-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
+<pre><code>##      [,1] [,2]         [,3]                 
+## [1,] &quot;0&quot;  &quot;0&quot;          &quot;0&quot;                  
+## [2,] &quot;0&quot;  &quot;sigma[x]^2&quot; &quot;0&quot;                  
+## [3,] &quot;0&quot;  &quot;0&quot;          &quot;sigma[varepsilon]^2&quot;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="ram-t.html#cb6-1" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div>
+<pre><code>##      [,1]   
+## [1,] &quot;alpha&quot;
+## [2,] &quot;mu[x]&quot;
+## [3,] &quot;0&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="ram-t.html#cb8-1" aria-hidden="true" tabindex="-1"></a>filter</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0</code></pre>
+<p>The covariance expectations
+can be symbolically derived using the <code>ramR::C_sym()</code> function.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="ram-t.html#cb10-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">C_sym</span>(A, S)</span></code></pre></div>
+<pre><code>## {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2,                   sigma[varepsilon]^2},
+##  {                      sigma[x]^2*beta,                            sigma[x]^2,                                     0},
+##  {                  sigma[varepsilon]^2,                                     0,                   sigma[varepsilon]^2}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{C} =\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  \sigma  _{x} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x} ^{2} \beta  &amp; \sigma  _{x} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{equation*}\]</span></p>
+<p>The covariance expectations for the observed variables
+can be symbolically derived using the <code>ramR::M_sym()</code> function.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="ram-t.html#cb12-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">M_sym</span>(A, S, filter)</span></code></pre></div>
+<pre><code>## {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2},
+##  {                      sigma[x]^2*beta,                            sigma[x]^2}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{M} =\left( \begin{array}{cc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  &amp; \sigma  _{x} ^{2} \end{array} \right)\end{equation*}\]</span></p>
+<p>The mean expectations
+can be symbolically derived using the <code>ramR::v_sym()</code> function.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="ram-t.html#cb14-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">v_sym</span>(A, u)</span></code></pre></div>
+<pre><code>## {{alpha+beta*mu[x]},
+##  {           mu[x]},
+##  {               0}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{v} =\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\end{equation*}\]</span></p>
+<p>The mean expectations for the observed variables
+can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="ram-t.html#cb16-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">g_sym</span>(A, u, filter)</span></code></pre></div>
+<pre><code>## {{alpha+beta*mu[x]},
+##  {           mu[x]}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{g} =\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{equation*}\]</span></p>
+</div>
+</div>
+<div id="numerical-example" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Numerical Example</h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="ram-t.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
+<pre><code>##            y x
+## 1  1.3709584 0
+## 2 -0.5646982 0
+## 3  0.3631284 0
+## 4  0.6328626 0
+## 5  0.4042683 0
+## 6 -0.1061245 0</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="ram-t.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code></pre></div>
+<pre><code>##        y                 x      
+##  Min.   :-4.6785   Min.   :0.0  
+##  1st Qu.:-0.2622   1st Qu.:0.0  
+##  Median : 0.5013   Median :0.5  
+##  Mean   : 0.5000   Mean   :0.5  
+##  3rd Qu.: 1.2618   3rd Qu.:1.0  
+##  Max.   : 5.7839   Max.   :1.0</code></pre>
+<p><img src="ramR_notes_files/figure-html/unnamed-chunk-33-1.png" width="672" /><img src="ramR_notes_files/figure-html/unnamed-chunk-33-2.png" width="672" /><img src="ramR_notes_files/figure-html/unnamed-chunk-33-3.png" width="672" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="ram-t.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  y by x
+## t = -706.06, df = 2e+06, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.0016565 -0.9961108
+## sample estimates:
+## mean in group 0 mean in group 1 
+##    0.0005737398    0.9994574009</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="ram-t.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.8838 -0.6745  0.0005  0.6749  4.8195 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.0005737  0.0010004   0.574    0.566    
+## x           0.9988837  0.0014147 706.057   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1 on 1999998 degrees of freedom
+## Multiple R-squared:  0.1995, Adjusted R-squared:  0.1995 
+## F-statistic: 4.985e+05 on 1 and 1999998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ram-t.html#cb26-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb26-2"><a href="ram-t.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ x</span></span>
+<span id="cb26-3"><a href="ram-t.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ 1</span></span>
+<span id="cb26-4"><a href="ram-t.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="st">  x ~ 1</span></span>
+<span id="cb26-5"><a href="ram-t.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span>
+<span id="cb26-6"><a href="ram-t.html#cb26-6" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> lavaan<span class="sc">::</span><span class="fu">sem</span>(model, <span class="at">data =</span> df)</span>
+<span id="cb26-7"><a href="ram-t.html#cb26-7" aria-hidden="true" tabindex="-1"></a>lavaan<span class="sc">::</span><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 15 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                          5
+##                                                       
+##   Number of observations                       2000000
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   y ~                                                 
+##     x                 0.999    0.001  706.057    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .y                 0.001    0.001    0.574    0.566
+##     x                 0.500    0.000 1414.214    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .y                 1.001    0.001 1000.000    0.000
+##     x                 0.250    0.000 1000.000    0.000</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">label</th>
+<th align="left">parameter</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\alpha\)</span></td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\beta\)</span></td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\sigma^{2}_{x}\)</span></td>
+<td align="left">0.25</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\sigma^{2}_{\varepsilon}\)</span></td>
+<td align="left">0.25</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\mu_x\)</span></td>
+<td align="left">0.5</td>
+</tr>
+</tbody>
+</table>
+<div id="using-the-ramr-package-1" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Using the <code>ramR</code> Package</h3>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="ram-t.html#cb28-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<pre><code>##   y         x e
+## y 0 0.9988837 1
+## x 0 0.0000000 0
+## e 0 0.0000000 0</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ram-t.html#cb30-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
+<pre><code>##   y         x         e
+## y 0 0.0000000 0.0000000
+## x 0 0.2500001 0.0000000
+## e 0 0.0000000 0.2494423</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ram-t.html#cb32-1" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div>
+<pre><code>##           [,1]
+## y 0.0005737398
+## x 0.5000000000
+## e 0.0000000000</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="ram-t.html#cb34-1" aria-hidden="true" tabindex="-1"></a>filter</span></code></pre></div>
+<pre><code>##   y x e
+## y 1 0 0
+## x 0 1 0</code></pre>
+<p>The covariance expectations
+can be numerically derived using the <code>ramR::C_num()</code> function.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="ram-t.html#cb36-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">C_num</span>(A, S)</span></code></pre></div>
+<pre><code>##           y         x         e
+## y 0.4988845 0.2497210 0.2494423
+## x 0.2497210 0.2500001 0.0000000
+## e 0.2494423 0.0000000 0.2494423</code></pre>
+<p>The covariance expectations for the observed variables
+can be numerically derived using the <code>ramR::M_num()</code> function.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="ram-t.html#cb38-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">M_num</span>(A, S, filter)</span></code></pre></div>
+<pre><code>##           y         x
+## y 0.4988845 0.2497210
+## x 0.2497210 0.2500001</code></pre>
+<p>The mean expectations
+can be numerically derived using the <code>ramR::v_num()</code> function.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ram-t.html#cb40-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">v_num</span>(A, u)</span></code></pre></div>
+<pre><code>##           v
+## y 0.5000156
+## x 0.5000000
+## e 0.0000000</code></pre>
+<p>The mean expectations for the observed variables
+can be numerically derived using the <code>ramR::v_num()</code> function.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ram-t.html#cb42-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">g_num</span>(A, u, filter)</span></code></pre></div>
+<pre><code>##           g
+## y 0.5000156
+## x 0.5000000</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ram-diagram.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jeksterslab/ramR_notes/edit/master/004-t-test.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ramR_notes.pdf", "ramR_notes.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

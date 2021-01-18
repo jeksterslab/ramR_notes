@@ -4,14 +4,13 @@
 %
 \documentclass[
 ]{book}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
-  \usepackage{amssymb}
 \else % if luatex or xetex
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
@@ -37,7 +36,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={Reticular Action Model (RAM) Notation},
+  pdftitle={Reticular Action Model (RAM) Notation Notes},
   pdfauthor={Ivan Jacob Agaloos Pesigan},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
@@ -82,7 +81,7 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -111,6 +110,7 @@
 \setcounter{secnumdepth}{5}
 \usepackage{booktabs}
 \usepackage{amsthm}
+\usepackage[left = 1in,right = 1in,top = 1in, bottom = 1in]{geometry}
 \makeatletter
 \def\thm@space@setup{%
   \thm@preskip=8pt plus 2pt minus 4pt
@@ -123,10 +123,25 @@
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
 
-\title{Reticular Action Model (RAM) Notation}
+\title{Reticular Action Model (RAM) Notation Notes}
 \author{Ivan Jacob Agaloos Pesigan}
-\date{2021-01-10}
+\date{2021-01-18}
 
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{conjecture}{Conjecture}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
 \begin{document}
 \maketitle
 
@@ -138,7 +153,7 @@
 \chapter{Description}\label{description}}
 
 This is a collection of my personal notes on the Reticular Action Model (RAM) notation
-that accompanies the \texttt{ramR} package.
+that accompanies the \texttt{ramR} package \citep{R-ramR}.
 You can install the released version of \texttt{ramR} from \href{https://github.com/jeksterslab/ramR}{GitHub} with:
 
 \begin{Shaded}
@@ -165,20 +180,23 @@ for the html deployment.
 \hypertarget{ram-matrix-notation}{%
 \chapter{Reticular Action Model (RAM) Matrix Notation}\label{ram-matrix-notation}}
 
-\begin{equation}
+\hypertarget{full-model}{%
+\section{Full Model}\label{full-model}}
+
+\begin{definition}
+\protect\hypertarget{def:unnamed-chunk-2}{}{\label{def:unnamed-chunk-2} }\begin{equation}
   \mathbf{v}
   =
   \mathbf{A} \mathbf{v} + \mathbf{u}
 \end{equation}
+\end{definition}
 
 \noindent where
 
 \begin{itemize}
 \tightlist
 \item
-  \(\mathbf{v}\) is a \(t \times 1\) vector of random variables
-\item
-  \(u_i\) represent the residual of \(v_i\)
+  \(\mathbf{v}\) and \(\mathbf{u}\) are \(t \times 1\) vectors of random variables
 \item
   \(\mathbf{A}\) is a \(t \times t\) matrix of \emph{directed} or \emph{asymmetric} relationship
   from column variable \(v_j\) to row variable \(v_i\)
@@ -186,74 +204,176 @@ for the html deployment.
   \begin{itemize}
   \tightlist
   \item
-    regression of each of the \(t\) variables on the other \(t - 1\) variables
+    \(\mathbf{A}\) represent the regression of each of the \(t\) variables \(\mathbf{v}\) on the other \(t - 1\) variables
   \item
     diagonal \(a_{i,i}\) is zero
+  \item
+    \(u_i\) represent the residual of \(v_i\)
   \item
     if all regression coefficients on other variables are zero,
     then the variable \(v_i\) is considered the same as its own residual \(u_i\)
   \end{itemize}
 \end{itemize}
 
-\begin{equation}
-  \boldsymbol{\Omega}
+\begin{definition}
+\protect\hypertarget{def:unnamed-chunk-3}{}{\label{def:unnamed-chunk-3} }\begin{equation}
+  \mathbf{S}
   =
   \mathbb{E}
-  \left(
+  \left\{
     \mathbf{u} \mathbf{u}^{\prime}
-  \right)
+  \right\} ,
 \end{equation}
+\end{definition}
 
 \noindent where
 
 \begin{itemize}
 \tightlist
 \item
-  \(\boldsymbol{\Omega}\) is a \(t \times t\) matrix of \emph{undirected} or \emph{symmetric} relationship
+  \(\mathbf{S}\) is a \(t \times t\) matrix of \emph{undirected} or \emph{symmetric} relationship
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the notation \(\boldsymbol{\Omega}\) is used in other sources for \(\mathbf{S}\)
+  \end{itemize}
+\item
+  \(\mathbb{E}\) is the expectation operator
 \end{itemize}
 
-\begin{equation}
-  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+\begin{definition}
+\protect\hypertarget{def:unnamed-chunk-4}{}{\label{def:unnamed-chunk-4} }\begin{equation}
+  \mathbf{C}
   =
+  \mathbb{E}
+  \left\{
+    \mathbf{v} \mathbf{v}^{\prime}
+  \right\} ,
+\end{equation}
+\end{definition}
+
+\noindent where
+
+\begin{itemize}
+\tightlist
+\item
+  \(\mathbf{C}\) is a \(t \times t\) variance-covariance matrix
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the notation \(\boldsymbol{\Sigma}\) is used in other sources for \(\mathbf{C}\)
+  \end{itemize}
+\end{itemize}
+
+\begin{definition}
+\protect\hypertarget{def:unnamed-chunk-5}{}{\label{def:unnamed-chunk-5} }\begin{equation*}
+  \mathbf{v}
+  =
+  \mathbf{A} \mathbf{v} + \mathbf{u}
+\end{equation*}
+
+\noindent can be rewritten as
+
+\begin{equation}
+  \begin{split}
+    \mathbf{v} - \mathbf{A} \mathbf{v}
+    &=
+    \mathbf{u} \\
+    \mathbf{u}
+    &=
+    \mathbf{v} - \mathbf{A} \mathbf{v} \\
+    \mathbf{u}
+    &=
+    \left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}
+  \end{split}
+\end{equation}
+
+\noindent assuming that \(\left( \mathbf{I} - \mathbf{A} \right)\) is non-singular,
+
+\begin{equation}
+  \mathbf{E}
+  = 
   \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-  \boldsymbol{\Omega}
-  \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
 \end{equation}
 
-\begin{itemize}
-\tightlist
-\item
-  \(\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)\) is a \(t \times t\) symmetric matrix
-  of associations between \(v_i\) and \(v_j\)
-\end{itemize}
+\noindent then
 
 \begin{equation}
-  \mathbf{v}^{\mathsf{T}}
+  \begin{split}
+    \mathbf{v}
+    &=
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u} \\
+    &=
+    \mathbf{E} \mathbf{u} .
+  \end{split}
+\end{equation}
+\end{definition}
+
+Using the definitions above,
+\(\mathbf{S}\) and \(\mathbf{C}\)
+are given by
+
+\begin{equation}
+  \begin{split}
+    \mathbf{S}
+    &=
+    \left( \mathbf{I} - \mathbf{A} \right)
+    \mathbf{C}
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1} \\
+    &=
+    \mathbf{E}^{-1} \mathbf{C} \left( \mathbf{E}^{-1} \right)^{\mathsf{T}}
+    \end{split}
+\end{equation}
+
+\begin{equation}
+  \begin{split}
+    \mathbf{C}
+    &=
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+    \mathbf{S}
+    \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \\
+    &=
+    \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}
+  \end{split}
+\end{equation}
+
+\hypertarget{observedmanifestgiven-variables-vs.-unobservedlatenthidden-variables}{%
+\section{Observed/Manifest/Given Variables vs.~Unobserved/Latent/Hidden Variables}\label{observedmanifestgiven-variables-vs.-unobservedlatenthidden-variables}}
+
+\begin{definition}
+\protect\hypertarget{def:unnamed-chunk-6}{}{\label{def:unnamed-chunk-6} }\begin{equation}
+  \mathbf{v}
   =
-  \left[
-    \mathbf{m}, \mathbf{l}
-  \right]^{\mathsf{T}}
+  \begin{bmatrix}
+    \mathbf{g}_{p \times 1} \\
+    \mathbf{h}_{q \times 1} \\
+  \end{bmatrix}
 \end{equation}
 
-\noindent where
+\begin{equation}
+  t = p + q
+\end{equation}
+\end{definition}
 
 \begin{itemize}
 \tightlist
 \item
-  \(\mathbf{m}\) are observed or manifest variables of \(j\) components
+  \(\mathbf{g}\) may be considered observed, manifest or \emph{given} variables
 \item
-  \(\mathbf{l}\) are observed or manifest variables of \(k\) components
-\item
-  \(t = j + k\)
+  \(\mathbf{h}\) may be considered unobserved, latent, or \emph{hidden} variables
 \end{itemize}
 
-\begin{equation}
+\begin{definition}
+\protect\hypertarget{def:unnamed-chunk-7}{}{\label{def:unnamed-chunk-7} }\begin{equation}
   \mathbf{F}
   =
-  \left[
-    \mathbf{I}_{j} \colon \mathbf{O}_{j \times k}
-  \right]
+  \begin{bmatrix}
+    \mathbf{I}_{p \times p} : \mathbf{0}_{p \times q}
+  \end{bmatrix}
 \end{equation}
+\end{definition}
 
 \begin{itemize}
 \tightlist
@@ -262,710 +382,536 @@ for the html deployment.
   out of the full set of manifest and latent variables
 \end{itemize}
 
-\hypertarget{model-implied-matrices}{%
-\section{Model-Implied Matrices}\label{model-implied-matrices}}
-
-The model-implied mean vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
-as a function of Reticular Action Model (RAM) matrices
-is given by
-
 \begin{equation}
-  \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+  \mathbf{g}
   =
   \mathbf{F}
-  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-  \mathbf{M} .
+  \mathbf{v}
 \end{equation}
 
-\noindent The \texttt{ramR::mutheta()} function can be used
-to derive the model-implied mean vector.
-
-The model-implied variance-covariance matrix
-\(\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)\)
-as a function of Reticular Action Model (RAM) matrices
-is given by
-
 \begin{equation}
-  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
-  =
-  \mathbf{F}
-  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-  \boldsymbol{\Omega}
-  \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
-  \mathbf{F}^{\mathsf{T}} .
+  \begin{split}
+    \mathbf{g}
+    &=
+    \mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u} \\
+    &=
+    \mathbf{F} \mathbf{E} \mathbf{u}
+  \end{split}
 \end{equation}
 
-\noindent The \texttt{ramR::Sigmatheta()} function can be used
-to derive the model-implied variance-covariance matrix.
-
-\hypertarget{parameters}{%
-\section{Parameters}\label{parameters}}
-
-\hypertarget{mean-structure}{%
-\subsection{Mean Structure}\label{mean-structure}}
-
-\begin{equation}
+\begin{definition}
+\protect\hypertarget{def:unnamed-chunk-8}{}{\label{def:unnamed-chunk-8} }\begin{equation}
   \mathbf{M}
   =
-  \left[
+  \mathbb{E}
+  \left\{
+    \mathbf{g}
+    \mathbf{g}^{\mathsf{T}}
+  \right\}
+\end{equation}
+\end{definition}
+
+\begin{equation}
+  \begin{split}
+    \mathbf{M}
+    &=
     \mathbf{F}
     \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-  \right]^{-1}
-  \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
-\end{equation}
-
-\noindent The \texttt{ramR::M()} function can be used
-to derive the mean structure vector.
-
-\hypertarget{covariance-structure}{%
-\subsection{Covariance Structure}\label{covariance-structure}}
-
-\begin{equation}
-  \boldsymbol{\Omega}
-  =
-  \left( \mathbf{I} - \mathbf{A} \right)
-  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
-  \left( \mathbf{I} - \mathbf{A} \right)^{\mathsf{T}}
-\end{equation}
-
-\noindent The \texttt{ramR::Omega()} function can be used
-to derive the \emph{symmetric} matrix \(\boldsymbol{\Omega}\).
-
-TODO: Figure out how to isolate the A matrix
-
-\hypertarget{simple-regression}{%
-\chapter{Simple Regression}\label{simple-regression}}
-
-Let \(v_1\), \(v_2\), and \(v_3\) be random variables whose associations are given by the regression equation
-
-\begin{equation}
-  \begin{split}
-    v_1
+    \mathbf{S}
+    \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
     &=
-    m_1 + a_{1, 2} v_2 + v_3 \\
+    \mathbf{F}
+    \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
     &=
-    -3.951208 + 1.269259 \cdot v_2 + v_3 .
+    \mathbf{F}
+    \mathbf{C}
+    \mathbf{F}^{\mathsf{T}}
   \end{split}
 \end{equation}
 
-\noindent \(v_1\) and \(v_2\) are observed variables and
-\(v_3\) is a stochastic error term which is normally distributed around zero
-with constant variance across values of \(v_2\)
+\begin{itemize}
+\tightlist
+\item
+  when components of \(\mathbf{v}\) are permuted,
+  the columns of \(\mathbf{F}\) can be correspondingly permuted
+\item
+  the rows and columns of \(\mathbf{C}\) that are filtered out by \(\mathbf{F}\)
+  contain useful information about the latent variable structure.
+\end{itemize}
 
-\begin{equation}
-  v_3 
-  \sim 
-  \mathcal{N} \left( m_3 = 0, \omega_{3, 3} = 47.659854 \right) .
-\end{equation}
+The equations above completely define RAM.
 
-\noindent \(v_2\) has a mean of \(m_2 = 13.038328\) and a variance of \(\omega_{2, 2} = 7.151261\).
-
-\hypertarget{expectations}{%
-\subsection{Expectations}\label{expectations}}
-
-\begin{equation}
-  \begin{split}
-    \mathbb{E}
-    \left(
-      v_3
-    \right)
-    &=
-    m_3 \\
-    &=
-    0
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathbb{E}
-    \left(
-      v_2
-    \right)
-    &=
-    m_2 \\
-    &=
-  13.038328
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathbb{E}
-    \left(
-      v_1
-    \right)
-    &=
-    \mathbb{E}
-    \left(
-      m_1 + a_{1, 2} v_2 + v_3
-    \right) \\
-    &=
-    \mathbb{E}
-    \left(
-      m_1
-    \right)
-    +
-    \mathbb{E}
-    \left(
-      a_{1, 2} v_2
-    \right)
-    +
-    \mathbb{E}
-    \left(
-      v_3
-    \right) \\
-    &=
-    m_1
-    +
-    a_{1, 2}
-    \mathbb{E}
-    \left(
-      v_2
-    \right)
-    +
-    0 \\
-    &=
-    m_1
-    +
-    a_{1, 2}
-    m_2 \\
-    &=
-    -3.951208
-    +
-    1.269259
-    \times
-    13.038328 \\
-    &=
-    12.5978072
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathbb{E}
-    \left(
-      \begin{bmatrix}
-        v_1 \\
-        v_2 \\
-        v_3
-      \end{bmatrix}
-    \right)
-    &=
-    \begin{bmatrix}
-      m_1 + a_{1, 2} m_2 \\
-      m_2 \\
-      m_3
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-      12.5978072 \\
-      13.038328 \\
-      0
-    \end{bmatrix}
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathrm{Cov}
-    \left(
-      v_3,
-      v_3
-    \right)
-    &=
-    \mathrm{Var}
-    \left(
-      v_3
-    \right) \\
-    &=
-    \omega_{3, 3} \\
-    &=
-    47.659854
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathrm{Cov}
-    \left(
-      v_1,
-      v_3
-    \right)
-    &=
-    \mathrm{Cov}
-    \left(
-      a_{1, 2} v_2 + v_3,
-      v_3 
-    \right) \\
-    &=
-    \mathrm{Cov}
-    \left(
-      a_{1, 2} v_2, v_3
-    \right)
-    +
-    \mathrm{Cov}
-    \left(
-      v_3, v_3
-    \right) \\
-    &=
-    a_{1, 2}^{2}
-    \mathrm{Cov}
-    \left(
-      v_2, v_3
-    \right)
-    +
-    \mathrm{Var}
-    \left(
-      v_3
-    \right) \\
-    &=
-    a_{1, 2}^{2}
-    \cdot
-    0
-    +
-    \omega_{3, 3} \\
-    &=
-    0
-    +
-    \omega_{3, 3} \\
-    &=
-    \omega_{3, 3} \\
-    &=
-    47.659854
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \mathrm{Cov}
-  \left(
-    v_2,
-    v_3
-  \right)
-  =
-  0
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathrm{Cov} \left( v_1, v_1 \right)
-    &=
-    \mathrm{Cov}
-    \left(
-      a_{1, 2} v_2 + v_3,
-      a_{1, 2} v_2 + v_3
-    \right) \\
-    &=
-    \mathrm{Cov} \left( a_{1, 2} v_2, a_{1, 2} v_2 \right)
-    +
-    \mathrm{Cov} \left( a_{1, 2} v_2, v_3 \right)
-    +
-    \mathrm{Cov} \left( a_{1, 2} v_2, v_3 \right)
-    +
-    \mathrm{Cov} \left( v_3, v_3 \right) \\
-    &=
-    a_{1, 2}^{2} \mathrm{Cov} \left( v_2, v_2 \right)
-    +
-    a_{1, 2} \mathrm{Cov} \left( v_2, v_3 \right)
-    +
-    a_{1, 2} \mathrm{Cov} \left( v_2, v_3 \right)
-    +
-    \mathrm{Var} \left( v_3 \right) \\
-    &=
-    a_{1, 2}^{2} \mathrm{Var} \left( v_2 \right)
-    +
-    a_{1, 2} \cdot 0
-    +
-    a_{1, 2} \cdot 0
-    +
-    \omega_{3, 3} \\
-    &=
-    a_{1, 2}^{2} \mathrm{Var} \left( v_2 \right)
-    +
-    0
-    +
-    0
-    +
-    \omega_{3, 3} \\
-    &=
-    a_{1, 2}^{2} \omega_{2, 2} + \omega_{3, 3} \\
-    &=
-    1.269259^{2} \times 7.151261 + 47.659854 \\
-    &=
-    59.1806671
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathrm{Cov} \left( v_2, v_1 \right)
-    &=
-    \mathrm{Cov} \left( v_2, a_{1, 2} v_2 + v_3 \right) \\
-    &=
-    \mathrm{Cov} \left( v_2, a_{1, 2} v_2 \right)
-    +
-    \mathrm{Cov} \left( v_2, v_3 \right) \\
-    &=
-    a_{1, 2} \mathrm{Cov} \left( v_2, v_2 \right)
-    +
-    0 \\
-    &=
-    a_{1, 2} \mathrm{Var} \left( v_2 \right) \\
-    &=
-    a_{1, 2} \omega_{2, 2} \\
-    &=
-    1.269259 \times 7.151261 \\ 
-    &=
-    9.0768024 \\ 
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathrm{Cov} \left( v_2, v_2 \right)
-    &=
-    \mathrm{Var} \left( v_2 \right) \\
-    &=
-    \omega_{2, 2} \\
-    &=
-    7.151261
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathrm{Cov}
-    \left(
-      \begin{bmatrix}
-        v_1 \\
-        v_2 \\
-        v_3
-      \end{bmatrix}
-    \right)
-    &=
-    \begin{bmatrix}
-      a_{1, 2}^{2} \omega_{2, 2} + \omega_{3, 3} & a_{1, 2} \omega_{2, 2} & \omega_{3, 3} \\
-      a_{1, 2} \omega_{2, 2} & \omega_{2, 2} & 0 \\
-      \omega_{3, 3} & 0 & \omega_{3, 3}
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-      59.1806671 & 9.0768024 & 47.659854 \\
-      9.0768024 & 7.151261 & 0 \\
-      47.659854 & 0 & 47.659854
-    \end{bmatrix}
-  \end{split}
-\end{equation}
-
-Below are two ways of specifying this model.
-The first specification includes the error term \(v_3\) as a latent variable.
-The second specification only includes the observed variables.
-
-\hypertarget{specification-1---includes-error-term-as-a-latent-variable}{%
-\section{Specification 1 - Includes Error Term as a Latent Variable}\label{specification-1---includes-error-term-as-a-latent-variable}}
-
-\hypertarget{matrix-notation}{%
-\subsection{Matrix Notation}\label{matrix-notation}}
-
-\begin{equation}
-  \mathbf{v}
-  =
-  \begin{bmatrix}
-    v_1 \\
-    v_2 \\
-    v_3
-  \end{bmatrix}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathbf{A}
-    &=
-    \begin{bmatrix}
-      0 & a_{1, 2} & 1 \\
-      0 & 0        & 0 \\
-      0 & 0        & 0
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-      0 & 1.269259 & 1 \\
-      0 & 0 & 0 \\
-      0 & 0 & 0
-    \end{bmatrix}
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \boldsymbol{\Omega}
-    &=
-    \begin{bmatrix}
-      0 & 0             & 0 \\
-      0 & \omega_{2, 2} & 0 \\
-      0 & 0             & \omega_{3, 3}
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-      0 & 0 & 0 \\
-      0 & 7.151261 & 0 \\
-      0 & 0 & 47.659854
-    \end{bmatrix}
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathbf{M}
-    &=
-    \begin{bmatrix}
-      m_1 \\
-      m_2 \\
-      m_3
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-      -3.951208 \\
-      13.038328 \\
-      0
-    \end{bmatrix}
-  \end{split}
-\end{equation}
-
-To filter the observed variables, use the following filter matrix
-
-\begin{equation}
-  \mathbf{F}
-  =
-  \begin{bmatrix}
-    1 & 0 & 0 \\
-    0 & 1 & 0
-  \end{bmatrix} .
-\end{equation}
-
-To include all variables, use the following filter matrix
-
-\begin{equation}
-  \mathbf{F}
-  =
-  \begin{bmatrix}
-    1 & 0 & 0 \\
-    0 & 1 & 0 \\
-    0 & 0 & 1
-  \end{bmatrix} .
-\end{equation}
+\hypertarget{ram-diagram}{%
+\chapter{Reticular Action Model (RAM) Path Diagram}\label{ram-diagram}}
 
 \begin{figure}
 \centering
-\includegraphics{ramR_notes_files/figure-latex/regression-01-1.pdf}
-\caption{\label{fig:regression-01}The Simple Linear Regression Model (with \(v_3\))}
+\includegraphics{ramR_notes_files/figure-latex/ram-diagram-01-1.pdf}
+\caption{\label{fig:ram-diagram-01}Path Diagram Elements}
 \end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-diagram-02-1.pdf}
+\caption{\label{fig:ram-diagram-02}Two-Variable Regression Model}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-diagram-03-1.pdf}
+\caption{\label{fig:ram-diagram-03}\(k\)-Variable Regression Model}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-diagram-04-1.pdf}
+\caption{\label{fig:ram-diagram-04}Two-Factor Confirmatory Factor Analysis Model}
+\end{figure}
+
+\hypertarget{ram-t}{%
+\chapter{\texorpdfstring{Student's \(t\)-test}{Student's t-test}}\label{ram-t}}
+
+In this section,
+the Student's \(t\)-test is presented as a structural equation model
+using the RAM notation.
+Let \(y\) be a continuous dependent variable,
+\(x\) be a dichotomous independent variable
+\(\left( x = \{0, 1\} \right)\),
+and \(\varepsilon\) be the stochastic error term
+with mean 0 and constant variance of \(\sigma_{\varepsilon}^{2}\)
+across the values of \(x\).
+The associations of the variables are given by
+
+\begin{equation*}
+  y
+  =
+  \alpha + \beta x + \varepsilon
+\end{equation*}
+
+\noindent where
+
+\begin{itemize}
+\tightlist
+\item
+  \(\alpha\) is the expected value of \(y\) when \(x = 0\)
+\item
+  \(\beta\) is the unit change in \(y\) for unit change in \(x\)
+\item
+  \(\alpha + \beta\) is the expected value of \(y\) when \(x = 1\)
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-t-01-1.pdf}
+\caption{\label{fig:ram-t-01}Student's \(t\)-test}
+\end{figure}
+
+\hypertarget{symbolic}{%
+\section{Symbolic}\label{symbolic}}
+
+Let \(\left\{ y, x, \varepsilon \right\}\) be the variables of interest.
+
+\begin{align*}\mathbf{A} &=\left( \begin{array}{ccc} 0 & \beta  & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{S} &=\left( \begin{array}{ccc} 0 & 0 & 0 \\ 0 & \sigma  _{x} ^{2} & 0 \\ 0 & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{C} &=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \\\\ &=\mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \\\\ &=\left( \begin{array}{ccc} 1 & \beta  & 1 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right)\left( \begin{array}{ccc} 0 & 0 & 0 \\ 0 & \sigma  _{x} ^{2} & 0 \\ 0 & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{ccc} 1 & \beta  & 1 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right)^{\mathsf{T}}\\ &=\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  \sigma  _{x} ^{2} & \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x} ^{2} \beta  & \sigma  _{x} ^{2} & 0 \\ \sigma  _{\varepsilon } ^{2} & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{F} &=\left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{M} &=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \mathbf{F}^{\mathsf{T}}\\ &=\mathbf{F} \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \mathbf{F}^{\mathsf{T}} \\\\ &=\mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}} \\\\ &=\left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \end{array} \right)\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  \sigma  _{x} ^{2} & \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x} ^{2} \beta  & \sigma  _{x} ^{2} & 0 \\ \sigma  _{\varepsilon } ^{2} & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \end{array} \right)^{\mathsf{T}} \\\\ &=\left( \begin{array}{cc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  & \sigma  _{x} ^{2} \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{v} &=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &=\left[\left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{ccc} 0 & \beta  & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right)\right]^{\mathsf{-1}}\left( \begin{array}{c} \alpha  \\ \mu  _{x} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{u} &=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &=\left[\left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{ccc} 0 & \beta  & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right)\right]\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \alpha  \\ \mu  _{x} \\ 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{g} &=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &=\left[\left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{ccc} 0 & \beta  & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right)\right]^{-1}\left( \begin{array}{c} \alpha  \\ \mu  _{x} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{align*}
 
 \hypertarget{using-the-ramr-package}{%
-\subsubsection{\texorpdfstring{Using the \texttt{ramR} Package}{Using the ramR Package}}\label{using-the-ramr-package}}
+\subsection{\texorpdfstring{Using the \texttt{ramR} Package}{Using the ramR Package}}\label{using-the-ramr-package}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
-\NormalTok{  ramR}\SpecialCharTok{::}\FunctionTok{mutheta}\NormalTok{(}
-    \AttributeTok{M =}\NormalTok{ M,}
-    \AttributeTok{A =}\NormalTok{ A,}
-    \AttributeTok{filter =}\NormalTok{ filter}
-\NormalTok{  ),}
-  \AttributeTok{col.names =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{mu\}$"}\NormalTok{,}
-  \AttributeTok{caption =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{mu\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{left( }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{theta\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{right)$"}\NormalTok{,}
-  \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{)}
+\NormalTok{A}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
-
-\caption{\label{tab:unnamed-chunk-3}$\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)$}
-\centering
-\begin{tabular}[t]{l|r}
-\hline
-  & $\boldsymbol{\mu}$\\
-\hline
-$v_1$ & 12.59781\\
-\hline
-$v_2$ & 13.03833\\
-\hline
-$v_3$ & 0.00000\\
-\hline
-\end{tabular}
-\end{table}
+\begin{verbatim}
+##      [,1] [,2]   [,3]
+## [1,] "0"  "beta" "1" 
+## [2,] "0"  "0"    "0" 
+## [3,] "0"  "0"    "0"
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
-\NormalTok{  ramR}\SpecialCharTok{::}\FunctionTok{Sigmatheta}\NormalTok{(}
-    \AttributeTok{A =}\NormalTok{ A,}
-    \AttributeTok{Omega =}\NormalTok{ Omega,}
-    \AttributeTok{filter =}\NormalTok{ filter}
-\NormalTok{  ),}
-  \AttributeTok{caption =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Sigma\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{left( }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{theta\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{right)$"}\NormalTok{,}
-  \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{)}
+\NormalTok{S}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
-
-\caption{\label{tab:unnamed-chunk-4}$\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)$}
-\centering
-\begin{tabular}[t]{l|r|r|r}
-\hline
-  & $v_1$ & $v_2$ & $v_3$\\
-\hline
-$v_1$ & 59.180667 & 9.076802 & 47.65985\\
-\hline
-$v_2$ & 9.076802 & 7.151261 & 0.00000\\
-\hline
-$v_3$ & 47.659854 & 0.000000 & 47.65985\\
-\hline
-\end{tabular}
-\end{table}
-
-\hypertarget{specification-2---observed-variables}{%
-\section{Specification 2 - Observed Variables}\label{specification-2---observed-variables}}
-
-\hypertarget{matrix-notation-1}{%
-\subsection{Matrix Notation}\label{matrix-notation-1}}
-
-\begin{equation}
-  \mathbf{v}
-  =
-  \begin{bmatrix}
-    v_1 \\
-    v_2
-  \end{bmatrix}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathbf{A}
-    &=
-    \begin{bmatrix}
-      0 & a_{1, 2} \\
-      0 & 0
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-      0 & 1.269259 \\
-      0 & 0
-    \end{bmatrix}
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \boldsymbol{\Omega}
-    &=
-    \begin{bmatrix}
-      \omega_{1, 1} & 0             \\
-      0             & \omega_{2, 2}
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-      47.659854 & 0 \\
-      0 & 7.151261
-    \end{bmatrix}
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \begin{split}
-    \mathbf{M}
-    &=
-    \begin{bmatrix}
-      m_1 \\
-      m_2
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-      -3.951208 \\
-      13.038328
-    \end{bmatrix}
-  \end{split}
-\end{equation}
-
-\begin{equation}
-  \mathbf{F}
-  =
-  \begin{bmatrix}
-    1 & 0 \\
-    0 & 1
-  \end{bmatrix}
-\end{equation}
-
-\begin{figure}
-\centering
-\includegraphics{ramR_notes_files/figure-latex/regression-02-1.png}
-\caption{\label{fig:regression-02}The Simple Linear Regression Model (without \(v_3\))}
-\end{figure}
-
-\hypertarget{using-the-ram-package}{%
-\subsubsection{\texorpdfstring{Using the \texttt{ram()} Package}{Using the ram() Package}}\label{using-the-ram-package}}
+\begin{verbatim}
+##      [,1] [,2]         [,3]                 
+## [1,] "0"  "0"          "0"                  
+## [2,] "0"  "sigma[x]^2" "0"                  
+## [3,] "0"  "0"          "sigma[varepsilon]^2"
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
-\NormalTok{  ramR}\SpecialCharTok{::}\FunctionTok{mutheta}\NormalTok{(}
-    \AttributeTok{M =}\NormalTok{ M,}
-    \AttributeTok{A =}\NormalTok{ A,}
-    \AttributeTok{filter =}\NormalTok{ filter}
-\NormalTok{  ),}
-  \AttributeTok{col.names =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{mu\}$"}\NormalTok{,}
-  \AttributeTok{caption =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{mu\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{left( }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{theta\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{right)$"}\NormalTok{,}
-  \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{)}
+\NormalTok{u}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
-
-\caption{\label{tab:unnamed-chunk-6}$\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)$}
-\centering
-\begin{tabular}[t]{l|r}
-\hline
-  & $\boldsymbol{\mu}$\\
-\hline
-$v_1$ & 12.59781\\
-\hline
-$v_2$ & 13.03833\\
-\hline
-\end{tabular}
-\end{table}
+\begin{verbatim}
+##      [,1]   
+## [1,] "alpha"
+## [2,] "mu[x]"
+## [3,] "0"
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
-\NormalTok{  ramR}\SpecialCharTok{::}\FunctionTok{Sigmatheta}\NormalTok{(}
-    \AttributeTok{A =}\NormalTok{ A,}
-    \AttributeTok{Omega =}\NormalTok{ Omega,}
-    \AttributeTok{filter =}\NormalTok{ filter}
-\NormalTok{  ),}
-  \AttributeTok{caption =} \StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Sigma\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{left( }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{boldsymbol\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{theta\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{right)$"}\NormalTok{,}
-  \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{)}
+\NormalTok{filter}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+\end{verbatim}
 
-\caption{\label{tab:unnamed-chunk-7}$\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)$}
-\centering
-\begin{tabular}[t]{l|r|r}
+The covariance expectations
+can be symbolically derived using the \texttt{ramR::C\_sym()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C\_sym}\NormalTok{(A, S)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2,                   sigma[varepsilon]^2},
+##  {                      sigma[x]^2*beta,                            sigma[x]^2,                                     0},
+##  {                  sigma[varepsilon]^2,                                     0,                   sigma[varepsilon]^2}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{C} =\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  \sigma  _{x} ^{2} & \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x} ^{2} \beta  & \sigma  _{x} ^{2} & 0 \\ \sigma  _{\varepsilon } ^{2} & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{equation*}
+
+The covariance expectations for the observed variables
+can be symbolically derived using the \texttt{ramR::M\_sym()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M\_sym}\NormalTok{(A, S, filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2},
+##  {                      sigma[x]^2*beta,                            sigma[x]^2}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{M} =\left( \begin{array}{cc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  & \sigma  _{x} ^{2} \end{array} \right)\end{equation*}
+
+The mean expectations
+can be symbolically derived using the \texttt{ramR::v\_sym()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v\_sym}\NormalTok{(A, u)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{alpha+beta*mu[x]},
+##  {           mu[x]},
+##  {               0}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{v} =\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\end{equation*}
+
+The mean expectations for the observed variables
+can be symbolically derived using the \texttt{ramR::g\_sym()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g\_sym}\NormalTok{(A, u, filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{alpha+beta*mu[x]},
+##  {           mu[x]}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{g} =\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{equation*}
+
+\hypertarget{numerical-example}{%
+\section{Numerical Example}\label{numerical-example}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            y x
+## 1  1.3709584 0
+## 2 -0.5646982 0
+## 3  0.3631284 0
+## 4  0.6328626 0
+## 5  0.4042683 0
+## 6 -0.1061245 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        y                 x      
+##  Min.   :-4.6785   Min.   :0.0  
+##  1st Qu.:-0.2622   1st Qu.:0.0  
+##  Median : 0.5013   Median :0.5  
+##  Mean   : 0.5000   Mean   :0.5  
+##  3rd Qu.: 1.2618   3rd Qu.:1.0  
+##  Max.   : 5.7839   Max.   :1.0
+\end{verbatim}
+
+\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-33-1.pdf} \includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-33-2.pdf} \includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-33-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  y by x
+## t = -706.06, df = 2e+06, p-value < 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.0016565 -0.9961108
+## sample estimates:
+## mean in group 0 mean in group 1 
+##    0.0005737398    0.9994574009
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.8838 -0.6745  0.0005  0.6749  4.8195 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 0.0005737  0.0010004   0.574    0.566    
+## x           0.9988837  0.0014147 706.057   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1 on 1999998 degrees of freedom
+## Multiple R-squared:  0.1995, Adjusted R-squared:  0.1995 
+## F-statistic: 4.985e+05 on 1 and 1999998 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  y \textasciitilde{} x}
+\StringTok{  y \textasciitilde{} 1}
+\StringTok{  x \textasciitilde{} 1}
+\StringTok{"}
+\NormalTok{fit }\OtherTok{\textless{}{-}}\NormalTok{ lavaan}\SpecialCharTok{::}\FunctionTok{sem}\NormalTok{(model, }\AttributeTok{data =}\NormalTok{ df)}
+\NormalTok{lavaan}\SpecialCharTok{::}\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## lavaan 0.6-7 ended normally after 15 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                          5
+##                                                       
+##   Number of observations                       2000000
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##   y ~                                                 
+##     x                 0.999    0.001  706.057    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##    .y                 0.001    0.001    0.574    0.566
+##     x                 0.500    0.000 1414.214    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##    .y                 1.001    0.001 1000.000    0.000
+##     x                 0.250    0.000 1000.000    0.000
+\end{verbatim}
+
+\begin{tabular}{l|l}
 \hline
-  & $v_1$ & $v_2$\\
+label & parameter\\
 \hline
-$v_1$ & 59.180667 & 9.076802\\
+\$\textbackslash{}alpha\$ & 0\\
 \hline
-$v_2$ & 9.076802 & 7.151261\\
+\$\textbackslash{}beta\$ & 1\\
+\hline
+\$\textbackslash{}sigma\textasciicircum{}\{2\}\_\{x\}\$ & 0.25\\
+\hline
+\$\textbackslash{}sigma\textasciicircum{}\{2\}\_\{\textbackslash{}varepsilon\}\$ & 0.25\\
+\hline
+\$\textbackslash{}mu\_x\$ & 0.5\\
 \hline
 \end{tabular}
-\end{table}
+
+\hypertarget{using-the-ramr-package-1}{%
+\subsection{\texorpdfstring{Using the \texttt{ramR} Package}{Using the ramR Package}}\label{using-the-ramr-package-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   y         x e
+## y 0 0.9988837 1
+## x 0 0.0000000 0
+## e 0 0.0000000 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   y         x         e
+## y 0 0.0000000 0.0000000
+## x 0 0.2500001 0.0000000
+## e 0 0.0000000 0.2494423
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{u}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]
+## y 0.0005737398
+## x 0.5000000000
+## e 0.0000000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{filter}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   y x e
+## y 1 0 0
+## x 0 1 0
+\end{verbatim}
+
+The covariance expectations
+can be numerically derived using the \texttt{ramR::C\_num()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C\_num}\NormalTok{(A, S)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           y         x         e
+## y 0.4988845 0.2497210 0.2494423
+## x 0.2497210 0.2500001 0.0000000
+## e 0.2494423 0.0000000 0.2494423
+\end{verbatim}
+
+The covariance expectations for the observed variables
+can be numerically derived using the \texttt{ramR::M\_num()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M\_num}\NormalTok{(A, S, filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           y         x
+## y 0.4988845 0.2497210
+## x 0.2497210 0.2500001
+\end{verbatim}
+
+The mean expectations
+can be numerically derived using the \texttt{ramR::v\_num()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v\_num}\NormalTok{(A, u)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           v
+## y 0.5000156
+## x 0.5000000
+## e 0.0000000
+\end{verbatim}
+
+The mean expectations for the observed variables
+can be numerically derived using the \texttt{ramR::v\_num()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g\_num}\NormalTok{(A, u, filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           g
+## y 0.5000156
+## x 0.5000000
+\end{verbatim}
 
   \bibliography{book.bib,packages.bib}
 

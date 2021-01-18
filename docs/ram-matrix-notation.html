@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Reticular Action Model (RAM) Matrix Notation | Reticular Action Model (RAM) Notation</title>
+  <title>Chapter 2 Reticular Action Model (RAM) Matrix Notation | Reticular Action Model (RAM) Notation Notes</title>
   <meta name="description" content="Notes on the Reticular Action Model (RAM) Notation" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Reticular Action Model (RAM) Matrix Notation | Reticular Action Model (RAM) Notation" />
+  <meta property="og:title" content="Chapter 2 Reticular Action Model (RAM) Matrix Notation | Reticular Action Model (RAM) Notation Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Reticular Action Model (RAM) Matrix Notation | Reticular Action Model (RAM) Notation" />
+  <meta name="twitter:title" content="Chapter 2 Reticular Action Model (RAM) Matrix Notation | Reticular Action Model (RAM) Notation Notes" />
   
   <meta name="twitter:description" content="Notes on the Reticular Action Model (RAM) Notation" />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Ivan Jacob Agaloos Pesigan" />
 
 
-<meta name="date" content="2021-01-10" />
+<meta name="date" content="2021-01-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="simple-regression.html"/>
+<link rel="next" href="ram-diagram.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -57,6 +57,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -136,23 +137,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Description</a></li>
 <li class="chapter" data-level="2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html"><i class="fa fa-check"></i><b>2</b> Reticular Action Model (RAM) Matrix Notation</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#model-implied-matrices"><i class="fa fa-check"></i><b>2.1</b> Model-Implied Matrices</a></li>
-<li class="chapter" data-level="2.2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#parameters"><i class="fa fa-check"></i><b>2.2</b> Parameters</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#mean-structure"><i class="fa fa-check"></i><b>2.2.1</b> Mean Structure</a></li>
-<li class="chapter" data-level="2.2.2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#covariance-structure"><i class="fa fa-check"></i><b>2.2.2</b> Covariance Structure</a></li>
+<li class="chapter" data-level="2.1" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#full-model"><i class="fa fa-check"></i><b>2.1</b> Full Model</a></li>
+<li class="chapter" data-level="2.2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#observedmanifestgiven-variables-vs.-unobservedlatenthidden-variables"><i class="fa fa-check"></i><b>2.2</b> Observed/Manifest/Given Variables vs. Unobserved/Latent/Hidden Variables</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="ram-diagram.html"><a href="ram-diagram.html"><i class="fa fa-check"></i><b>3</b> Reticular Action Model (RAM) Path Diagram</a></li>
+<li class="chapter" data-level="4" data-path="ram-t.html"><a href="ram-t.html"><i class="fa fa-check"></i><b>4</b> Student’s <span class="math inline">\(t\)</span>-test</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ram-t.html"><a href="ram-t.html#symbolic"><i class="fa fa-check"></i><b>4.1</b> Symbolic</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ram-t.html"><a href="ram-t.html#using-the-ramr-package"><i class="fa fa-check"></i><b>4.1.1</b> Using the <code>ramR</code> Package</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="simple-regression.html"><a href="simple-regression.html"><i class="fa fa-check"></i><b>3</b> Simple Regression</a>
+<li class="chapter" data-level="4.2" data-path="ram-t.html"><a href="ram-t.html#numerical-example"><i class="fa fa-check"></i><b>4.2</b> Numerical Example</a>
 <ul>
-<li class="chapter" data-level="3.0.1" data-path="simple-regression.html"><a href="simple-regression.html#expectations"><i class="fa fa-check"></i><b>3.0.1</b> Expectations</a></li>
-<li class="chapter" data-level="3.1" data-path="simple-regression.html"><a href="simple-regression.html#specification-1---includes-error-term-as-a-latent-variable"><i class="fa fa-check"></i><b>3.1</b> Specification 1 - Includes Error Term as a Latent Variable</a>
-<ul>
-<li class="chapter" data-level="3.1.1" data-path="simple-regression.html"><a href="simple-regression.html#matrix-notation"><i class="fa fa-check"></i><b>3.1.1</b> Matrix Notation</a></li>
-</ul></li>
-<li class="chapter" data-level="3.2" data-path="simple-regression.html"><a href="simple-regression.html#specification-2---observed-variables"><i class="fa fa-check"></i><b>3.2</b> Specification 2 - Observed Variables</a>
-<ul>
-<li class="chapter" data-level="3.2.1" data-path="simple-regression.html"><a href="simple-regression.html#matrix-notation-1"><i class="fa fa-check"></i><b>3.2.1</b> Matrix Notation</a></li>
+<li class="chapter" data-level="4.2.1" data-path="ram-t.html"><a href="ram-t.html#using-the-ramr-package-1"><i class="fa fa-check"></i><b>4.2.1</b> Using the <code>ramR</code> Package</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -168,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reticular Action Model (RAM) Notation</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reticular Action Model (RAM) Notation Notes</a>
           </h1>
         </div>
 
@@ -178,132 +175,218 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="ram-matrix-notation" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Reticular Action Model (RAM) Matrix Notation</h1>
-<p><span class="math display">\[\begin{equation}
+<div id="full-model" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Full Model</h2>
+
+<div class="definition">
+<span id="def:unnamed-chunk-2" class="definition"><strong>Definition 2.1  </strong></span><span class="math display">\[\begin{equation}
   \mathbf{v}
   =
   \mathbf{A} \mathbf{v} + \mathbf{u}
-\end{equation}\]</span></p>
+\end{equation}\]</span>
+</div>
 <p>where</p>
 <ul>
-<li><span class="math inline">\(\mathbf{v}\)</span> is a <span class="math inline">\(t \times 1\)</span> vector of random variables</li>
-<li><span class="math inline">\(u_i\)</span> represent the residual of <span class="math inline">\(v_i\)</span></li>
+<li><span class="math inline">\(\mathbf{v}\)</span> and <span class="math inline">\(\mathbf{u}\)</span> are <span class="math inline">\(t \times 1\)</span> vectors of random variables</li>
 <li><span class="math inline">\(\mathbf{A}\)</span> is a <span class="math inline">\(t \times t\)</span> matrix of <em>directed</em> or <em>asymmetric</em> relationship
 from column variable <span class="math inline">\(v_j\)</span> to row variable <span class="math inline">\(v_i\)</span>
 <ul>
-<li>regression of each of the <span class="math inline">\(t\)</span> variables on the other <span class="math inline">\(t - 1\)</span> variables</li>
+<li><span class="math inline">\(\mathbf{A}\)</span> represent the regression of each of the <span class="math inline">\(t\)</span> variables <span class="math inline">\(\mathbf{v}\)</span> on the other <span class="math inline">\(t - 1\)</span> variables</li>
 <li>diagonal <span class="math inline">\(a_{i,i}\)</span> is zero</li>
+<li><span class="math inline">\(u_i\)</span> represent the residual of <span class="math inline">\(v_i\)</span></li>
 <li>if all regression coefficients on other variables are zero,
 then the variable <span class="math inline">\(v_i\)</span> is considered the same as its own residual <span class="math inline">\(u_i\)</span></li>
 </ul></li>
 </ul>
-<p><span class="math display">\[\begin{equation}
-  \boldsymbol{\Omega}
+
+<div class="definition">
+<span id="def:unnamed-chunk-3" class="definition"><strong>Definition 2.2  </strong></span><span class="math display">\[\begin{equation}
+  \mathbf{S}
   =
   \mathbb{E}
-  \left(
+  \left\{
     \mathbf{u} \mathbf{u}^{\prime}
-  \right)
-\end{equation}\]</span></p>
+  \right\} ,
+\end{equation}\]</span>
+</div>
 <p>where</p>
 <ul>
-<li><span class="math inline">\(\boldsymbol{\Omega}\)</span> is a <span class="math inline">\(t \times t\)</span> matrix of <em>undirected</em> or <em>symmetric</em> relationship</li>
+<li><span class="math inline">\(\mathbf{S}\)</span> is a <span class="math inline">\(t \times t\)</span> matrix of <em>undirected</em> or <em>symmetric</em> relationship
+<ul>
+<li>the notation <span class="math inline">\(\boldsymbol{\Omega}\)</span> is used in other sources for <span class="math inline">\(\mathbf{S}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\mathbb{E}\)</span> is the expectation operator</li>
 </ul>
-<p><span class="math display">\[\begin{equation}
-  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+
+<div class="definition">
+<span id="def:unnamed-chunk-4" class="definition"><strong>Definition 2.3  </strong></span><span class="math display">\[\begin{equation}
+  \mathbf{C}
   =
+  \mathbb{E}
+  \left\{
+    \mathbf{v} \mathbf{v}^{\prime}
+  \right\} ,
+\end{equation}\]</span>
+</div>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\mathbf{C}\)</span> is a <span class="math inline">\(t \times t\)</span> variance-covariance matrix
+<ul>
+<li>the notation <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is used in other sources for <span class="math inline">\(\mathbf{C}\)</span></li>
+</ul></li>
+</ul>
+
+<div class="definition">
+<p><span id="def:unnamed-chunk-5" class="definition"><strong>Definition 2.4  </strong></span><span class="math display">\[\begin{equation*}
+  \mathbf{v}
+  =
+  \mathbf{A} \mathbf{v} + \mathbf{u}
+\end{equation*}\]</span></p>
+<p>can be rewritten as</p>
+<p><span class="math display">\[\begin{equation}
+  \begin{split}
+    \mathbf{v} - \mathbf{A} \mathbf{v}
+    &amp;=
+    \mathbf{u} \\
+    \mathbf{u}
+    &amp;=
+    \mathbf{v} - \mathbf{A} \mathbf{v} \\
+    \mathbf{u}
+    &amp;=
+    \left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}
+  \end{split}
+\end{equation}\]</span></p>
+<p>assuming that <span class="math inline">\(\left( \mathbf{I} - \mathbf{A} \right)\)</span> is non-singular,</p>
+<p><span class="math display">\[\begin{equation}
+  \mathbf{E}
+  = 
   \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-  \boldsymbol{\Omega}
-  \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
 \end{equation}\]</span></p>
-<ul>
-<li><span class="math inline">\(\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)\)</span> is a <span class="math inline">\(t \times t\)</span> symmetric matrix
-of associations between <span class="math inline">\(v_i\)</span> and <span class="math inline">\(v_j\)</span></li>
-</ul>
+<p>then</p>
+<span class="math display">\[\begin{equation}
+  \begin{split}
+    \mathbf{v}
+    &amp;=
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u} \\
+    &amp;=
+    \mathbf{E} \mathbf{u} .
+  \end{split}
+\end{equation}\]</span>
+</div>
+<p>Using the definitions above,
+<span class="math inline">\(\mathbf{S}\)</span> and <span class="math inline">\(\mathbf{C}\)</span>
+are given by</p>
 <p><span class="math display">\[\begin{equation}
-  \mathbf{v}^{\mathsf{T}}
+  \begin{split}
+    \mathbf{S}
+    &amp;=
+    \left( \mathbf{I} - \mathbf{A} \right)
+    \mathbf{C}
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1} \\
+    &amp;=
+    \mathbf{E}^{-1} \mathbf{C} \left( \mathbf{E}^{-1} \right)^{\mathsf{T}}
+    \end{split}
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+  \begin{split}
+    \mathbf{C}
+    &amp;=
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+    \mathbf{S}
+    \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \\
+    &amp;=
+    \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}
+  \end{split}
+\end{equation}\]</span></p>
+</div>
+<div id="observedmanifestgiven-variables-vs.-unobservedlatenthidden-variables" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Observed/Manifest/Given Variables vs. Unobserved/Latent/Hidden Variables</h2>
+
+<div class="definition">
+<p><span id="def:unnamed-chunk-6" class="definition"><strong>Definition 2.5  </strong></span><span class="math display">\[\begin{equation}
+  \mathbf{v}
   =
-  \left[
-    \mathbf{m}, \mathbf{l}
-  \right]^{\mathsf{T}}
+  \begin{bmatrix}
+    \mathbf{g}_{p \times 1} \\
+    \mathbf{h}_{q \times 1} \\
+  \end{bmatrix}
 \end{equation}\]</span></p>
-<p>where</p>
+<span class="math display">\[\begin{equation}
+  t = p + q
+\end{equation}\]</span>
+</div>
 <ul>
-<li><span class="math inline">\(\mathbf{m}\)</span> are observed or manifest variables of <span class="math inline">\(j\)</span> components</li>
-<li><span class="math inline">\(\mathbf{l}\)</span> are observed or manifest variables of <span class="math inline">\(k\)</span> components</li>
-<li><span class="math inline">\(t = j + k\)</span></li>
+<li><span class="math inline">\(\mathbf{g}\)</span> may be considered observed, manifest or <em>given</em> variables</li>
+<li><span class="math inline">\(\mathbf{h}\)</span> may be considered unobserved, latent, or <em>hidden</em> variables</li>
 </ul>
-<p><span class="math display">\[\begin{equation}
+
+<div class="definition">
+<span id="def:unnamed-chunk-7" class="definition"><strong>Definition 2.6  </strong></span><span class="math display">\[\begin{equation}
   \mathbf{F}
   =
-  \left[
-    \mathbf{I}_{j} \colon \mathbf{O}_{j \times k}
-  \right]
-\end{equation}\]</span></p>
+  \begin{bmatrix}
+    \mathbf{I}_{p \times p} : \mathbf{0}_{p \times q}
+  \end{bmatrix}
+\end{equation}\]</span>
+</div>
 <ul>
 <li>the <span class="math inline">\(\mathbf{F}\)</span> matrix acts as a <em>filter</em> to select the manifest variables
 out of the full set of manifest and latent variables</li>
 </ul>
-<div id="model-implied-matrices" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Model-Implied Matrices</h2>
-<p>The model-implied mean vector
-<span class="math inline">\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)</span>
-as a function of Reticular Action Model (RAM) matrices
-is given by</p>
 <p><span class="math display">\[\begin{equation}
-  \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+  \mathbf{g}
   =
   \mathbf{F}
-  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-  \mathbf{M} .
+  \mathbf{v}
 \end{equation}\]</span></p>
-<p>The <code>ramR::mutheta()</code> function can be used
-to derive the model-implied mean vector.</p>
-<p>The model-implied variance-covariance matrix
-<span class="math inline">\(\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)\)</span>
-as a function of Reticular Action Model (RAM) matrices
-is given by</p>
 <p><span class="math display">\[\begin{equation}
-  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
-  =
-  \mathbf{F}
-  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-  \boldsymbol{\Omega}
-  \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
-  \mathbf{F}^{\mathsf{T}} .
+  \begin{split}
+    \mathbf{g}
+    &amp;=
+    \mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u} \\
+    &amp;=
+    \mathbf{F} \mathbf{E} \mathbf{u}
+  \end{split}
 \end{equation}\]</span></p>
-<p>The <code>ramR::Sigmatheta()</code> function can be used
-to derive the model-implied variance-covariance matrix.</p>
-</div>
-<div id="parameters" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Parameters</h2>
-<div id="mean-structure" class="section level3" number="2.2.1">
-<h3><span class="header-section-number">2.2.1</span> Mean Structure</h3>
-<p><span class="math display">\[\begin{equation}
+
+<div class="definition">
+<span id="def:unnamed-chunk-8" class="definition"><strong>Definition 2.7  </strong></span><span class="math display">\[\begin{equation}
   \mathbf{M}
   =
-  \left[
+  \mathbb{E}
+  \left\{
+    \mathbf{g}
+    \mathbf{g}^{\mathsf{T}}
+  \right\}
+\end{equation}\]</span>
+</div>
+<p><span class="math display">\[\begin{equation}
+  \begin{split}
+    \mathbf{M}
+    &amp;=
     \mathbf{F}
     \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-  \right]^{-1}
-  \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+    \mathbf{S}
+    \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    &amp;=
+    \mathbf{F}
+    \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    &amp;=
+    \mathbf{F}
+    \mathbf{C}
+    \mathbf{F}^{\mathsf{T}}
+  \end{split}
 \end{equation}\]</span></p>
-<p>The <code>ramR::M()</code> function can be used
-to derive the mean structure vector.</p>
-</div>
-<div id="covariance-structure" class="section level3" number="2.2.2">
-<h3><span class="header-section-number">2.2.2</span> Covariance Structure</h3>
-<p><span class="math display">\[\begin{equation}
-  \boldsymbol{\Omega}
-  =
-  \left( \mathbf{I} - \mathbf{A} \right)
-  \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
-  \left( \mathbf{I} - \mathbf{A} \right)^{\mathsf{T}}
-\end{equation}\]</span></p>
-<p>The <code>ramR::Omega()</code> function can be used
-to derive the <em>symmetric</em> matrix <span class="math inline">\(\boldsymbol{\Omega}\)</span>.</p>
-<p>TODO: Figure out how to isolate the A matrix</p>
+<ul>
+<li>when components of <span class="math inline">\(\mathbf{v}\)</span> are permuted,
+the columns of <span class="math inline">\(\mathbf{F}\)</span> can be correspondingly permuted</li>
+<li>the rows and columns of <span class="math inline">\(\mathbf{C}\)</span> that are filtered out by <span class="math inline">\(\mathbf{F}\)</span>
+contain useful information about the latent variable structure.</li>
+</ul>
+<p>The equations above completely define RAM.</p>
 
-</div>
 </div>
 </div>
             </section>
@@ -312,7 +395,7 @@ to derive the <em>symmetric</em> matrix <span class="math inline">\(\boldsymbol{
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="simple-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ram-diagram.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -343,7 +426,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jeksterslab/ramR_notes/edit/master/01-ram-matrix-notation.Rmd",
+"link": "https://github.com/jeksterslab/ramR_notes/edit/master/002-ram-matrix-notation.Rmd",
 "text": "Edit"
 },
 "history": {

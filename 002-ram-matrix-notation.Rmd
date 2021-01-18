@@ -1,0 +1,217 @@
+# Reticular Action Model (RAM) Matrix Notation {#ram-matrix-notation}
+
+## Full Model
+
+```{definition, echo = TRUE}
+\begin{equation}
+  \mathbf{v}
+  =
+  \mathbf{A} \mathbf{v} + \mathbf{u}
+\end{equation}
+```
+
+\noindent where
+
+- $\mathbf{v}$ and $\mathbf{u}$ are $t \times 1$ vectors of random variables
+- $\mathbf{A}$ is a $t \times t$ matrix of *directed* or *asymmetric* relationship
+  from column variable $v_j$ to row variable $v_i$
+  - $\mathbf{A}$ represent the regression of each of the $t$ variables $\mathbf{v}$ on the other $t - 1$ variables
+  - diagonal $a_{i,i}$ is zero
+  - $u_i$ represent the residual of $v_i$
+  - if all regression coefficients on other variables are zero,
+    then the variable $v_i$ is considered the same as its own residual $u_i$
+
+```{definition, echo = TRUE}
+\begin{equation}
+  \mathbf{S}
+  =
+  \mathbb{E}
+  \left\{
+    \mathbf{u} \mathbf{u}^{\prime}
+  \right\} ,
+\end{equation}
+```
+
+\noindent where
+
+- $\mathbf{S}$ is a $t \times t$ matrix of *undirected* or *symmetric* relationship
+  - the notation $\boldsymbol{\Omega}$ is used in other sources for $\mathbf{S}$
+- $\mathbb{E}$ is the expectation operator
+
+```{definition, echo = TRUE}
+\begin{equation}
+  \mathbf{C}
+  =
+  \mathbb{E}
+  \left\{
+    \mathbf{v} \mathbf{v}^{\prime}
+  \right\} ,
+\end{equation}
+```
+
+\noindent where
+
+- $\mathbf{C}$ is a $t \times t$ variance-covariance matrix
+  - the notation $\boldsymbol{\Sigma}$ is used in other sources for $\mathbf{C}$
+
+```{definition, echo = TRUE}
+\begin{equation*}
+  \mathbf{v}
+  =
+  \mathbf{A} \mathbf{v} + \mathbf{u}
+\end{equation*}
+
+\noindent can be rewritten as
+
+\begin{equation}
+  \begin{split}
+    \mathbf{v} - \mathbf{A} \mathbf{v}
+    &=
+    \mathbf{u} \\
+    \mathbf{u}
+    &=
+    \mathbf{v} - \mathbf{A} \mathbf{v} \\
+    \mathbf{u}
+    &=
+    \left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}
+  \end{split}
+\end{equation}
+
+\noindent assuming that $\left( \mathbf{I} - \mathbf{A} \right)$ is non-singular,
+
+\begin{equation}
+  \mathbf{E}
+  = 
+  \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+\end{equation}
+
+\noindent then
+
+\begin{equation}
+  \begin{split}
+    \mathbf{v}
+    &=
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u} \\
+    &=
+    \mathbf{E} \mathbf{u} .
+  \end{split}
+\end{equation}
+```
+
+Using the definitions above,
+$\mathbf{S}$ and $\mathbf{C}$
+are given by
+
+\begin{equation}
+  \begin{split}
+    \mathbf{S}
+    &=
+    \left( \mathbf{I} - \mathbf{A} \right)
+    \mathbf{C}
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1} \\
+    &=
+    \mathbf{E}^{-1} \mathbf{C} \left( \mathbf{E}^{-1} \right)^{\mathsf{T}}
+    \end{split}
+\end{equation}
+
+\begin{equation}
+  \begin{split}
+    \mathbf{C}
+    &=
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+    \mathbf{S}
+    \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \\
+    &=
+    \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}
+  \end{split}
+\end{equation}
+
+
+## Observed/Manifest/Given Variables vs. Unobserved/Latent/Hidden Variables
+
+```{definition}
+\begin{equation}
+  \mathbf{v}
+  =
+  \begin{bmatrix}
+    \mathbf{g}_{p \times 1} \\
+    \mathbf{h}_{q \times 1} \\
+  \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+  t = p + q
+\end{equation}
+```
+
+- $\mathbf{g}$ may be considered observed, manifest or *given* variables
+- $\mathbf{h}$ may be considered unobserved, latent, or *hidden* variables
+
+```{definition}
+\begin{equation}
+  \mathbf{F}
+  =
+  \begin{bmatrix}
+    \mathbf{I}_{p \times p} : \mathbf{0}_{p \times q}
+  \end{bmatrix}
+\end{equation}
+```
+
+- the $\mathbf{F}$ matrix acts as a *filter* to select the manifest variables
+  out of the full set of manifest and latent variables
+
+\begin{equation}
+  \mathbf{g}
+  =
+  \mathbf{F}
+  \mathbf{v}
+\end{equation}
+
+\begin{equation}
+  \begin{split}
+    \mathbf{g}
+    &=
+    \mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u} \\
+    &=
+    \mathbf{F} \mathbf{E} \mathbf{u}
+  \end{split}
+\end{equation}
+
+```{definition}
+\begin{equation}
+  \mathbf{M}
+  =
+  \mathbb{E}
+  \left\{
+    \mathbf{g}
+    \mathbf{g}^{\mathsf{T}}
+  \right\}
+\end{equation}
+```
+
+\begin{equation}
+  \begin{split}
+    \mathbf{M}
+    &=
+    \mathbf{F}
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+    \mathbf{S}
+    \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    &=
+    \mathbf{F}
+    \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    &=
+    \mathbf{F}
+    \mathbf{C}
+    \mathbf{F}^{\mathsf{T}}
+  \end{split}
+\end{equation}
+
+- when components of $\mathbf{v}$ are permuted,
+  the columns of $\mathbf{F}$ can be correspondingly permuted
+- the rows and columns of $\mathbf{C}$ that are filtered out by $\mathbf{F}$
+  contain useful information about the latent variable structure.
+
+The equations above completely define RAM.

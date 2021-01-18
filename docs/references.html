@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Reticular Action Model (RAM) Notation</title>
+  <title>References | Reticular Action Model (RAM) Notation Notes</title>
   <meta name="description" content="Notes on the Reticular Action Model (RAM) Notation" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Reticular Action Model (RAM) Notation" />
+  <meta property="og:title" content="References | Reticular Action Model (RAM) Notation Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Reticular Action Model (RAM) Notation" />
+  <meta name="twitter:title" content="References | Reticular Action Model (RAM) Notation Notes" />
   
   <meta name="twitter:description" content="Notes on the Reticular Action Model (RAM) Notation" />
   
@@ -24,14 +24,14 @@
 <meta name="author" content="Ivan Jacob Agaloos Pesigan" />
 
 
-<meta name="date" content="2021-01-10" />
+<meta name="date" content="2021-01-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="simple-regression.html"/>
+<link rel="prev" href="ram-t.html"/>
 
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -57,6 +57,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -136,23 +137,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Description</a></li>
 <li class="chapter" data-level="2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html"><i class="fa fa-check"></i><b>2</b> Reticular Action Model (RAM) Matrix Notation</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#model-implied-matrices"><i class="fa fa-check"></i><b>2.1</b> Model-Implied Matrices</a></li>
-<li class="chapter" data-level="2.2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#parameters"><i class="fa fa-check"></i><b>2.2</b> Parameters</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#mean-structure"><i class="fa fa-check"></i><b>2.2.1</b> Mean Structure</a></li>
-<li class="chapter" data-level="2.2.2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#covariance-structure"><i class="fa fa-check"></i><b>2.2.2</b> Covariance Structure</a></li>
+<li class="chapter" data-level="2.1" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#full-model"><i class="fa fa-check"></i><b>2.1</b> Full Model</a></li>
+<li class="chapter" data-level="2.2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#observedmanifestgiven-variables-vs.-unobservedlatenthidden-variables"><i class="fa fa-check"></i><b>2.2</b> Observed/Manifest/Given Variables vs. Unobserved/Latent/Hidden Variables</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="ram-diagram.html"><a href="ram-diagram.html"><i class="fa fa-check"></i><b>3</b> Reticular Action Model (RAM) Path Diagram</a></li>
+<li class="chapter" data-level="4" data-path="ram-t.html"><a href="ram-t.html"><i class="fa fa-check"></i><b>4</b> Student’s <span class="math inline">\(t\)</span>-test</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ram-t.html"><a href="ram-t.html#symbolic"><i class="fa fa-check"></i><b>4.1</b> Symbolic</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ram-t.html"><a href="ram-t.html#using-the-ramr-package"><i class="fa fa-check"></i><b>4.1.1</b> Using the <code>ramR</code> Package</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="simple-regression.html"><a href="simple-regression.html"><i class="fa fa-check"></i><b>3</b> Simple Regression</a>
+<li class="chapter" data-level="4.2" data-path="ram-t.html"><a href="ram-t.html#numerical-example"><i class="fa fa-check"></i><b>4.2</b> Numerical Example</a>
 <ul>
-<li class="chapter" data-level="3.0.1" data-path="simple-regression.html"><a href="simple-regression.html#expectations"><i class="fa fa-check"></i><b>3.0.1</b> Expectations</a></li>
-<li class="chapter" data-level="3.1" data-path="simple-regression.html"><a href="simple-regression.html#specification-1---includes-error-term-as-a-latent-variable"><i class="fa fa-check"></i><b>3.1</b> Specification 1 - Includes Error Term as a Latent Variable</a>
-<ul>
-<li class="chapter" data-level="3.1.1" data-path="simple-regression.html"><a href="simple-regression.html#matrix-notation"><i class="fa fa-check"></i><b>3.1.1</b> Matrix Notation</a></li>
-</ul></li>
-<li class="chapter" data-level="3.2" data-path="simple-regression.html"><a href="simple-regression.html#specification-2---observed-variables"><i class="fa fa-check"></i><b>3.2</b> Specification 2 - Observed Variables</a>
-<ul>
-<li class="chapter" data-level="3.2.1" data-path="simple-regression.html"><a href="simple-regression.html#matrix-notation-1"><i class="fa fa-check"></i><b>3.2.1</b> Matrix Notation</a></li>
+<li class="chapter" data-level="4.2.1" data-path="ram-t.html"><a href="ram-t.html#using-the-ramr-package-1"><i class="fa fa-check"></i><b>4.2.1</b> Using the <code>ramR</code> Package</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -168,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reticular Action Model (RAM) Notation</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reticular Action Model (RAM) Notation Notes</a>
           </h1>
         </div>
 
@@ -181,13 +178,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Boker-2005" class="csl-entry">
-Boker, Steven M., and John J. McArdle. 2005. <span>“Path Analysis and Path Diagrams.”</span> In <em>Encyclopedia of Statistics in Behavioral Science</em>, edited by Brian S. Everitt and David C. Howell, 1529–31. Chichester, UK: John Wiley &amp; Sons, Ltd. <a href="https://doi.org/10.1002/0470013192.bsa471">https://doi.org/10.1002/0470013192.bsa471</a>.
+<p>Boker, Steven M., and John J. McArdle. 2005. <span>“Path Analysis and Path Diagrams.”</span> In <em>Encyclopedia of Statistics in Behavioral Science</em>, edited by Brian S. Everitt and David C. Howell, 1529–31. Chichester, UK: John Wiley &amp; Sons, Ltd. <a href="https://doi.org/10.1002/0470013192.bsa471">https://doi.org/10.1002/0470013192.bsa471</a>.</p>
 </div>
 <div id="ref-McArdle-2005" class="csl-entry">
-McArdle, John J. 2005. <span>“The Development of the <span>RAM</span> Rules for Latent Variable Structural Equation Modeling.”</span> In <em>Contemporary Psychometrics: A Festschrift for <span>Roderick P. McDonald</span></em>, edited by Albert Maydeu-Olivares and John J. McArdle, 225–73. Multivariate Applications Book Series. Mahwah, NJ: Lawrence Erlbaum Associates.
+<p>McArdle, John J. 2005. <span>“The Development of the <span>RAM</span> Rules for Latent Variable Structural Equation Modeling.”</span> In <em>Contemporary Psychometrics: A Festschrift for <span>Roderick P. McDonald</span></em>, edited by Albert Maydeu-Olivares and John J. McArdle, 225–73. Multivariate Applications Book Series. Mahwah, NJ: Lawrence Erlbaum Associates.</p>
 </div>
 <div id="ref-McArdle-1984" class="csl-entry">
-McArdle, John J., and Roderick P. McDonald. 1984. <span>“Some Algebraic Properties of the Reticular Action Model for Moment Structures.”</span> <em>British Journal of Mathematical and Statistical Psychology</em> 37 (2): 234–51. <a href="https://doi.org/10.1111/j.2044-8317.1984.tb00802.x">https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a>.
+<p>McArdle, John J., and Roderick P. McDonald. 1984. <span>“Some Algebraic Properties of the Reticular Action Model for Moment Structures.”</span> <em>British Journal of Mathematical and Statistical Psychology</em> 37 (2): 234–51. <a href="https://doi.org/10.1111/j.2044-8317.1984.tb00802.x">https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a>.</p>
+</div>
+<div id="ref-R-ramR" class="csl-entry">
+<p>Pesigan, Ivan Jacob Agaloos. 2021. <em>ramR: Reticular Action Model (RAM) Notation</em>. <a href="https://github.com/jeksterslab/ramR">https://github.com/jeksterslab/ramR</a>.</p>
 </div>
 </div>
 </div>
@@ -196,7 +196,7 @@ McArdle, John J., and Roderick P. McDonald. 1984. <span>“Some Algebraic Proper
           </div>
         </div>
       </div>
-<a href="simple-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ram-t.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
