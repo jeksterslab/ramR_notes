@@ -24,7 +24,7 @@
 <meta name="author" content="Ivan Jacob Agaloos Pesigan" />
 
 
-<meta name="date" content="2021-01-18" />
+<meta name="date" content="2021-01-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -286,7 +286,8 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 <p><img src="ramR_notes_files/figure-html/unnamed-chunk-33-1.png" width="672" /><img src="ramR_notes_files/figure-html/unnamed-chunk-33-2.png" width="672" /><img src="ramR_notes_files/figure-html/unnamed-chunk-33-3.png" width="672" /></p>
 <div id="t-test" class="section level3" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> <span class="math inline">\(t\)</span>-test</h3>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="ram-t.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="ram-t.html#cb22-1" aria-hidden="true" tabindex="-1"></a>t.test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span>
+<span id="cb22-2"><a href="ram-t.html#cb22-2" aria-hidden="true" tabindex="-1"></a>t.test</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -298,10 +299,14 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 ## sample estimates:
 ## mean in group 0 mean in group 1 
 ##    0.0005737398    0.9994574009</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="ram-t.html#cb24-1" aria-hidden="true" tabindex="-1"></a>t.test<span class="sc">$</span>estimate</span></code></pre></div>
+<pre><code>## mean in group 0 mean in group 1 
+##    0.0005737398    0.9994574009</code></pre>
 </div>
 <div id="linear-regression" class="section level3" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Linear Regression</h3>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="ram-t.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df))</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ram-t.html#cb26-1" aria-hidden="true" tabindex="-1"></a>lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span>
+<span id="cb26-2"><a href="ram-t.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x, data = df)
@@ -320,16 +325,19 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 ## Residual standard error: 1 on 1999998 degrees of freedom
 ## Multiple R-squared:  0.1995, Adjusted R-squared:  0.1995 
 ## F-statistic: 4.985e+05 on 1 and 1999998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="ram-t.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lm)</span></code></pre></div>
+<pre><code>##  (Intercept)            x 
+## 0.0005737398 0.9988836611</code></pre>
 </div>
 <div id="structural-equation-modeling" class="section level3" number="4.2.3">
 <h3><span class="header-section-number">4.2.3</span> Structural Equation Modeling</h3>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ram-t.html#cb26-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
-<span id="cb26-2"><a href="ram-t.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ x</span></span>
-<span id="cb26-3"><a href="ram-t.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ 1</span></span>
-<span id="cb26-4"><a href="ram-t.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="st">  x ~ 1</span></span>
-<span id="cb26-5"><a href="ram-t.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span>
-<span id="cb26-6"><a href="ram-t.html#cb26-6" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> lavaan<span class="sc">::</span><span class="fu">sem</span>(model, <span class="at">data =</span> df)</span>
-<span id="cb26-7"><a href="ram-t.html#cb26-7" aria-hidden="true" tabindex="-1"></a>lavaan<span class="sc">::</span><span class="fu">summary</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ram-t.html#cb30-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb30-2"><a href="ram-t.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ x</span></span>
+<span id="cb30-3"><a href="ram-t.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ 1</span></span>
+<span id="cb30-4"><a href="ram-t.html#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="st">  x ~ 1</span></span>
+<span id="cb30-5"><a href="ram-t.html#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span>
+<span id="cb30-6"><a href="ram-t.html#cb30-6" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> lavaan<span class="sc">::</span><span class="fu">sem</span>(model, <span class="at">data =</span> df)</span>
+<span id="cb30-7"><a href="ram-t.html#cb30-7" aria-hidden="true" tabindex="-1"></a>lavaan<span class="sc">::</span><span class="fu">summary</span>(fit)</span></code></pre></div>
 <pre><code>## lavaan 0.6-7 ended normally after 15 iterations
 ## 
 ##   Estimator                                         ML
@@ -363,6 +371,9 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##    .y                 1.001    0.001 1000.000    0.000
 ##     x                 0.250    0.000 1000.000    0.000</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ram-t.html#cb32-1" aria-hidden="true" tabindex="-1"></a>lavaan<span class="sc">::</span><span class="fu">coef</span>(fit)</span></code></pre></div>
+<pre><code>##   y~x   y~1   x~1  y~~y  x~~x 
+## 0.999 0.001 0.500 1.001 0.250</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -396,48 +407,48 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 </div>
 <div id="using-the-ramr-package-1" class="section level3" number="4.2.4">
 <h3><span class="header-section-number">4.2.4</span> Using the <code>ramR</code> Package</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="ram-t.html#cb28-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="ram-t.html#cb34-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
 <pre><code>##   y         x e
 ## y 0 0.9988837 1
 ## x 0 0.0000000 0
 ## e 0 0.0000000 0</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ram-t.html#cb30-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="ram-t.html#cb36-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
 <pre><code>##   y         x         e
 ## y 0 0.0000000 0.0000000
 ## x 0 0.2500001 0.0000000
 ## e 0 0.0000000 0.2494423</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ram-t.html#cb32-1" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="ram-t.html#cb38-1" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div>
 <pre><code>##           [,1]
 ## y 0.0005737398
 ## x 0.5000000000
 ## e 0.0000000000</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="ram-t.html#cb34-1" aria-hidden="true" tabindex="-1"></a>filter</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ram-t.html#cb40-1" aria-hidden="true" tabindex="-1"></a>filter</span></code></pre></div>
 <pre><code>##   y x e
 ## y 1 0 0
 ## x 0 1 0</code></pre>
 <p>The covariance expectations
 can be numerically derived using the <code>ramR::C_num()</code> function.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="ram-t.html#cb36-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">C_num</span>(A, S)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ram-t.html#cb42-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">C_num</span>(A, S)</span></code></pre></div>
 <pre><code>##           y         x         e
 ## y 0.4988845 0.2497210 0.2494423
 ## x 0.2497210 0.2500001 0.0000000
 ## e 0.2494423 0.0000000 0.2494423</code></pre>
 <p>The covariance expectations for the observed variables
 can be numerically derived using the <code>ramR::M_num()</code> function.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="ram-t.html#cb38-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">M_num</span>(A, S, filter)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="ram-t.html#cb44-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">M_num</span>(A, S, filter)</span></code></pre></div>
 <pre><code>##           y         x
 ## y 0.4988845 0.2497210
 ## x 0.2497210 0.2500001</code></pre>
 <p>The mean expectations
 can be numerically derived using the <code>ramR::v_num()</code> function.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ram-t.html#cb40-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">v_num</span>(A, u)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="ram-t.html#cb46-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">v_num</span>(A, u)</span></code></pre></div>
 <pre><code>##           v
 ## y 0.5000156
 ## x 0.5000000
 ## e 0.0000000</code></pre>
 <p>The mean expectations for the observed variables
 can be numerically derived using the <code>ramR::v_num()</code> function.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ram-t.html#cb42-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">g_num</span>(A, u, filter)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="ram-t.html#cb48-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">g_num</span>(A, u, filter)</span></code></pre></div>
 <pre><code>##           g
 ## y 0.5000156
 ## x 0.5000000</code></pre>

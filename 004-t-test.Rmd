@@ -447,26 +447,36 @@ boxplot(
 )
 hist(
   df[which(df$x == 0), ][["y"]],
-  xlab = "y",
-  main = "Histogram of y for x = 0."
+  xlab = expression(y),
+  main = expression(paste("Histogram of ", y," for ", x == 0))
 )
 hist(
   df[which(df$x == 1), ][["y"]],
-  xlab = "y",
-  main = "Histogram of y for x = 1."
+  xlab = expression(y),
+  main = expression(paste("Histogram of ", y," for ", x == 1))
 )
 ```
 
 ### $t$-test
 
 ```{r}
-t.test(y ~ x, data = df)
+t.test <- t.test(y ~ x, data = df)
+t.test
+```
+
+```{r}
+t.test$estimate
 ```
 
 ### Linear Regression
 
 ```{r}
-summary(lm(y ~ x, data = df))
+lm <- lm(y ~ x, data = df)
+summary(lm)
+```
+
+```{r}
+coef(lm)
 ```
 
 ### Structural Equation Modeling
@@ -479,6 +489,10 @@ model <- "
 "
 fit <- lavaan::sem(model, data = df)
 lavaan::summary(fit)
+```
+
+```{r}
+lavaan::coef(fit)
 ```
 
 ```{r, echo = FALSE}

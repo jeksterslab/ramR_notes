@@ -125,7 +125,7 @@
 
 \title{Reticular Action Model (RAM) Notation Notes}
 \author{Ivan Jacob Agaloos Pesigan}
-\date{2021-01-18}
+\date{2021-01-19}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -691,7 +691,8 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{t.test}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df)}
+\NormalTok{t.test }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df)}
+\NormalTok{t.test}
 \end{Highlighting}
 \end{Shaded}
 
@@ -709,12 +710,24 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 ##    0.0005737398    0.9994574009
 \end{verbatim}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t.test}\SpecialCharTok{$}\NormalTok{estimate}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## mean in group 0 mean in group 1 
+##    0.0005737398    0.9994574009
+\end{verbatim}
+
 \hypertarget{linear-regression}{%
 \subsection{Linear Regression}\label{linear-regression}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df))}
+\NormalTok{lm }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df)}
+\FunctionTok{summary}\NormalTok{(lm)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -737,6 +750,17 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 ## Residual standard error: 1 on 1999998 degrees of freedom
 ## Multiple R-squared:  0.1995, Adjusted R-squared:  0.1995 
 ## F-statistic: 4.985e+05 on 1 and 1999998 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{coef}\NormalTok{(lm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  (Intercept)            x 
+## 0.0005737398 0.9988836611
 \end{verbatim}
 
 \hypertarget{structural-equation-modeling}{%
@@ -788,6 +812,17 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 ##                    Estimate  Std.Err  z-value  P(>|z|)
 ##    .y                 1.001    0.001 1000.000    0.000
 ##     x                 0.250    0.000 1000.000    0.000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lavaan}\SpecialCharTok{::}\FunctionTok{coef}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   y~x   y~1   x~1  y~~y  x~~x 
+## 0.999 0.001 0.500 1.001 0.250
 \end{verbatim}
 
 \begin{tabular}{l|l}
