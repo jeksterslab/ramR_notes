@@ -99,13 +99,6 @@ The associations of the variables are given by
 Let $\left\{ y, x, \varepsilon \right\}$ be the variables of interest.
 
 ```{r, echo = FALSE}
-v <- matrix(
-  data = c(
-    paste(expression(alpha + beta * mu[x])),
-    paste(expression(mu[x])),
-    0
-  )
-)
 u <- matrix(
   data = c(
     paste(expression(alpha)),
@@ -113,10 +106,17 @@ u <- matrix(
     0
   )
 )
+v <- matrix(
+  data = c(
+    paste(expression(alpha + beta * mu[x])),
+    paste(expression(mu[x])),
+    0
+  )
+)
 A <- S <- matrix(
   data = 0,
-  nrow = 3,
-  ncol = 3
+  nrow = dim(u)[1],
+  ncol = dim(u)[1]
 )
 I <- diag(dim(A)[1])
 A[1, 2] <- paste(expression(beta))
@@ -375,12 +375,12 @@ colnames(data) <- c(
   "x"
 )
 beta <- matrixR::LS(
-  data[, 2:3],
+  data[, -1],
   data[, 1]
 )
 data <- cbind(
   data[, -2],
-  epsilon = as.vector(data[, 2:3] %*% beta)
+  epsilon = as.vector(data[, -1] %*% beta)
 )
 df <- as.data.frame(data[, 1:2])
 mu <- as.matrix(colMeans(data))
@@ -565,4 +565,96 @@ can be numerically derived using the `ramR::v_num()` function.
 
 ```{r}
 ramR::g_num(A, u, filter)
+```
+
+## Equations to RAM
+
+The `ramR` package has a utility function to convert structural equations to RAM notation.
+The Student's $t$-test can be expressed in the following equations
+
+```{r}
+model <- "
+  # VARIABLE1 OPERATION VARIABLE2 LABEL
+  e           by        y         1;
+  y           on        x         beta;
+  e           with      e         sigma[varepsilon]^2;
+  x           with      x         sigma[x]^2;
+  y           on        1         alpha;
+  x           on        1         mu[x]
+"
+```
+
+The error term is treated as a latent variable and defined with the operation `by`.
+It's value is constrained to $1$.
+The regression of $y$ on $x$ is defined by operation `on`.
+It is labeled as `beta`.
+The variance of $x$ and the error variance are defined using the operation `with`.
+These are labeled `sigma[x]^2` and `sigma[varepsilon]^2` respectively.
+The intercept and the mean of $x$ are defined using the operation `on 1`.
+These are labeled `alpha` and `mu[x]` respectively.
+
+The `ramR::eq2ram` converts the equations to RAM notation.
+
+```{r}
+RAM <- ramR::eq2ram(model)
+RAM
+```
+
+The `*_sym` functions can be used on the results of `ramR::eq2ram`
+to derive the covariance and mean expectations.
+
+```{r, eval = FALSE}
+ramR::C_sym(RAM$A, RAM$S)
+```
+
+```{r, echo = FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
+  "\\mathbf{C} =",
+  Ryacas::tex(ramR::C_sym(RAM$A, RAM$S)),
+  "\\end{equation*}",
+  sep = ""
+)
+```
+
+```{r, eval = FALSE}
+ramR::M_sym(RAM$A, RAM$S, RAM$filter)
+```
+
+```{r, echo = FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
+  "\\mathbf{M} =",
+  Ryacas::tex(ramR::M_sym(RAM$A, RAM$S, RAM$filter)),
+  "\\end{equation*}",
+  sep = ""
+)
+```
+
+```{r, eval = FALSE}
+ramR::v_sym(RAM$A, RAM$u)
+```
+
+```{r, echo = FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
+  "\\mathbf{v} =",
+  Ryacas::tex(ramR::v_sym(RAM$A, RAM$u)),
+  "\\end{equation*}",
+  sep = ""
+)
+```
+
+```{r, eval = FALSE}
+ramR::g_sym(RAM$A, RAM$u, RAM$filter)
+```
+
+```{r, echo = FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
+  "\\mathbf{g} =",
+  Ryacas::tex(ramR::g_sym(RAM$A, RAM$u, RAM$filter)),
+  "\\end{equation*}",
+  sep = ""
+)
 ```

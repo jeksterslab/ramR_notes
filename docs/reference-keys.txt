@@ -9,6 +9,7 @@ fig:ram-diagram-01
 fig:ram-diagram-02
 fig:ram-diagram-03
 fig:ram-diagram-04
+fig:ram-diagram-05
 fig:ram-t-01
 description
 ram-matrix-notation
@@ -23,3 +24,4 @@ t-test
 linear-regression
 structural-equation-modeling
 using-the-ramr-package-1
+equations-to-ram

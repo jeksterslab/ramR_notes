@@ -1,6 +1,6 @@
 # Reticular Action Model (RAM) Path Diagram {#ram-diagram}
 
-```{tikz, ram-diagram-01, echo = FALSE, fig.width = 4, fig.cap = "Path Diagram Elements", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+```{tikz, ram-diagram-01, echo = FALSE, fig.cap = "Path Diagram Elements", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
   auto,
@@ -77,7 +77,7 @@
 \end{tikzpicture}
 ```
 
-```{tikz, ram-diagram-02, echo = FALSE, fig.width = 4, fig.cap = "Two-Variable Regression Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+```{tikz, ram-diagram-02, echo = FALSE, fig.cap = "Two-Variable Regression Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
   auto,
@@ -148,7 +148,7 @@
 \end{tikzpicture}
 ```
 
-```{tikz, ram-diagram-03, echo = FALSE, fig.width = 4, fig.cap = "$k$-Variable Regression Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+```{tikz, ram-diagram-03, echo = FALSE, fig.cap = "$k$-Variable Regression Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
   auto,
@@ -228,7 +228,7 @@
 \end{tikzpicture}
 ```
 
-```{tikz, ram-diagram-04, echo = FALSE, fig.width = 4, fig.cap = "Two-Factor Confirmatory Factor Analysis Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+```{tikz, ram-diagram-04, echo = FALSE, fig.cap = "Two-Factor Confirmatory Factor Analysis Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
   auto,
@@ -299,10 +299,10 @@
   \node[error] (varepsilon_6) [left = of y_6] {$\varepsilon_6$}; 
   \node[latent] (eta_1) [right = of y_2] {$\eta_1$};
   \node[latent] (eta_2) [right = of y_5] {$\eta_2$};
-  \draw[path] (eta_1) to node[left] {$\lambda_1 = 1$} (y_1);
+  \draw[path] (eta_1) to node[left] {$\lambda_1$} (y_1);
   \draw[path] (eta_1) to node[above] {$\lambda_2$} (y_2);
   \draw[path] (eta_1) to node[above] {$\lambda_3$} (y_3);
-  \draw[path] (eta_2) to node[left] {$\lambda_4 = 1$} (y_4);
+  \draw[path] (eta_2) to node[left] {$\lambda_4$} (y_4);
   \draw[path] (eta_2) to node[above] {$\lambda_5$} (y_5);
   \draw[path] (eta_2) to node[above] {$\lambda_6$} (y_6);
   \draw[path] (varepsilon_1) to node[above] {$1$} (y_1);
@@ -317,9 +317,126 @@
   \draw[cov] (varepsilon_4) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{4}}$} (varepsilon_4);
   \draw[cov] (varepsilon_5) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{5}}$} (varepsilon_5);
   \draw[cov] (varepsilon_6) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{6}}$} (varepsilon_6);
-  \draw[cov] (eta_1) to[out=70,in=110,looseness=3] node[above] {$\psi_{\eta_1}$} (eta_1);
-  \draw[cov] (eta_2) to[out=-70,in=-110,looseness=3] node[below] {$\psi_{\eta_2}$} (eta_2);
+  \draw[cov] (eta_1) to[out=70,in=110,looseness=5] node[above] {$\psi_{\eta_1}$} (eta_1);
+  \draw[cov] (eta_2) to[out=-70,in=-110,looseness=5] node[below] {$\psi_{\eta_2}$} (eta_2);
   \draw[cov] (eta_1) to node[right] {$\psi_{\eta_1, \eta_2}$} (eta_2);
   \node[inv] (eq) [below = of eta_2] {$\mathbf{y} = \boldsymbol{\Lambda} \boldsymbol{\eta} + \boldsymbol{\varepsilon}$};
+\end{tikzpicture}
+```
+
+```{tikz, ram-diagram-05, echo = FALSE, fig.cap = "Path Model with Latent Variables", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 15mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 15mm,
+    align = center
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 7mm,
+    align = center
+  },
+  mean/.style={
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+  \node[latent] (eta) {$\eta$};
+  \node[latent] (xi_1) [above right = of eta] {$\xi_1$};
+  \node[latent] (xi_2) [below right = of eta] {$\xi_2$};
+  \node[error] (zeta) [below = of eta] {$\zeta$};
+  \node[manifest] (y_2) [left = of eta] {$y_2$};
+  \node[manifest] (y_1) [above = of y_2] {$y_1$};
+  \node[manifest] (y_3) [below = of y_2] {$y_3$};
+  \node[error] (varepsilon_1) [left = of y_1] {$\varepsilon_{1}$};
+  \node[error] (varepsilon_2) [left = of y_2] {$\varepsilon_{2}$};
+  \node[error] (varepsilon_3) [left = of y_3] {$\varepsilon_{3}$};
+  \node[manifest] (x_2) [above = of xi_1] {$x_2$};
+  \node[manifest] (x_1) [left = of x_2] {$x_1$};
+  \node[manifest] (x_3) [right = of x_2] {$x_3$};
+  \node[error] (delta_1) [above = of x_1] {$\delta_{1}$};
+  \node[error] (delta_2) [above = of x_2] {$\delta_{2}$};
+  \node[error] (delta_3) [above = of x_3] {$\delta_{3}$};
+  \node[manifest] (x_5) [below = of xi_2] {$x_5$};
+  \node[manifest] (x_4) [left = of x_5] {$x_4$};
+  \node[manifest] (x_6) [right = of x_5] {$x_6$};
+  \node[error] (delta_4) [below = of x_4] {$\delta_{4}$};
+  \node[error] (delta_5) [below = of x_5] {$\delta_{5}$};
+  \node[error] (delta_6) [below = of x_6] {$\delta_{6}$};
+  \draw[path] (varepsilon_1) to node[above] {$1$} (y_1);
+  \draw[path] (varepsilon_2) to node[above] {$1$} (y_2);
+  \draw[path] (varepsilon_3) to node[above] {$1$} (y_3);
+  \draw[path] (delta_1) to node[right] {$1$} (x_1);
+  \draw[path] (delta_2) to node[right] {$1$} (x_2);
+  \draw[path] (delta_3) to node[right] {$1$} (x_3);  
+  \draw[path] (delta_4) to node[right] {$1$} (x_4);
+  \draw[path] (delta_5) to node[right] {$1$} (x_5);
+  \draw[path] (delta_6) to node[right] {$1$} (x_6); 
+  \draw[path] (eta) to node[above] {$\lambda_{y_1}$} (y_1); 
+  \draw[path] (eta) to node[above] {$\lambda_{y_2}$} (y_2); 
+  \draw[path] (eta) to node[above] {$\lambda_{y_3}$} (y_3); 
+  \draw[path] (xi_1) to node[right] {$\lambda_{x_1}$} (x_1); 
+  \draw[path] (xi_1) to node[right] {$\lambda_{x_2}$} (x_2); 
+  \draw[path] (xi_1) to node[right] {$\lambda_{x_3}$} (x_3); 
+  \draw[path] (xi_2) to node[right] {$\lambda_{x_4}$} (x_4); 
+  \draw[path] (xi_2) to node[right] {$\lambda_{x_5}$} (x_5); 
+  \draw[path] (xi_2) to node[right] {$\lambda_{x_6}$} (x_6); 
+  \draw[path] (xi_1) to node[below] {$\beta_1$} (eta); 
+  \draw[path] (xi_2) to node[above] {$\beta_2$} (eta); 
+  \draw[path] (zeta) to node[left] {$1$} (eta); 
+  \draw[cov] (zeta) to[out=-70,in=-110,looseness=5] node[below] {$\psi_{\zeta}$} (zeta);
+  \draw[cov] (xi_1) to[out=-20,in=20,looseness=4] node[right] {$\phi_{\xi_1}$} (xi_1);
+  \draw[cov] (xi_2) to[out=-20,in=20,looseness=4] node[right] {$\phi_{\xi_2}$} (xi_2);
+  \draw[cov] (xi_1) to node[right] {$\phi_{\xi_1, \xi_2}$} (xi_2);
+  \draw[cov] (varepsilon_1) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{1}}$} (varepsilon_1);
+  \draw[cov] (varepsilon_2) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{2}}$} (varepsilon_2);
+  \draw[cov] (varepsilon_3) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{3}}$} (varepsilon_3);
+  \draw[cov] (delta_1) to[out=70,in=110,looseness=5] node[above] {$\theta_{\delta_{1}}$} (delta_1);
+  \draw[cov] (delta_2) to[out=70,in=110,looseness=5] node[above] {$\theta_{\delta_{2}}$} (delta_2);
+  \draw[cov] (delta_3) to[out=70,in=110,looseness=5] node[above] {$\theta_{\delta_{3}}$} (delta_3);
+  \draw[cov] (delta_4) to[out=-70,in=-110,looseness=5] node[below] {$\theta_{\delta_{4}}$} (delta_4);
+  \draw[cov] (delta_5) to[out=-70,in=-110,looseness=5] node[below] {$\theta_{\delta_{5}}$} (delta_5);
+  \draw[cov] (delta_6) to[out=-70,in=-110,looseness=5] node[below] {$\theta_{\delta_{6}}$} (delta_6);
+  \node[inv] (eq) [below = of delta_5] {$\boldsymbol{\eta} = \mathbf{B} \boldsymbol{\eta} + \boldsymbol{\Gamma} \boldsymbol{\xi} + \boldsymbol{\zeta}, \mathbf{y} = \boldsymbol{\Lambda}_{y} \boldsymbol{\eta} + \boldsymbol{\varepsilon}, \mathbf{x} = \boldsymbol{\Lambda}_{x} \boldsymbol{\xi} + \boldsymbol{\delta}$};
 \end{tikzpicture}
 ```

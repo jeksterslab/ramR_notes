@@ -125,7 +125,7 @@
 
 \title{Reticular Action Model (RAM) Notation Notes}
 \author{Ivan Jacob Agaloos Pesigan}
-\date{2021-01-19}
+\date{2021-01-20}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -468,6 +468,12 @@ The equations above completely define RAM.
 \centering
 \includegraphics{ramR_notes_files/figure-latex/ram-diagram-04-1.pdf}
 \caption{\label{fig:ram-diagram-04}Two-Factor Confirmatory Factor Analysis Model}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-diagram-05-1.pdf}
+\caption{\label{fig:ram-diagram-05}Path Model with Latent Variables}
 \end{figure}
 
 \hypertarget{ram-t}{%
@@ -956,6 +962,104 @@ can be numerically derived using the \texttt{ramR::v\_num()} function.
 ## y 0.5000156
 ## x 0.5000000
 \end{verbatim}
+
+\hypertarget{equations-to-ram}{%
+\section{Equations to RAM}\label{equations-to-ram}}
+
+The \texttt{ramR} package has a utility function to convert structural equations to RAM notation.
+The Student's \(t\)-test can be expressed in the following equations
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
+\StringTok{  e           by        y         1;}
+\StringTok{  y           on        x         beta;}
+\StringTok{  e           with      e         sigma[varepsilon]\^{}2;}
+\StringTok{  x           with      x         sigma[x]\^{}2;}
+\StringTok{  y           on        1         alpha;}
+\StringTok{  x           on        1         mu[x]}
+\StringTok{"}
+\end{Highlighting}
+\end{Shaded}
+
+The error term is treated as a latent variable and defined with the operation \texttt{by}.
+It's value is constrained to \(1\).
+The regression of \(y\) on \(x\) is defined by operation \texttt{on}.
+It is labeled as \texttt{beta}.
+The variance of \(x\) and the error variance are defined using the operation \texttt{with}.
+These are labeled \texttt{sigma{[}x{]}\^{}2} and \texttt{sigma{[}varepsilon{]}\^{}2} respectively.
+The intercept and the mean of \(x\) are defined using the operation \texttt{on\ 1}.
+These are labeled \texttt{alpha} and \texttt{mu{[}x{]}} respectively.
+
+The \texttt{ramR::eq2ram} converts the equations to RAM notation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RAM }\OtherTok{\textless{}{-}}\NormalTok{ ramR}\SpecialCharTok{::}\FunctionTok{eq2ram}\NormalTok{(model)}
+\NormalTok{RAM}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $A
+##   y   x      e  
+## y "0" "beta" "1"
+## x "0" "0"    "0"
+## e "0" "0"    "0"
+## 
+## $S
+##   y   x            e                    
+## y "0" "0"          "0"                  
+## x "0" "sigma[x]^2" "0"                  
+## e "0" "0"          "sigma[varepsilon]^2"
+## 
+## $filter
+##   y x e
+## y 1 0 0
+## x 0 1 0
+## 
+## $u
+##   u      
+## y "alpha"
+## x "mu[x]"
+## e "0"
+\end{verbatim}
+
+The \texttt{*\_sym} functions can be used on the results of \texttt{ramR::eq2ram}
+to derive the covariance and mean expectations.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C\_sym}\NormalTok{(RAM}\SpecialCharTok{$}\NormalTok{A, RAM}\SpecialCharTok{$}\NormalTok{S)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{equation*}\mathbf{C} =\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  \sigma  _{x} ^{2} & \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x} ^{2} \beta  & \sigma  _{x} ^{2} & 0 \\ \sigma  _{\varepsilon } ^{2} & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{equation*}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M\_sym}\NormalTok{(RAM}\SpecialCharTok{$}\NormalTok{A, RAM}\SpecialCharTok{$}\NormalTok{S, RAM}\SpecialCharTok{$}\NormalTok{filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{equation*}\mathbf{M} =\left( \begin{array}{cc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  & \sigma  _{x} ^{2} \end{array} \right)\end{equation*}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v\_sym}\NormalTok{(RAM}\SpecialCharTok{$}\NormalTok{A, RAM}\SpecialCharTok{$}\NormalTok{u)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{equation*}\mathbf{v} =\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\end{equation*}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g\_sym}\NormalTok{(RAM}\SpecialCharTok{$}\NormalTok{A, RAM}\SpecialCharTok{$}\NormalTok{u, RAM}\SpecialCharTok{$}\NormalTok{filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{equation*}\mathbf{g} =\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{equation*}
 
   \bibliography{book.bib,packages.bib}
 

@@ -1,19 +1,14 @@
-if (!requireNamespace("tinytex", quietly = TRUE)) {
-  if (!requireNamespace("devtools", quietly = TRUE)) {
-    install.packages("jsonlite", repos = "https://cran.rstudio.com/", quiet = TRUE)
-    install.packages("httr", repos = "https://cran.rstudio.com/", quiet = TRUE)
-    install.packages("memoise", repos = "https://cran.rstudio.com/", quiet = TRUE)
-    install.packages("devtools", repos = "https://cran.rstudio.com/", quiet = TRUE)
-    cat("devtools installed\n")
-  }
-  devtools::install_github(c("yihui/tinytex"), quiet = TRUE)
+if (!require("remotes")) install.packages("remotes")
+if (!require("styler")) install.packages("styler")
+if (!require("bookdown")) install.packages("bookdown")
+if (!require("tinytex")) {
+  remotes::install_github("yihui/tinytex")
   tinytex::install_tinytex()
 }
-if (!require("styler")) install.packages("styler")
-if (!require("remotes")) install.packages("remotes")
+# for tikz
 if (!require("magick")) install.packages("magick")
 if (!require("pdftools")) install.packages("pdftools")
-if (!require("bookdown")) install.packages("bookdown")
+# packages used in the text
 if (!require("lavaan")) install.packages("lavaan")
 if (!require("Ryacas")) install.packages("Ryacas")
 # ensures that the latest version is installed
