@@ -10,7 +10,9 @@ fig:ram-diagram-02
 fig:ram-diagram-03
 fig:ram-diagram-04
 fig:ram-diagram-05
+fig:ram-diagram-06
 fig:ram-t-01
+fig:ram-t-02
 description
 ram-matrix-notation
 full-model
@@ -25,3 +27,4 @@ linear-regression
 structural-equation-modeling
 using-the-ramr-package-1
 equations-to-ram
+equations-to-expectations

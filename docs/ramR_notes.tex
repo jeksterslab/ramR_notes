@@ -125,7 +125,7 @@
 
 \title{Reticular Action Model (RAM) Notation Notes}
 \author{Ivan Jacob Agaloos Pesigan}
-\date{2021-01-20}
+\date{2021-01-22}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -473,7 +473,13 @@ The equations above completely define RAM.
 \begin{figure}
 \centering
 \includegraphics{ramR_notes_files/figure-latex/ram-diagram-05-1.pdf}
-\caption{\label{fig:ram-diagram-05}Path Model with Latent Variables}
+\caption{\label{fig:ram-diagram-05}Two-Factor Confirmatory Factor Analysis Model with Mean Structure}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-diagram-06-1.pdf}
+\caption{\label{fig:ram-diagram-06}Path Model with Latent Variables}
 \end{figure}
 
 \hypertarget{ram-t}{%
@@ -545,10 +551,10 @@ Let \(\left\{ y, x, \varepsilon \right\}\) be the variables of interest.
 \end{Shaded}
 
 \begin{verbatim}
-##      [,1] [,2]   [,3]
-## [1,] "0"  "beta" "1" 
-## [2,] "0"  "0"    "0" 
-## [3,] "0"  "0"    "0"
+##   y   x      e  
+## y "0" "beta" "1"
+## x "0" "0"    "0"
+## e "0" "0"    "0"
 \end{verbatim}
 
 \begin{Shaded}
@@ -558,10 +564,10 @@ Let \(\left\{ y, x, \varepsilon \right\}\) be the variables of interest.
 \end{Shaded}
 
 \begin{verbatim}
-##      [,1] [,2]         [,3]                 
-## [1,] "0"  "0"          "0"                  
-## [2,] "0"  "sigma[x]^2" "0"                  
-## [3,] "0"  "0"          "sigma[varepsilon]^2"
+##   y   x            e                    
+## y "0" "0"          "0"                  
+## x "0" "sigma[x]^2" "0"                  
+## e "0" "0"          "sigma[varepsilon]^2"
 \end{verbatim}
 
 \begin{Shaded}
@@ -571,10 +577,10 @@ Let \(\left\{ y, x, \varepsilon \right\}\) be the variables of interest.
 \end{Shaded}
 
 \begin{verbatim}
-##      [,1]   
-## [1,] "alpha"
-## [2,] "mu[x]"
-## [3,] "0"
+##   u      
+## y "alpha"
+## x "mu[x]"
+## e "0"
 \end{verbatim}
 
 \begin{Shaded}
@@ -584,9 +590,9 @@ Let \(\left\{ y, x, \varepsilon \right\}\) be the variables of interest.
 \end{Shaded}
 
 \begin{verbatim}
-##      [,1] [,2] [,3]
-## [1,]    1    0    0
-## [2,]    0    1    0
+##   y x e
+## y 1 0 0
+## x 0 1 0
 \end{verbatim}
 
 The covariance expectations
@@ -658,6 +664,20 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 \hypertarget{numerical-example}{%
 \section{Numerical Example}\label{numerical-example}}
 
+Let \texttt{df} be a random sample with the following parameters
+
+\begin{tabular}{l|l|l}
+\hline
+Parameter & \$x = 0\$ & \$x = 1\$\\
+\hline
+Sample Size & 500 & 500\\
+\hline
+\$\textbackslash{}mu\$ & 0 & 1\\
+\hline
+\$\textbackslash{}sigma\textasciicircum{}2\$ & 1 & 1\\
+\hline
+\end{tabular}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{head}\NormalTok{(df)}
@@ -682,23 +702,22 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 
 \begin{verbatim}
 ##        y                 x      
-##  Min.   :-4.6785   Min.   :0.0  
-##  1st Qu.:-0.2622   1st Qu.:0.0  
-##  Median : 0.5013   Median :0.5  
-##  Mean   : 0.5000   Mean   :0.5  
-##  3rd Qu.: 1.2618   3rd Qu.:1.0  
-##  Max.   : 5.7839   Max.   :1.0
+##  Min.   :-2.9931   Min.   :0.0  
+##  1st Qu.:-0.2770   1st Qu.:0.0  
+##  Median : 0.4503   Median :0.5  
+##  Mean   : 0.4742   Mean   :0.5  
+##  3rd Qu.: 1.2492   3rd Qu.:1.0  
+##  Max.   : 4.4953   Max.   :1.0
 \end{verbatim}
 
-\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-33-1.pdf} \includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-33-2.pdf} \includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-33-3.pdf}
+\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-34-1.pdf} \includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-34-2.pdf} \includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-34-3.pdf}
 
 \hypertarget{t-test}{%
 \subsection{\texorpdfstring{\(t\)-test}{t-test}}\label{t-test}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{t.test }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df)}
-\NormalTok{t.test}
+\FunctionTok{t.test}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -707,24 +726,13 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 ##  Welch Two Sample t-test
 ## 
 ## data:  y by x
-## t = -706.06, df = 2e+06, p-value < 2.2e-16
+## t = -15.897, df = 994.36, p-value < 2.2e-16
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -1.0016565 -0.9961108
+##  -1.1329278 -0.8839594
 ## sample estimates:
 ## mean in group 0 mean in group 1 
-##    0.0005737398    0.9994574009
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{t.test}\SpecialCharTok{$}\NormalTok{estimate}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## mean in group 0 mean in group 1 
-##    0.0005737398    0.9994574009
+##     -0.03004622      0.97839737
 \end{verbatim}
 
 \hypertarget{linear-regression}{%
@@ -732,8 +740,7 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df)}
-\FunctionTok{summary}\NormalTok{(lm)}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -744,29 +751,18 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -4.8838 -0.6745  0.0005  0.6749  4.8195 
+## -3.3501 -0.6517  0.0086  0.6858  3.5169 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 0.0005737  0.0010004   0.574    0.566    
-## x           0.9988837  0.0014147 706.057   <2e-16 ***
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -0.03005    0.04486   -0.67    0.503    
+## x            1.00844    0.06344   15.90   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 1 on 1999998 degrees of freedom
-## Multiple R-squared:  0.1995, Adjusted R-squared:  0.1995 
-## F-statistic: 4.985e+05 on 1 and 1999998 DF,  p-value: < 2.2e-16
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{coef}\NormalTok{(lm)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  (Intercept)            x 
-## 0.0005737398 0.9988836611
+## Residual standard error: 1.003 on 998 degrees of freedom
+## Multiple R-squared:  0.2021, Adjusted R-squared:  0.2013 
+## F-statistic: 252.7 on 1 and 998 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
 \hypertarget{structural-equation-modeling}{%
@@ -776,22 +772,25 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 \begin{Highlighting}[]
 \NormalTok{model }\OtherTok{\textless{}{-}} \StringTok{"}
 \StringTok{  y \textasciitilde{} x}
-\StringTok{  y \textasciitilde{} 1}
-\StringTok{  x \textasciitilde{} 1}
 \StringTok{"}
-\NormalTok{fit }\OtherTok{\textless{}{-}}\NormalTok{ lavaan}\SpecialCharTok{::}\FunctionTok{sem}\NormalTok{(model, }\AttributeTok{data =}\NormalTok{ df)}
+\NormalTok{fit }\OtherTok{\textless{}{-}}\NormalTok{ lavaan}\SpecialCharTok{::}\FunctionTok{sem}\NormalTok{(}
+\NormalTok{  model,}
+  \AttributeTok{data =}\NormalTok{ df,}
+  \AttributeTok{meanstructure =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{fixed.x =} \ConstantTok{FALSE}
+\NormalTok{)}
 \NormalTok{lavaan}\SpecialCharTok{::}\FunctionTok{summary}\NormalTok{(fit)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## lavaan 0.6-7 ended normally after 15 iterations
+## lavaan 0.6-7 ended normally after 12 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
 ##   Number of free parameters                          5
 ##                                                       
-##   Number of observations                       2000000
+##   Number of observations                          1000
 ##                                                       
 ## Model Test User Model:
 ##                                                       
@@ -807,41 +806,30 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(>|z|)
 ##   y ~                                                 
-##     x                 0.999    0.001  706.057    0.000
+##     x                 1.008    0.063   15.913    0.000
 ## 
 ## Intercepts:
 ##                    Estimate  Std.Err  z-value  P(>|z|)
-##    .y                 0.001    0.001    0.574    0.566
-##     x                 0.500    0.000 1414.214    0.000
+##    .y                -0.030    0.045   -0.671    0.503
+##     x                 0.500    0.016   31.623    0.000
 ## 
 ## Variances:
 ##                    Estimate  Std.Err  z-value  P(>|z|)
-##    .y                 1.001    0.001 1000.000    0.000
-##     x                 0.250    0.000 1000.000    0.000
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lavaan}\SpecialCharTok{::}\FunctionTok{coef}\NormalTok{(fit)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##   y~x   y~1   x~1  y~~y  x~~x 
-## 0.999 0.001 0.500 1.001 0.250
+##    .y                 1.004    0.045   22.361    0.000
+##     x                 0.250    0.011   22.361    0.000
 \end{verbatim}
 
 \begin{tabular}{l|l}
 \hline
-label & parameter\\
+Parameter & Estimate\\
 \hline
-\$\textbackslash{}alpha\$ & 0\\
+\$\textbackslash{}alpha\$ & -0.03\\
 \hline
-\$\textbackslash{}beta\$ & 1\\
+\$\textbackslash{}beta\$ & 1.01\\
 \hline
 \$\textbackslash{}sigma\textasciicircum{}\{2\}\_\{x\}\$ & 0.25\\
 \hline
-\$\textbackslash{}sigma\textasciicircum{}\{2\}\_\{\textbackslash{}varepsilon\}\$ & 0.25\\
+\$\textbackslash{}sigma\textasciicircum{}\{2\}\_\{\textbackslash{}varepsilon\}\$ & 1.01\\
 \hline
 \$\textbackslash{}mu\_x\$ & 0.5\\
 \hline
@@ -857,10 +845,10 @@ label & parameter\\
 \end{Shaded}
 
 \begin{verbatim}
-##   y         x e
-## y 0 0.9988837 1
-## x 0 0.0000000 0
-## e 0 0.0000000 0
+##   y        x e
+## y 0 1.008444 1
+## x 0 0.000000 0
+## e 0 0.000000 0
 \end{verbatim}
 
 \begin{Shaded}
@@ -870,10 +858,10 @@ label & parameter\\
 \end{Shaded}
 
 \begin{verbatim}
-##   y         x         e
-## y 0 0.0000000 0.0000000
-## x 0 0.2500001 0.0000000
-## e 0 0.0000000 0.2494423
+##   y         x        e
+## y 0 0.0000000 0.000000
+## x 0 0.2502503 0.000000
+## e 0 0.0000000 1.006038
 \end{verbatim}
 
 \begin{Shaded}
@@ -883,10 +871,10 @@ label & parameter\\
 \end{Shaded}
 
 \begin{verbatim}
-##           [,1]
-## y 0.0005737398
-## x 0.5000000000
-## e 0.0000000000
+##             u
+## y -0.03004622
+## x  0.50000000
+## e  0.00000000
 \end{verbatim}
 
 \begin{Shaded}
@@ -911,10 +899,10 @@ can be numerically derived using the \texttt{ramR::C\_num()} function.
 \end{Shaded}
 
 \begin{verbatim}
-##           y         x         e
-## y 0.4988845 0.2497210 0.2494423
-## x 0.2497210 0.2500001 0.0000000
-## e 0.2494423 0.0000000 0.2494423
+##           y         x        e
+## y 1.2605321 0.2523633 1.006038
+## x 0.2523633 0.2502503 0.000000
+## e 1.0060380 0.0000000 1.006038
 \end{verbatim}
 
 The covariance expectations for the observed variables
@@ -928,8 +916,8 @@ can be numerically derived using the \texttt{ramR::M\_num()} function.
 
 \begin{verbatim}
 ##           y         x
-## y 0.4988845 0.2497210
-## x 0.2497210 0.2500001
+## y 1.2605321 0.2523633
+## x 0.2523633 0.2502503
 \end{verbatim}
 
 The mean expectations
@@ -943,7 +931,7 @@ can be numerically derived using the \texttt{ramR::v\_num()} function.
 
 \begin{verbatim}
 ##           v
-## y 0.5000156
+## y 0.4741756
 ## x 0.5000000
 ## e 0.0000000
 \end{verbatim}
@@ -959,7 +947,7 @@ can be numerically derived using the \texttt{ramR::v\_num()} function.
 
 \begin{verbatim}
 ##           g
-## y 0.5000156
+## y 0.4741756
 ## x 0.5000000
 \end{verbatim}
 
@@ -971,7 +959,7 @@ The Student's \(t\)-test can be expressed in the following equations
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{model }\OtherTok{\textless{}{-}} \StringTok{"}
+\NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
 \StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
 \StringTok{  e           by        y         1;}
 \StringTok{  y           on        x         beta;}
@@ -982,6 +970,12 @@ The Student's \(t\)-test can be expressed in the following equations
 \StringTok{"}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-t-02-1.pdf}
+\caption{\label{fig:ram-t-02}Student's \(t\)-test's Structural Equations}
+\end{figure}
 
 The error term is treated as a latent variable and defined with the operation \texttt{by}.
 It's value is constrained to \(1\).
@@ -996,12 +990,23 @@ The \texttt{ramR::eq2ram} converts the equations to RAM notation.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{RAM }\OtherTok{\textless{}{-}}\NormalTok{ ramR}\SpecialCharTok{::}\FunctionTok{eq2ram}\NormalTok{(model)}
-\NormalTok{RAM}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2ram}\NormalTok{(eq)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
+## $eq
+##   var1   op var2               label
+## 1    e   by    y                   1
+## 2    y   on    x                beta
+## 3    e with    e sigma[varepsilon]^2
+## 4    x with    x          sigma[x]^2
+## 5    y   on    1               alpha
+## 6    x   on    1               mu[x]
+## 
+## $variables
+## [1] "y" "x" "e"
+## 
 ## $A
 ##   y   x      e  
 ## y "0" "beta" "1"
@@ -1026,40 +1031,143 @@ The \texttt{ramR::eq2ram} converts the equations to RAM notation.
 ## e "0"
 \end{verbatim}
 
-The \texttt{*\_sym} functions can be used on the results of \texttt{ramR::eq2ram}
-to derive the covariance and mean expectations.
+\hypertarget{equations-to-expectations}{%
+\section{Equations to Expectations}\label{equations-to-expectations}}
+
+The \texttt{ramR} package has a utility function to convert structural equations to expectations
+both symbolically and numerically.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C\_sym}\NormalTok{(RAM}\SpecialCharTok{$}\NormalTok{A, RAM}\SpecialCharTok{$}\NormalTok{S)}
+\NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
+\StringTok{  e           by        y         1;}
+\StringTok{  y           on        x         beta;}
+\StringTok{  e           with      e         sigma[varepsilon]\^{}2;}
+\StringTok{  x           with      x         sigma[x]\^{}2;}
+\StringTok{  y           on        1         alpha;}
+\StringTok{  x           on        1         mu[x]}
+\StringTok{"}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{equation*}\mathbf{C} =\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  \sigma  _{x} ^{2} & \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x} ^{2} \beta  & \sigma  _{x} ^{2} & 0 \\ \sigma  _{\varepsilon } ^{2} & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{equation*}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M\_sym}\NormalTok{(RAM}\SpecialCharTok{$}\NormalTok{A, RAM}\SpecialCharTok{$}\NormalTok{S, RAM}\SpecialCharTok{$}\NormalTok{filter)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2exp\_sym}\NormalTok{(eq)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{equation*}\mathbf{M} =\left( \begin{array}{cc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  & \sigma  _{x} ^{2} \end{array} \right)\end{equation*}
+\begin{verbatim}
+## $variables
+## [1] "y" "x" "e"
+## 
+## $A
+## {{   0, beta,    1},
+##  {   0,    0,    0},
+##  {   0,    0,    0}} 
+## 
+## $S
+## {{                  0,                   0,                   0},
+##  {                  0,          sigma[x]^2,                   0},
+##  {                  0,                   0, sigma[varepsilon]^2}} 
+## 
+## $u
+## {{alpha},
+##  {mu[x]},
+##  {    0}} 
+## 
+## $filter
+## {{1, 0, 0},
+##  {0, 1, 0}} 
+## 
+## $v
+## {{alpha+beta*mu[x]},
+##  {           mu[x]},
+##  {               0}} 
+## 
+## $g
+## {{alpha+beta*mu[x]},
+##  {           mu[x]}} 
+## 
+## $C
+## {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2,                   sigma[varepsilon]^2},
+##  {                      sigma[x]^2*beta,                            sigma[x]^2,                                     0},
+##  {                  sigma[varepsilon]^2,                                     0,                   sigma[varepsilon]^2}} 
+## 
+## $M
+## {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2},
+##  {                      sigma[x]^2*beta,                            sigma[x]^2}}
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v\_sym}\NormalTok{(RAM}\SpecialCharTok{$}\NormalTok{A, RAM}\SpecialCharTok{$}\NormalTok{u)}
+\NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 VALUE}
+\StringTok{  e           by        y         1.00;}
+\StringTok{  y           on        x         1.00;}
+\StringTok{  e           with      e         1.00;}
+\StringTok{  x           with      x         0.25;}
+\StringTok{  y           on        1         0.00;}
+\StringTok{  x           on        1         0.50}
+\StringTok{"}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{equation*}\mathbf{v} =\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\end{equation*}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g\_sym}\NormalTok{(RAM}\SpecialCharTok{$}\NormalTok{A, RAM}\SpecialCharTok{$}\NormalTok{u, RAM}\SpecialCharTok{$}\NormalTok{filter)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2exp\_num}\NormalTok{(eq)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{equation*}\mathbf{g} =\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{equation*}
+\begin{verbatim}
+## $variables
+## [1] "y" "x" "e"
+## 
+## $A
+##   y x e
+## y 0 1 1
+## x 0 0 0
+## e 0 0 0
+## 
+## $S
+##   y    x e
+## y 0 0.00 0
+## x 0 0.25 0
+## e 0 0.00 1
+## 
+## $u
+##     u
+## y 0.0
+## x 0.5
+## e 0.0
+## 
+## $filter
+##   y x e
+## y 1 0 0
+## x 0 1 0
+## 
+## $v
+##     v
+## y 0.5
+## x 0.5
+## e 0.0
+## 
+## $g
+##     g
+## y 0.5
+## x 0.5
+## 
+## $C
+##      y    x e
+## y 1.25 0.25 1
+## x 0.25 0.25 0
+## e 1.00 0.00 1
+## 
+## $M
+##      y    x
+## y 1.25 0.25
+## x 0.25 0.25
+\end{verbatim}
 
   \bibliography{book.bib,packages.bib}
 

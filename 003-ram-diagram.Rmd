@@ -120,8 +120,8 @@
     draw,
     thick,
     inner sep = 0pt,
-    minimum width = 15mm,
-    minimum height = 10mm
+    minimum width = 7mm,
+    minimum height = 7mm
   },
   path/.style = {
     ->,
@@ -141,9 +141,9 @@
   \draw[path] (1) to node[right] {$\beta_1$} (y);
   \draw[path] (x) to node[above] {$\beta_2$} (y);
   \draw[path] (varepsilon) to node[above] {$1$} (y);
-  \draw[cov] (1) to[out=70,in=110,looseness=5] node[above] {$1$} (1);
-  \draw[cov] (x) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x}^{2}$} (x);
-  \draw[cov] (varepsilon) to[out=70,in=110,looseness=5] node[above] {$\sigma_{\varepsilon}^{2}$} (varepsilon);
+  \draw[cov] (1) to[out=70,in=110,looseness=6] node[above] {$1$} (1);
+  \draw[cov] (x) to[out=-10,in=10,looseness=5] node[right] {$\sigma_{x}^{2}$} (x);
+  \draw[cov] (varepsilon) to[out=160,in=200,looseness=5] node[left] {$\sigma_{\varepsilon}^{2}$} (varepsilon);
   \node[inv] (eq) [below = of y] {$y = \alpha + \beta x + \varepsilon$};
 \end{tikzpicture}
 ```
@@ -191,8 +191,8 @@
     draw,
     thick,
     inner sep = 0pt,
-    minimum width = 15mm,
-    minimum height = 10mm
+    minimum width = 7mm,
+    minimum height = 7mm
   },
   path/.style = {
     ->,
@@ -221,9 +221,9 @@
   \draw[cov] (x_j) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x_{j}}^{2}$} (x_j);
   \draw[cov] (x_k) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x_{k}}^{2}$} (x_k);
   \draw[cov] (x_2) to[out=360,in=360,looseness=1] node[right] {$\sigma_{x_{2}, x_{k}}$} (x_k);
-  \draw[cov] (x_2) to[out=360,in=360,looseness=1] node[right] {$\sigma_{x_{2}, x_{j}}$} (x_j);
-  \draw[cov] (x_k) to[out=360,in=360,looseness=1] node[right] {$\sigma_{x_{k}, x_{j}}$} (x_j);
-  \draw[cov] (varepsilon) to[out=70,in=110,looseness=5] node[above] {$\sigma_{\varepsilon}^{2}$} (varepsilon);
+  \draw[cov] (x_2) to[out=360,in=360,looseness=1] node[left] {$\sigma_{x_{2}, x_{j}}$} (x_j);
+  \draw[cov] (x_k) to[out=360,in=360,looseness=1] node[left] {$\sigma_{x_{k}, x_{j}}$} (x_j);
+  \draw[cov] (varepsilon) to[out=160,in=200,looseness=5] node[left] {$\sigma_{\varepsilon}^{2}$} (varepsilon);
   \node[inv] (eq) [below = of y] {$\mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon}$};
 \end{tikzpicture}
 ```
@@ -232,7 +232,7 @@
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
   auto,
-  node distance = 15mm,
+  node distance = 5mm and 10mm,
   manifest/.style = {
     rectangle,
     draw,
@@ -299,10 +299,10 @@
   \node[error] (varepsilon_6) [left = of y_6] {$\varepsilon_6$}; 
   \node[latent] (eta_1) [right = of y_2] {$\eta_1$};
   \node[latent] (eta_2) [right = of y_5] {$\eta_2$};
-  \draw[path] (eta_1) to node[left] {$\lambda_1$} (y_1);
+  \draw[path] (eta_1) to node[above] {$\lambda_1$} (y_1);
   \draw[path] (eta_1) to node[above] {$\lambda_2$} (y_2);
   \draw[path] (eta_1) to node[above] {$\lambda_3$} (y_3);
-  \draw[path] (eta_2) to node[left] {$\lambda_4$} (y_4);
+  \draw[path] (eta_2) to node[above] {$\lambda_4$} (y_4);
   \draw[path] (eta_2) to node[above] {$\lambda_5$} (y_5);
   \draw[path] (eta_2) to node[above] {$\lambda_6$} (y_6);
   \draw[path] (varepsilon_1) to node[above] {$1$} (y_1);
@@ -311,20 +311,141 @@
   \draw[path] (varepsilon_4) to node[above] {$1$} (y_4);
   \draw[path] (varepsilon_5) to node[above] {$1$} (y_5);
   \draw[path] (varepsilon_6) to node[above] {$1$} (y_6);
-  \draw[cov] (varepsilon_1) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{1}}$} (varepsilon_1);
-  \draw[cov] (varepsilon_2) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{2}}$} (varepsilon_2);
-  \draw[cov] (varepsilon_3) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{3}}$} (varepsilon_3);
-  \draw[cov] (varepsilon_4) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{4}}$} (varepsilon_4);
-  \draw[cov] (varepsilon_5) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{5}}$} (varepsilon_5);
-  \draw[cov] (varepsilon_6) to[out=70,in=110,looseness=5] node[above] {$\theta_{\varepsilon_{6}}$} (varepsilon_6);
-  \draw[cov] (eta_1) to[out=70,in=110,looseness=5] node[above] {$\psi_{\eta_1}$} (eta_1);
-  \draw[cov] (eta_2) to[out=-70,in=-110,looseness=5] node[below] {$\psi_{\eta_2}$} (eta_2);
+  \draw[cov] (varepsilon_1) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{1}}$} (varepsilon_1);
+  \draw[cov] (varepsilon_2) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{2}}$} (varepsilon_2);
+  \draw[cov] (varepsilon_3) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{3}}$} (varepsilon_3);
+  \draw[cov] (varepsilon_4) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{4}}$} (varepsilon_4);
+  \draw[cov] (varepsilon_5) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{5}}$} (varepsilon_5);
+  \draw[cov] (varepsilon_6) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{6}}$} (varepsilon_6);
+  \draw[cov] (eta_1) to[out=70,in=110,looseness=4] node[above] {$\psi_{\eta_1}$} (eta_1);
+  \draw[cov] (eta_2) to[out=-70,in=-110,looseness=4] node[below] {$\psi_{\eta_2}$} (eta_2);
   \draw[cov] (eta_1) to node[right] {$\psi_{\eta_1, \eta_2}$} (eta_2);
-  \node[inv] (eq) [below = of eta_2] {$\mathbf{y} = \boldsymbol{\Lambda} \boldsymbol{\eta} + \boldsymbol{\varepsilon}$};
+  \node[inv] (eq) [below = of y_6] {$\mathbf{y} = \boldsymbol{\Lambda} \boldsymbol{\eta} + \boldsymbol{\varepsilon}$};
 \end{tikzpicture}
 ```
 
-```{tikz, ram-diagram-05, echo = FALSE, fig.cap = "Path Model with Latent Variables", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+```{tikz, ram-diagram-05, echo = FALSE, fig.cap = "Two-Factor Confirmatory Factor Analysis Model with Mean Structure", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 1mm and 10mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 15mm,
+    align = center
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 7mm,
+    minimum height = 7mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 7mm,
+    align = center
+  },
+  mean/.style={
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 7mm,
+    minimum height = 7mm
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+
+  \node[error] (varepsilon_1) {$\varepsilon_1$};
+  \node[inv] (inv_1) [below = of varepsilon_1] {};
+  \node[mean] (1_1) [below = of inv_1] {$1$};
+  \node[error] (varepsilon_2) [below = of 1_1] {$\varepsilon_2$};
+  \node[inv] (inv_2) [below = of varepsilon_2] {};
+  \node[mean] (1_2) [below = of inv_2] {$1$};
+  \node[error] (varepsilon_3) [below = of 1_2] {$\varepsilon_3$};
+  \node[inv] (inv_3) [below = of varepsilon_3] {};
+  \node[mean] (1_3) [below = of inv_3] {$1$};
+  \node[error] (varepsilon_4) [below = of 1_3] {$\varepsilon_4$};
+  \node[inv] (inv_4) [below = of varepsilon_4] {};
+  \node[mean] (1_4) [below = of inv_4] {$1$};
+  \node[error] (varepsilon_5) [below = of 1_4] {$\varepsilon_5$};
+  \node[inv] (inv_5) [below = of varepsilon_5] {};
+  \node[mean] (1_5) [below = of inv_5] {$1$};
+  \node[error] (varepsilon_6) [below = of 1_5] {$\varepsilon_6$};
+  \node[inv] (inv_6) [below = of varepsilon_6] {};
+  \node[mean] (1_6) [below = of inv_6] {$1$};
+  \node[manifest] (y_1) [right = of inv_1] {$y_1$};
+  \node[manifest] (y_2) [right = of inv_2] {$y_2$};
+  \node[manifest] (y_3) [right = of inv_3] {$y_3$};
+  \node[manifest] (y_4) [right = of inv_4] {$y_4$};
+  \node[manifest] (y_5) [right = of inv_5] {$y_5$};
+  \node[manifest] (y_6) [right = of inv_6] {$y_6$};
+  \node[latent] (eta_1) [right = of y_2] {$\eta_1$};
+  \node[latent] (eta_2) [right = of y_5] {$\eta_2$};
+  \draw[path] (eta_1) to node[above] {$\lambda_1$} (y_1);
+  \draw[path] (eta_1) to node[above] {$\lambda_2$} (y_2);
+  \draw[path] (eta_1) to node[above] {$\lambda_3$} (y_3);
+  \draw[path] (eta_2) to node[above] {$\lambda_4$} (y_4);
+  \draw[path] (eta_2) to node[above] {$\lambda_5$} (y_5);
+  \draw[path] (eta_2) to node[above] {$\lambda_6$} (y_6);
+  \draw[path] (varepsilon_1) to node[above] {$1$} (y_1);
+  \draw[path] (1_1) to node[above] {$\nu_1$} (y_1);
+  \draw[path] (1_2) to node[above] {$\nu_2$} (y_2);
+  \draw[path] (1_3) to node[above] {$\nu_3$} (y_3);
+  \draw[path] (1_4) to node[above] {$\nu_4$} (y_4);
+  \draw[path] (1_5) to node[above] {$\nu_5$} (y_5);
+  \draw[path] (1_6) to node[above] {$\nu_6$} (y_6);
+  \draw[path] (varepsilon_2) to node[above] {$1$} (y_2);
+  \draw[path] (varepsilon_3) to node[above] {$1$} (y_3);
+  \draw[path] (varepsilon_4) to node[above] {$1$} (y_4);
+  \draw[path] (varepsilon_5) to node[above] {$1$} (y_5);
+  \draw[path] (varepsilon_6) to node[above] {$1$} (y_6);
+  \draw[cov] (varepsilon_1) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{1}}$} (varepsilon_1);
+  \draw[cov] (varepsilon_2) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{2}}$} (varepsilon_2);
+  \draw[cov] (varepsilon_3) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{3}}$} (varepsilon_3);
+  \draw[cov] (varepsilon_4) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{4}}$} (varepsilon_4);
+  \draw[cov] (varepsilon_5) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{5}}$} (varepsilon_5);
+  \draw[cov] (varepsilon_6) to[out=160,in=200,looseness=5] node[left] {$\theta_{\varepsilon_{6}}$} (varepsilon_6);
+  \draw[cov] (1_1) to[out=70,in=110,looseness=6] node[above] {$1$} (1_1);
+  \draw[cov] (1_2) to[out=70,in=110,looseness=6] node[above] {$1$} (1_2);
+  \draw[cov] (1_3) to[out=70,in=110,looseness=6] node[above] {$1$} (1_3);
+  \draw[cov] (1_4) to[out=70,in=110,looseness=6] node[above] {$1$} (1_4);
+  \draw[cov] (1_5) to[out=70,in=110,looseness=6] node[above] {$1$} (1_5);
+  \draw[cov] (1_6) to[out=70,in=110,looseness=6] node[above] {$1$} (1_6);
+  \draw[cov] (eta_1) to[out=70,in=110,looseness=4] node[above] {$\psi_{\eta_1}$} (eta_1);
+  \draw[cov] (eta_2) to[out=-70,in=-110,looseness=4] node[below] {$\psi_{\eta_2}$} (eta_2);
+  \draw[cov] (eta_1) to node[right] {$\psi_{\eta_1, \eta_2}$} (eta_2);
+  \node[inv] (eq) [below = of y_6] {$\mathbf{y} = \boldsymbol{\nu} + \boldsymbol{\Lambda} \boldsymbol{\eta} + \boldsymbol{\varepsilon}$};
+\end{tikzpicture}
+```
+
+```{tikz, ram-diagram-06, echo = FALSE, fig.cap = "Path Model with Latent Variables", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
   auto,

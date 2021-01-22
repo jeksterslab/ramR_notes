@@ -138,6 +138,16 @@ filter <- matrix(
   nrow = 2,
   ncol = dim(A)[2]
 )
+rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- colnames(filter) <- c(
+  "y",
+  "x",
+  "e"
+)
+colnames(u) <- "u"
+rownames(filter) <- c(
+  "y",
+  "x"
+)
 ```
 
 ```{r, echo = FALSE, results = "asis"}
@@ -356,54 +366,57 @@ cat(
 ## Numerical Example
 
 ```{r, echo = FALSE}
+data_t <- function(n1,
+                   n2,
+                   mean1,
+                   mean2,
+                   var1,
+                   var2) {
+  return(
+    rbind(
+      cbind(
+        y = rnorm(n = n1, mean = mean1, sd = sqrt(var1)),
+        x = 0
+      ),
+      cbind(
+        y = rnorm(n = n2, mean = mean2, sd = sqrt(var2)),
+        x = 1
+      )
+    )
+  )
+}
 set.seed(42)
-n <- 1000000
-group_0 <- cbind(
-  y = rnorm(n = n),
-  constant = 1,
-  x = 0
+n1 <- 500
+n2 <- 500
+mean1 <- 0
+mean2 <- 1
+var1 <- 1
+var2 <- 1
+data <- data_t(
+  n1 = n1,
+  n2 = n2,
+  mean1 = mean1,
+  mean2 = mean2,
+  var1 = var1,
+  var2 = var2
 )
-group_1 <- cbind(
-  y = rnorm(n = n, mean = 1),
-  constant = 1,
-  x = 1
-)
-data <- rbind(group_0, group_1)
-colnames(data) <- c(
-  "y",
-  "c",
-  "x"
-)
-beta <- matrixR::LS(
-  data[, -1],
-  data[, 1]
-)
-data <- cbind(
-  data[, -2],
-  epsilon = as.vector(data[, -1] %*% beta)
-)
-df <- as.data.frame(data[, 1:2])
-mu <- as.matrix(colMeans(data))
-mu_x <- mu[2, 1]
-Sigma <- var(data)
-s <- diag(Sigma)
-alpha <- beta[1, 1]
-beta <- beta[2, 1]
-a1 <- c(
-  0,
-  beta,
-  1
-)
+df <- as.data.frame(data)
+fit <- lm(y ~ x, data = df)
+beta <- coef(fit)
+alpha <- beta[1]
+beta <- beta[2]
+sigma2e <- summary(fit)$sigma^2
+Sigma <- var(df)
+sigma2x <- Sigma[2, 2]
+mu <- colMeans(df)
+mu_x <- mu[2]
 A <- S <- matrix(
   data = 0,
-  nrow = dim(mu)[1],
-  ncol = dim(mu)[1]
+  nrow = 3,
+  ncol = 3
 )
-A[1, ] <- a1
-diag(S) <- s
-S[1, 1] <- 0
-sigma2x <- S[2 , 2]
-sigma2e <- S[3 , 3]
+A[1, ] <- c(0, beta, 1)
+diag(S) <- c(0, sigma2x, sigma2e)
 v <- matrix(
   data = c(
     alpha + beta * mu_x,
@@ -423,9 +436,38 @@ rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colna
   "x",
   "e"
 )
+colnames(u) <- "u"
 rownames(filter) <- c(
   "y",
   "x"
+)
+```
+
+Let `df` be a random sample with the following parameters
+
+```{r, echo = FALSE}
+label <- c(
+  "Sample Size",
+  "$\\mu$",
+  "$\\sigma^2$"
+)
+group_1 <- c(
+  n1,
+  mean1,
+  var1
+)
+group_2 <- c(
+  n2,
+  mean2,
+  var2
+)
+knitr::kable(
+  cbind(
+    label,
+    group_1,
+    group_2
+  ),
+  col.names = c("Parameter", "$x = 0$", "$x = 1$")
 )
 ```
 
@@ -460,23 +502,13 @@ hist(
 ### $t$-test
 
 ```{r}
-t.test <- t.test(y ~ x, data = df)
-t.test
-```
-
-```{r}
-t.test$estimate
+t.test(y ~ x, data = df)
 ```
 
 ### Linear Regression
 
 ```{r}
-lm <- lm(y ~ x, data = df)
-summary(lm)
-```
-
-```{r}
-coef(lm)
+summary(lm(y ~ x, data = df))
 ```
 
 ### Structural Equation Modeling
@@ -484,15 +516,14 @@ coef(lm)
 ```{r}
 model <- "
   y ~ x
-  y ~ 1
-  x ~ 1
 "
-fit <- lavaan::sem(model, data = df)
+fit <- lavaan::sem(
+  model,
+  data = df,
+  meanstructure = TRUE,
+  fixed.x = FALSE
+)
 lavaan::summary(fit)
-```
-
-```{r}
-lavaan::coef(fit)
 ```
 
 ```{r, echo = FALSE}
@@ -517,6 +548,10 @@ knitr::kable(
   cbind(
     label,
     parameter
+  ),
+  col.names = c(
+    "Parameter",
+    "Estimate"
   )
 )
 ```
@@ -573,7 +608,7 @@ The `ramR` package has a utility function to convert structural equations to RAM
 The Student's $t$-test can be expressed in the following equations
 
 ```{r}
-model <- "
+eq <- "
   # VARIABLE1 OPERATION VARIABLE2 LABEL
   e           by        y         1;
   y           on        x         beta;
@@ -582,6 +617,92 @@ model <- "
   y           on        1         alpha;
   x           on        1         mu[x]
 "
+```
+
+```{tikz, ram-t-02, echo = FALSE, fig.width = 4, fig.cap = "Student's $t$-test's Structural Equations", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 5mm and 15mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm,
+    align = center
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm,
+    align = center
+  },
+  mean/.style = {
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    minimum width = 15mm,
+    minimum height = 10mm,
+    align = center
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+  \node[error] (varepsilon_eq1) {$\varepsilon$};
+  \node[manifest] (y_eq1) [right = of varepsilon_eq1] {$y$};
+  \node[inv] (label_1) [right = of y_eq1] {1};
+  \node[manifest] (y_eq2) [below = of varepsilon_eq1] {$y$};
+  \node[manifest] (x_eq2) [below = of y_eq1] {$x$};
+  \node[inv] (label_2) [below = of label_1] {$\beta$};
+  \node[error] (varepsilon_eq3_1) [below = of y_eq2] {$\varepsilon$};
+  \node[error] (varepsilon_eq3_2) [below = of x_eq2] {$\varepsilon$};
+  \node[inv] (label_3) [below = of label_2] {$\sigma_{\varepsilon}^{2}$};
+  \node[manifest] (x_eq4_1) [below = of varepsilon_eq3_1] {$x$};
+  \node[manifest] (x_eq4_2) [below = of varepsilon_eq3_2] {$x$};
+  \node[inv] (label_4) [below = of label_3] {$\sigma_{x}^{2}$};
+  \node[manifest] (y_eq5) [below = of x_eq4_1] {$y$};
+  \node[mean] (1_eq5) [right = of y_eq5] {1};
+  \node[inv] (label_5) [below = of label_4] {$\alpha$};
+  \node[manifest] (x_eq6) [below = of y_eq5] {$x$};
+  \node[mean] (1_eq6) [right = of x_eq6] {1};
+  \node[inv] (label_6) [below = of label_5] {$\mu_x$};
+  \draw[path] (varepsilon_eq1) to node[above] {by} (y_eq1);
+  \draw[path] (x_eq2) to node[above] {on} (y_eq2);
+  \draw[cov] (varepsilon_eq3_1) to node[above] {with} (varepsilon_eq3_2);
+  \draw[cov] (x_eq4_1) to node[above] {with} (x_eq4_2);
+  \draw[path] (1_eq5) to node[above] {on} (y_eq5);
+  \draw[path] (1_eq6) to node[above] {on} (x_eq6);
+\end{tikzpicture}
 ```
 
 The error term is treated as a latent variable and defined with the operation `by`.
@@ -596,65 +717,42 @@ These are labeled `alpha` and `mu[x]` respectively.
 The `ramR::eq2ram` converts the equations to RAM notation.
 
 ```{r}
-RAM <- ramR::eq2ram(model)
-RAM
+ramR::eq2ram(eq)
 ```
 
-The `*_sym` functions can be used on the results of `ramR::eq2ram`
-to derive the covariance and mean expectations.
+## Equations to Expectations
 
-```{r, eval = FALSE}
-ramR::C_sym(RAM$A, RAM$S)
+The `ramR` package has a utility function to convert structural equations to expectations
+both symbolically and numerically.
+
+```{r}
+eq <- "
+  # VARIABLE1 OPERATION VARIABLE2 LABEL
+  e           by        y         1;
+  y           on        x         beta;
+  e           with      e         sigma[varepsilon]^2;
+  x           with      x         sigma[x]^2;
+  y           on        1         alpha;
+  x           on        1         mu[x]
+"
 ```
 
-```{r, echo = FALSE, results = "asis"}
-cat(
-  "\\begin{equation*}",
-  "\\mathbf{C} =",
-  Ryacas::tex(ramR::C_sym(RAM$A, RAM$S)),
-  "\\end{equation*}",
-  sep = ""
-)
+```{r}
+ramR::eq2exp_sym(eq)
 ```
 
-```{r, eval = FALSE}
-ramR::M_sym(RAM$A, RAM$S, RAM$filter)
+```{r}
+eq <- "
+  # VARIABLE1 OPERATION VARIABLE2 VALUE
+  e           by        y         1.00;
+  y           on        x         1.00;
+  e           with      e         1.00;
+  x           with      x         0.25;
+  y           on        1         0.00;
+  x           on        1         0.50
+"
 ```
 
-```{r, echo = FALSE, results = "asis"}
-cat(
-  "\\begin{equation*}",
-  "\\mathbf{M} =",
-  Ryacas::tex(ramR::M_sym(RAM$A, RAM$S, RAM$filter)),
-  "\\end{equation*}",
-  sep = ""
-)
-```
-
-```{r, eval = FALSE}
-ramR::v_sym(RAM$A, RAM$u)
-```
-
-```{r, echo = FALSE, results = "asis"}
-cat(
-  "\\begin{equation*}",
-  "\\mathbf{v} =",
-  Ryacas::tex(ramR::v_sym(RAM$A, RAM$u)),
-  "\\end{equation*}",
-  sep = ""
-)
-```
-
-```{r, eval = FALSE}
-ramR::g_sym(RAM$A, RAM$u, RAM$filter)
-```
-
-```{r, echo = FALSE, results = "asis"}
-cat(
-  "\\begin{equation*}",
-  "\\mathbf{g} =",
-  Ryacas::tex(ramR::g_sym(RAM$A, RAM$u, RAM$filter)),
-  "\\end{equation*}",
-  sep = ""
-)
+```{r}
+ramR::eq2exp_num(eq)
 ```
