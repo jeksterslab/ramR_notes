@@ -125,7 +125,7 @@
 
 \title{Reticular Action Model (RAM) Notation Notes}
 \author{Ivan Jacob Agaloos Pesigan}
-\date{2021-01-23}
+\date{2021-01-24}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -670,7 +670,7 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 \hypertarget{numerical-example}{%
 \section{Numerical Example}\label{numerical-example}}
 
-Let \texttt{df} be a random sample with the following parameters
+Let \texttt{df} be a random sample from a population with the following parameters
 
 \begin{tabular}{l|l|l}
 \hline
@@ -678,19 +678,19 @@ Parameter & $x = 0$ & $x = 1$\\
 \hline
 Sample Size & 500 & 500\\
 \hline
-$\mu$ & 0 & 1\\
+$\mathbb{E} \left( y \mid x \right)$ & 0 & 1\\
 \hline
-$\sigma^2$ & 1 & 1\\
+$\mathrm{Var} \left( y \mid x \right)$ & 1 & 1\\
 \hline
 \end{tabular}
 
 \begin{tabular}{l|l|l}
 \hline
-Parameter & Description & Estimate\\
+Parameter & Description & Value\\
 \hline
-$\alpha$ & Mean of $x = 0$. & 0\\
+$\alpha$ & $\mathbb{E} \left( y \mid x = 0 \right)$ & 0\\
 \hline
-$\beta$ & Mean of $x = 1$ minus $x = 0$. & 1\\
+$\beta$ & $\mathbb{E} \left( y \mid x = 1 \right) - \mathbb{E} \left( y \mid x = 0 \right)$ & 1\\
 \hline
 \end{tabular}
 
@@ -996,8 +996,8 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 ## RMSEA:  0  [95% CI (NA, NA)]
 ## Prob(RMSEA <= 0.05): NA
 ## To get additional fit indices, see help(mxRefModels)
-## timestamp: 2021-01-23 23:50:42 
-## Wall clock time: 0.03864098 secs 
+## timestamp: 2021-01-24 00:19:32 
+## Wall clock time: 0.04337406 secs 
 ## optimizer:  SLSQP 
 ## OpenMx version number: 2.18.1 
 ## Need help?  See help(mxSummary)
@@ -1365,6 +1365,9 @@ $x = 2$ & 0 & 1\\
 \hline
 \end{tabular}
 
+\(\varepsilon\) be the stochastic error term
+with mean 0 and constant variance of \(\sigma_{\varepsilon}^{2}\)
+across the values of the regressors.
 The associations of the variables are given by
 
 \begin{equation*}
@@ -1547,7 +1550,7 @@ can be symbolically derived using the \texttt{ramR::g\_sym()} function.
 \hypertarget{numerical-example-1}{%
 \section{Numerical Example}\label{numerical-example-1}}
 
-Let \texttt{df} be a random sample with the following parameters
+Let \texttt{df} be a random sample from a population with the following parameters
 
 \begin{tabular}{l|l|l|l}
 \hline
@@ -1555,21 +1558,21 @@ Parameter & $x = 0$ & $x = 1$ & $x = 2$\\
 \hline
 Sample Size & 500 & 500 & 500\\
 \hline
-$\mu$ & 0 & 2 & 1\\
+$\mathbb{E} \left( y \mid x \right)$ & 0 & 2 & 1\\
 \hline
-$\sigma^2$ & 1 & 1 & 1\\
+$\mathrm{Var} \left( y \mid x \right)$ & 1 & 1 & 1\\
 \hline
 \end{tabular}
 
 \begin{tabular}{l|l|l}
 \hline
-Parameter & Description & Estimate\\
+Parameter & Description & Value\\
 \hline
-$\beta_0$ & Mean of $x = 0$. & 0\\
+$\beta_0$ & $\mathbb{E} \left( y \mid x = 0 \right)$ & 0\\
 \hline
-$\beta_1$ & Mean of $x = 1$ minus $x = 0$. & 2\\
+$\beta_1$ & $\mathbb{E} \left( y \mid x = 1 \right) - \mathbb{E} \left( y \mid x = 0 \right)$ & 2\\
 \hline
-$\beta_2$ & Mean of $x = 2$ minus $x = 0$. & 1\\
+$\beta_2$ & $\mathbb{E} \left( y \mid x = 2 \right) - \mathbb{E} \left( y \mid x = 0 \right)$ & 1\\
 \hline
 \end{tabular}
 
@@ -1933,8 +1936,8 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 ## AIC:      -664.8302               8335.170                 8335.266
 ## BIC:    -24531.8162               8377.676                 8352.262
 ## To get additional fit indices, see help(mxRefModels)
-## timestamp: 2021-01-23 23:50:44 
-## Wall clock time: 0.03225899 secs 
+## timestamp: 2021-01-24 00:19:34 
+## Wall clock time: 0.03263617 secs 
 ## optimizer:  SLSQP 
 ## OpenMx version number: 2.18.1 
 ## Need help?  See help(mxSummary)

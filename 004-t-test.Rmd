@@ -450,13 +450,13 @@ rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colna
 colnames(u) <- "u"
 ```
 
-Let `df` be a random sample with the following parameters
+Let `df` be a random sample from a population with the following parameters
 
 ```{r, echo=FALSE}
 label <- c(
   "Sample Size",
-  "$\\mu$",
-  "$\\sigma^2$"
+  "$\\mathbb{E} \\left( y \\mid x \\right)$",
+  "$\\mathrm{Var} \\left( y \\mid x \\right)$"
 )
 group_1 <- c(
   n1,
@@ -492,8 +492,8 @@ label <- c(
   "$\\beta$"
 )
 description <- c(
-  "Mean of $x = 0$.",
-  "Mean of $x = 1$ minus $x = 0$."
+  "$\\mathbb{E} \\left( y \\mid x = 0 \\right)$",
+  "$\\mathbb{E} \\left( y \\mid x = 1 \\right) - \\mathbb{E} \\left( y \\mid x = 0 \\right)$"
 )
 knitr::kable(
   cbind(
@@ -504,7 +504,7 @@ knitr::kable(
   col.names = c(
     "Parameter",
     "Description",
-    "Estimate"
+    "Value"
   ),
   escape = FALSE
 )

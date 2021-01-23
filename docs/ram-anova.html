@@ -24,7 +24,7 @@
 <meta name="author" content="Ivan Jacob Agaloos Pesigan" />
 
 
-<meta name="date" content="2021-01-23" />
+<meta name="date" content="2021-01-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -234,7 +234,10 @@ The dependent variable <span class="math inline">\(x\)</span> can be dummy coded
 </tr>
 </tbody>
 </table>
-<p>The associations of the variables are given by</p>
+<p><span class="math inline">\(\varepsilon\)</span> be the stochastic error term
+with mean 0 and constant variance of <span class="math inline">\(\sigma_{\varepsilon}^{2}\)</span>
+across the values of the regressors.
+The associations of the variables are given by</p>
 <p><span class="math display">\[\begin{equation*}
   y
   =
@@ -324,7 +327,7 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 </div>
 <div id="numerical-example-1" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Numerical Example</h2>
-<p>Let <code>df</code> be a random sample with the following parameters</p>
+<p>Let <code>df</code> be a random sample from a population with the following parameters</p>
 <table>
 <thead>
 <tr class="header">
@@ -342,13 +345,13 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 <td align="left">500</td>
 </tr>
 <tr class="even">
-<td align="left"><span class="math inline">\(\mu\)</span></td>
+<td align="left"><span class="math inline">\(\mathbb{E} \left( y \mid x \right)\)</span></td>
 <td align="left">0</td>
 <td align="left">2</td>
 <td align="left">1</td>
 </tr>
 <tr class="odd">
-<td align="left"><span class="math inline">\(\sigma^2\)</span></td>
+<td align="left"><span class="math inline">\(\mathrm{Var} \left( y \mid x \right)\)</span></td>
 <td align="left">1</td>
 <td align="left">1</td>
 <td align="left">1</td>
@@ -356,27 +359,32 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 </tbody>
 </table>
 <table>
+<colgroup>
+<col width="10%" />
+<col width="83%" />
+<col width="6%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Parameter</th>
 <th align="left">Description</th>
-<th align="left">Estimate</th>
+<th align="left">Value</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\beta_0\)</span></td>
-<td align="left">Mean of <span class="math inline">\(x = 0\)</span>.</td>
+<td align="left"><span class="math inline">\(\mathbb{E} \left( y \mid x = 0 \right)\)</span></td>
 <td align="left">0</td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\beta_1\)</span></td>
-<td align="left">Mean of <span class="math inline">\(x = 1\)</span> minus <span class="math inline">\(x = 0\)</span>.</td>
+<td align="left"><span class="math inline">\(\mathbb{E} \left( y \mid x = 1 \right) - \mathbb{E} \left( y \mid x = 0 \right)\)</span></td>
 <td align="left">2</td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\beta_2\)</span></td>
-<td align="left">Mean of <span class="math inline">\(x = 2\)</span> minus <span class="math inline">\(x = 0\)</span>.</td>
+<td align="left"><span class="math inline">\(\mathbb{E} \left( y \mid x = 2 \right) - \mathbb{E} \left( y \mid x = 0 \right)\)</span></td>
 <td align="left">1</td>
 </tr>
 </tbody>
@@ -662,8 +670,8 @@ Note, however, that the <code>u</code> vector in the RAM notation is
 ## AIC:      -664.8302               8335.170                 8335.266
 ## BIC:    -24531.8162               8377.676                 8352.262
 ## To get additional fit indices, see help(mxRefModels)
-## timestamp: 2021-01-23 23:50:38 
-## Wall clock time: 0.03214574 secs 
+## timestamp: 2021-01-24 00:19:28 
+## Wall clock time: 0.03197765 secs 
 ## optimizer:  SLSQP 
 ## OpenMx version number: 2.18.1 
 ## Need help?  See help(mxSummary)</code></pre>
