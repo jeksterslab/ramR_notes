@@ -130,7 +130,7 @@ are given by
 \end{equation}
 
 
-## Observed/Manifest/Given Variables vs. Unobserved/Latent/Hidden Variables
+## Given vs. Hidden Variables
 
 ```{definition}
 \begin{equation}

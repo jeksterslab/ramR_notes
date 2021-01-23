@@ -22,7 +22,7 @@ fig:ram-med-simple-std-01
 description
 ram-matrix-notation
 full-model
-observedmanifestgiven-variables-vs.-unobservedlatenthidden-variables
+given-vs.-hidden-variables
 ram-diagram
 ram-t
 symbolic
