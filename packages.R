@@ -10,7 +10,8 @@ if (!require("magick")) install.packages("magick")
 if (!require("pdftools")) install.packages("pdftools")
 # packages used in the text
 if (!require("lavaan")) install.packages("lavaan")
+if (!require("OpenMx")) install.packages("OpenMx")
 if (!require("Ryacas")) install.packages("Ryacas")
 # ensures that the latest version is installed
 remotes::install_github("jeksterslab/ramR")
-styler::style_dir()
+styler::style_dir(filetype = c(".R", ".Rmd"))

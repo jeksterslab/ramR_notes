@@ -24,7 +24,7 @@
 <meta name="author" content="Ivan Jacob Agaloos Pesigan" />
 
 
-<meta name="date" content="2021-01-22" />
+<meta name="date" content="2021-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -296,6 +296,27 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 </tr>
 </tbody>
 </table>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+<th align="left">Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\alpha\)</span></td>
+<td align="left">Mean of <span class="math inline">\(x = 0\)</span>.</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\beta\)</span></td>
+<td align="left">Mean of <span class="math inline">\(x = 1\)</span> minus <span class="math inline">\(x = 0\)</span>.</td>
+<td align="left">1</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="ram-t.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
 <pre><code>##            y x
 ## 1  1.3709584 0
@@ -352,6 +373,8 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 </div>
 <div id="structural-equation-modeling" class="section level3" number="4.2.3">
 <h3><span class="header-section-number">4.2.3</span> Structural Equation Modeling</h3>
+<div id="lavaan-lavaan2012" class="section level4" number="4.2.3.1">
+<h4><span class="header-section-number">4.2.3.1</span> lavaan <span class="citation">(<a href="references.html#ref-lavaan2012" role="doc-biblioref">Rosseel 2012</a>)</span></h4>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ram-t.html#cb26-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
 <span id="cb26-2"><a href="ram-t.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ x</span></span>
 <span id="cb26-3"><a href="ram-t.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span>
@@ -395,81 +418,196 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##    .y                 1.004    0.045   22.361    0.000
 ##     x                 0.250    0.011   22.361    0.000</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Parameter</th>
-<th align="left">Estimate</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\alpha\)</span></td>
-<td align="left">-0.03</td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\beta\)</span></td>
-<td align="left">1.01</td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\sigma^{2}_{x}\)</span></td>
-<td align="left">0.25</td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\sigma^{2}_{\varepsilon}\)</span></td>
-<td align="left">1.01</td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\mu_x\)</span></td>
-<td align="left">0.5</td>
-</tr>
-</tbody>
-</table>
+</div>
+<div id="openmx-openmx2020" class="section level4" number="4.2.3.2">
+<h4><span class="header-section-number">4.2.3.2</span> OpenMx <span class="citation">(<a href="references.html#ref-OpenMx2020" role="doc-biblioref">Boker et al. 2020</a>)</span></h4>
+<p>RAM matrices can be used to specify models in <code>OpenMx</code>.
+Note, however, that the <code>u</code> vector in the RAM notation is
+<code>M</code> in the <code>OpenMx</code> notation.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="ram-t.html#cb28-1" aria-hidden="true" tabindex="-1"></a>mxData <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxData</span>(</span>
+<span id="cb28-2"><a href="ram-t.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">observed =</span> df,</span>
+<span id="cb28-3"><a href="ram-t.html#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;raw&quot;</span></span>
+<span id="cb28-4"><a href="ram-t.html#cb28-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-5"><a href="ram-t.html#cb28-5" aria-hidden="true" tabindex="-1"></a>mxA <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxMatrix</span>(</span>
+<span id="cb28-6"><a href="ram-t.html#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;Full&quot;</span>,</span>
+<span id="cb28-7"><a href="ram-t.html#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span>,</span>
+<span id="cb28-8"><a href="ram-t.html#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span>,</span>
+<span id="cb28-9"><a href="ram-t.html#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">free =</span> <span class="fu">c</span>(</span>
+<span id="cb28-10"><a href="ram-t.html#cb28-10" aria-hidden="true" tabindex="-1"></a>    F, T, F,</span>
+<span id="cb28-11"><a href="ram-t.html#cb28-11" aria-hidden="true" tabindex="-1"></a>    F, F, F,</span>
+<span id="cb28-12"><a href="ram-t.html#cb28-12" aria-hidden="true" tabindex="-1"></a>    F, F, F</span>
+<span id="cb28-13"><a href="ram-t.html#cb28-13" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb28-14"><a href="ram-t.html#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb28-15"><a href="ram-t.html#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="fl">0.20</span>, <span class="dv">1</span>,</span>
+<span id="cb28-16"><a href="ram-t.html#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
+<span id="cb28-17"><a href="ram-t.html#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span></span>
+<span id="cb28-18"><a href="ram-t.html#cb28-18" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb28-19"><a href="ram-t.html#cb28-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb28-20"><a href="ram-t.html#cb28-20" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="st">&quot;beta&quot;</span>, <span class="cn">NA</span>,</span>
+<span id="cb28-21"><a href="ram-t.html#cb28-21" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb28-22"><a href="ram-t.html#cb28-22" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span></span>
+<span id="cb28-23"><a href="ram-t.html#cb28-23" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb28-24"><a href="ram-t.html#cb28-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-25"><a href="ram-t.html#cb28-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;mxA&quot;</span></span>
+<span id="cb28-26"><a href="ram-t.html#cb28-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-27"><a href="ram-t.html#cb28-27" aria-hidden="true" tabindex="-1"></a>mxS <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxMatrix</span>(</span>
+<span id="cb28-28"><a href="ram-t.html#cb28-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;Symm&quot;</span>,</span>
+<span id="cb28-29"><a href="ram-t.html#cb28-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span>,</span>
+<span id="cb28-30"><a href="ram-t.html#cb28-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span>,</span>
+<span id="cb28-31"><a href="ram-t.html#cb28-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">free =</span> <span class="fu">c</span>(</span>
+<span id="cb28-32"><a href="ram-t.html#cb28-32" aria-hidden="true" tabindex="-1"></a>    F, F, F,</span>
+<span id="cb28-33"><a href="ram-t.html#cb28-33" aria-hidden="true" tabindex="-1"></a>    F, T, F,</span>
+<span id="cb28-34"><a href="ram-t.html#cb28-34" aria-hidden="true" tabindex="-1"></a>    F, F, T</span>
+<span id="cb28-35"><a href="ram-t.html#cb28-35" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb28-36"><a href="ram-t.html#cb28-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb28-37"><a href="ram-t.html#cb28-37" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
+<span id="cb28-38"><a href="ram-t.html#cb28-38" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="fl">0.20</span>, <span class="dv">0</span>,</span>
+<span id="cb28-39"><a href="ram-t.html#cb28-39" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.20</span></span>
+<span id="cb28-40"><a href="ram-t.html#cb28-40" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb28-41"><a href="ram-t.html#cb28-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb28-42"><a href="ram-t.html#cb28-42" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb28-43"><a href="ram-t.html#cb28-43" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="st">&quot;sigma2x&quot;</span>, <span class="cn">NA</span>,</span>
+<span id="cb28-44"><a href="ram-t.html#cb28-44" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">&quot;sigma2e&quot;</span></span>
+<span id="cb28-45"><a href="ram-t.html#cb28-45" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb28-46"><a href="ram-t.html#cb28-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-47"><a href="ram-t.html#cb28-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;mxS&quot;</span></span>
+<span id="cb28-48"><a href="ram-t.html#cb28-48" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-49"><a href="ram-t.html#cb28-49" aria-hidden="true" tabindex="-1"></a>mxM <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxMatrix</span>(</span>
+<span id="cb28-50"><a href="ram-t.html#cb28-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;Full&quot;</span>,</span>
+<span id="cb28-51"><a href="ram-t.html#cb28-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">1</span>,</span>
+<span id="cb28-52"><a href="ram-t.html#cb28-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span>,</span>
+<span id="cb28-53"><a href="ram-t.html#cb28-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">free =</span> <span class="fu">c</span>(</span>
+<span id="cb28-54"><a href="ram-t.html#cb28-54" aria-hidden="true" tabindex="-1"></a>    T, T, F</span>
+<span id="cb28-55"><a href="ram-t.html#cb28-55" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb28-56"><a href="ram-t.html#cb28-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb28-57"><a href="ram-t.html#cb28-57" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.20</span>,</span>
+<span id="cb28-58"><a href="ram-t.html#cb28-58" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.20</span>,</span>
+<span id="cb28-59"><a href="ram-t.html#cb28-59" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span></span>
+<span id="cb28-60"><a href="ram-t.html#cb28-60" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb28-61"><a href="ram-t.html#cb28-61" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb28-62"><a href="ram-t.html#cb28-62" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;alpha&quot;</span>,</span>
+<span id="cb28-63"><a href="ram-t.html#cb28-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;mux&quot;</span>,</span>
+<span id="cb28-64"><a href="ram-t.html#cb28-64" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span></span>
+<span id="cb28-65"><a href="ram-t.html#cb28-65" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb28-66"><a href="ram-t.html#cb28-66" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-67"><a href="ram-t.html#cb28-67" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;mxM&quot;</span></span>
+<span id="cb28-68"><a href="ram-t.html#cb28-68" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-69"><a href="ram-t.html#cb28-69" aria-hidden="true" tabindex="-1"></a>mxF <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxMatrix</span>(</span>
+<span id="cb28-70"><a href="ram-t.html#cb28-70" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;Full&quot;</span>,</span>
+<span id="cb28-71"><a href="ram-t.html#cb28-71" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb28-72"><a href="ram-t.html#cb28-72" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span>,</span>
+<span id="cb28-73"><a href="ram-t.html#cb28-73" aria-hidden="true" tabindex="-1"></a>  <span class="at">free =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb28-74"><a href="ram-t.html#cb28-74" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb28-75"><a href="ram-t.html#cb28-75" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
+<span id="cb28-76"><a href="ram-t.html#cb28-76" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span></span>
+<span id="cb28-77"><a href="ram-t.html#cb28-77" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb28-78"><a href="ram-t.html#cb28-78" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-79"><a href="ram-t.html#cb28-79" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;mxF&quot;</span></span>
+<span id="cb28-80"><a href="ram-t.html#cb28-80" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-81"><a href="ram-t.html#cb28-81" aria-hidden="true" tabindex="-1"></a>expRAM <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxExpectationRAM</span>(</span>
+<span id="cb28-82"><a href="ram-t.html#cb28-82" aria-hidden="true" tabindex="-1"></a>  <span class="at">A =</span> <span class="st">&quot;mxA&quot;</span>,</span>
+<span id="cb28-83"><a href="ram-t.html#cb28-83" aria-hidden="true" tabindex="-1"></a>  <span class="at">S =</span> <span class="st">&quot;mxS&quot;</span>,</span>
+<span id="cb28-84"><a href="ram-t.html#cb28-84" aria-hidden="true" tabindex="-1"></a>  <span class="at">F =</span> <span class="st">&quot;mxF&quot;</span>,</span>
+<span id="cb28-85"><a href="ram-t.html#cb28-85" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="st">&quot;mxM&quot;</span>,</span>
+<span id="cb28-86"><a href="ram-t.html#cb28-86" aria-hidden="true" tabindex="-1"></a>  <span class="at">dimnames =</span> <span class="fu">c</span>(</span>
+<span id="cb28-87"><a href="ram-t.html#cb28-87" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;y&quot;</span>,</span>
+<span id="cb28-88"><a href="ram-t.html#cb28-88" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb28-89"><a href="ram-t.html#cb28-89" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;e&quot;</span></span>
+<span id="cb28-90"><a href="ram-t.html#cb28-90" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-91"><a href="ram-t.html#cb28-91" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-92"><a href="ram-t.html#cb28-92" aria-hidden="true" tabindex="-1"></a>objML <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxFitFunctionML</span>()</span>
+<span id="cb28-93"><a href="ram-t.html#cb28-93" aria-hidden="true" tabindex="-1"></a>mxMod <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxModel</span>(</span>
+<span id="cb28-94"><a href="ram-t.html#cb28-94" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;Model&quot;</span>,</span>
+<span id="cb28-95"><a href="ram-t.html#cb28-95" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> mxData,</span>
+<span id="cb28-96"><a href="ram-t.html#cb28-96" aria-hidden="true" tabindex="-1"></a>  <span class="at">matrices =</span> <span class="fu">list</span>(</span>
+<span id="cb28-97"><a href="ram-t.html#cb28-97" aria-hidden="true" tabindex="-1"></a>    mxA,</span>
+<span id="cb28-98"><a href="ram-t.html#cb28-98" aria-hidden="true" tabindex="-1"></a>    mxS,</span>
+<span id="cb28-99"><a href="ram-t.html#cb28-99" aria-hidden="true" tabindex="-1"></a>    mxF,</span>
+<span id="cb28-100"><a href="ram-t.html#cb28-100" aria-hidden="true" tabindex="-1"></a>    mxM</span>
+<span id="cb28-101"><a href="ram-t.html#cb28-101" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb28-102"><a href="ram-t.html#cb28-102" aria-hidden="true" tabindex="-1"></a>  <span class="at">expectation =</span> expRAM,</span>
+<span id="cb28-103"><a href="ram-t.html#cb28-103" aria-hidden="true" tabindex="-1"></a>  <span class="at">fitfunction =</span> objML</span>
+<span id="cb28-104"><a href="ram-t.html#cb28-104" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-105"><a href="ram-t.html#cb28-105" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxRun</span>(mxMod)</span></code></pre></div>
+<pre><code>## Running Model with 5 parameters</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ram-t.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>## Summary of Model 
+##  
+## free parameters:
+##      name matrix row col    Estimate  Std.Error A
+## 1    beta    mxA   1   2  1.00844356 0.06337369  
+## 2 sigma2x    mxS   2   2  0.25000000 0.01118034  
+## 3 sigma2e    mxS   3   3  1.00402596 0.04490152  
+## 4   alpha    mxM   1   y -0.03004621 0.04481202  
+## 5     mux    mxM   1   x  0.49999999 0.01581140  
+## 
+## Model Statistics: 
+##                |  Parameters  |  Degrees of Freedom  |  Fit (-2lnL units)
+##        Model:              5                   1995              4293.478
+##    Saturated:              5                   1995                    NA
+## Independence:              4                   1996                    NA
+## Number of observations/statistics: 1000/2000
+## 
+## Information Criteria: 
+##       |  df Penalty  |  Parameters Penalty  |  Sample-Size Adjusted
+## AIC:       303.4776               4303.478                 4303.538
+## BIC:     -9487.4941               4328.016                 4312.136
+## CFI: NA 
+## TLI: 1   (also known as NNFI) 
+## RMSEA:  0  [95% CI (NA, NA)]
+## Prob(RMSEA &lt;= 0.05): NA
+## To get additional fit indices, see help(mxRefModels)
+## timestamp: 2021-01-23 18:35:48 
+## Wall clock time: 0.03835988 secs 
+## optimizer:  SLSQP 
+## OpenMx version number: 2.18.1 
+## Need help?  See help(mxSummary)</code></pre>
+</div>
 </div>
 <div id="using-the-ramr-package-1" class="section level3" number="4.2.4">
 <h3><span class="header-section-number">4.2.4</span> Using the <code>ramR</code> Package</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="ram-t.html#cb28-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ram-t.html#cb32-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
 <pre><code>##   y        x e
 ## y 0 1.008444 1
 ## x 0 0.000000 0
 ## e 0 0.000000 0</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ram-t.html#cb30-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="ram-t.html#cb34-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
 <pre><code>##   y         x        e
 ## y 0 0.0000000 0.000000
 ## x 0 0.2502503 0.000000
 ## e 0 0.0000000 1.006038</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ram-t.html#cb32-1" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="ram-t.html#cb36-1" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div>
 <pre><code>##             u
 ## y -0.03004622
 ## x  0.50000000
 ## e  0.00000000</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="ram-t.html#cb34-1" aria-hidden="true" tabindex="-1"></a>filter</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="ram-t.html#cb38-1" aria-hidden="true" tabindex="-1"></a>filter</span></code></pre></div>
 <pre><code>##   y x e
 ## y 1 0 0
 ## x 0 1 0</code></pre>
 <p>The covariance expectations
 can be numerically derived using the <code>ramR::C_num()</code> function.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="ram-t.html#cb36-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">C_num</span>(A, S)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ram-t.html#cb40-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">C_num</span>(A, S)</span></code></pre></div>
 <pre><code>##           y         x        e
 ## y 1.2605321 0.2523633 1.006038
 ## x 0.2523633 0.2502503 0.000000
 ## e 1.0060380 0.0000000 1.006038</code></pre>
 <p>The covariance expectations for the observed variables
 can be numerically derived using the <code>ramR::M_num()</code> function.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="ram-t.html#cb38-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">M_num</span>(A, S, filter)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ram-t.html#cb42-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">M_num</span>(A, S, filter)</span></code></pre></div>
 <pre><code>##           y         x
 ## y 1.2605321 0.2523633
 ## x 0.2523633 0.2502503</code></pre>
 <p>The mean expectations
 can be numerically derived using the <code>ramR::v_num()</code> function.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ram-t.html#cb40-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">v_num</span>(A, u)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="ram-t.html#cb44-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">v_num</span>(A, u)</span></code></pre></div>
 <pre><code>##           v
 ## y 0.4741756
 ## x 0.5000000
 ## e 0.0000000</code></pre>
 <p>The mean expectations for the observed variables
 can be numerically derived using the <code>ramR::v_num()</code> function.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ram-t.html#cb42-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">g_num</span>(A, u, filter)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="ram-t.html#cb46-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">g_num</span>(A, u, filter)</span></code></pre></div>
 <pre><code>##           g
 ## y 0.4741756
 ## x 0.5000000</code></pre>
@@ -477,33 +615,36 @@ can be numerically derived using the <code>ramR::v_num()</code> function.</p>
 </div>
 <div id="equations-to-ram" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> Equations to RAM</h2>
-<p>The <code>ramR</code> package has a utility function to convert structural equations to RAM notation.
+<p>The <code>ramR</code> package has a utility function
+to convert structural equations to RAM notation.
 The Student’s <span class="math inline">\(t\)</span>-test can be expressed in the following equations</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="ram-t.html#cb44-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
-<span id="cb44-2"><a href="ram-t.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
-<span id="cb44-3"><a href="ram-t.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1;</span></span>
-<span id="cb44-4"><a href="ram-t.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x         beta;</span></span>
-<span id="cb44-5"><a href="ram-t.html#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="st">  e           with      e         sigma[varepsilon]^2;</span></span>
-<span id="cb44-6"><a href="ram-t.html#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="st">  x           with      x         sigma[x]^2;</span></span>
-<span id="cb44-7"><a href="ram-t.html#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         alpha;</span></span>
-<span id="cb44-8"><a href="ram-t.html#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x           on        1         mu[x]</span></span>
-<span id="cb44-9"><a href="ram-t.html#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="ram-t.html#cb48-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb48-2"><a href="ram-t.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
+<span id="cb48-3"><a href="ram-t.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1</span></span>
+<span id="cb48-4"><a href="ram-t.html#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x         beta</span></span>
+<span id="cb48-5"><a href="ram-t.html#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="st">  e           with      e         sigma[varepsilon]^2</span></span>
+<span id="cb48-6"><a href="ram-t.html#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="st">  x           with      x         sigma[x]^2</span></span>
+<span id="cb48-7"><a href="ram-t.html#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         alpha</span></span>
+<span id="cb48-8"><a href="ram-t.html#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x           on        1         mu[x]</span></span>
+<span id="cb48-9"><a href="ram-t.html#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
 <div class="figure"><span id="fig:ram-t-02"></span>
 <img src="ramR_notes_files/figure-html/ram-t-02-1.png" alt="Student's $t$-test's Structural Equations" width="384" />
 <p class="caption">
 Figure 4.2: Student’s <span class="math inline">\(t\)</span>-test’s Structural Equations
 </p>
 </div>
-<p>The error term is treated as a latent variable and defined with the operation <code>by</code>.
+<p>The error term is treated as a latent variable
+and defined with the operation <code>by</code>.
 It’s value is constrained to <span class="math inline">\(1\)</span>.
 The regression of <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> is defined by operation <code>on</code>.
 It is labeled as <code>beta</code>.
-The variance of <span class="math inline">\(x\)</span> and the error variance are defined using the operation <code>with</code>.
+The variance of <span class="math inline">\(x\)</span> and the error variance
+are defined using the operation <code>with</code>.
 These are labeled <code>sigma[x]^2</code> and <code>sigma[varepsilon]^2</code> respectively.
 The intercept and the mean of <span class="math inline">\(x\)</span> are defined using the operation <code>on 1</code>.
 These are labeled <code>alpha</code> and <code>mu[x]</code> respectively.</p>
 <p>The <code>ramR::eq2ram</code> converts the equations to RAM notation.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="ram-t.html#cb45-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">eq2ram</span>(eq)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="ram-t.html#cb49-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">eq2ram</span>(eq)</span></code></pre></div>
 <pre><code>## $eq
 ##   var1   op var2               label
 ## 1    e   by    y                   1
@@ -541,18 +682,19 @@ These are labeled <code>alpha</code> and <code>mu[x]</code> respectively.</p>
 </div>
 <div id="equations-to-expectations" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Equations to Expectations</h2>
-<p>The <code>ramR</code> package has a utility function to convert structural equations to expectations
+<p>The <code>ramR</code> package has a utility function
+to convert structural equations to expectations
 both symbolically and numerically.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="ram-t.html#cb47-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
-<span id="cb47-2"><a href="ram-t.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
-<span id="cb47-3"><a href="ram-t.html#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1;</span></span>
-<span id="cb47-4"><a href="ram-t.html#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x         beta;</span></span>
-<span id="cb47-5"><a href="ram-t.html#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="st">  e           with      e         sigma[varepsilon]^2;</span></span>
-<span id="cb47-6"><a href="ram-t.html#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="st">  x           with      x         sigma[x]^2;</span></span>
-<span id="cb47-7"><a href="ram-t.html#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         alpha;</span></span>
-<span id="cb47-8"><a href="ram-t.html#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x           on        1         mu[x]</span></span>
-<span id="cb47-9"><a href="ram-t.html#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="ram-t.html#cb48-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">eq2exp_sym</span>(eq)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="ram-t.html#cb51-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb51-2"><a href="ram-t.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
+<span id="cb51-3"><a href="ram-t.html#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1</span></span>
+<span id="cb51-4"><a href="ram-t.html#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x         beta</span></span>
+<span id="cb51-5"><a href="ram-t.html#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="st">  e           with      e         sigma[varepsilon]^2</span></span>
+<span id="cb51-6"><a href="ram-t.html#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="st">  x           with      x         sigma[x]^2</span></span>
+<span id="cb51-7"><a href="ram-t.html#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         alpha</span></span>
+<span id="cb51-8"><a href="ram-t.html#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x           on        1         mu[x]</span></span>
+<span id="cb51-9"><a href="ram-t.html#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="ram-t.html#cb52-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">eq2exp_sym</span>(eq)</span></code></pre></div>
 <pre><code>## $variables
 ## [1] &quot;y&quot; &quot;x&quot; &quot;e&quot;
 ## 
@@ -592,16 +734,16 @@ both symbolically and numerically.</p>
 ## $M
 ## {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2},
 ##  {                      sigma[x]^2*beta,                            sigma[x]^2}}</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="ram-t.html#cb50-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
-<span id="cb50-2"><a href="ram-t.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 VALUE</span></span>
-<span id="cb50-3"><a href="ram-t.html#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1.00;</span></span>
-<span id="cb50-4"><a href="ram-t.html#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x         1.00;</span></span>
-<span id="cb50-5"><a href="ram-t.html#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="st">  e           with      e         1.00;</span></span>
-<span id="cb50-6"><a href="ram-t.html#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="st">  x           with      x         0.25;</span></span>
-<span id="cb50-7"><a href="ram-t.html#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         0.00;</span></span>
-<span id="cb50-8"><a href="ram-t.html#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x           on        1         0.50</span></span>
-<span id="cb50-9"><a href="ram-t.html#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="ram-t.html#cb51-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">eq2exp_num</span>(eq)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="ram-t.html#cb54-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb54-2"><a href="ram-t.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 VALUE</span></span>
+<span id="cb54-3"><a href="ram-t.html#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1.00</span></span>
+<span id="cb54-4"><a href="ram-t.html#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x         1.00</span></span>
+<span id="cb54-5"><a href="ram-t.html#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="st">  e           with      e         1.00</span></span>
+<span id="cb54-6"><a href="ram-t.html#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="st">  x           with      x         0.25</span></span>
+<span id="cb54-7"><a href="ram-t.html#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         0.00</span></span>
+<span id="cb54-8"><a href="ram-t.html#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x           on        1         0.50</span></span>
+<span id="cb54-9"><a href="ram-t.html#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="ram-t.html#cb55-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">eq2exp_num</span>(eq)</span></code></pre></div>
 <pre><code>## $variables
 ## [1] &quot;y&quot; &quot;x&quot; &quot;e&quot;
 ## 

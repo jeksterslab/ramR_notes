@@ -13,9 +13,11 @@
 \noindent where
 
 - $\mathbf{v}$ and $\mathbf{u}$ are $t \times 1$ vectors of random variables
-- $\mathbf{A}$ is a $t \times t$ matrix of *directed* or *asymmetric* relationship
+- $\mathbf{A}$ is a $t \times t$ matrix
+  of *directed* or *asymmetric* relationship
   from column variable $v_j$ to row variable $v_i$
-  - $\mathbf{A}$ represent the regression of each of the $t$ variables $\mathbf{v}$ on the other $t - 1$ variables
+  - $\mathbf{A}$ represent the regression
+    of each of the $t$ variables $\mathbf{v}$ on the other $t - 1$ variables
   - diagonal $a_{i,i}$ is zero
   - $u_i$ represent the residual of $v_i$
   - if all regression coefficients on other variables are zero,
@@ -34,7 +36,8 @@
 
 \noindent where
 
-- $\mathbf{S}$ is a $t \times t$ matrix of *undirected* or *symmetric* relationship
+- $\mathbf{S}$ is a $t \times t$ matrix
+  of *undirected* or *symmetric* relationship
   - the notation $\boldsymbol{\Omega}$ is used in other sources for $\mathbf{S}$
 - $\mathbb{E}$ is the expectation operator
 
@@ -81,7 +84,7 @@
 
 \begin{equation}
   \mathbf{E}
-  = 
+  =
   \left( \mathbf{I} - \mathbf{A} \right)^{-1}
 \end{equation}
 

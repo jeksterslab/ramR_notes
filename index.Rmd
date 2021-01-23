@@ -1,4 +1,4 @@
---- 
+---
 title: "Reticular Action Model (RAM) Notation Notes"
 author: "Ivan Jacob Agaloos Pesigan"
 date: "`r Sys.Date()`"
@@ -14,9 +14,12 @@ description: "Notes on the Reticular Action Model (RAM) Notation"
 
 # Description
 
-This is a collection of my personal notes on the Reticular Action Model (RAM) notation
-that accompanies the `ramR` package [@R-ramR]. 
-You can install the released version of `ramR` from [GitHub](https://github.com/jeksterslab/ramR) with:
+This is a collection of my personal notes
+on the Reticular Action Model (RAM) notation
+that accompanies the `ramR` package [@R-ramR]
+in the `R` statistical environment [@R-base].
+You can install the released version of `ramR`
+from [GitHub](https://github.com/jeksterslab/ramR) with:
 
 ```r
 remotes::install_github("jeksterslab/ramR")
@@ -24,9 +27,19 @@ remotes::install_github("jeksterslab/ramR")
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'ramR'
-), 'packages.bib')
+knitr::write_bib(
+  c(
+    .packages(),
+    "bookdown",
+    "knitr",
+    "rmarkdown",
+    "ramR",
+    "stats",
+    "lavaan",
+    "OpenMx"
+  ),
+  "packages.bib"
+)
 ```
 
 These notes are based on the following resources:
@@ -37,3 +50,4 @@ These notes are based on the following resources:
 
 See [GitHub Pages](https://jeksterslab.github.io/ramR_notes/index.html)
 for the html deployment.
+

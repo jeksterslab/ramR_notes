@@ -125,7 +125,7 @@
 
 \title{Reticular Action Model (RAM) Notation Notes}
 \author{Ivan Jacob Agaloos Pesigan}
-\date{2021-01-22}
+\date{2021-01-23}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -152,9 +152,12 @@
 \hypertarget{description}{%
 \chapter{Description}\label{description}}
 
-This is a collection of my personal notes on the Reticular Action Model (RAM) notation
-that accompanies the \texttt{ramR} package \citep{R-ramR}.
-You can install the released version of \texttt{ramR} from \href{https://github.com/jeksterslab/ramR}{GitHub} with:
+This is a collection of my personal notes
+on the Reticular Action Model (RAM) notation
+that accompanies the \texttt{ramR} package \citep{R-ramR}
+in the \texttt{R} statistical environment \citep{R-base}.
+You can install the released version of \texttt{ramR}
+from \href{https://github.com/jeksterslab/ramR}{GitHub} with:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -198,13 +201,15 @@ for the html deployment.
 \item
   \(\mathbf{v}\) and \(\mathbf{u}\) are \(t \times 1\) vectors of random variables
 \item
-  \(\mathbf{A}\) is a \(t \times t\) matrix of \emph{directed} or \emph{asymmetric} relationship
+  \(\mathbf{A}\) is a \(t \times t\) matrix
+  of \emph{directed} or \emph{asymmetric} relationship
   from column variable \(v_j\) to row variable \(v_i\)
 
   \begin{itemize}
   \tightlist
   \item
-    \(\mathbf{A}\) represent the regression of each of the \(t\) variables \(\mathbf{v}\) on the other \(t - 1\) variables
+    \(\mathbf{A}\) represent the regression
+    of each of the \(t\) variables \(\mathbf{v}\) on the other \(t - 1\) variables
   \item
     diagonal \(a_{i,i}\) is zero
   \item
@@ -231,7 +236,8 @@ for the html deployment.
 \begin{itemize}
 \tightlist
 \item
-  \(\mathbf{S}\) is a \(t \times t\) matrix of \emph{undirected} or \emph{symmetric} relationship
+  \(\mathbf{S}\) is a \(t \times t\) matrix
+  of \emph{undirected} or \emph{symmetric} relationship
 
   \begin{itemize}
   \tightlist
@@ -294,7 +300,7 @@ for the html deployment.
 
 \begin{equation}
   \mathbf{E}
-  = 
+  =
   \left( \mathbf{I} - \mathbf{A} \right)^{-1}
 \end{equation}
 
@@ -678,6 +684,16 @@ Sample Size & 500 & 500\\
 \hline
 \end{tabular}
 
+\begin{tabular}{l|l|l}
+\hline
+Parameter & Description & Estimate\\
+\hline
+\$\textbackslash{}alpha\$ & Mean of \$x = 0\$. & 0\\
+\hline
+\$\textbackslash{}beta\$ & Mean of \$x = 1\$ minus \$x = 0\$. & 1\\
+\hline
+\end{tabular}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{head}\NormalTok{(df)}
@@ -768,6 +784,9 @@ Sample Size & 500 & 500\\
 \hypertarget{structural-equation-modeling}{%
 \subsection{Structural Equation Modeling}\label{structural-equation-modeling}}
 
+\hypertarget{lavaan-lavaan2012}{%
+\subsubsection{\texorpdfstring{lavaan \citep{lavaan2012}}{lavaan {[}@lavaan2012{]}}}\label{lavaan-lavaan2012}}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{model }\OtherTok{\textless{}{-}} \StringTok{"}
@@ -819,21 +838,166 @@ Sample Size & 500 & 500\\
 ##     x                 0.250    0.011   22.361    0.000
 \end{verbatim}
 
-\begin{tabular}{l|l}
-\hline
-Parameter & Estimate\\
-\hline
-\$\textbackslash{}alpha\$ & -0.03\\
-\hline
-\$\textbackslash{}beta\$ & 1.01\\
-\hline
-\$\textbackslash{}sigma\textasciicircum{}\{2\}\_\{x\}\$ & 0.25\\
-\hline
-\$\textbackslash{}sigma\textasciicircum{}\{2\}\_\{\textbackslash{}varepsilon\}\$ & 1.01\\
-\hline
-\$\textbackslash{}mu\_x\$ & 0.5\\
-\hline
-\end{tabular}
+\hypertarget{openmx-openmx2020}{%
+\subsubsection{\texorpdfstring{OpenMx \citep{OpenMx2020}}{OpenMx {[}@OpenMx2020{]}}}\label{openmx-openmx2020}}
+
+RAM matrices can be used to specify models in \texttt{OpenMx}.
+Note, however, that the \texttt{u} vector in the RAM notation is
+\texttt{M} in the \texttt{OpenMx} notation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mxData }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxData}\NormalTok{(}
+  \AttributeTok{observed =}\NormalTok{ df,}
+  \AttributeTok{type =} \StringTok{"raw"}
+\NormalTok{)}
+\NormalTok{mxA }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxMatrix}\NormalTok{(}
+  \AttributeTok{type =} \StringTok{"Full"}\NormalTok{,}
+  \AttributeTok{nrow =} \DecValTok{3}\NormalTok{,}
+  \AttributeTok{ncol =} \DecValTok{3}\NormalTok{,}
+  \AttributeTok{free =} \FunctionTok{c}\NormalTok{(}
+\NormalTok{    F, T, F,}
+\NormalTok{    F, F, F,}
+\NormalTok{    F, F, F}
+\NormalTok{  ),}
+  \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+    \DecValTok{0}\NormalTok{, }\FloatTok{0.20}\NormalTok{, }\DecValTok{1}\NormalTok{,}
+    \DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{,}
+    \DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}
+\NormalTok{  ),}
+  \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}
+    \ConstantTok{NA}\NormalTok{, }\StringTok{"beta"}\NormalTok{, }\ConstantTok{NA}\NormalTok{,}
+    \ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{,}
+    \ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}
+\NormalTok{  ),}
+  \AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{name =} \StringTok{"mxA"}
+\NormalTok{)}
+\NormalTok{mxS }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxMatrix}\NormalTok{(}
+  \AttributeTok{type =} \StringTok{"Symm"}\NormalTok{,}
+  \AttributeTok{nrow =} \DecValTok{3}\NormalTok{,}
+  \AttributeTok{ncol =} \DecValTok{3}\NormalTok{,}
+  \AttributeTok{free =} \FunctionTok{c}\NormalTok{(}
+\NormalTok{    F, F, F,}
+\NormalTok{    F, T, F,}
+\NormalTok{    F, F, T}
+\NormalTok{  ),}
+  \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+    \DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{,}
+    \DecValTok{0}\NormalTok{, }\FloatTok{0.20}\NormalTok{, }\DecValTok{0}\NormalTok{,}
+    \DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\FloatTok{0.20}
+\NormalTok{  ),}
+  \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}
+    \ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{,}
+    \ConstantTok{NA}\NormalTok{, }\StringTok{"sigma2x"}\NormalTok{, }\ConstantTok{NA}\NormalTok{,}
+    \ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{"sigma2e"}
+\NormalTok{  ),}
+  \AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{name =} \StringTok{"mxS"}
+\NormalTok{)}
+\NormalTok{mxM }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxMatrix}\NormalTok{(}
+  \AttributeTok{type =} \StringTok{"Full"}\NormalTok{,}
+  \AttributeTok{nrow =} \DecValTok{1}\NormalTok{,}
+  \AttributeTok{ncol =} \DecValTok{3}\NormalTok{,}
+  \AttributeTok{free =} \FunctionTok{c}\NormalTok{(}
+\NormalTok{    T, T, F}
+\NormalTok{  ),}
+  \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+    \FloatTok{0.20}\NormalTok{,}
+    \FloatTok{0.20}\NormalTok{,}
+    \DecValTok{0}
+\NormalTok{  ),}
+  \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}
+    \StringTok{"alpha"}\NormalTok{,}
+    \StringTok{"mux"}\NormalTok{,}
+    \ConstantTok{NA}
+\NormalTok{  ),}
+  \AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{name =} \StringTok{"mxM"}
+\NormalTok{)}
+\NormalTok{mxF }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxMatrix}\NormalTok{(}
+  \AttributeTok{type =} \StringTok{"Full"}\NormalTok{,}
+  \AttributeTok{nrow =} \DecValTok{2}\NormalTok{,}
+  \AttributeTok{ncol =} \DecValTok{3}\NormalTok{,}
+  \AttributeTok{free =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+    \DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{,}
+    \DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}
+\NormalTok{  ),}
+  \AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{name =} \StringTok{"mxF"}
+\NormalTok{)}
+\NormalTok{expRAM }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxExpectationRAM}\NormalTok{(}
+  \AttributeTok{A =} \StringTok{"mxA"}\NormalTok{,}
+  \AttributeTok{S =} \StringTok{"mxS"}\NormalTok{,}
+  \AttributeTok{F =} \StringTok{"mxF"}\NormalTok{,}
+  \AttributeTok{M =} \StringTok{"mxM"}\NormalTok{,}
+  \AttributeTok{dimnames =} \FunctionTok{c}\NormalTok{(}
+    \StringTok{"y"}\NormalTok{,}
+    \StringTok{"x"}\NormalTok{,}
+    \StringTok{"e"}
+\NormalTok{  )}
+\NormalTok{)}
+\NormalTok{objML }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxFitFunctionML}\NormalTok{()}
+\NormalTok{mxMod }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxModel}\NormalTok{(}
+  \AttributeTok{name =} \StringTok{"Model"}\NormalTok{,}
+  \AttributeTok{data =}\NormalTok{ mxData,}
+  \AttributeTok{matrices =} \FunctionTok{list}\NormalTok{(}
+\NormalTok{    mxA,}
+\NormalTok{    mxS,}
+\NormalTok{    mxF,}
+\NormalTok{    mxM}
+\NormalTok{  ),}
+  \AttributeTok{expectation =}\NormalTok{ expRAM,}
+  \AttributeTok{fitfunction =}\NormalTok{ objML}
+\NormalTok{)}
+\NormalTok{fit }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxRun}\NormalTok{(mxMod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Running Model with 5 parameters
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Summary of Model 
+##  
+## free parameters:
+##      name matrix row col    Estimate  Std.Error A
+## 1    beta    mxA   1   2  1.00844356 0.06337369  
+## 2 sigma2x    mxS   2   2  0.25000000 0.01118034  
+## 3 sigma2e    mxS   3   3  1.00402596 0.04490152  
+## 4   alpha    mxM   1   y -0.03004621 0.04481202  
+## 5     mux    mxM   1   x  0.49999999 0.01581140  
+## 
+## Model Statistics: 
+##                |  Parameters  |  Degrees of Freedom  |  Fit (-2lnL units)
+##        Model:              5                   1995              4293.478
+##    Saturated:              5                   1995                    NA
+## Independence:              4                   1996                    NA
+## Number of observations/statistics: 1000/2000
+## 
+## Information Criteria: 
+##       |  df Penalty  |  Parameters Penalty  |  Sample-Size Adjusted
+## AIC:       303.4776               4303.478                 4303.538
+## BIC:     -9487.4941               4328.016                 4312.136
+## CFI: NA 
+## TLI: 1   (also known as NNFI) 
+## RMSEA:  0  [95% CI (NA, NA)]
+## Prob(RMSEA <= 0.05): NA
+## To get additional fit indices, see help(mxRefModels)
+## timestamp: 2021-01-23 18:35:53 
+## Wall clock time: 0.166863 secs 
+## optimizer:  SLSQP 
+## OpenMx version number: 2.18.1 
+## Need help?  See help(mxSummary)
+\end{verbatim}
 
 \hypertarget{using-the-ramr-package-1}{%
 \subsection{\texorpdfstring{Using the \texttt{ramR} Package}{Using the ramR Package}}\label{using-the-ramr-package-1}}
@@ -954,18 +1118,19 @@ can be numerically derived using the \texttt{ramR::v\_num()} function.
 \hypertarget{equations-to-ram}{%
 \section{Equations to RAM}\label{equations-to-ram}}
 
-The \texttt{ramR} package has a utility function to convert structural equations to RAM notation.
+The \texttt{ramR} package has a utility function
+to convert structural equations to RAM notation.
 The Student's \(t\)-test can be expressed in the following equations
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
 \StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
-\StringTok{  e           by        y         1;}
-\StringTok{  y           on        x         beta;}
-\StringTok{  e           with      e         sigma[varepsilon]\^{}2;}
-\StringTok{  x           with      x         sigma[x]\^{}2;}
-\StringTok{  y           on        1         alpha;}
+\StringTok{  e           by        y         1}
+\StringTok{  y           on        x         beta}
+\StringTok{  e           with      e         sigma[varepsilon]\^{}2}
+\StringTok{  x           with      x         sigma[x]\^{}2}
+\StringTok{  y           on        1         alpha}
 \StringTok{  x           on        1         mu[x]}
 \StringTok{"}
 \end{Highlighting}
@@ -977,11 +1142,13 @@ The Student's \(t\)-test can be expressed in the following equations
 \caption{\label{fig:ram-t-02}Student's \(t\)-test's Structural Equations}
 \end{figure}
 
-The error term is treated as a latent variable and defined with the operation \texttt{by}.
+The error term is treated as a latent variable
+and defined with the operation \texttt{by}.
 It's value is constrained to \(1\).
 The regression of \(y\) on \(x\) is defined by operation \texttt{on}.
 It is labeled as \texttt{beta}.
-The variance of \(x\) and the error variance are defined using the operation \texttt{with}.
+The variance of \(x\) and the error variance
+are defined using the operation \texttt{with}.
 These are labeled \texttt{sigma{[}x{]}\^{}2} and \texttt{sigma{[}varepsilon{]}\^{}2} respectively.
 The intercept and the mean of \(x\) are defined using the operation \texttt{on\ 1}.
 These are labeled \texttt{alpha} and \texttt{mu{[}x{]}} respectively.
@@ -1034,18 +1201,19 @@ The \texttt{ramR::eq2ram} converts the equations to RAM notation.
 \hypertarget{equations-to-expectations}{%
 \section{Equations to Expectations}\label{equations-to-expectations}}
 
-The \texttt{ramR} package has a utility function to convert structural equations to expectations
+The \texttt{ramR} package has a utility function
+to convert structural equations to expectations
 both symbolically and numerically.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
 \StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
-\StringTok{  e           by        y         1;}
-\StringTok{  y           on        x         beta;}
-\StringTok{  e           with      e         sigma[varepsilon]\^{}2;}
-\StringTok{  x           with      x         sigma[x]\^{}2;}
-\StringTok{  y           on        1         alpha;}
+\StringTok{  e           by        y         1}
+\StringTok{  y           on        x         beta}
+\StringTok{  e           with      e         sigma[varepsilon]\^{}2}
+\StringTok{  x           with      x         sigma[x]\^{}2}
+\StringTok{  y           on        1         alpha}
 \StringTok{  x           on        1         mu[x]}
 \StringTok{"}
 \end{Highlighting}
@@ -1103,11 +1271,11 @@ both symbolically and numerically.
 \begin{Highlighting}[]
 \NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
 \StringTok{  \# VARIABLE1 OPERATION VARIABLE2 VALUE}
-\StringTok{  e           by        y         1.00;}
-\StringTok{  y           on        x         1.00;}
-\StringTok{  e           with      e         1.00;}
-\StringTok{  x           with      x         0.25;}
-\StringTok{  y           on        1         0.00;}
+\StringTok{  e           by        y         1.00}
+\StringTok{  y           on        x         1.00}
+\StringTok{  e           with      e         1.00}
+\StringTok{  x           with      x         0.25}
+\StringTok{  y           on        1         0.00}
 \StringTok{  x           on        1         0.50}
 \StringTok{"}
 \end{Highlighting}

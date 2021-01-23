@@ -25,6 +25,8 @@ numerical-example
 t-test
 linear-regression
 structural-equation-modeling
+lavaan-lavaan2012
+openmx-openmx2020
 using-the-ramr-package-1
 equations-to-ram
 equations-to-expectations

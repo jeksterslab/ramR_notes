@@ -2,7 +2,7 @@
 
 In this section,
 the Student's $t$-test is presented as a structural equation model
-using the RAM notation. 
+using the RAM notation.
 Let $y$ be a continuous dependent variable,
 $x$ be a dichotomous independent variable
 $\left( x = \{0, 1\} \right)$,
@@ -23,7 +23,7 @@ The associations of the variables are given by
 - $\beta$ is the unit change in $y$ for unit change in $x$
 - $\alpha + \beta$ is the expected value of $y$ when $x = 1$
 
-```{tikz, ram-t-01, echo = FALSE, fig.width = 4, fig.cap = "Student's $t$-test", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+```{tikz, ram-t-01, echo=FALSE, fig.width=4, fig.cap="Student's $t$-test", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
   auto,
@@ -66,8 +66,8 @@ The associations of the variables are given by
     draw,
     thick,
     inner sep = 0pt,
-    minimum width = 15mm,
-    minimum height = 10mm
+    minimum width = 7mm,
+    minimum height = 7mm
   },
   path/.style = {
     ->,
@@ -88,7 +88,7 @@ The associations of the variables are given by
   \draw[path] (1) to node[above] {$\mu_x$} (x);
   \draw[path] (x) to node[above] {$\beta$} (y);
   \draw[path] (varepsilon) to node[above] {$1$} (y);
-  \draw[cov] (1) to[out=70,in=110,looseness=5] node[above] {$1$} (1);
+  \draw[cov] (1) to[out=70,in=110,looseness=6] node[above] {$1$} (1);
   \draw[cov] (x) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x}^{2}$} (x);
   \draw[cov] (varepsilon) to[out=70,in=110,looseness=5] node[above] {$\sigma_{\varepsilon}^{2}$} (varepsilon);
 \end{tikzpicture}
@@ -98,7 +98,7 @@ The associations of the variables are given by
 
 Let $\left\{ y, x, \varepsilon \right\}$ be the variables of interest.
 
-```{r, echo = FALSE}
+```{r, echo=FALSE}
 u <- matrix(
   data = c(
     paste(expression(alpha)),
@@ -150,7 +150,7 @@ rownames(filter) <- c(
 )
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{align*}",
   "\\mathbf{A} &=",
@@ -160,7 +160,7 @@ cat(
 )
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{align*}",
   "\\mathbf{S} &=",
@@ -170,7 +170,7 @@ cat(
 )
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{align*}",
   "\\mathbf{C} &=",
@@ -189,7 +189,7 @@ cat(
 )
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{align*}",
   "\\mathbf{F} &=",
@@ -199,7 +199,7 @@ cat(
 )
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{align*}",
   "\\mathbf{M} &=",
@@ -210,17 +210,33 @@ cat(
   "\\mathbf{F} \\mathbf{C} \\mathbf{F}^{\\mathsf{T}} \\\\",
   "\\\\ &=",
   Ryacas::tex(Ryacas::ysym(filter)),
-  Ryacas::tex(solve(Ryacas::ysym(I) - Ryacas::ysym(A)) * Ryacas::ysym(S) * t(solve(Ryacas::ysym(I) - Ryacas::ysym(A)))),
+  Ryacas::tex(
+    solve(
+      Ryacas::ysym(I) - Ryacas::ysym(A)
+    ) * Ryacas::ysym(S) * t(
+      solve(
+        Ryacas::ysym(I) - Ryacas::ysym(A)
+      )
+    )
+  ),
   Ryacas::tex(Ryacas::ysym(filter)),
   "^{\\mathsf{T}} \\\\",
   "\\\\ &=",
-  Ryacas::tex(Ryacas::ysym(filter) * solve(Ryacas::ysym(I) - Ryacas::ysym(A)) * Ryacas::ysym(S) * t(solve(Ryacas::ysym(I) - Ryacas::ysym(A))) * t(Ryacas::ysym(filter))),
+  Ryacas::tex(
+    Ryacas::ysym(filter) * solve(
+      Ryacas::ysym(I) - Ryacas::ysym(A)
+    ) * Ryacas::ysym(S) * t(
+      solve(Ryacas::ysym(I) - Ryacas::ysym(A))
+    ) * t(
+      Ryacas::ysym(filter)
+    )
+  ),
   "\\end{align*}",
   sep = ""
 )
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{align*}",
   "\\mathbf{v} &=",
@@ -239,7 +255,7 @@ cat(
 )
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{align*}",
   "\\mathbf{u} &=",
@@ -258,7 +274,7 @@ cat(
 )
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{align*}",
   "\\mathbf{g} &=",
@@ -302,7 +318,7 @@ can be symbolically derived using the `ramR::C_sym()` function.
 ramR::C_sym(A, S)
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{C} =",
@@ -319,7 +335,7 @@ can be symbolically derived using the `ramR::M_sym()` function.
 ramR::M_sym(A, S, filter)
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{M} =",
@@ -336,7 +352,7 @@ can be symbolically derived using the `ramR::v_sym()` function.
 ramR::v_sym(A, u)
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{v} =",
@@ -353,7 +369,7 @@ can be symbolically derived using the `ramR::g_sym()` function.
 ramR::g_sym(A, u, filter)
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{g} =",
@@ -365,7 +381,7 @@ cat(
 
 ## Numerical Example
 
-```{r, echo = FALSE}
+```{r, echo=FALSE}
 data_t <- function(n1,
                    n2,
                    mean1,
@@ -385,13 +401,17 @@ data_t <- function(n1,
     )
   )
 }
-set.seed(42)
+# Population
 n1 <- 500
 n2 <- 500
 mean1 <- 0
 mean2 <- 1
 var1 <- 1
 var2 <- 1
+alpha_pop <- mean1
+beta_pop <- mean2 - mean1
+# Generate Data
+set.seed(42)
 data <- data_t(
   n1 = n1,
   n2 = n2,
@@ -445,7 +465,7 @@ rownames(filter) <- c(
 
 Let `df` be a random sample with the following parameters
 
-```{r, echo = FALSE}
+```{r, echo=FALSE}
 label <- c(
   "Sample Size",
   "$\\mu$",
@@ -471,18 +491,43 @@ knitr::kable(
 )
 ```
 
+```{r, echo=FALSE}
+
+parameter <- round(
+  c(
+    alpha_pop,
+    beta_pop
+  ),
+  digits = 2
+)
+label <- c(
+  "$\\alpha$",
+  "$\\beta$"
+)
+description <- c(
+  "Mean of $x = 0$.",
+  "Mean of $x = 1$ minus $x = 0$."
+)
+knitr::kable(
+  cbind(
+    label,
+    description,
+    parameter
+  ),
+  col.names = c(
+    "Parameter",
+    "Description",
+    "Estimate"
+  )
+)
+```
+
 ```{r}
 head(df)
 summary(df)
 ```
 
-```{r, echo = FALSE, eval = FALSE}
-var(df)
-var(df[which(df$x == 0), ][1])
-var(df[which(df$x == 1), ][1])
-```
-
-```{r, echo = FALSE}
+```{r, echo=FALSE}
 boxplot(
   y ~ x,
   data = df
@@ -490,12 +535,12 @@ boxplot(
 hist(
   df[which(df$x == 0), ][["y"]],
   xlab = expression(y),
-  main = expression(paste("Histogram of ", y," for ", x == 0))
+  main = expression(paste("Histogram of ", y, " for ", x == 0))
 )
 hist(
   df[which(df$x == 1), ][["y"]],
   xlab = expression(y),
-  main = expression(paste("Histogram of ", y," for ", x == 1))
+  main = expression(paste("Histogram of ", y, " for ", x == 1))
 )
 ```
 
@@ -513,6 +558,9 @@ summary(lm(y ~ x, data = df))
 
 ### Structural Equation Modeling
 
+#### lavaan [@lavaan2012]
+
+
 ```{r}
 model <- "
   y ~ x
@@ -526,34 +574,119 @@ fit <- lavaan::sem(
 lavaan::summary(fit)
 ```
 
-```{r, echo = FALSE}
-parameter <- round(
-  c(
-  unname(alpha),
-  unname(beta),
-  unname(sigma2x),
-  unname(sigma2e),
-  unname(mu_x)
-), 
-digits = 2
+#### OpenMx [@OpenMx2020]
+
+RAM matrices can be used to specify models in `OpenMx`.
+Note, however, that the `u` vector in the RAM notation is
+`M` in the `OpenMx` notation.
+
+```{r}
+mxData <- OpenMx::mxData(
+  observed = df,
+  type = "raw"
 )
-label <- c(
-  "$\\alpha$",
-  "$\\beta$",
-  "$\\sigma^{2}_{x}$",
-  "$\\sigma^{2}_{\\varepsilon}$",
-  "$\\mu_x$"
-)
-knitr::kable(
-  cbind(
-    label,
-    parameter
+mxA <- OpenMx::mxMatrix(
+  type = "Full",
+  nrow = 3,
+  ncol = 3,
+  free = c(
+    F, T, F,
+    F, F, F,
+    F, F, F
   ),
-  col.names = c(
-    "Parameter",
-    "Estimate"
+  values = c(
+    0, 0.20, 1,
+    0, 0, 0,
+    0, 0, 0
+  ),
+  labels = c(
+    NA, "beta", NA,
+    NA, NA, NA,
+    NA, NA, NA
+  ),
+  byrow = TRUE,
+  name = "mxA"
+)
+mxS <- OpenMx::mxMatrix(
+  type = "Symm",
+  nrow = 3,
+  ncol = 3,
+  free = c(
+    F, F, F,
+    F, T, F,
+    F, F, T
+  ),
+  values = c(
+    0, 0, 0,
+    0, 0.20, 0,
+    0, 0, 0.20
+  ),
+  labels = c(
+    NA, NA, NA,
+    NA, "sigma2x", NA,
+    NA, NA, "sigma2e"
+  ),
+  byrow = TRUE,
+  name = "mxS"
+)
+mxM <- OpenMx::mxMatrix(
+  type = "Full",
+  nrow = 1,
+  ncol = 3,
+  free = c(
+    T, T, F
+  ),
+  values = c(
+    0.20,
+    0.20,
+    0
+  ),
+  labels = c(
+    "alpha",
+    "mux",
+    NA
+  ),
+  byrow = TRUE,
+  name = "mxM"
+)
+mxF <- OpenMx::mxMatrix(
+  type = "Full",
+  nrow = 2,
+  ncol = 3,
+  free = FALSE,
+  values = c(
+    1, 0, 0,
+    0, 1, 0
+  ),
+  byrow = TRUE,
+  name = "mxF"
+)
+expRAM <- OpenMx::mxExpectationRAM(
+  A = "mxA",
+  S = "mxS",
+  F = "mxF",
+  M = "mxM",
+  dimnames = c(
+    "y",
+    "x",
+    "e"
   )
 )
+objML <- OpenMx::mxFitFunctionML()
+mxMod <- OpenMx::mxModel(
+  name = "Model",
+  data = mxData,
+  matrices = list(
+    mxA,
+    mxS,
+    mxF,
+    mxM
+  ),
+  expectation = expRAM,
+  fitfunction = objML
+)
+fit <- OpenMx::mxRun(mxMod)
+summary(fit)
 ```
 
 ### Using the `ramR` Package
@@ -604,22 +737,23 @@ ramR::g_num(A, u, filter)
 
 ## Equations to RAM
 
-The `ramR` package has a utility function to convert structural equations to RAM notation.
+The `ramR` package has a utility function
+to convert structural equations to RAM notation.
 The Student's $t$-test can be expressed in the following equations
 
 ```{r}
 eq <- "
   # VARIABLE1 OPERATION VARIABLE2 LABEL
-  e           by        y         1;
-  y           on        x         beta;
-  e           with      e         sigma[varepsilon]^2;
-  x           with      x         sigma[x]^2;
-  y           on        1         alpha;
+  e           by        y         1
+  y           on        x         beta
+  e           with      e         sigma[varepsilon]^2
+  x           with      x         sigma[x]^2
+  y           on        1         alpha
   x           on        1         mu[x]
 "
 ```
 
-```{tikz, ram-t-02, echo = FALSE, fig.width = 4, fig.cap = "Student's $t$-test's Structural Equations", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache = TRUE}
+```{tikz, ram-t-02, echo=FALSE, fig.width=4, fig.cap="Student's $t$-test's Structural Equations", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
   auto,
@@ -705,11 +839,13 @@ eq <- "
 \end{tikzpicture}
 ```
 
-The error term is treated as a latent variable and defined with the operation `by`.
+The error term is treated as a latent variable
+and defined with the operation `by`.
 It's value is constrained to $1$.
 The regression of $y$ on $x$ is defined by operation `on`.
 It is labeled as `beta`.
-The variance of $x$ and the error variance are defined using the operation `with`.
+The variance of $x$ and the error variance
+are defined using the operation `with`.
 These are labeled `sigma[x]^2` and `sigma[varepsilon]^2` respectively.
 The intercept and the mean of $x$ are defined using the operation `on 1`.
 These are labeled `alpha` and `mu[x]` respectively.
@@ -722,17 +858,18 @@ ramR::eq2ram(eq)
 
 ## Equations to Expectations
 
-The `ramR` package has a utility function to convert structural equations to expectations
+The `ramR` package has a utility function
+to convert structural equations to expectations
 both symbolically and numerically.
 
 ```{r}
 eq <- "
   # VARIABLE1 OPERATION VARIABLE2 LABEL
-  e           by        y         1;
-  y           on        x         beta;
-  e           with      e         sigma[varepsilon]^2;
-  x           with      x         sigma[x]^2;
-  y           on        1         alpha;
+  e           by        y         1
+  y           on        x         beta
+  e           with      e         sigma[varepsilon]^2
+  x           with      x         sigma[x]^2
+  y           on        1         alpha
   x           on        1         mu[x]
 "
 ```
@@ -744,11 +881,11 @@ ramR::eq2exp_sym(eq)
 ```{r}
 eq <- "
   # VARIABLE1 OPERATION VARIABLE2 VALUE
-  e           by        y         1.00;
-  y           on        x         1.00;
-  e           with      e         1.00;
-  x           with      x         0.25;
-  y           on        1         0.00;
+  e           by        y         1.00
+  y           on        x         1.00
+  e           with      e         1.00
+  x           with      x         0.25
+  y           on        1         0.00
   x           on        1         0.50
 "
 ```
