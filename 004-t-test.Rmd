@@ -841,7 +841,7 @@ eq <- "
 
 The error term is treated as a latent variable
 and defined with the operation `by`.
-It's value is constrained to $1$.
+Its value is constrained to $1$.
 The regression of $y$ on $x$ is defined by operation `on`.
 It is labeled as `beta`.
 The variance of $x$ and the error variance

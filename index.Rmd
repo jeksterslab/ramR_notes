@@ -14,7 +14,7 @@ description: "Notes on the Reticular Action Model (RAM) Notation"
 
 # Description
 
-This is a collection of my personal notes
+This is a collection of my notes
 on the Reticular Action Model (RAM) notation
 that accompanies the `ramR` package [@R-ramR]
 in the `R` statistical environment [@R-base].
