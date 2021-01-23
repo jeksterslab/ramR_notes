@@ -1,0 +1,72 @@
+# Two-Variable Regression Model {#ram-two-reg}
+
+```{tikz, ram-two-reg-01, echo=FALSE, fig.cap="Two-Variable Regression Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 15mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 15mm,
+    align = center
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 7mm,
+    align = center
+  },
+  mean/.style={
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 7mm,
+    minimum height = 7mm
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+  \node[manifest] (y) {$y$};
+  \node[manifest] (x) [right = of y] {$x$};
+  \node[mean] (1) [above = of y] {1};
+  \node[error] (varepsilon) [left = of y] {$\varepsilon$};
+  \draw[path] (1) to node[right] {$\beta_1$} (y);
+  \draw[path] (x) to node[above] {$\beta_2$} (y);
+  \draw[path] (varepsilon) to node[above] {$1$} (y);
+  \draw[cov] (1) to[out=70,in=110,looseness=6] node[above] {$1$} (1);
+  \draw[cov] (x) to[out=-10,in=10,looseness=5] node[right] {$\sigma_{x}^{2}$} (x);
+  \draw[cov] (varepsilon) to[out=160,in=200,looseness=5] node[left] {$\sigma_{\varepsilon}^{2}$} (varepsilon);
+  \node[inv] (eq) [below = of y] {$y = \alpha + \beta x + \varepsilon$};
+\end{tikzpicture}
+```

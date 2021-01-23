@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 One-Way Analysis of Variance | Reticular Action Model (RAM) Notation Notes</title>
+  <meta name="description" content="Notes on the Reticular Action Model (RAM) Notation" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 One-Way Analysis of Variance | Reticular Action Model (RAM) Notation Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes on the Reticular Action Model (RAM) Notation" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 One-Way Analysis of Variance | Reticular Action Model (RAM) Notation Notes" />
+  
+  <meta name="twitter:description" content="Notes on the Reticular Action Model (RAM) Notation" />
+  
+
+<meta name="author" content="Ivan Jacob Agaloos Pesigan" />
+
+
+<meta name="date" content="2021-01-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ram-t.html"/>
+<link rel="next" href="ram-two-reg.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Reticular Action Model (RAM) Notation</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Description</a></li>
+<li class="chapter" data-level="2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html"><i class="fa fa-check"></i><b>2</b> Reticular Action Model (RAM) Matrix Notation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#full-model"><i class="fa fa-check"></i><b>2.1</b> Full Model</a></li>
+<li class="chapter" data-level="2.2" data-path="ram-matrix-notation.html"><a href="ram-matrix-notation.html#observedmanifestgiven-variables-vs.-unobservedlatenthidden-variables"><i class="fa fa-check"></i><b>2.2</b> Observed/Manifest/Given Variables vs. Unobserved/Latent/Hidden Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ram-diagram.html"><a href="ram-diagram.html"><i class="fa fa-check"></i><b>3</b> Reticular Action Model (RAM) Path Diagram</a></li>
+<li class="chapter" data-level="4" data-path="ram-t.html"><a href="ram-t.html"><i class="fa fa-check"></i><b>4</b> Student’s <span class="math inline">\(t\)</span>-test</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ram-t.html"><a href="ram-t.html#symbolic"><i class="fa fa-check"></i><b>4.1</b> Symbolic</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ram-t.html"><a href="ram-t.html#using-the-ramr-package"><i class="fa fa-check"></i><b>4.1.1</b> Using the <code>ramR</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ram-t.html"><a href="ram-t.html#numerical-example"><i class="fa fa-check"></i><b>4.2</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ram-t.html"><a href="ram-t.html#t-test"><i class="fa fa-check"></i><b>4.2.1</b> <span class="math inline">\(t\)</span>-test</a></li>
+<li class="chapter" data-level="4.2.2" data-path="ram-t.html"><a href="ram-t.html#linear-regression"><i class="fa fa-check"></i><b>4.2.2</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.2.3" data-path="ram-t.html"><a href="ram-t.html#structural-equation-modeling"><i class="fa fa-check"></i><b>4.2.3</b> Structural Equation Modeling</a></li>
+<li class="chapter" data-level="4.2.4" data-path="ram-t.html"><a href="ram-t.html#using-the-ramr-package-1"><i class="fa fa-check"></i><b>4.2.4</b> Using the <code>ramR</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ram-t.html"><a href="ram-t.html#equations-to-ram"><i class="fa fa-check"></i><b>4.3</b> Equations to RAM</a></li>
+<li class="chapter" data-level="4.4" data-path="ram-t.html"><a href="ram-t.html#equations-to-expectations"><i class="fa fa-check"></i><b>4.4</b> Equations to Expectations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ram-anova.html"><a href="ram-anova.html"><i class="fa fa-check"></i><b>5</b> One-Way Analysis of Variance</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="ram-anova.html"><a href="ram-anova.html#symbolic-1"><i class="fa fa-check"></i><b>5.1</b> Symbolic</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="ram-anova.html"><a href="ram-anova.html#using-the-ramr-package-2"><i class="fa fa-check"></i><b>5.1.1</b> Using the <code>ramR</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ram-anova.html"><a href="ram-anova.html#numerical-example-1"><i class="fa fa-check"></i><b>5.2</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="ram-anova.html"><a href="ram-anova.html#one-way-analysis-of-variance"><i class="fa fa-check"></i><b>5.2.1</b> One-Way Analysis of Variance</a></li>
+<li class="chapter" data-level="5.2.2" data-path="ram-anova.html"><a href="ram-anova.html#linear-regression-1"><i class="fa fa-check"></i><b>5.2.2</b> Linear Regression</a></li>
+<li class="chapter" data-level="5.2.3" data-path="ram-anova.html"><a href="ram-anova.html#structural-equation-modeling-1"><i class="fa fa-check"></i><b>5.2.3</b> Structural Equation Modeling</a></li>
+<li class="chapter" data-level="5.2.4" data-path="ram-anova.html"><a href="ram-anova.html#using-the-ramr-package-3"><i class="fa fa-check"></i><b>5.2.4</b> Using the <code>ramR</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ram-anova.html"><a href="ram-anova.html#equations-to-ram-1"><i class="fa fa-check"></i><b>5.3</b> Equations to RAM</a></li>
+<li class="chapter" data-level="5.4" data-path="ram-anova.html"><a href="ram-anova.html#equations-to-expectations-1"><i class="fa fa-check"></i><b>5.4</b> Equations to Expectations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ram-two-reg.html"><a href="ram-two-reg.html"><i class="fa fa-check"></i><b>6</b> Two-Variable Regression Model</a></li>
+<li class="chapter" data-level="7" data-path="ram-k-reg.html"><a href="ram-k-reg.html"><i class="fa fa-check"></i><b>7</b> <span class="math inline">\(k\)</span>-Variable Regression Model</a></li>
+<li class="chapter" data-level="8" data-path="ram-med-simple.html"><a href="ram-med-simple.html"><i class="fa fa-check"></i><b>8</b> The Simple Mediation Model</a></li>
+<li class="chapter" data-level="9" data-path="ram-med-simple-std.html"><a href="ram-med-simple-std.html"><i class="fa fa-check"></i><b>9</b> The Standardized Simple Mediation Model</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reticular Action Model (RAM) Notation Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ram-anova" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> One-Way Analysis of Variance</h1>
+<p>In this section,
+one-way analysis of variance is presented as a structural equation model
+using the RAM notation.
+Let <span class="math inline">\(y\)</span> be a continuous dependent variable,
+<span class="math inline">\(x\)</span> be a categorical independent variable
+with three levels
+<span class="math inline">\(\left( x = \{0, 1, 2\} \right)\)</span>.
+The dependent variable <span class="math inline">\(x\)</span> can be dummy coded as</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span class="math inline">\(x\)</span></th>
+<th align="left"><span class="math inline">\(x_1\)</span></th>
+<th align="left"><span class="math inline">\(x_2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(x = 0\)</span></td>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(x = 1\)</span></td>
+<td align="left">1</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(x = 2\)</span></td>
+<td align="left">0</td>
+<td align="left">1</td>
+</tr>
+</tbody>
+</table>
+<p>The associations of the variables are given by</p>
+<p><span class="math display">\[\begin{equation*}
+  y
+  =
+  \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \varepsilon
+\end{equation*}\]</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> is the expected value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x = 0\)</span></li>
+<li><span class="math inline">\(\beta_1\)</span> is the unit change in <span class="math inline">\(y\)</span> for unit change in <span class="math inline">\(x_1\)</span> while <span class="math inline">\(x_2\)</span> is constant</li>
+<li><span class="math inline">\(\beta_2\)</span> is the unit change in <span class="math inline">\(y\)</span> for unit change in <span class="math inline">\(x_2\)</span> while <span class="math inline">\(x_1\)</span> is constant</li>
+<li><span class="math inline">\(\beta_0 + \beta_1\)</span> is the expected value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x = 1\)</span></li>
+<li><span class="math inline">\(\beta_0 + \beta_2\)</span> is the expected value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x = 2\)</span></li>
+</ul>
+<div class="figure"><span id="fig:ram-aov-01"></span>
+<img src="ramR_notes_files/figure-html/ram-aov-01-1.png" alt="One-Way Analysis of Variance" width="672" />
+<p class="caption">
+Figure 5.1: One-Way Analysis of Variance
+</p>
+</div>
+<div id="symbolic-1" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Symbolic</h2>
+<p>Let <span class="math inline">\(\left\{ y, x_1, x_2, \varepsilon \right\}\)</span> be the variables of interest.</p>
+<p><span class="math display">\[\begin{align*}\mathbf{A} &amp;=\left( \begin{array}{cccc} 0 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{S} &amp;=\left( \begin{array}{cccc} 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \sigma  _{x_{1}} ^{2} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \sigma  _{x_{2}} ^{2} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{C} &amp;=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \\\\ &amp;=\mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{cccc} 1 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)\left( \begin{array}{cccc} 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \sigma  _{x_{1}} ^{2} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \sigma  _{x_{2}} ^{2} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{cccc} 1 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)^{\mathsf{T}}\\ &amp;=\left( \begin{array}{cccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x_{1}} ^{2} &amp; \beta  _{2} \sigma  _{x_{2}} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} &amp; \sigma  _{x_{1}} ^{2} &amp; 0 &amp; 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x_{2}} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{F} &amp;=\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{M} &amp;=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \mathbf{F}^{\mathsf{T}}\\ &amp;=\mathbf{F} \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \mathbf{F}^{\mathsf{T}} \\\\ &amp;=\mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{array} \right)\left( \begin{array}{cccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x_{1}} ^{2} &amp; \beta  _{2} \sigma  _{x_{2}} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} &amp; \sigma  _{x_{1}} ^{2} &amp; 0 &amp; 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x_{2}} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{array} \right)^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{ccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x_{1}} ^{2} &amp; \beta  _{2} \sigma  _{x_{2}} ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} &amp; \sigma  _{x_{1}} ^{2} &amp; 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x_{2}} ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{v} &amp;=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &amp;=\left[\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{cccc} 0 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]^{\mathsf{-1}}\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{u} &amp;=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &amp;=\left[\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{cccc} 0 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{g} &amp;=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &amp;=\left[\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{cccc} 0 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]^{-1}\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \end{array} \right)\end{align*}\]</span></p>
+<div id="using-the-ramr-package-2" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Using the <code>ramR</code> Package</h3>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="ram-anova.html#cb57-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<pre><code>##    y   x1        x2        e  
+## y  &quot;0&quot; &quot;beta[1]&quot; &quot;beta[2]&quot; &quot;1&quot;
+## x1 &quot;0&quot; &quot;0&quot;       &quot;0&quot;       &quot;0&quot;
+## x2 &quot;0&quot; &quot;0&quot;       &quot;0&quot;       &quot;0&quot;
+## e  &quot;0&quot; &quot;0&quot;       &quot;0&quot;       &quot;0&quot;</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="ram-anova.html#cb59-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
+<pre><code>##    y   x1            x2            e                    
+## y  &quot;0&quot; &quot;0&quot;           &quot;0&quot;           &quot;0&quot;                  
+## x1 &quot;0&quot; &quot;sigma[x1]^2&quot; &quot;0&quot;           &quot;0&quot;                  
+## x2 &quot;0&quot; &quot;0&quot;           &quot;sigma[x2]^2&quot; &quot;0&quot;                  
+## e  &quot;0&quot; &quot;0&quot;           &quot;0&quot;           &quot;sigma[varepsilon]^2&quot;</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="ram-anova.html#cb61-1" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div>
+<pre><code>##    u        
+## y  &quot;beta[0]&quot;
+## x1 &quot;mu[x1]&quot; 
+## x2 &quot;mu[x2]&quot; 
+## e  &quot;0&quot;</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="ram-anova.html#cb63-1" aria-hidden="true" tabindex="-1"></a>filter</span></code></pre></div>
+<pre><code>##    y x1 x2 e
+## y  1  0  0 0
+## x1 0  1  0 0
+## x2 0  0  1 0</code></pre>
+<p>The covariance expectations
+can be symbolically derived using the <code>ramR::C_sym()</code> function.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="ram-anova.html#cb65-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">C_sym</span>(A, S)</span></code></pre></div>
+<pre><code>## {{sigma[x1]^2*beta[1]^2+sigma[x2]^2*beta[2]^2+sigma[varepsilon]^2,                                             beta[1]*sigma[x1]^2,                                             beta[2]*sigma[x2]^2,                                             sigma[varepsilon]^2},
+##  {                                            sigma[x1]^2*beta[1],                                                     sigma[x1]^2,                                                               0,                                                               0},
+##  {                                            sigma[x2]^2*beta[2],                                                               0,                                                     sigma[x2]^2,                                                               0},
+##  {                                            sigma[varepsilon]^2,                                                               0,                                                               0,                                             sigma[varepsilon]^2}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{C} =\left( \begin{array}{cccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x_{1}} ^{2} &amp; \beta  _{2} \sigma  _{x_{2}} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} &amp; \sigma  _{x_{1}} ^{2} &amp; 0 &amp; 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x_{2}} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{equation*}\]</span></p>
+<p>The covariance expectations for the observed variables
+can be symbolically derived using the <code>ramR::M_sym()</code> function.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="ram-anova.html#cb67-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">M_sym</span>(A, S, filter)</span></code></pre></div>
+<pre><code>## {{sigma[x1]^2*beta[1]^2+sigma[x2]^2*beta[2]^2+sigma[varepsilon]^2,                                             beta[1]*sigma[x1]^2,                                             beta[2]*sigma[x2]^2},
+##  {                                            sigma[x1]^2*beta[1],                                                     sigma[x1]^2,                                                               0},
+##  {                                            sigma[x2]^2*beta[2],                                                               0,                                                     sigma[x2]^2}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{M} =\left( \begin{array}{ccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x_{1}} ^{2} &amp; \beta  _{2} \sigma  _{x_{2}} ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} &amp; \sigma  _{x_{1}} ^{2} &amp; 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x_{2}} ^{2} \end{array} \right)\end{equation*}\]</span></p>
+<p>The mean expectations
+can be symbolically derived using the <code>ramR::v_sym()</code> function.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="ram-anova.html#cb69-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">v_sym</span>(A, u)</span></code></pre></div>
+<pre><code>## {{beta[0]+beta[1]*mu[x1]+beta[2]*mu[x2]},
+##  {                               mu[x1]},
+##  {                               mu[x2]},
+##  {                                    0}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{v} =\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\end{equation*}\]</span></p>
+<p>The mean expectations for the observed variables
+can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="ram-anova.html#cb71-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">g_sym</span>(A, u, filter)</span></code></pre></div>
+<pre><code>## {{beta[0]+beta[1]*mu[x1]+beta[2]*mu[x2]},
+##  {                               mu[x1]},
+##  {                               mu[x2]}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{g} =\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \end{array} \right)\end{equation*}\]</span></p>
+</div>
+</div>
+<div id="numerical-example-1" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Numerical Example</h2>
+<p>Let <code>df</code> be a random sample with the following parameters</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left"><span class="math inline">\(x = 0\)</span></th>
+<th align="left"><span class="math inline">\(x = 1\)</span></th>
+<th align="left"><span class="math inline">\(x = 2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sample Size</td>
+<td align="left">500</td>
+<td align="left">500</td>
+<td align="left">500</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\mu\)</span></td>
+<td align="left">0</td>
+<td align="left">2</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\sigma^2\)</span></td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+<th align="left">Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\beta_0\)</span></td>
+<td align="left">Mean of <span class="math inline">\(x = 0\)</span>.</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\beta_1\)</span></td>
+<td align="left">Mean of <span class="math inline">\(x = 1\)</span> minus <span class="math inline">\(x = 0\)</span>.</td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\beta_2\)</span></td>
+<td align="left">Mean of <span class="math inline">\(x = 2\)</span> minus <span class="math inline">\(x = 0\)</span>.</td>
+<td align="left">1</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="ram-anova.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
+<pre><code>##            y x
+## 1 -0.6013830 0
+## 2 -0.1358161 0
+## 3 -0.9872728 0
+## 4  0.8319250 0
+## 5 -0.7950595 0
+## 6  0.3404646 0</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="ram-anova.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code></pre></div>
+<pre><code>##        y            x      
+##  Min.   :-2.61364   0:500  
+##  1st Qu.: 0.08094   1:500  
+##  Median : 1.02617   2:500  
+##  Mean   : 1.00814          
+##  3rd Qu.: 1.90112          
+##  Max.   : 5.47091</code></pre>
+<p><img src="ramR_notes_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<p><img src="ramR_notes_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<p><img src="ramR_notes_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="ramR_notes_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<div id="one-way-analysis-of-variance" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> One-Way Analysis of Variance</h3>
+<p>Make sure that <span class="math inline">\(x\)</span> is of class <code>factor</code> for <code>lm</code> and <code>aov</code>
+to treat it as a categorical variable.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="ram-anova.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    1500 obs. of  2 variables:
+##  $ y: num  -0.601 -0.136 -0.987 0.832 -0.795 ...
+##  $ x: Factor w/ 3 levels &quot;0&quot;,&quot;1&quot;,&quot;2&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="ram-anova.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df))</span></code></pre></div>
+<pre><code>##               Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## x              2  983.8   491.9   471.4 &lt;2e-16 ***
+## Residuals   1497 1562.2     1.0                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="linear-regression-1" class="section level3" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Linear Regression</h3>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="ram-anova.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.1792 -0.6469  0.0021  0.6751  3.5538 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.03083    0.04569   0.675      0.5    
+## x1           1.98309    0.06461  30.694   &lt;2e-16 ***
+## x2           0.94884    0.06461  14.686   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.022 on 1497 degrees of freedom
+## Multiple R-squared:  0.3864, Adjusted R-squared:  0.3856 
+## F-statistic: 471.4 on 2 and 1497 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="structural-equation-modeling-1" class="section level3" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Structural Equation Modeling</h3>
+<p>We have to dummy code the data set first before fitting the model.
+The <code>model.matrix</code> function which is used to create a design matrix
+can be used to dummy code <code>x</code>.
+Make sure that <code>x</code> is a <code>factor</code>.
+The first column of the design matrix is a matrix of ones.
+Since we do not need this column,
+we can replace this column with the values of <code>y</code>.
+Make sure to name rename the first column
+as <code>lavaan</code> relies on the column names.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="ram-anova.html#cb83-1" aria-hidden="true" tabindex="-1"></a>df_dummy <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span>
+<span id="cb83-2"><a href="ram-anova.html#cb83-2" aria-hidden="true" tabindex="-1"></a>df_dummy[, <span class="dv">1</span>] <span class="ot">&lt;-</span> df<span class="sc">$</span>y</span>
+<span id="cb83-3"><a href="ram-anova.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_dummy)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;y&quot;</span></span>
+<span id="cb83-4"><a href="ram-anova.html#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_dummy)</span></code></pre></div>
+<pre><code>##            y x1 x2
+## 1 -0.6013830  0  0
+## 2 -0.1358161  0  0
+## 3 -0.9872728  0  0
+## 4  0.8319250  0  0
+## 5 -0.7950595  0  0
+## 6  0.3404646  0  0</code></pre>
+<div id="lavaan-lavaan2012-1" class="section level4" number="5.2.3.1">
+<h4><span class="header-section-number">5.2.3.1</span> lavaan <span class="citation">(<a href="references.html#ref-lavaan2012" role="doc-biblioref">Rosseel 2012</a>)</span></h4>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="ram-anova.html#cb85-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb85-2"><a href="ram-anova.html#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ x1 + x2</span></span>
+<span id="cb85-3"><a href="ram-anova.html#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span>
+<span id="cb85-4"><a href="ram-anova.html#cb85-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> lavaan<span class="sc">::</span><span class="fu">sem</span>(</span>
+<span id="cb85-5"><a href="ram-anova.html#cb85-5" aria-hidden="true" tabindex="-1"></a>  model,</span>
+<span id="cb85-6"><a href="ram-anova.html#cb85-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_dummy,</span>
+<span id="cb85-7"><a href="ram-anova.html#cb85-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">meanstructure =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb85-8"><a href="ram-anova.html#cb85-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">fixed.x =</span> <span class="cn">FALSE</span></span>
+<span id="cb85-9"><a href="ram-anova.html#cb85-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb85-10"><a href="ram-anova.html#cb85-10" aria-hidden="true" tabindex="-1"></a>lavaan<span class="sc">::</span><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 22 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                          9
+##                                                       
+##   Number of observations                          1500
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   y ~                                                 
+##     x1                1.983    0.065   30.725    0.000
+##     x2                0.949    0.065   14.701    0.000
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   x1 ~~                                               
+##     x2               -0.111    0.006  -17.321    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .y                 0.031    0.046    0.676    0.499
+##     x1                0.333    0.012   27.386    0.000
+##     x2                0.333    0.012   27.386    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .y                 1.041    0.038   27.386    0.000
+##     x1                0.222    0.008   27.386    0.000
+##     x2                0.222    0.008   27.386    0.000</code></pre>
+</div>
+<div id="openmx-openmx2020-1" class="section level4" number="5.2.3.2">
+<h4><span class="header-section-number">5.2.3.2</span> OpenMx <span class="citation">(<a href="references.html#ref-OpenMx2020" role="doc-biblioref">Boker et al. 2020</a>)</span></h4>
+<p>RAM matrices can be used to specify models in <code>OpenMx</code>.
+Note, however, that the <code>u</code> vector in the RAM notation is
+<code>M</code> in the <code>OpenMx</code> notation.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="ram-anova.html#cb87-1" aria-hidden="true" tabindex="-1"></a>mxData <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxData</span>(</span>
+<span id="cb87-2"><a href="ram-anova.html#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">observed =</span> df_dummy,</span>
+<span id="cb87-3"><a href="ram-anova.html#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;raw&quot;</span></span>
+<span id="cb87-4"><a href="ram-anova.html#cb87-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb87-5"><a href="ram-anova.html#cb87-5" aria-hidden="true" tabindex="-1"></a>mxA <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxMatrix</span>(</span>
+<span id="cb87-6"><a href="ram-anova.html#cb87-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;Full&quot;</span>,</span>
+<span id="cb87-7"><a href="ram-anova.html#cb87-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">4</span>,</span>
+<span id="cb87-8"><a href="ram-anova.html#cb87-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">4</span>,</span>
+<span id="cb87-9"><a href="ram-anova.html#cb87-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">free =</span> <span class="fu">c</span>(</span>
+<span id="cb87-10"><a href="ram-anova.html#cb87-10" aria-hidden="true" tabindex="-1"></a>    F, T, T, F,</span>
+<span id="cb87-11"><a href="ram-anova.html#cb87-11" aria-hidden="true" tabindex="-1"></a>    F, F, F, F,</span>
+<span id="cb87-12"><a href="ram-anova.html#cb87-12" aria-hidden="true" tabindex="-1"></a>    F, F, F, F,</span>
+<span id="cb87-13"><a href="ram-anova.html#cb87-13" aria-hidden="true" tabindex="-1"></a>    F, F, F, F</span>
+<span id="cb87-14"><a href="ram-anova.html#cb87-14" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb87-15"><a href="ram-anova.html#cb87-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb87-16"><a href="ram-anova.html#cb87-16" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="fl">0.20</span>, <span class="fl">0.20</span>, <span class="dv">1</span>,</span>
+<span id="cb87-17"><a href="ram-anova.html#cb87-17" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
+<span id="cb87-18"><a href="ram-anova.html#cb87-18" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
+<span id="cb87-19"><a href="ram-anova.html#cb87-19" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span></span>
+<span id="cb87-20"><a href="ram-anova.html#cb87-20" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb87-21"><a href="ram-anova.html#cb87-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb87-22"><a href="ram-anova.html#cb87-22" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="st">&quot;beta1&quot;</span>, <span class="st">&quot;beta2&quot;</span>, <span class="cn">NA</span>,</span>
+<span id="cb87-23"><a href="ram-anova.html#cb87-23" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb87-24"><a href="ram-anova.html#cb87-24" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb87-25"><a href="ram-anova.html#cb87-25" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span></span>
+<span id="cb87-26"><a href="ram-anova.html#cb87-26" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb87-27"><a href="ram-anova.html#cb87-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb87-28"><a href="ram-anova.html#cb87-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;mxA&quot;</span></span>
+<span id="cb87-29"><a href="ram-anova.html#cb87-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb87-30"><a href="ram-anova.html#cb87-30" aria-hidden="true" tabindex="-1"></a>mxS <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxMatrix</span>(</span>
+<span id="cb87-31"><a href="ram-anova.html#cb87-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;Symm&quot;</span>,</span>
+<span id="cb87-32"><a href="ram-anova.html#cb87-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">4</span>,</span>
+<span id="cb87-33"><a href="ram-anova.html#cb87-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">4</span>,</span>
+<span id="cb87-34"><a href="ram-anova.html#cb87-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">free =</span> <span class="fu">c</span>(</span>
+<span id="cb87-35"><a href="ram-anova.html#cb87-35" aria-hidden="true" tabindex="-1"></a>    F, F, F, F,</span>
+<span id="cb87-36"><a href="ram-anova.html#cb87-36" aria-hidden="true" tabindex="-1"></a>    F, T, F, F,</span>
+<span id="cb87-37"><a href="ram-anova.html#cb87-37" aria-hidden="true" tabindex="-1"></a>    F, F, T, F,</span>
+<span id="cb87-38"><a href="ram-anova.html#cb87-38" aria-hidden="true" tabindex="-1"></a>    F, F, F, T</span>
+<span id="cb87-39"><a href="ram-anova.html#cb87-39" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb87-40"><a href="ram-anova.html#cb87-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb87-41"><a href="ram-anova.html#cb87-41" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>,    <span class="dv">0</span>,    <span class="dv">0</span>,    <span class="dv">0</span>,</span>
+<span id="cb87-42"><a href="ram-anova.html#cb87-42" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="fl">0.20</span>,    <span class="dv">0</span>,    <span class="dv">0</span>,</span>
+<span id="cb87-43"><a href="ram-anova.html#cb87-43" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>,    <span class="dv">0</span>, <span class="fl">0.20</span>,    <span class="dv">0</span>,</span>
+<span id="cb87-44"><a href="ram-anova.html#cb87-44" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>,    <span class="dv">0</span>,    <span class="dv">0</span>, <span class="fl">0.20</span></span>
+<span id="cb87-45"><a href="ram-anova.html#cb87-45" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb87-46"><a href="ram-anova.html#cb87-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb87-47"><a href="ram-anova.html#cb87-47" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb87-48"><a href="ram-anova.html#cb87-48" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="st">&quot;sigma2x1&quot;</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb87-49"><a href="ram-anova.html#cb87-49" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">&quot;sigma2x2&quot;</span>, <span class="cn">NA</span>,</span>
+<span id="cb87-50"><a href="ram-anova.html#cb87-50" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">&quot;sigma2e&quot;</span></span>
+<span id="cb87-51"><a href="ram-anova.html#cb87-51" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb87-52"><a href="ram-anova.html#cb87-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb87-53"><a href="ram-anova.html#cb87-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;mxS&quot;</span></span>
+<span id="cb87-54"><a href="ram-anova.html#cb87-54" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb87-55"><a href="ram-anova.html#cb87-55" aria-hidden="true" tabindex="-1"></a>mxM <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxMatrix</span>(</span>
+<span id="cb87-56"><a href="ram-anova.html#cb87-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;Full&quot;</span>,</span>
+<span id="cb87-57"><a href="ram-anova.html#cb87-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">1</span>,</span>
+<span id="cb87-58"><a href="ram-anova.html#cb87-58" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">4</span>,</span>
+<span id="cb87-59"><a href="ram-anova.html#cb87-59" aria-hidden="true" tabindex="-1"></a>  <span class="at">free =</span> <span class="fu">c</span>(</span>
+<span id="cb87-60"><a href="ram-anova.html#cb87-60" aria-hidden="true" tabindex="-1"></a>    T, T, T, F</span>
+<span id="cb87-61"><a href="ram-anova.html#cb87-61" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb87-62"><a href="ram-anova.html#cb87-62" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb87-63"><a href="ram-anova.html#cb87-63" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.20</span>,</span>
+<span id="cb87-64"><a href="ram-anova.html#cb87-64" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.20</span>,</span>
+<span id="cb87-65"><a href="ram-anova.html#cb87-65" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.20</span>,</span>
+<span id="cb87-66"><a href="ram-anova.html#cb87-66" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span></span>
+<span id="cb87-67"><a href="ram-anova.html#cb87-67" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb87-68"><a href="ram-anova.html#cb87-68" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb87-69"><a href="ram-anova.html#cb87-69" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;beta0&quot;</span>,</span>
+<span id="cb87-70"><a href="ram-anova.html#cb87-70" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;mux1&quot;</span>,</span>
+<span id="cb87-71"><a href="ram-anova.html#cb87-71" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;mux2&quot;</span>,</span>
+<span id="cb87-72"><a href="ram-anova.html#cb87-72" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span></span>
+<span id="cb87-73"><a href="ram-anova.html#cb87-73" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb87-74"><a href="ram-anova.html#cb87-74" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb87-75"><a href="ram-anova.html#cb87-75" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;mxM&quot;</span></span>
+<span id="cb87-76"><a href="ram-anova.html#cb87-76" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb87-77"><a href="ram-anova.html#cb87-77" aria-hidden="true" tabindex="-1"></a>mxF <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxMatrix</span>(</span>
+<span id="cb87-78"><a href="ram-anova.html#cb87-78" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;Full&quot;</span>,</span>
+<span id="cb87-79"><a href="ram-anova.html#cb87-79" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span>,</span>
+<span id="cb87-80"><a href="ram-anova.html#cb87-80" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">4</span>,</span>
+<span id="cb87-81"><a href="ram-anova.html#cb87-81" aria-hidden="true" tabindex="-1"></a>  <span class="at">free =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb87-82"><a href="ram-anova.html#cb87-82" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb87-83"><a href="ram-anova.html#cb87-83" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
+<span id="cb87-84"><a href="ram-anova.html#cb87-84" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
+<span id="cb87-85"><a href="ram-anova.html#cb87-85" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span></span>
+<span id="cb87-86"><a href="ram-anova.html#cb87-86" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb87-87"><a href="ram-anova.html#cb87-87" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb87-88"><a href="ram-anova.html#cb87-88" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;mxF&quot;</span></span>
+<span id="cb87-89"><a href="ram-anova.html#cb87-89" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb87-90"><a href="ram-anova.html#cb87-90" aria-hidden="true" tabindex="-1"></a>expRAM <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxExpectationRAM</span>(</span>
+<span id="cb87-91"><a href="ram-anova.html#cb87-91" aria-hidden="true" tabindex="-1"></a>  <span class="at">A =</span> <span class="st">&quot;mxA&quot;</span>,</span>
+<span id="cb87-92"><a href="ram-anova.html#cb87-92" aria-hidden="true" tabindex="-1"></a>  <span class="at">S =</span> <span class="st">&quot;mxS&quot;</span>,</span>
+<span id="cb87-93"><a href="ram-anova.html#cb87-93" aria-hidden="true" tabindex="-1"></a>  <span class="at">F =</span> <span class="st">&quot;mxF&quot;</span>,</span>
+<span id="cb87-94"><a href="ram-anova.html#cb87-94" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="st">&quot;mxM&quot;</span>,</span>
+<span id="cb87-95"><a href="ram-anova.html#cb87-95" aria-hidden="true" tabindex="-1"></a>  <span class="at">dimnames =</span> <span class="fu">c</span>(</span>
+<span id="cb87-96"><a href="ram-anova.html#cb87-96" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;y&quot;</span>,</span>
+<span id="cb87-97"><a href="ram-anova.html#cb87-97" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;x1&quot;</span>,</span>
+<span id="cb87-98"><a href="ram-anova.html#cb87-98" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;x2&quot;</span>,</span>
+<span id="cb87-99"><a href="ram-anova.html#cb87-99" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;e&quot;</span></span>
+<span id="cb87-100"><a href="ram-anova.html#cb87-100" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb87-101"><a href="ram-anova.html#cb87-101" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb87-102"><a href="ram-anova.html#cb87-102" aria-hidden="true" tabindex="-1"></a>objML <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxFitFunctionML</span>()</span>
+<span id="cb87-103"><a href="ram-anova.html#cb87-103" aria-hidden="true" tabindex="-1"></a>mxMod <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxModel</span>(</span>
+<span id="cb87-104"><a href="ram-anova.html#cb87-104" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;One Way Analysis of Variance&quot;</span>,</span>
+<span id="cb87-105"><a href="ram-anova.html#cb87-105" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> mxData,</span>
+<span id="cb87-106"><a href="ram-anova.html#cb87-106" aria-hidden="true" tabindex="-1"></a>  <span class="at">matrices =</span> <span class="fu">list</span>(</span>
+<span id="cb87-107"><a href="ram-anova.html#cb87-107" aria-hidden="true" tabindex="-1"></a>    mxA,</span>
+<span id="cb87-108"><a href="ram-anova.html#cb87-108" aria-hidden="true" tabindex="-1"></a>    mxS,</span>
+<span id="cb87-109"><a href="ram-anova.html#cb87-109" aria-hidden="true" tabindex="-1"></a>    mxF,</span>
+<span id="cb87-110"><a href="ram-anova.html#cb87-110" aria-hidden="true" tabindex="-1"></a>    mxM</span>
+<span id="cb87-111"><a href="ram-anova.html#cb87-111" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb87-112"><a href="ram-anova.html#cb87-112" aria-hidden="true" tabindex="-1"></a>  <span class="at">expectation =</span> expRAM,</span>
+<span id="cb87-113"><a href="ram-anova.html#cb87-113" aria-hidden="true" tabindex="-1"></a>  <span class="at">fitfunction =</span> objML</span>
+<span id="cb87-114"><a href="ram-anova.html#cb87-114" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb87-115"><a href="ram-anova.html#cb87-115" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxRun</span>(mxMod)</span></code></pre></div>
+<pre><code>## Running One Way Analysis of Variance with 8 parameters</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="ram-anova.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>## Summary of One Way Analysis of Variance 
+##  
+## free parameters:
+##       name matrix row col   Estimate   Std.Error A
+## 1    beta1    mxA   1   2 1.98308662 0.064543779  
+## 2    beta2    mxA   1   3 0.94883814 0.064543143  
+## 3 sigma2x1    mxS   2   2 0.22222230 0.008114416  
+## 4 sigma2x2    mxS   3   3 0.22222238 0.008114420  
+## 5  sigma2e    mxS   4   4 1.04147460 0.038029458  
+## 6    beta0    mxM   1   y 0.03083127 0.045639092  
+## 7     mux1    mxM   1  x1 0.33333343 0.012171613  
+## 8     mux2    mxM   1  x2 0.33333344 0.012171612  
+## 
+## Model Statistics: 
+##                |  Parameters  |  Degrees of Freedom  |  Fit (-2lnL units)
+##        Model:              8                   4492               8319.17
+##    Saturated:              9                   4491                    NA
+## Independence:              6                   4494                    NA
+## Number of observations/statistics: 1500/4500
+## 
+## Information Criteria: 
+##       |  df Penalty  |  Parameters Penalty  |  Sample-Size Adjusted
+## AIC:      -664.8302               8335.170                 8335.266
+## BIC:    -24531.8162               8377.676                 8352.262
+## To get additional fit indices, see help(mxRefModels)
+## timestamp: 2021-01-23 23:47:19 
+## Wall clock time: 0.03573966 secs 
+## optimizer:  SLSQP 
+## OpenMx version number: 2.18.1 
+## Need help?  See help(mxSummary)</code></pre>
+</div>
+</div>
+<div id="using-the-ramr-package-3" class="section level3" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> Using the <code>ramR</code> Package</h3>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="ram-anova.html#cb91-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<pre><code>##    y       x1        x2 e
+## y  0 2.008444 0.9885797 1
+## x1 0 0.000000 0.0000000 0
+## x2 0 0.000000 0.0000000 0
+## e  0 0.000000 0.0000000 0</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="ram-anova.html#cb93-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
+<pre><code>##    y        x1        x2         e
+## y  0 0.0000000 0.0000000 0.0000000
+## x1 0 0.2223705 0.0000000 0.0000000
+## x2 0 0.0000000 0.2223705 0.0000000
+## e  0 0.0000000 0.0000000 0.9823083</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="ram-anova.html#cb95-1" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div>
+<pre><code>##            u
+## y  0.3333333
+## x1 0.3333333
+## x2 0.3333333
+## e  0.0000000</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="ram-anova.html#cb97-1" aria-hidden="true" tabindex="-1"></a>filter</span></code></pre></div>
+<pre><code>##    y x1 x2 e
+## y  1  0  0 0
+## x1 0  1  0 0
+## x2 0  0  1 0</code></pre>
+<p>The covariance expectations
+can be numerically derived using the <code>ramR::C_num()</code> function.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="ram-anova.html#cb99-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">C_num</span>(A, S)</span></code></pre></div>
+<pre><code>##            y        x1        x2         e
+## y  2.0966368 0.4466185 0.2198309 0.9823083
+## x1 0.4466185 0.2223705 0.0000000 0.0000000
+## x2 0.2198309 0.0000000 0.2223705 0.0000000
+## e  0.9823083 0.0000000 0.0000000 0.9823083</code></pre>
+<p>The covariance expectations for the observed variables
+can be numerically derived using the <code>ramR::M_num()</code> function.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="ram-anova.html#cb101-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">M_num</span>(A, S, filter)</span></code></pre></div>
+<pre><code>##            y        x1        x2
+## y  2.0966368 0.4466185 0.2198309
+## x1 0.4466185 0.2223705 0.0000000
+## x2 0.2198309 0.0000000 0.2223705</code></pre>
+<p>The mean expectations
+can be numerically derived using the <code>ramR::v_num()</code> function.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="ram-anova.html#cb103-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">v_num</span>(A, u)</span></code></pre></div>
+<pre><code>##            v
+## y  1.3323411
+## x1 0.3333333
+## x2 0.3333333
+## e  0.0000000</code></pre>
+<p>The mean expectations for the observed variables
+can be numerically derived using the <code>ramR::v_num()</code> function.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="ram-anova.html#cb105-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">g_num</span>(A, u, filter)</span></code></pre></div>
+<pre><code>##            g
+## y  1.3323411
+## x1 0.3333333
+## x2 0.3333333</code></pre>
+</div>
+</div>
+<div id="equations-to-ram-1" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Equations to RAM</h2>
+<p>The <code>ramR</code> package has a utility function
+to convert structural equations to RAM notation.
+One-way analysis of variance with three levels
+can be expressed in the following equations</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="ram-anova.html#cb107-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb107-2"><a href="ram-anova.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
+<span id="cb107-3"><a href="ram-anova.html#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1</span></span>
+<span id="cb107-4"><a href="ram-anova.html#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x1        beta1</span></span>
+<span id="cb107-5"><a href="ram-anova.html#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x2        beta2</span></span>
+<span id="cb107-6"><a href="ram-anova.html#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="st">  e           with      e         sigma[varepsilon]^2</span></span>
+<span id="cb107-7"><a href="ram-anova.html#cb107-7" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          with      x1        sigma[x1]^2</span></span>
+<span id="cb107-8"><a href="ram-anova.html#cb107-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          with      x2        sigma[x2]^2</span></span>
+<span id="cb107-9"><a href="ram-anova.html#cb107-9" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         beta0</span></span>
+<span id="cb107-10"><a href="ram-anova.html#cb107-10" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          on        1         mu[x1]</span></span>
+<span id="cb107-11"><a href="ram-anova.html#cb107-11" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          on        1         mu[x2]</span></span>
+<span id="cb107-12"><a href="ram-anova.html#cb107-12" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<div class="figure"><span id="fig:ram-aov-02"></span>
+<img src="ramR_notes_files/figure-html/ram-aov-02-1.png" alt="One-Way Analysis of Variance's Structural Equations" width="672" />
+<p class="caption">
+Figure 5.2: One-Way Analysis of Variance’s Structural Equations
+</p>
+</div>
+<p>The error term is treated as a latent variable
+and defined with the operation <code>by</code>.
+Its value is constrained to <span class="math inline">\(1\)</span>.
+The regression of <span class="math inline">\(y\)</span> on <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> is defined by operation <code>on</code>.
+The coefficients are labeled as <code>beta[1]</code> and <code>beta[2]</code> respectively.
+The variance of <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span> and the error variance
+are defined using the operation <code>with</code>.
+These are labeled <code>sigma[x1]^2</code>, <code>sigma[x2]^2</code>, and <code>sigma[varepsilon]^2</code> respectively.
+The intercept and the mean of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are defined using the operation <code>on 1</code>.
+These are labeled <code>beta[0]</code>, <code>mu[x1]</code>, and <code>mu[x2]</code> respectively.</p>
+<p>The <code>ramR::eq2ram</code> converts the equations to RAM notation.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="ram-anova.html#cb108-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">eq2ram</span>(eq)</span></code></pre></div>
+<pre><code>## $eq
+##   var1   op var2               label
+## 1    e   by    y                   1
+## 2    y   on   x1               beta1
+## 3    y   on   x2               beta2
+## 4    e with    e sigma[varepsilon]^2
+## 5   x1 with   x1         sigma[x1]^2
+## 6   x2 with   x2         sigma[x2]^2
+## 7    y   on    1               beta0
+## 8   x1   on    1              mu[x1]
+## 9   x2   on    1              mu[x2]
+## 
+## $variables
+## [1] &quot;y&quot;  &quot;x1&quot; &quot;x2&quot; &quot;e&quot; 
+## 
+## $A
+##    y   x1      x2      e  
+## y  &quot;0&quot; &quot;beta1&quot; &quot;beta2&quot; &quot;1&quot;
+## x1 &quot;0&quot; &quot;0&quot;     &quot;0&quot;     &quot;0&quot;
+## x2 &quot;0&quot; &quot;0&quot;     &quot;0&quot;     &quot;0&quot;
+## e  &quot;0&quot; &quot;0&quot;     &quot;0&quot;     &quot;0&quot;
+## 
+## $S
+##    y   x1            x2            e                    
+## y  &quot;0&quot; &quot;0&quot;           &quot;0&quot;           &quot;0&quot;                  
+## x1 &quot;0&quot; &quot;sigma[x1]^2&quot; &quot;0&quot;           &quot;0&quot;                  
+## x2 &quot;0&quot; &quot;0&quot;           &quot;sigma[x2]^2&quot; &quot;0&quot;                  
+## e  &quot;0&quot; &quot;0&quot;           &quot;0&quot;           &quot;sigma[varepsilon]^2&quot;
+## 
+## $filter
+##    y x1 x2 e
+## y  1  0  0 0
+## x1 0  1  0 0
+## x2 0  0  1 0
+## 
+## $u
+##    u       
+## y  &quot;beta0&quot; 
+## x1 &quot;mu[x1]&quot;
+## x2 &quot;mu[x2]&quot;
+## e  &quot;0&quot;</code></pre>
+</div>
+<div id="equations-to-expectations-1" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Equations to Expectations</h2>
+<p>The <code>ramR</code> package has a utility function
+to convert structural equations to expectations
+both symbolically and numerically.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="ram-anova.html#cb110-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb110-2"><a href="ram-anova.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
+<span id="cb110-3"><a href="ram-anova.html#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1</span></span>
+<span id="cb110-4"><a href="ram-anova.html#cb110-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x1        beta1</span></span>
+<span id="cb110-5"><a href="ram-anova.html#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x2        beta2</span></span>
+<span id="cb110-6"><a href="ram-anova.html#cb110-6" aria-hidden="true" tabindex="-1"></a><span class="st">  e           with      e         sigma[varepsilon]^2</span></span>
+<span id="cb110-7"><a href="ram-anova.html#cb110-7" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          with      x1        sigma[x1]^2</span></span>
+<span id="cb110-8"><a href="ram-anova.html#cb110-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          with      x2        sigma[x2]^2</span></span>
+<span id="cb110-9"><a href="ram-anova.html#cb110-9" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         beta0</span></span>
+<span id="cb110-10"><a href="ram-anova.html#cb110-10" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          on        1         mu[x1]</span></span>
+<span id="cb110-11"><a href="ram-anova.html#cb110-11" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          on        1         mu[x2]</span></span>
+<span id="cb110-12"><a href="ram-anova.html#cb110-12" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="ram-anova.html#cb111-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">eq2exp_sym</span>(eq)</span></code></pre></div>
+<pre><code>## $variables
+## [1] &quot;y&quot;  &quot;x1&quot; &quot;x2&quot; &quot;e&quot; 
+## 
+## $A
+## {{    0, beta1, beta2,     1},
+##  {    0,     0,     0,     0},
+##  {    0,     0,     0,     0},
+##  {    0,     0,     0,     0}} 
+## 
+## $S
+## {{                  0,                   0,                   0,                   0},
+##  {                  0,         sigma[x1]^2,                   0,                   0},
+##  {                  0,                   0,         sigma[x2]^2,                   0},
+##  {                  0,                   0,                   0, sigma[varepsilon]^2}} 
+## 
+## $u
+## {{ beta0},
+##  {mu[x1]},
+##  {mu[x2]},
+##  {     0}} 
+## 
+## $filter
+## {{1, 0, 0, 0},
+##  {0, 1, 0, 0},
+##  {0, 0, 1, 0}} 
+## 
+## $v
+## {{beta0+beta1*mu[x1]+beta2*mu[x2]},
+##  {                         mu[x1]},
+##  {                         mu[x2]},
+##  {                              0}} 
+## 
+## $g
+## {{beta0+beta1*mu[x1]+beta2*mu[x2]},
+##  {                         mu[x1]},
+##  {                         mu[x2]}} 
+## 
+## $C
+## {{sigma[x1]^2*beta1^2+sigma[x2]^2*beta2^2+sigma[varepsilon]^2,                                           beta1*sigma[x1]^2,                                           beta2*sigma[x2]^2,                                         sigma[varepsilon]^2},
+##  {                                          sigma[x1]^2*beta1,                                                 sigma[x1]^2,                                                           0,                                                           0},
+##  {                                          sigma[x2]^2*beta2,                                                           0,                                                 sigma[x2]^2,                                                           0},
+##  {                                        sigma[varepsilon]^2,                                                           0,                                                           0,                                         sigma[varepsilon]^2}} 
+## 
+## $M
+## {{sigma[x1]^2*beta1^2+sigma[x2]^2*beta2^2+sigma[varepsilon]^2,                                           beta1*sigma[x1]^2,                                           beta2*sigma[x2]^2},
+##  {                                          sigma[x1]^2*beta1,                                                 sigma[x1]^2,                                                           0},
+##  {                                          sigma[x2]^2*beta2,                                                           0,                                                 sigma[x2]^2}}</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="ram-anova.html#cb113-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb113-2"><a href="ram-anova.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
+<span id="cb113-3"><a href="ram-anova.html#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1</span></span>
+<span id="cb113-4"><a href="ram-anova.html#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x1        2</span></span>
+<span id="cb113-5"><a href="ram-anova.html#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x2        1</span></span>
+<span id="cb113-6"><a href="ram-anova.html#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="st">  e           with      e         1</span></span>
+<span id="cb113-7"><a href="ram-anova.html#cb113-7" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          with      x1        0.22222222222</span></span>
+<span id="cb113-8"><a href="ram-anova.html#cb113-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          with      x2        0.22222222222</span></span>
+<span id="cb113-9"><a href="ram-anova.html#cb113-9" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         0</span></span>
+<span id="cb113-10"><a href="ram-anova.html#cb113-10" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          on        1         0.33333333333</span></span>
+<span id="cb113-11"><a href="ram-anova.html#cb113-11" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          on        1         0.33333333333</span></span>
+<span id="cb113-12"><a href="ram-anova.html#cb113-12" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="ram-anova.html#cb114-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">eq2exp_num</span>(eq)</span></code></pre></div>
+<pre><code>## $variables
+## [1] &quot;y&quot;  &quot;x1&quot; &quot;x2&quot; &quot;e&quot; 
+## 
+## $A
+##    y x1 x2 e
+## y  0  2  1 1
+## x1 0  0  0 0
+## x2 0  0  0 0
+## e  0  0  0 0
+## 
+## $S
+##    y        x1        x2 e
+## y  0 0.0000000 0.0000000 0
+## x1 0 0.2222222 0.0000000 0
+## x2 0 0.0000000 0.2222222 0
+## e  0 0.0000000 0.0000000 1
+## 
+## $u
+##            u
+## y  0.0000000
+## x1 0.3333333
+## x2 0.3333333
+## e  0.0000000
+## 
+## $filter
+##    y x1 x2 e
+## y  1  0  0 0
+## x1 0  1  0 0
+## x2 0  0  1 0
+## 
+## $v
+##            v
+## y  1.0000000
+## x1 0.3333333
+## x2 0.3333333
+## e  0.0000000
+## 
+## $g
+##            g
+## y  1.0000000
+## x1 0.3333333
+## x2 0.3333333
+## 
+## $C
+##            y        x1        x2 e
+## y  2.1111111 0.4444444 0.2222222 1
+## x1 0.4444444 0.2222222 0.0000000 0
+## x2 0.2222222 0.0000000 0.2222222 0
+## e  1.0000000 0.0000000 0.0000000 1
+## 
+## $M
+##            y        x1        x2
+## y  2.1111111 0.4444444 0.2222222
+## x1 0.4444444 0.2222222 0.0000000
+## x2 0.2222222 0.0000000 0.2222222</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ram-t.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ram-two-reg.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jeksterslab/ramR_notes/edit/master/005-aov.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ramR_notes.pdf", "ramR_notes.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

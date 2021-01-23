@@ -1,0 +1,66 @@
+# The Simple Mediation Model {#ram-med-simple}
+
+```{tikz, ram-med-simple-01, echo=FALSE, fig.cap="The Simple Mediation Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 20mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 7mm,
+    align = center
+  },
+  mean/.style={
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 7mm,
+    minimum height = 7mm
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+  \node[manifest] (x) {$x$};
+  \node[manifest] (m) [above right = of x] {$m$};
+  \node[manifest] (y) [below right = of m] {$y$};
+  \node[error] (epsilon_m) [right = of m] {$\varepsilon_m$};
+  \node[error] (epsilon_y) [right = of y] {$\varepsilon_y$};
+  \draw [path] (x) to node {$\tau^{\prime}$} (y);
+  \draw [path] (x) to node {$\alpha$} (m);
+  \draw [path] (m) to node {$\beta$} (y);
+  \draw [path] (epsilon_m) to node {$1$} (m);
+  \draw [path] (epsilon_y) to node {$1$} (y);
+  \draw [cov] (x) to[out=170,in=190,looseness=5] node[left] {$\sigma^{2}_{x}$} (x);
+  \draw [cov] (epsilon_m) to[out=70,in=110,looseness=5] node[above] {$\sigma^{2}_{\varepsilon_{m}}$} (epsilon_m);
+  \draw [cov] (epsilon_y) to[out=70,in=110,looseness=5] node[above] {$\sigma^{2}_{\varepsilon_{y}}$} (epsilon_y);
+\end{tikzpicture}
+```

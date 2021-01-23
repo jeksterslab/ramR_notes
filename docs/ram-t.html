@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="ram-diagram.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="ram-anova.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -157,6 +157,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="ram-t.html"><a href="ram-t.html#equations-to-ram"><i class="fa fa-check"></i><b>4.3</b> Equations to RAM</a></li>
 <li class="chapter" data-level="4.4" data-path="ram-t.html"><a href="ram-t.html#equations-to-expectations"><i class="fa fa-check"></i><b>4.4</b> Equations to Expectations</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="ram-anova.html"><a href="ram-anova.html"><i class="fa fa-check"></i><b>5</b> One-Way Analysis of Variance</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="ram-anova.html"><a href="ram-anova.html#symbolic-1"><i class="fa fa-check"></i><b>5.1</b> Symbolic</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="ram-anova.html"><a href="ram-anova.html#using-the-ramr-package-2"><i class="fa fa-check"></i><b>5.1.1</b> Using the <code>ramR</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ram-anova.html"><a href="ram-anova.html#numerical-example-1"><i class="fa fa-check"></i><b>5.2</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="ram-anova.html"><a href="ram-anova.html#one-way-analysis-of-variance"><i class="fa fa-check"></i><b>5.2.1</b> One-Way Analysis of Variance</a></li>
+<li class="chapter" data-level="5.2.2" data-path="ram-anova.html"><a href="ram-anova.html#linear-regression-1"><i class="fa fa-check"></i><b>5.2.2</b> Linear Regression</a></li>
+<li class="chapter" data-level="5.2.3" data-path="ram-anova.html"><a href="ram-anova.html#structural-equation-modeling-1"><i class="fa fa-check"></i><b>5.2.3</b> Structural Equation Modeling</a></li>
+<li class="chapter" data-level="5.2.4" data-path="ram-anova.html"><a href="ram-anova.html#using-the-ramr-package-3"><i class="fa fa-check"></i><b>5.2.4</b> Using the <code>ramR</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ram-anova.html"><a href="ram-anova.html#equations-to-ram-1"><i class="fa fa-check"></i><b>5.3</b> Equations to RAM</a></li>
+<li class="chapter" data-level="5.4" data-path="ram-anova.html"><a href="ram-anova.html#equations-to-expectations-1"><i class="fa fa-check"></i><b>5.4</b> Equations to Expectations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ram-two-reg.html"><a href="ram-two-reg.html"><i class="fa fa-check"></i><b>6</b> Two-Variable Regression Model</a></li>
+<li class="chapter" data-level="7" data-path="ram-k-reg.html"><a href="ram-k-reg.html"><i class="fa fa-check"></i><b>7</b> <span class="math inline">\(k\)</span>-Variable Regression Model</a></li>
+<li class="chapter" data-level="8" data-path="ram-med-simple.html"><a href="ram-med-simple.html"><i class="fa fa-check"></i><b>8</b> The Simple Mediation Model</a></li>
+<li class="chapter" data-level="9" data-path="ram-med-simple-std.html"><a href="ram-med-simple-std.html"><i class="fa fa-check"></i><b>9</b> The Standardized Simple Mediation Model</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -202,7 +222,7 @@ The associations of the variables are given by</p>
 <li><span class="math inline">\(\alpha + \beta\)</span> is the expected value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x = 1\)</span></li>
 </ul>
 <div class="figure"><span id="fig:ram-t-01"></span>
-<img src="ramR_notes_files/figure-html/ram-t-01-1.png" alt="Student's $t$-test" width="384" />
+<img src="ramR_notes_files/figure-html/ram-t-01-1.png" alt="Student's $t$-test" width="672" />
 <p class="caption">
 Figure 4.1: Student’s <span class="math inline">\(t\)</span>-test
 </p>
@@ -333,7 +353,9 @@ can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 ##  Mean   : 0.4742   Mean   :0.5  
 ##  3rd Qu.: 1.2492   3rd Qu.:1.0  
 ##  Max.   : 4.4953   Max.   :1.0</code></pre>
-<p><img src="ramR_notes_files/figure-html/unnamed-chunk-34-1.png" width="672" /><img src="ramR_notes_files/figure-html/unnamed-chunk-34-2.png" width="672" /><img src="ramR_notes_files/figure-html/unnamed-chunk-34-3.png" width="672" /></p>
+<p><img src="ramR_notes_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="ramR_notes_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="ramR_notes_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <div id="t-test" class="section level3" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> <span class="math inline">\(t\)</span>-test</h3>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="ram-t.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span></code></pre></div>
@@ -517,7 +539,7 @@ Note, however, that the <code>u</code> vector in the RAM notation is
 <span id="cb28-91"><a href="ram-t.html#cb28-91" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb28-92"><a href="ram-t.html#cb28-92" aria-hidden="true" tabindex="-1"></a>objML <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxFitFunctionML</span>()</span>
 <span id="cb28-93"><a href="ram-t.html#cb28-93" aria-hidden="true" tabindex="-1"></a>mxMod <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxModel</span>(</span>
-<span id="cb28-94"><a href="ram-t.html#cb28-94" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;Model&quot;</span>,</span>
+<span id="cb28-94"><a href="ram-t.html#cb28-94" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;Student&#39;s t test&quot;</span>,</span>
 <span id="cb28-95"><a href="ram-t.html#cb28-95" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> mxData,</span>
 <span id="cb28-96"><a href="ram-t.html#cb28-96" aria-hidden="true" tabindex="-1"></a>  <span class="at">matrices =</span> <span class="fu">list</span>(</span>
 <span id="cb28-97"><a href="ram-t.html#cb28-97" aria-hidden="true" tabindex="-1"></a>    mxA,</span>
@@ -529,9 +551,9 @@ Note, however, that the <code>u</code> vector in the RAM notation is
 <span id="cb28-103"><a href="ram-t.html#cb28-103" aria-hidden="true" tabindex="-1"></a>  <span class="at">fitfunction =</span> objML</span>
 <span id="cb28-104"><a href="ram-t.html#cb28-104" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb28-105"><a href="ram-t.html#cb28-105" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> OpenMx<span class="sc">::</span><span class="fu">mxRun</span>(mxMod)</span></code></pre></div>
-<pre><code>## Running Model with 5 parameters</code></pre>
+<pre><code>## Running Student&#39;s t test with 5 parameters</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ram-t.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
-<pre><code>## Summary of Model 
+<pre><code>## Summary of Student&#39;s t test 
 ##  
 ## free parameters:
 ##      name matrix row col    Estimate  Std.Error A
@@ -557,8 +579,8 @@ Note, however, that the <code>u</code> vector in the RAM notation is
 ## RMSEA:  0  [95% CI (NA, NA)]
 ## Prob(RMSEA &lt;= 0.05): NA
 ## To get additional fit indices, see help(mxRefModels)
-## timestamp: 2021-01-23 18:48:43 
-## Wall clock time: 0.03867912 secs 
+## timestamp: 2021-01-23 23:47:18 
+## Wall clock time: 0.04055214 secs 
 ## optimizer:  SLSQP 
 ## OpenMx version number: 2.18.1 
 ## Need help?  See help(mxSummary)</code></pre>
@@ -628,7 +650,7 @@ The Student’s <span class="math inline">\(t\)</span>-test can be expressed in 
 <span id="cb48-8"><a href="ram-t.html#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x           on        1         mu[x]</span></span>
 <span id="cb48-9"><a href="ram-t.html#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
 <div class="figure"><span id="fig:ram-t-02"></span>
-<img src="ramR_notes_files/figure-html/ram-t-02-1.png" alt="Student's $t$-test's Structural Equations" width="384" />
+<img src="ramR_notes_files/figure-html/ram-t-02-1.png" alt="Student's $t$-test's Structural Equations" width="672" />
 <p class="caption">
 Figure 4.2: Student’s <span class="math inline">\(t\)</span>-test’s Structural Equations
 </p>
@@ -800,7 +822,7 @@ both symbolically and numerically.</p>
         </div>
       </div>
 <a href="ram-diagram.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ram-anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

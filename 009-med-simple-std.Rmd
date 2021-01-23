@@ -1,0 +1,83 @@
+# The Standardized Simple Mediation Model {#ram-med-simple-std}
+
+```{tikz, ram-med-simple-std-01, echo=FALSE, fig.cap="The Standardized Simple Mediation Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 20mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 15mm,
+    align = center
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 7mm,
+    align = center
+  },
+  mean/.style={
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 7mm,
+    minimum height = 7mm
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+  \node[latent] (q) {$q$};
+  \node[latent] (r) [above right = of q] {$r$};
+  \node[latent] (s) [below right = of r] {$s$};
+  \node[manifest] (x) [below = of q] {$x$};
+  \node[manifest] (m) [above = of r] {$m$};
+  \node[manifest] (y) [below = of s] {$y$};
+  \node[error] (epsilon_r) [right = of r] {$\varepsilon_{r}$};
+  \node[error] (epsilon_s) [right = of s] {$\varepsilon_{s}$};
+  \draw [path] (q) to node {$\lambda_x$} (x);
+  \draw [path] (r) to node {$\lambda_m$} (m);
+  \draw [path] (s) to node {$\lambda_y$} (y);
+  \draw [path] (q) to node {$\tau^{\prime}_{\mathrm{std}}$} (s);
+  \draw [path] (q) to node {$\alpha_{\mathrm{std}}$} (r);
+  \draw [path] (r) to node {$\beta_{\mathrm{std}}$} (s);
+  \draw [path] (epsilon_r) to node {$1$} (r);
+  \draw [path] (epsilon_s) to node {$1$} (s);
+  \draw [cov] (x) to[out=-70,in=-110,looseness=5] node[below] {$0$} (x);
+  \draw [cov] (m) to[out=70,in=110,looseness=5] node[above] {$0$} (m);
+  \draw [cov] (y) to[out=-70,in=-110,looseness=5] node[below] {$0$} (y);
+  \draw [cov] (q) to[out=170,in=190,looseness=5] node[left] {$\sigma^{2}_{q}$} (q);
+  \draw [cov] (epsilon_r) to[out=70,in=110,looseness=5] node[above] {$\sigma^{2}_{\varepsilon_{r}}$} (epsilon_r);
+  \draw [cov] (epsilon_s) to[out=70,in=110,looseness=5] node[above] {$\sigma^{2}_{\varepsilon_{s}}$} (epsilon_s);
+\end{tikzpicture}
+```

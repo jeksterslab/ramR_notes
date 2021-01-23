@@ -674,13 +674,13 @@ Let \texttt{df} be a random sample with the following parameters
 
 \begin{tabular}{l|l|l}
 \hline
-Parameter & \$x = 0\$ & \$x = 1\$\\
+Parameter & $x = 0$ & $x = 1$\\
 \hline
 Sample Size & 500 & 500\\
 \hline
-\$\textbackslash{}mu\$ & 0 & 1\\
+$\mu$ & 0 & 1\\
 \hline
-\$\textbackslash{}sigma\textasciicircum{}2\$ & 1 & 1\\
+$\sigma^2$ & 1 & 1\\
 \hline
 \end{tabular}
 
@@ -688,9 +688,9 @@ Sample Size & 500 & 500\\
 \hline
 Parameter & Description & Estimate\\
 \hline
-\$\textbackslash{}alpha\$ & Mean of \$x = 0\$. & 0\\
+$\alpha$ & Mean of $x = 0$. & 0\\
 \hline
-\$\textbackslash{}beta\$ & Mean of \$x = 1\$ minus \$x = 0\$. & 1\\
+$\beta$ & Mean of $x = 1$ minus $x = 0$. & 1\\
 \hline
 \end{tabular}
 
@@ -726,7 +726,11 @@ Parameter & Description & Estimate\\
 ##  Max.   : 4.4953   Max.   :1.0
 \end{verbatim}
 
-\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-34-1.pdf} \includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-34-2.pdf} \includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-34-3.pdf}
+\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-34-1.pdf}
+
+\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-35-1.pdf}
+
+\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-36-1.pdf}
 
 \hypertarget{t-test}{%
 \subsection{\texorpdfstring{\(t\)-test}{t-test}}\label{t-test}}
@@ -940,7 +944,7 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 \NormalTok{)}
 \NormalTok{objML }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxFitFunctionML}\NormalTok{()}
 \NormalTok{mxMod }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxModel}\NormalTok{(}
-  \AttributeTok{name =} \StringTok{"Model"}\NormalTok{,}
+  \AttributeTok{name =} \StringTok{"Student\textquotesingle{}s t test"}\NormalTok{,}
   \AttributeTok{data =}\NormalTok{ mxData,}
   \AttributeTok{matrices =} \FunctionTok{list}\NormalTok{(}
 \NormalTok{    mxA,}
@@ -956,7 +960,7 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 \end{Shaded}
 
 \begin{verbatim}
-## Running Model with 5 parameters
+## Running Student's t test with 5 parameters
 \end{verbatim}
 
 \begin{Shaded}
@@ -966,7 +970,7 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 \end{Shaded}
 
 \begin{verbatim}
-## Summary of Model 
+## Summary of Student's t test 
 ##  
 ## free parameters:
 ##      name matrix row col    Estimate  Std.Error A
@@ -992,8 +996,8 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 ## RMSEA:  0  [95% CI (NA, NA)]
 ## Prob(RMSEA <= 0.05): NA
 ## To get additional fit indices, see help(mxRefModels)
-## timestamp: 2021-01-23 18:48:46 
-## Wall clock time: 0.0388422 secs 
+## timestamp: 2021-01-23 23:47:24 
+## Wall clock time: 0.05397487 secs 
 ## optimizer:  SLSQP 
 ## OpenMx version number: 2.18.1 
 ## Need help?  See help(mxSummary)
@@ -1336,6 +1340,1020 @@ both symbolically and numerically.
 ## y 1.25 0.25
 ## x 0.25 0.25
 \end{verbatim}
+
+\hypertarget{ram-anova}{%
+\chapter{One-Way Analysis of Variance}\label{ram-anova}}
+
+In this section,
+one-way analysis of variance is presented as a structural equation model
+using the RAM notation.
+Let \(y\) be a continuous dependent variable,
+\(x\) be a categorical independent variable
+with three levels
+\(\left( x = \{0, 1, 2\} \right)\).
+The dependent variable \(x\) can be dummy coded as
+
+\begin{tabular}{l|l|l}
+\hline
+$x$ & $x_1$ & $x_2$\\
+\hline
+$x = 0$ & 0 & 0\\
+\hline
+$x = 1$ & 1 & 0\\
+\hline
+$x = 2$ & 0 & 1\\
+\hline
+\end{tabular}
+
+The associations of the variables are given by
+
+\begin{equation*}
+  y
+  =
+  \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \varepsilon
+\end{equation*}
+
+\noindent where
+
+\begin{itemize}
+\tightlist
+\item
+  \(\beta_0\) is the expected value of \(y\) when \(x = 0\)
+\item
+  \(\beta_1\) is the unit change in \(y\) for unit change in \(x_1\) while \(x_2\) is constant
+\item
+  \(\beta_2\) is the unit change in \(y\) for unit change in \(x_2\) while \(x_1\) is constant
+\item
+  \(\beta_0 + \beta_1\) is the expected value of \(y\) when \(x = 1\)
+\item
+  \(\beta_0 + \beta_2\) is the expected value of \(y\) when \(x = 2\)
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-aov-01-1.pdf}
+\caption{\label{fig:ram-aov-01}One-Way Analysis of Variance}
+\end{figure}
+
+\hypertarget{symbolic-1}{%
+\section{Symbolic}\label{symbolic-1}}
+
+Let \(\left\{ y, x_1, x_2, \varepsilon \right\}\) be the variables of interest.
+
+\begin{align*}\mathbf{A} &=\left( \begin{array}{cccc} 0 & \beta  _{1} & \beta  _{2} & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{S} &=\left( \begin{array}{cccc} 0 & 0 & 0 & 0 \\ 0 & \sigma  _{x_{1}} ^{2} & 0 & 0 \\ 0 & 0 & \sigma  _{x_{2}} ^{2} & 0 \\ 0 & 0 & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{C} &=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \\\\ &=\mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \\\\ &=\left( \begin{array}{cccc} 1 & \beta  _{1} & \beta  _{2} & 1 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{array} \right)\left( \begin{array}{cccc} 0 & 0 & 0 & 0 \\ 0 & \sigma  _{x_{1}} ^{2} & 0 & 0 \\ 0 & 0 & \sigma  _{x_{2}} ^{2} & 0 \\ 0 & 0 & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{cccc} 1 & \beta  _{1} & \beta  _{2} & 1 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{array} \right)^{\mathsf{T}}\\ &=\left( \begin{array}{cccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  _{1} \sigma  _{x_{1}} ^{2} & \beta  _{2} \sigma  _{x_{2}} ^{2} & \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} & \sigma  _{x_{1}} ^{2} & 0 & 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} & 0 & \sigma  _{x_{2}} ^{2} & 0 \\ \sigma  _{\varepsilon } ^{2} & 0 & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{F} &=\left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{M} &=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \mathbf{F}^{\mathsf{T}}\\ &=\mathbf{F} \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \mathbf{F}^{\mathsf{T}} \\\\ &=\mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}} \\\\ &=\left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{array} \right)\left( \begin{array}{cccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  _{1} \sigma  _{x_{1}} ^{2} & \beta  _{2} \sigma  _{x_{2}} ^{2} & \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} & \sigma  _{x_{1}} ^{2} & 0 & 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} & 0 & \sigma  _{x_{2}} ^{2} & 0 \\ \sigma  _{\varepsilon } ^{2} & 0 & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{array} \right)^{\mathsf{T}} \\\\ &=\left( \begin{array}{ccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  _{1} \sigma  _{x_{1}} ^{2} & \beta  _{2} \sigma  _{x_{2}} ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} & \sigma  _{x_{1}} ^{2} & 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} & 0 & \sigma  _{x_{2}} ^{2} \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{v} &=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &=\left[\left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{cccc} 0 & \beta  _{1} & \beta  _{2} & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right)\right]^{\mathsf{-1}}\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{u} &=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &=\left[\left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{cccc} 0 & \beta  _{1} & \beta  _{2} & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right)\right]\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{g} &=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &=\left[\left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{cccc} 0 & \beta  _{1} & \beta  _{2} & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right)\right]^{-1}\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \end{array} \right)\end{align*}
+
+\hypertarget{using-the-ramr-package-2}{%
+\subsection{\texorpdfstring{Using the \texttt{ramR} Package}{Using the ramR Package}}\label{using-the-ramr-package-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y   x1        x2        e  
+## y  "0" "beta[1]" "beta[2]" "1"
+## x1 "0" "0"       "0"       "0"
+## x2 "0" "0"       "0"       "0"
+## e  "0" "0"       "0"       "0"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y   x1            x2            e                    
+## y  "0" "0"           "0"           "0"                  
+## x1 "0" "sigma[x1]^2" "0"           "0"                  
+## x2 "0" "0"           "sigma[x2]^2" "0"                  
+## e  "0" "0"           "0"           "sigma[varepsilon]^2"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{u}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    u        
+## y  "beta[0]"
+## x1 "mu[x1]" 
+## x2 "mu[x2]" 
+## e  "0"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{filter}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y x1 x2 e
+## y  1  0  0 0
+## x1 0  1  0 0
+## x2 0  0  1 0
+\end{verbatim}
+
+The covariance expectations
+can be symbolically derived using the \texttt{ramR::C\_sym()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C\_sym}\NormalTok{(A, S)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{sigma[x1]^2*beta[1]^2+sigma[x2]^2*beta[2]^2+sigma[varepsilon]^2,                                             beta[1]*sigma[x1]^2,                                             beta[2]*sigma[x2]^2,                                             sigma[varepsilon]^2},
+##  {                                            sigma[x1]^2*beta[1],                                                     sigma[x1]^2,                                                               0,                                                               0},
+##  {                                            sigma[x2]^2*beta[2],                                                               0,                                                     sigma[x2]^2,                                                               0},
+##  {                                            sigma[varepsilon]^2,                                                               0,                                                               0,                                             sigma[varepsilon]^2}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{C} =\left( \begin{array}{cccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  _{1} \sigma  _{x_{1}} ^{2} & \beta  _{2} \sigma  _{x_{2}} ^{2} & \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} & \sigma  _{x_{1}} ^{2} & 0 & 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} & 0 & \sigma  _{x_{2}} ^{2} & 0 \\ \sigma  _{\varepsilon } ^{2} & 0 & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{equation*}
+
+The covariance expectations for the observed variables
+can be symbolically derived using the \texttt{ramR::M\_sym()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M\_sym}\NormalTok{(A, S, filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{sigma[x1]^2*beta[1]^2+sigma[x2]^2*beta[2]^2+sigma[varepsilon]^2,                                             beta[1]*sigma[x1]^2,                                             beta[2]*sigma[x2]^2},
+##  {                                            sigma[x1]^2*beta[1],                                                     sigma[x1]^2,                                                               0},
+##  {                                            sigma[x2]^2*beta[2],                                                               0,                                                     sigma[x2]^2}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{M} =\left( \begin{array}{ccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  _{1} \sigma  _{x_{1}} ^{2} & \beta  _{2} \sigma  _{x_{2}} ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} & \sigma  _{x_{1}} ^{2} & 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} & 0 & \sigma  _{x_{2}} ^{2} \end{array} \right)\end{equation*}
+
+The mean expectations
+can be symbolically derived using the \texttt{ramR::v\_sym()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v\_sym}\NormalTok{(A, u)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{beta[0]+beta[1]*mu[x1]+beta[2]*mu[x2]},
+##  {                               mu[x1]},
+##  {                               mu[x2]},
+##  {                                    0}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{v} =\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\end{equation*}
+
+The mean expectations for the observed variables
+can be symbolically derived using the \texttt{ramR::g\_sym()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g\_sym}\NormalTok{(A, u, filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{beta[0]+beta[1]*mu[x1]+beta[2]*mu[x2]},
+##  {                               mu[x1]},
+##  {                               mu[x2]}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{g} =\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \end{array} \right)\end{equation*}
+
+\hypertarget{numerical-example-1}{%
+\section{Numerical Example}\label{numerical-example-1}}
+
+Let \texttt{df} be a random sample with the following parameters
+
+\begin{tabular}{l|l|l|l}
+\hline
+Parameter & $x = 0$ & $x = 1$ & $x = 2$\\
+\hline
+Sample Size & 500 & 500 & 500\\
+\hline
+$\mu$ & 0 & 2 & 1\\
+\hline
+$\sigma^2$ & 1 & 1 & 1\\
+\hline
+\end{tabular}
+
+\begin{tabular}{l|l|l}
+\hline
+Parameter & Description & Estimate\\
+\hline
+$\beta_0$ & Mean of $x = 0$. & 0\\
+\hline
+$\beta_1$ & Mean of $x = 1$ minus $x = 0$. & 2\\
+\hline
+$\beta_2$ & Mean of $x = 2$ minus $x = 0$. & 1\\
+\hline
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            y x
+## 1 -0.6013830 0
+## 2 -0.1358161 0
+## 3 -0.9872728 0
+## 4  0.8319250 0
+## 5 -0.7950595 0
+## 6  0.3404646 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        y            x      
+##  Min.   :-2.61364   0:500  
+##  1st Qu.: 0.08094   1:500  
+##  Median : 1.02617   2:500  
+##  Mean   : 1.00814          
+##  3rd Qu.: 1.90112          
+##  Max.   : 5.47091
+\end{verbatim}
+
+\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-81-1.pdf}
+
+\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-82-1.pdf}
+
+\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-83-1.pdf}
+
+\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-84-1.pdf}
+
+\hypertarget{one-way-analysis-of-variance}{%
+\subsection{One-Way Analysis of Variance}\label{one-way-analysis-of-variance}}
+
+Make sure that \(x\) is of class \texttt{factor} for \texttt{lm} and \texttt{aov}
+to treat it as a categorical variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    1500 obs. of  2 variables:
+##  $ y: num  -0.601 -0.136 -0.987 0.832 -0.795 ...
+##  $ x: Factor w/ 3 levels "0","1","2": 1 1 1 1 1 1 1 1 1 1 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               Df Sum Sq Mean Sq F value Pr(>F)    
+## x              2  983.8   491.9   471.4 <2e-16 ***
+## Residuals   1497 1562.2     1.0                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{linear-regression-1}{%
+\subsection{Linear Regression}\label{linear-regression-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.1792 -0.6469  0.0021  0.6751  3.5538 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.03083    0.04569   0.675      0.5    
+## x1           1.98309    0.06461  30.694   <2e-16 ***
+## x2           0.94884    0.06461  14.686   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.022 on 1497 degrees of freedom
+## Multiple R-squared:  0.3864, Adjusted R-squared:  0.3856 
+## F-statistic: 471.4 on 2 and 1497 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\hypertarget{structural-equation-modeling-1}{%
+\subsection{Structural Equation Modeling}\label{structural-equation-modeling-1}}
+
+We have to dummy code the data set first before fitting the model.
+The \texttt{model.matrix} function which is used to create a design matrix
+can be used to dummy code \texttt{x}.
+Make sure that \texttt{x} is a \texttt{factor}.
+The first column of the design matrix is a matrix of ones.
+Since we do not need this column,
+we can replace this column with the values of \texttt{y}.
+Make sure to name rename the first column
+as \texttt{lavaan} relies on the column names.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_dummy }\OtherTok{\textless{}{-}} \FunctionTok{model.matrix}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df)}
+\NormalTok{df\_dummy[, }\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{y}
+\FunctionTok{colnames}\NormalTok{(df\_dummy)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"y"}
+\FunctionTok{head}\NormalTok{(df\_dummy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            y x1 x2
+## 1 -0.6013830  0  0
+## 2 -0.1358161  0  0
+## 3 -0.9872728  0  0
+## 4  0.8319250  0  0
+## 5 -0.7950595  0  0
+## 6  0.3404646  0  0
+\end{verbatim}
+
+\hypertarget{lavaan-lavaan2012-1}{%
+\subsubsection{\texorpdfstring{lavaan \citep{lavaan2012}}{lavaan {[}@lavaan2012{]}}}\label{lavaan-lavaan2012-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  y \textasciitilde{} x1 + x2}
+\StringTok{"}
+\NormalTok{fit }\OtherTok{\textless{}{-}}\NormalTok{ lavaan}\SpecialCharTok{::}\FunctionTok{sem}\NormalTok{(}
+\NormalTok{  model,}
+  \AttributeTok{data =}\NormalTok{ df\_dummy,}
+  \AttributeTok{meanstructure =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{fixed.x =} \ConstantTok{FALSE}
+\NormalTok{)}
+\NormalTok{lavaan}\SpecialCharTok{::}\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## lavaan 0.6-7 ended normally after 22 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                          9
+##                                                       
+##   Number of observations                          1500
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##   y ~                                                 
+##     x1                1.983    0.065   30.725    0.000
+##     x2                0.949    0.065   14.701    0.000
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##   x1 ~~                                               
+##     x2               -0.111    0.006  -17.321    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##    .y                 0.031    0.046    0.676    0.499
+##     x1                0.333    0.012   27.386    0.000
+##     x2                0.333    0.012   27.386    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##    .y                 1.041    0.038   27.386    0.000
+##     x1                0.222    0.008   27.386    0.000
+##     x2                0.222    0.008   27.386    0.000
+\end{verbatim}
+
+\hypertarget{openmx-openmx2020-1}{%
+\subsubsection{\texorpdfstring{OpenMx \citep{OpenMx2020}}{OpenMx {[}@OpenMx2020{]}}}\label{openmx-openmx2020-1}}
+
+RAM matrices can be used to specify models in \texttt{OpenMx}.
+Note, however, that the \texttt{u} vector in the RAM notation is
+\texttt{M} in the \texttt{OpenMx} notation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mxData }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxData}\NormalTok{(}
+  \AttributeTok{observed =}\NormalTok{ df\_dummy,}
+  \AttributeTok{type =} \StringTok{"raw"}
+\NormalTok{)}
+\NormalTok{mxA }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxMatrix}\NormalTok{(}
+  \AttributeTok{type =} \StringTok{"Full"}\NormalTok{,}
+  \AttributeTok{nrow =} \DecValTok{4}\NormalTok{,}
+  \AttributeTok{ncol =} \DecValTok{4}\NormalTok{,}
+  \AttributeTok{free =} \FunctionTok{c}\NormalTok{(}
+\NormalTok{    F, T, T, F,}
+\NormalTok{    F, F, F, F,}
+\NormalTok{    F, F, F, F,}
+\NormalTok{    F, F, F, F}
+\NormalTok{  ),}
+  \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+    \DecValTok{0}\NormalTok{, }\FloatTok{0.20}\NormalTok{, }\FloatTok{0.20}\NormalTok{, }\DecValTok{1}\NormalTok{,}
+    \DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{,}
+    \DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{,}
+    \DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}
+\NormalTok{  ),}
+  \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}
+    \ConstantTok{NA}\NormalTok{, }\StringTok{"beta1"}\NormalTok{, }\StringTok{"beta2"}\NormalTok{, }\ConstantTok{NA}\NormalTok{,}
+    \ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{,}
+    \ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{,}
+    \ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}
+\NormalTok{  ),}
+  \AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{name =} \StringTok{"mxA"}
+\NormalTok{)}
+\NormalTok{mxS }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxMatrix}\NormalTok{(}
+  \AttributeTok{type =} \StringTok{"Symm"}\NormalTok{,}
+  \AttributeTok{nrow =} \DecValTok{4}\NormalTok{,}
+  \AttributeTok{ncol =} \DecValTok{4}\NormalTok{,}
+  \AttributeTok{free =} \FunctionTok{c}\NormalTok{(}
+\NormalTok{    F, F, F, F,}
+\NormalTok{    F, T, F, F,}
+\NormalTok{    F, F, T, F,}
+\NormalTok{    F, F, F, T}
+\NormalTok{  ),}
+  \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+    \DecValTok{0}\NormalTok{,    }\DecValTok{0}\NormalTok{,    }\DecValTok{0}\NormalTok{,    }\DecValTok{0}\NormalTok{,}
+    \DecValTok{0}\NormalTok{, }\FloatTok{0.20}\NormalTok{,    }\DecValTok{0}\NormalTok{,    }\DecValTok{0}\NormalTok{,}
+    \DecValTok{0}\NormalTok{,    }\DecValTok{0}\NormalTok{, }\FloatTok{0.20}\NormalTok{,    }\DecValTok{0}\NormalTok{,}
+    \DecValTok{0}\NormalTok{,    }\DecValTok{0}\NormalTok{,    }\DecValTok{0}\NormalTok{, }\FloatTok{0.20}
+\NormalTok{  ),}
+  \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}
+    \ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{,}
+    \ConstantTok{NA}\NormalTok{, }\StringTok{"sigma2x1"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{,}
+    \ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{"sigma2x2"}\NormalTok{, }\ConstantTok{NA}\NormalTok{,}
+    \ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{"sigma2e"}
+\NormalTok{  ),}
+  \AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{name =} \StringTok{"mxS"}
+\NormalTok{)}
+\NormalTok{mxM }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxMatrix}\NormalTok{(}
+  \AttributeTok{type =} \StringTok{"Full"}\NormalTok{,}
+  \AttributeTok{nrow =} \DecValTok{1}\NormalTok{,}
+  \AttributeTok{ncol =} \DecValTok{4}\NormalTok{,}
+  \AttributeTok{free =} \FunctionTok{c}\NormalTok{(}
+\NormalTok{    T, T, T, F}
+\NormalTok{  ),}
+  \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+    \FloatTok{0.20}\NormalTok{,}
+    \FloatTok{0.20}\NormalTok{,}
+    \FloatTok{0.20}\NormalTok{,}
+    \DecValTok{0}
+\NormalTok{  ),}
+  \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}
+    \StringTok{"beta0"}\NormalTok{,}
+    \StringTok{"mux1"}\NormalTok{,}
+    \StringTok{"mux2"}\NormalTok{,}
+    \ConstantTok{NA}
+\NormalTok{  ),}
+  \AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{name =} \StringTok{"mxM"}
+\NormalTok{)}
+\NormalTok{mxF }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxMatrix}\NormalTok{(}
+  \AttributeTok{type =} \StringTok{"Full"}\NormalTok{,}
+  \AttributeTok{nrow =} \DecValTok{3}\NormalTok{,}
+  \AttributeTok{ncol =} \DecValTok{4}\NormalTok{,}
+  \AttributeTok{free =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+    \DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{,}
+    \DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{,}
+    \DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}
+\NormalTok{  ),}
+  \AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{name =} \StringTok{"mxF"}
+\NormalTok{)}
+\NormalTok{expRAM }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxExpectationRAM}\NormalTok{(}
+  \AttributeTok{A =} \StringTok{"mxA"}\NormalTok{,}
+  \AttributeTok{S =} \StringTok{"mxS"}\NormalTok{,}
+  \AttributeTok{F =} \StringTok{"mxF"}\NormalTok{,}
+  \AttributeTok{M =} \StringTok{"mxM"}\NormalTok{,}
+  \AttributeTok{dimnames =} \FunctionTok{c}\NormalTok{(}
+    \StringTok{"y"}\NormalTok{,}
+    \StringTok{"x1"}\NormalTok{,}
+    \StringTok{"x2"}\NormalTok{,}
+    \StringTok{"e"}
+\NormalTok{  )}
+\NormalTok{)}
+\NormalTok{objML }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxFitFunctionML}\NormalTok{()}
+\NormalTok{mxMod }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxModel}\NormalTok{(}
+  \AttributeTok{name =} \StringTok{"One Way Analysis of Variance"}\NormalTok{,}
+  \AttributeTok{data =}\NormalTok{ mxData,}
+  \AttributeTok{matrices =} \FunctionTok{list}\NormalTok{(}
+\NormalTok{    mxA,}
+\NormalTok{    mxS,}
+\NormalTok{    mxF,}
+\NormalTok{    mxM}
+\NormalTok{  ),}
+  \AttributeTok{expectation =}\NormalTok{ expRAM,}
+  \AttributeTok{fitfunction =}\NormalTok{ objML}
+\NormalTok{)}
+\NormalTok{fit }\OtherTok{\textless{}{-}}\NormalTok{ OpenMx}\SpecialCharTok{::}\FunctionTok{mxRun}\NormalTok{(mxMod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Running One Way Analysis of Variance with 8 parameters
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Summary of One Way Analysis of Variance 
+##  
+## free parameters:
+##       name matrix row col   Estimate   Std.Error A
+## 1    beta1    mxA   1   2 1.98308662 0.064543779  
+## 2    beta2    mxA   1   3 0.94883814 0.064543143  
+## 3 sigma2x1    mxS   2   2 0.22222230 0.008114416  
+## 4 sigma2x2    mxS   3   3 0.22222238 0.008114420  
+## 5  sigma2e    mxS   4   4 1.04147460 0.038029458  
+## 6    beta0    mxM   1   y 0.03083127 0.045639092  
+## 7     mux1    mxM   1  x1 0.33333343 0.012171613  
+## 8     mux2    mxM   1  x2 0.33333344 0.012171612  
+## 
+## Model Statistics: 
+##                |  Parameters  |  Degrees of Freedom  |  Fit (-2lnL units)
+##        Model:              8                   4492               8319.17
+##    Saturated:              9                   4491                    NA
+## Independence:              6                   4494                    NA
+## Number of observations/statistics: 1500/4500
+## 
+## Information Criteria: 
+##       |  df Penalty  |  Parameters Penalty  |  Sample-Size Adjusted
+## AIC:      -664.8302               8335.170                 8335.266
+## BIC:    -24531.8162               8377.676                 8352.262
+## To get additional fit indices, see help(mxRefModels)
+## timestamp: 2021-01-23 23:47:26 
+## Wall clock time: 0.03291965 secs 
+## optimizer:  SLSQP 
+## OpenMx version number: 2.18.1 
+## Need help?  See help(mxSummary)
+\end{verbatim}
+
+\hypertarget{using-the-ramr-package-3}{%
+\subsection{\texorpdfstring{Using the \texttt{ramR} Package}{Using the ramR Package}}\label{using-the-ramr-package-3}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y       x1        x2 e
+## y  0 2.008444 0.9885797 1
+## x1 0 0.000000 0.0000000 0
+## x2 0 0.000000 0.0000000 0
+## e  0 0.000000 0.0000000 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y        x1        x2         e
+## y  0 0.0000000 0.0000000 0.0000000
+## x1 0 0.2223705 0.0000000 0.0000000
+## x2 0 0.0000000 0.2223705 0.0000000
+## e  0 0.0000000 0.0000000 0.9823083
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{u}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            u
+## y  0.3333333
+## x1 0.3333333
+## x2 0.3333333
+## e  0.0000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{filter}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y x1 x2 e
+## y  1  0  0 0
+## x1 0  1  0 0
+## x2 0  0  1 0
+\end{verbatim}
+
+The covariance expectations
+can be numerically derived using the \texttt{ramR::C\_num()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C\_num}\NormalTok{(A, S)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            y        x1        x2         e
+## y  2.0966368 0.4466185 0.2198309 0.9823083
+## x1 0.4466185 0.2223705 0.0000000 0.0000000
+## x2 0.2198309 0.0000000 0.2223705 0.0000000
+## e  0.9823083 0.0000000 0.0000000 0.9823083
+\end{verbatim}
+
+The covariance expectations for the observed variables
+can be numerically derived using the \texttt{ramR::M\_num()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M\_num}\NormalTok{(A, S, filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            y        x1        x2
+## y  2.0966368 0.4466185 0.2198309
+## x1 0.4466185 0.2223705 0.0000000
+## x2 0.2198309 0.0000000 0.2223705
+\end{verbatim}
+
+The mean expectations
+can be numerically derived using the \texttt{ramR::v\_num()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v\_num}\NormalTok{(A, u)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            v
+## y  1.3323411
+## x1 0.3333333
+## x2 0.3333333
+## e  0.0000000
+\end{verbatim}
+
+The mean expectations for the observed variables
+can be numerically derived using the \texttt{ramR::v\_num()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g\_num}\NormalTok{(A, u, filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            g
+## y  1.3323411
+## x1 0.3333333
+## x2 0.3333333
+\end{verbatim}
+
+\hypertarget{equations-to-ram-1}{%
+\section{Equations to RAM}\label{equations-to-ram-1}}
+
+The \texttt{ramR} package has a utility function
+to convert structural equations to RAM notation.
+One-way analysis of variance with three levels
+can be expressed in the following equations
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
+\StringTok{  e           by        y         1}
+\StringTok{  y           on        x1        beta1}
+\StringTok{  y           on        x2        beta2}
+\StringTok{  e           with      e         sigma[varepsilon]\^{}2}
+\StringTok{  x1          with      x1        sigma[x1]\^{}2}
+\StringTok{  x2          with      x2        sigma[x2]\^{}2}
+\StringTok{  y           on        1         beta0}
+\StringTok{  x1          on        1         mu[x1]}
+\StringTok{  x2          on        1         mu[x2]}
+\StringTok{"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-aov-02-1.pdf}
+\caption{\label{fig:ram-aov-02}One-Way Analysis of Variance's Structural Equations}
+\end{figure}
+
+The error term is treated as a latent variable
+and defined with the operation \texttt{by}.
+Its value is constrained to \(1\).
+The regression of \(y\) on \(x_1\) and \(x_2\) is defined by operation \texttt{on}.
+The coefficients are labeled as \texttt{beta{[}1{]}} and \texttt{beta{[}2{]}} respectively.
+The variance of \(x_1\), \(x_2\) and the error variance
+are defined using the operation \texttt{with}.
+These are labeled \texttt{sigma{[}x1{]}\^{}2}, \texttt{sigma{[}x2{]}\^{}2}, and \texttt{sigma{[}varepsilon{]}\^{}2} respectively.
+The intercept and the mean of \(x_1\) and \(x_2\) are defined using the operation \texttt{on\ 1}.
+These are labeled \texttt{beta{[}0{]}}, \texttt{mu{[}x1{]}}, and \texttt{mu{[}x2{]}} respectively.
+
+The \texttt{ramR::eq2ram} converts the equations to RAM notation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2ram}\NormalTok{(eq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $eq
+##   var1   op var2               label
+## 1    e   by    y                   1
+## 2    y   on   x1               beta1
+## 3    y   on   x2               beta2
+## 4    e with    e sigma[varepsilon]^2
+## 5   x1 with   x1         sigma[x1]^2
+## 6   x2 with   x2         sigma[x2]^2
+## 7    y   on    1               beta0
+## 8   x1   on    1              mu[x1]
+## 9   x2   on    1              mu[x2]
+## 
+## $variables
+## [1] "y"  "x1" "x2" "e" 
+## 
+## $A
+##    y   x1      x2      e  
+## y  "0" "beta1" "beta2" "1"
+## x1 "0" "0"     "0"     "0"
+## x2 "0" "0"     "0"     "0"
+## e  "0" "0"     "0"     "0"
+## 
+## $S
+##    y   x1            x2            e                    
+## y  "0" "0"           "0"           "0"                  
+## x1 "0" "sigma[x1]^2" "0"           "0"                  
+## x2 "0" "0"           "sigma[x2]^2" "0"                  
+## e  "0" "0"           "0"           "sigma[varepsilon]^2"
+## 
+## $filter
+##    y x1 x2 e
+## y  1  0  0 0
+## x1 0  1  0 0
+## x2 0  0  1 0
+## 
+## $u
+##    u       
+## y  "beta0" 
+## x1 "mu[x1]"
+## x2 "mu[x2]"
+## e  "0"
+\end{verbatim}
+
+\hypertarget{equations-to-expectations-1}{%
+\section{Equations to Expectations}\label{equations-to-expectations-1}}
+
+The \texttt{ramR} package has a utility function
+to convert structural equations to expectations
+both symbolically and numerically.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
+\StringTok{  e           by        y         1}
+\StringTok{  y           on        x1        beta1}
+\StringTok{  y           on        x2        beta2}
+\StringTok{  e           with      e         sigma[varepsilon]\^{}2}
+\StringTok{  x1          with      x1        sigma[x1]\^{}2}
+\StringTok{  x2          with      x2        sigma[x2]\^{}2}
+\StringTok{  y           on        1         beta0}
+\StringTok{  x1          on        1         mu[x1]}
+\StringTok{  x2          on        1         mu[x2]}
+\StringTok{"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2exp\_sym}\NormalTok{(eq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $variables
+## [1] "y"  "x1" "x2" "e" 
+## 
+## $A
+## {{    0, beta1, beta2,     1},
+##  {    0,     0,     0,     0},
+##  {    0,     0,     0,     0},
+##  {    0,     0,     0,     0}} 
+## 
+## $S
+## {{                  0,                   0,                   0,                   0},
+##  {                  0,         sigma[x1]^2,                   0,                   0},
+##  {                  0,                   0,         sigma[x2]^2,                   0},
+##  {                  0,                   0,                   0, sigma[varepsilon]^2}} 
+## 
+## $u
+## {{ beta0},
+##  {mu[x1]},
+##  {mu[x2]},
+##  {     0}} 
+## 
+## $filter
+## {{1, 0, 0, 0},
+##  {0, 1, 0, 0},
+##  {0, 0, 1, 0}} 
+## 
+## $v
+## {{beta0+beta1*mu[x1]+beta2*mu[x2]},
+##  {                         mu[x1]},
+##  {                         mu[x2]},
+##  {                              0}} 
+## 
+## $g
+## {{beta0+beta1*mu[x1]+beta2*mu[x2]},
+##  {                         mu[x1]},
+##  {                         mu[x2]}} 
+## 
+## $C
+## {{sigma[x1]^2*beta1^2+sigma[x2]^2*beta2^2+sigma[varepsilon]^2,                                           beta1*sigma[x1]^2,                                           beta2*sigma[x2]^2,                                         sigma[varepsilon]^2},
+##  {                                          sigma[x1]^2*beta1,                                                 sigma[x1]^2,                                                           0,                                                           0},
+##  {                                          sigma[x2]^2*beta2,                                                           0,                                                 sigma[x2]^2,                                                           0},
+##  {                                        sigma[varepsilon]^2,                                                           0,                                                           0,                                         sigma[varepsilon]^2}} 
+## 
+## $M
+## {{sigma[x1]^2*beta1^2+sigma[x2]^2*beta2^2+sigma[varepsilon]^2,                                           beta1*sigma[x1]^2,                                           beta2*sigma[x2]^2},
+##  {                                          sigma[x1]^2*beta1,                                                 sigma[x1]^2,                                                           0},
+##  {                                          sigma[x2]^2*beta2,                                                           0,                                                 sigma[x2]^2}}
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
+\StringTok{  e           by        y         1}
+\StringTok{  y           on        x1        2}
+\StringTok{  y           on        x2        1}
+\StringTok{  e           with      e         1}
+\StringTok{  x1          with      x1        0.22222222222}
+\StringTok{  x2          with      x2        0.22222222222}
+\StringTok{  y           on        1         0}
+\StringTok{  x1          on        1         0.33333333333}
+\StringTok{  x2          on        1         0.33333333333}
+\StringTok{"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2exp\_num}\NormalTok{(eq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $variables
+## [1] "y"  "x1" "x2" "e" 
+## 
+## $A
+##    y x1 x2 e
+## y  0  2  1 1
+## x1 0  0  0 0
+## x2 0  0  0 0
+## e  0  0  0 0
+## 
+## $S
+##    y        x1        x2 e
+## y  0 0.0000000 0.0000000 0
+## x1 0 0.2222222 0.0000000 0
+## x2 0 0.0000000 0.2222222 0
+## e  0 0.0000000 0.0000000 1
+## 
+## $u
+##            u
+## y  0.0000000
+## x1 0.3333333
+## x2 0.3333333
+## e  0.0000000
+## 
+## $filter
+##    y x1 x2 e
+## y  1  0  0 0
+## x1 0  1  0 0
+## x2 0  0  1 0
+## 
+## $v
+##            v
+## y  1.0000000
+## x1 0.3333333
+## x2 0.3333333
+## e  0.0000000
+## 
+## $g
+##            g
+## y  1.0000000
+## x1 0.3333333
+## x2 0.3333333
+## 
+## $C
+##            y        x1        x2 e
+## y  2.1111111 0.4444444 0.2222222 1
+## x1 0.4444444 0.2222222 0.0000000 0
+## x2 0.2222222 0.0000000 0.2222222 0
+## e  1.0000000 0.0000000 0.0000000 1
+## 
+## $M
+##            y        x1        x2
+## y  2.1111111 0.4444444 0.2222222
+## x1 0.4444444 0.2222222 0.0000000
+## x2 0.2222222 0.0000000 0.2222222
+\end{verbatim}
+
+\hypertarget{ram-two-reg}{%
+\chapter{Two-Variable Regression Model}\label{ram-two-reg}}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-two-reg-01-1.pdf}
+\caption{\label{fig:ram-two-reg-01}Two-Variable Regression Model}
+\end{figure}
+
+\hypertarget{ram-k-reg}{%
+\chapter{\texorpdfstring{\(k\)-Variable Regression Model}{k-Variable Regression Model}}\label{ram-k-reg}}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-k-reg-01-1.pdf}
+\caption{\label{fig:ram-k-reg-01}\(k\)-Variable Regression Model}
+\end{figure}
+
+\hypertarget{ram-med-simple}{%
+\chapter{The Simple Mediation Model}\label{ram-med-simple}}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-med-simple-01-1.pdf}
+\caption{\label{fig:ram-med-simple-01}The Simple Mediation Model}
+\end{figure}
+
+\hypertarget{ram-med-simple-std}{%
+\chapter{The Standardized Simple Mediation Model}\label{ram-med-simple-std}}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-med-simple-std-01-1.pdf}
+\caption{\label{fig:ram-med-simple-std-01}The Standardized Simple Mediation Model}
+\end{figure}
 
   \bibliography{book.bib,packages.bib}
 

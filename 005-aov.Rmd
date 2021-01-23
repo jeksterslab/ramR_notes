@@ -1,29 +1,60 @@
-# Student's $t$-test {#ram-t}
+# One-Way Analysis of Variance {#ram-anova}
 
 In this section,
-the Student's $t$-test is presented as a structural equation model
+one-way analysis of variance is presented as a structural equation model
 using the RAM notation.
 Let $y$ be a continuous dependent variable,
-$x$ be a dichotomous independent variable
-$\left( x = \{0, 1\} \right)$,
-and $\varepsilon$ be the stochastic error term
-with mean 0 and constant variance of $\sigma_{\varepsilon}^{2}$
-across the values of $x$.
+$x$ be a categorical independent variable
+with three levels
+$\left( x = \{0, 1, 2\} \right)$.
+The dependent variable $x$ can be dummy coded as
+
+```{r, echo=FALSE}
+x <- c(
+  "$x = 0$",
+  "$x = 1$",
+  "$x = 2$"
+)
+x1 <- c(
+  0,
+  1,
+  0
+)
+x2 <- c(
+  0,
+  0,
+  1
+)
+knitr::kable(
+  cbind(
+    x, x1, x2
+  ),
+  col.names = c(
+    "$x$",
+    "$x_1$",
+    "$x_2$"
+  ),
+  escape = FALSE
+)
+```
+
 The associations of the variables are given by
 
 \begin{equation*}
   y
   =
-  \alpha + \beta x + \varepsilon
+  \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \varepsilon
 \end{equation*}
 
 \noindent where
 
-- $\alpha$ is the expected value of $y$ when $x = 0$
-- $\beta$ is the unit change in $y$ for unit change in $x$
-- $\alpha + \beta$ is the expected value of $y$ when $x = 1$
+- $\beta_0$ is the expected value of $y$ when $x = 0$
+- $\beta_1$ is the unit change in $y$ for unit change in $x_1$ while $x_2$ is constant
+- $\beta_2$ is the unit change in $y$ for unit change in $x_2$ while $x_1$ is constant
+- $\beta_0 + \beta_1$ is the expected value of $y$ when $x = 1$
+- $\beta_0 + \beta_2$ is the expected value of $y$ when $x = 2$
 
-```{tikz, ram-t-01, echo=FALSE, fig.cap="Student's $t$-test", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
+```{tikz, ram-aov-01, echo=FALSE, fig.cap="One-Way Analysis of Variance", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
   auto,
@@ -81,35 +112,42 @@ The associations of the variables are given by
   },
 ]
   \node[manifest] (y) {$y$};
-  \node[manifest] (x) [right = of y] {$x$};
-  \node[mean] (1) [above = of y] {1};
+  \node[manifest] (x_1) [above right = of y] {$x_1$};
+  \node[manifest] (x_2) [below right = of y] {$x_2$};
+  \node[inv] (inv) [right = of y] {};
+  \node[mean] (1) [right = of inv] {1};
   \node[error] (varepsilon) [left = of y] {$\varepsilon$};
-  \draw[path] (1) to node[right] {$\alpha$} (y);
-  \draw[path] (1) to node[above] {$\mu_x$} (x);
-  \draw[path] (x) to node[above] {$\beta$} (y);
+  \draw[path] (1) to node[above] {$\beta_0$} (y);
+  \draw[path] (1) to node[above] {$\mu_{x_1}$} (x_1);
+  \draw[path] (1) to node[below] {$\mu_{x_2}$} (x_2);
+  \draw[path] (x_1) to node[above] {$\beta_1$} (y);
+  \draw[path] (x_2) to node[below] {$\beta_2$} (y);
   \draw[path] (varepsilon) to node[above] {$1$} (y);
   \draw[cov] (1) to[out=70,in=110,looseness=6] node[above] {$1$} (1);
-  \draw[cov] (x) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x}^{2}$} (x);
+  \draw[cov] (x_1) to[out=70,in=110,looseness=5] node[above] {$\sigma_{a}^{2}$} (x_1);
+  \draw[cov] (x_2) to[out=-70,in=-110,looseness=5] node[below] {$\sigma_{b}^{2}$} (x_2);
   \draw[cov] (varepsilon) to[out=70,in=110,looseness=5] node[above] {$\sigma_{\varepsilon}^{2}$} (varepsilon);
 \end{tikzpicture}
 ```
 
 ## Symbolic
 
-Let $\left\{ y, x, \varepsilon \right\}$ be the variables of interest.
+Let $\left\{ y, x_1, x_2, \varepsilon \right\}$ be the variables of interest.
 
 ```{r, echo=FALSE}
 u <- matrix(
   data = c(
-    paste(expression(alpha)),
-    paste(expression(mu[x])),
+    paste(expression(beta[0])),
+    paste(expression(mu[x1])),
+    paste(expression(mu[x2])),
     0
   )
 )
 v <- matrix(
   data = c(
-    paste(expression(alpha + beta * mu[x])),
-    paste(expression(mu[x])),
+    paste(expression(beta[0] + beta[1] * mu[x1] + beta[2] * mu[x2])),
+    paste(expression(mu[x1])),
+    paste(expression(mu[x2])),
     0
   )
 )
@@ -119,25 +157,29 @@ A <- S <- matrix(
   ncol = dim(u)[1]
 )
 I <- diag(dim(A)[1])
-A[1, ] <- c(0, paste(expression(beta)), 1)
+A[1, ] <- c(0, paste(expression(beta[1])), paste(expression(beta[2])), 1)
 diag(S) <- c(
   0,
-  paste(expression(sigma[x]^2)),
+  paste(expression(sigma[x1]^2)),
+  paste(expression(sigma[x2]^2)),
   paste(expression(sigma[varepsilon]^2))
 )
 filter <- diag(dim(A)[1] - 1)
 filter <- cbind(filter, 0)
 rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- colnames(filter) <- c(
   "y",
-  "x",
+  "x1",
+  "x2",
   "e"
 )
 colnames(u) <- "u"
 rownames(filter) <- c(
   "y",
-  "x"
+  "x1",
+  "x2"
 )
 ```
+
 
 ```{r, echo=FALSE, results = "asis"}
 cat(
@@ -257,7 +299,7 @@ cat(
   "\\right]",
   Ryacas::tex(Ryacas::ysym(v)),
   "\\\\ &=",
-  Ryacas::tex(ramR::u_sym(A, v)),
+  Ryacas::tex(Ryacas::simplify(ramR::u_sym(A, v))),
   "\\end{align*}",
   sep = ""
 )
@@ -371,80 +413,113 @@ cat(
 ## Numerical Example
 
 ```{r, echo=FALSE}
-data_t <- function(n1,
-                   n2,
-                   mean1,
-                   mean2,
-                   var1,
-                   var2) {
-  return(
-    rbind(
-      cbind(
-        y = rnorm(n = n1, mean = mean1, sd = sqrt(var1)),
-        x = 0
-      ),
-      cbind(
-        y = rnorm(n = n2, mean = mean2, sd = sqrt(var2)),
-        x = 1
+data_aov <- function(n,
+                     mean,
+                     var,
+                     dummy = FALSE) {
+  if (!all.equal(length(n), length(mean), length(var))) {
+    stop(
+      "`n`, `mean`, and `var` should have the same length."
+    )
+  }
+  levels <- seq_along(n) - 1
+  y <- as.vector(
+    mapply(
+      FUN = rnorm,
+      n = n,
+      mean = mean,
+      sd = sqrt(var),
+      SIMPLIFY = TRUE
+    )
+  )
+  x <- as.vector(
+    mapply(
+      FUN = rep,
+      x = levels,
+      times = n,
+      SIMPLIFY = TRUE
+    )
+  )
+  if (!dummy) {
+    return(
+      data.frame(
+        y = y,
+        x = as.factor(x)
       )
+    )
+  }
+  dummy <- levels[-1]
+  dummy_list <- vector(mode = "list", length = length(dummy))
+  names(dummy_list) <- paste0("x", dummy)
+  for (i in seq_along(dummy)) {
+    dummy_list[[i]] <- ifelse(test = x == dummy[i], yes = 1, 0)
+  }
+  dummy_list <- do.call(
+    what = "cbind",
+    args = dummy_list
+  )
+  return(
+    cbind(
+      y,
+      dummy_list
     )
   )
 }
 # Population
-n1 <- 500
-n2 <- 500
-mean1 <- 0
-mean2 <- 1
-var1 <- 1
-var2 <- 1
-alpha_pop <- mean1
-beta_pop <- mean2 - mean1
+p <- 3
+n <- rep(x = 500, times = p)
+mean <- c(0, 2, 1)
+var <- rep(x = 1, times = p)
+beta_0_pop <- mean[1]
+beta_1_pop <- mean[2] - mean[1]
+beta_2_pop <- mean[3] - mean[1]
 # Generate Data
 set.seed(42)
-data <- data_t(
-  n1 = n1,
-  n2 = n2,
-  mean1 = mean1,
-  mean2 = mean2,
-  var1 = var1,
-  var2 = var2
-)
+data_dummy <- data_aov(n, mean, var, dummy = TRUE)
+data <- data_aov(n, mean, var, dummy = FALSE)
+df_dummy <- as.data.frame(data_dummy)
 df <- as.data.frame(data)
-fit <- lm(y ~ x, data = df)
+fit <- lm(y ~ x1 + x2, data = df_dummy)
 beta <- coef(fit)
-alpha <- beta[1]
-beta <- beta[2]
+beta_0 <- beta[1]
+beta_1 <- beta[2]
+beta_2 <- beta[3]
 sigma2e <- summary(fit)$sigma^2
-Sigma <- var(df)
-sigma2x <- Sigma[2, 2]
-mu <- colMeans(df)
-mu_x <- mu[2]
+Sigma <- var(df_dummy)
+sigma2x_1 <- Sigma[2, 2]
+sigma2x_2 <- Sigma[3, 3]
+mu <- colMeans(df_dummy)
+mu_x_1 <- mu[2]
+mu_x_2 <- mu[3]
 A <- S <- matrix(
   data = 0,
-  nrow = 3,
-  ncol = 3
+  nrow = 4,
+  ncol = 4
 )
-A[1, ] <- c(0, beta, 1)
-diag(S) <- c(0, sigma2x, sigma2e)
+A[1, ] <- c(0, beta_1, beta_2, 1)
+diag(S) <- c(0, sigma2x_1, sigma2x_2, sigma2e)
 v <- matrix(
   data = c(
-    alpha + beta * mu_x,
-    mu_x,
+    beta_0 + beta_1 * mu_x_1 + beta_2 * mu_x_2,
+    mu_x_1,
+    mu_x_2,
     0
   ),
   ncol = 1
 )
 u <- matrix(
   data = c(
-    alpha,
-    mu_x,
+    mu_x_1,
+    mu_x_1,
+    mu_x_2,
     0
   ),
   ncol = 1
 )
 rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- colnames(filter) <- c(
   "y",
-  "x",
+  "x1",
+  "x2",
   "e"
 )
 colnames(u) <- "u"
@@ -459,22 +534,28 @@ label <- c(
   "$\\sigma^2$"
 )
 group_1 <- c(
-  n1,
-  mean1,
-  var1
+  n[1],
+  mean[1],
+  var[1]
 )
 group_2 <- c(
-  n2,
-  mean2,
-  var2
+  n[2],
+  mean[2],
+  var[2]
+)
+group_3 <- c(
+  n[3],
+  mean[3],
+  var[3]
 )
 knitr::kable(
   cbind(
     label,
     group_1,
-    group_2
+    group_2,
+    group_3
   ),
-  col.names = c("Parameter", "$x = 0$", "$x = 1$"),
+  col.names = c("Parameter", "$x = 0$", "$x = 1$", "$x = 2$"),
   escape = FALSE
 )
 ```
@@ -482,18 +563,21 @@ knitr::kable(
 ```{r, echo=FALSE}
 parameter <- round(
   c(
-    alpha_pop,
-    beta_pop
+    beta_0_pop,
+    beta_1_pop,
+    beta_2_pop
   ),
   digits = 2
 )
 label <- c(
-  "$\\alpha$",
-  "$\\beta$"
+  "$\\beta_0$",
+  "$\\beta_1$",
+  "$\\beta_2$"
 )
 description <- c(
   "Mean of $x = 0$.",
-  "Mean of $x = 1$ minus $x = 0$."
+  "Mean of $x = 1$ minus $x = 0$.",
+  "Mean of $x = 2$ minus $x = 0$."
 )
 knitr::kable(
   cbind(
@@ -538,13 +622,29 @@ hist(
 )
 ```
 
-### $t$-test
+```{r, echo=FALSE}
+hist(
+  df[which(df$x == 2), ][["y"]],
+  xlab = expression(y),
+  main = expression(paste("Histogram of ", y, " for ", x == 2))
+)
+```
+
+### One-Way Analysis of Variance
+
+Make sure that $x$ is of class `factor` for `lm` and `aov`
+to treat it as a categorical variable.
 
 ```{r}
-t.test(y ~ x, data = df)
+str(df)
+```
+
+```{r}
+summary(aov(y ~ x, data = df))
 ```
 
 ### Linear Regression
+
 
 ```{r}
 summary(lm(y ~ x, data = df))
@@ -552,16 +652,32 @@ summary(lm(y ~ x, data = df))
 
 ### Structural Equation Modeling
 
-#### lavaan [@lavaan2012]
+We have to dummy code the data set first before fitting the model.
+The `model.matrix` function which is used to create a design matrix
+can be used to dummy code `x`.
+Make sure that `x` is a `factor`.
+The first column of the design matrix is a matrix of ones.
+Since we do not need this column,
+we can replace this column with the values of `y`.
+Make sure to name rename the first column
+as `lavaan` relies on the column names.
 
+```{r}
+df_dummy <- model.matrix(y ~ x, data = df)
+df_dummy[, 1] <- df$y
+colnames(df_dummy)[1] <- "y"
+head(df_dummy)
+```
+
+#### lavaan [@lavaan2012]
 
 ```{r}
 model <- "
-  y ~ x
+  y ~ x1 + x2
 "
 fit <- lavaan::sem(
   model,
-  data = df,
+  data = df_dummy,
   meanstructure = TRUE,
   fixed.x = FALSE
 )
@@ -576,49 +692,55 @@ Note, however, that the `u` vector in the RAM notation is
 
 ```{r}
 mxData <- OpenMx::mxData(
-  observed = df,
+  observed = df_dummy,
   type = "raw"
 )
 mxA <- OpenMx::mxMatrix(
   type = "Full",
-  nrow = 3,
-  ncol = 3,
+  nrow = 4,
+  ncol = 4,
   free = c(
-    F, T, F,
-    F, F, F,
-    F, F, F
+    F, T, T, F,
+    F, F, F, F,
+    F, F, F, F,
+    F, F, F, F
   ),
   values = c(
-    0, 0.20, 1,
-    0, 0, 0,
-    0, 0, 0
+    0, 0.20, 0.20, 1,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0
   ),
   labels = c(
-    NA, "beta", NA,
-    NA, NA, NA,
-    NA, NA, NA
+    NA, "beta1", "beta2", NA,
+    NA, NA, NA, NA,
+    NA, NA, NA, NA,
+    NA, NA, NA, NA
   ),
   byrow = TRUE,
   name = "mxA"
 )
 mxS <- OpenMx::mxMatrix(
   type = "Symm",
-  nrow = 3,
-  ncol = 3,
+  nrow = 4,
+  ncol = 4,
   free = c(
-    F, F, F,
-    F, T, F,
-    F, F, T
+    F, F, F, F,
+    F, T, F, F,
+    F, F, T, F,
+    F, F, F, T
   ),
   values = c(
-    0, 0, 0,
-    0, 0.20, 0,
-    0, 0, 0.20
+    0,    0,    0,    0,
+    0, 0.20,    0,    0,
+    0,    0, 0.20,    0,
+    0,    0,    0, 0.20
   ),
   labels = c(
-    NA, NA, NA,
-    NA, "sigma2x", NA,
-    NA, NA, "sigma2e"
+    NA, NA, NA, NA,
+    NA, "sigma2x1", NA, NA,
+    NA, NA, "sigma2x2", NA,
+    NA, NA, NA, "sigma2e"
   ),
   byrow = TRUE,
   name = "mxS"
@@ -626,18 +748,20 @@ mxS <- OpenMx::mxMatrix(
 mxM <- OpenMx::mxMatrix(
   type = "Full",
   nrow = 1,
-  ncol = 3,
+  ncol = 4,
   free = c(
-    T, T, F
+    T, T, T, F
   ),
   values = c(
+    0.20,
     0.20,
     0.20,
     0
   ),
   labels = c(
-    "alpha",
-    "mux",
+    "beta0",
+    "mux1",
+    "mux2",
     NA
   ),
   byrow = TRUE,
@@ -645,12 +769,13 @@ mxM <- OpenMx::mxMatrix(
 )
 mxF <- OpenMx::mxMatrix(
   type = "Full",
-  nrow = 2,
-  ncol = 3,
+  nrow = 3,
+  ncol = 4,
   free = FALSE,
   values = c(
-    1, 0, 0,
-    0, 1, 0
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0
   ),
   byrow = TRUE,
   name = "mxF"
@@ -662,13 +787,14 @@ expRAM <- OpenMx::mxExpectationRAM(
   M = "mxM",
   dimnames = c(
     "y",
-    "x",
+    "x1",
+    "x2",
     "e"
   )
 )
 objML <- OpenMx::mxFitFunctionML()
 mxMod <- OpenMx::mxModel(
-  name = "Student's t test",
+  name = "One Way Analysis of Variance",
   data = mxData,
   matrices = list(
     mxA,
@@ -733,21 +859,25 @@ ramR::g_num(A, u, filter)
 
 The `ramR` package has a utility function
 to convert structural equations to RAM notation.
-The Student's $t$-test can be expressed in the following equations
+One-way analysis of variance with three levels
+can be expressed in the following equations
 
 ```{r}
 eq <- "
   # VARIABLE1 OPERATION VARIABLE2 LABEL
   e           by        y         1
-  y           on        x         beta
+  y           on        x1        beta1
+  y           on        x2        beta2
   e           with      e         sigma[varepsilon]^2
-  x           with      x         sigma[x]^2
-  y           on        1         alpha
-  x           on        1         mu[x]
+  x1          with      x1        sigma[x1]^2
+  x2          with      x2        sigma[x2]^2
+  y           on        1         beta0
+  x1          on        1         mu[x1]
+  x2          on        1         mu[x2]
 "
 ```
 
-```{tikz, ram-t-02, echo=FALSE, fig.cap="Student's $t$-test's Structural Equations", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
+```{tikz, ram-aov-02, echo=FALSE, fig.cap="One-Way Analysis of Variance's Structural Equations", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
   auto,
@@ -809,40 +939,52 @@ eq <- "
   \node[error] (varepsilon_eq1) {$\varepsilon$};
   \node[manifest] (y_eq1) [right = of varepsilon_eq1] {$y$};
   \node[inv] (label_1) [right = of y_eq1] {1};
-  \node[manifest] (y_eq2) [below = of varepsilon_eq1] {$y$};
-  \node[manifest] (x_eq2) [below = of y_eq1] {$x$};
-  \node[inv] (label_2) [below = of label_1] {$\beta$};
-  \node[error] (varepsilon_eq3_1) [below = of y_eq2] {$\varepsilon$};
-  \node[error] (varepsilon_eq3_2) [below = of x_eq2] {$\varepsilon$};
-  \node[inv] (label_3) [below = of label_2] {$\sigma_{\varepsilon}^{2}$};
-  \node[manifest] (x_eq4_1) [below = of varepsilon_eq3_1] {$x$};
-  \node[manifest] (x_eq4_2) [below = of varepsilon_eq3_2] {$x$};
-  \node[inv] (label_4) [below = of label_3] {$\sigma_{x}^{2}$};
-  \node[manifest] (y_eq5) [below = of x_eq4_1] {$y$};
-  \node[mean] (1_eq5) [right = of y_eq5] {1};
-  \node[inv] (label_5) [below = of label_4] {$\alpha$};
-  \node[manifest] (x_eq6) [below = of y_eq5] {$x$};
-  \node[mean] (1_eq6) [right = of x_eq6] {1};
-  \node[inv] (label_6) [below = of label_5] {$\mu_x$};
   \draw[path] (varepsilon_eq1) to node[above] {by} (y_eq1);
-  \draw[path] (x_eq2) to node[above] {on} (y_eq2);
-  \draw[cov] (varepsilon_eq3_1) to node[above] {with} (varepsilon_eq3_2);
-  \draw[cov] (x_eq4_1) to node[above] {with} (x_eq4_2);
-  \draw[path] (1_eq5) to node[above] {on} (y_eq5);
-  \draw[path] (1_eq6) to node[above] {on} (x_eq6);
+  \node[manifest] (y_eq2) [below = of varepsilon_eq1] {$y$};
+  \node[manifest] (x1_eq2) [below = of y_eq1] {$x_1$};
+  \node[inv] (label_2) [below = of label_1] {$\beta_1$};
+  \draw[path] (x1_eq2) to node[above] {on} (y_eq2);
+  \node[manifest] (y_eq3) [below = of y_eq2] {$y$};
+  \node[manifest] (x2_eq3) [below = of x1_eq2] {$x_2$};
+  \node[inv] (label_3) [below = of label_2] {$\beta_2$};
+  \draw[path] (x2_eq3) to node[above] {on} (y_eq3);
+  \node[error] (varepsilon_eq4_1) [below = of y_eq3] {$\varepsilon$};
+  \node[error] (varepsilon_eq4_2) [below = of x2_eq3] {$\varepsilon$};
+  \node[inv] (label_4) [below = of label_3] {$\sigma_{\varepsilon}^{2}$};
+  \draw[cov] (varepsilon_eq4_1) to node[above] {with} (varepsilon_eq4_2);
+  \node[manifest] (x1_eq5_1) [below = of varepsilon_eq4_1] {$x_1$};
+  \node[manifest] (x1_eq5_2) [below = of varepsilon_eq4_2] {$x_1$};
+  \node[inv] (label_5) [below = of label_4] {$\sigma_{x_1}^{2}$};
+  \draw[cov] (x1_eq5_1) to node[above] {with} (x1_eq5_2);
+  \node[manifest] (x2_eq6_1) [below = of x1_eq5_1] {$x_2$};
+  \node[manifest] (x2_eq6_2) [below = of x1_eq5_2] {$x_2$};
+  \node[inv] (label_6) [below = of label_5] {$\sigma_{x_2}^{2}$};
+  \draw[cov] (x2_eq6_1) to node[above] {with} (x2_eq6_2);
+  \node[manifest] (y_eq7) [below = of x2_eq6_1] {$y$};
+  \node[mean] (1_eq7) [right = of y_eq7] {$1$};
+  \node[inv] (label_7) [below = of label_6] {$\beta_0$};
+  \draw[path] (1_eq7) to node[above] {on} (y_eq7);
+  \node[manifest] (x1_eq8) [below = of y_eq7] {$x_1$};
+  \node[mean] (1_eq8) [right = of x1_eq8] {$1$};
+  \node[inv] (label_8) [below = of label_7] {$\mu_{x_1}$};
+  \draw[path] (1_eq8) to node[above] {on} (x1_eq8);
+  \node[manifest] (x2_eq9) [below = of x1_eq8] {$x_2$};
+  \node[mean] (1_eq9) [right = of x2_eq9] {$1$};
+  \node[inv] (label_9) [below = of label_8] {$\mu_{x_2}$};
+  \draw[path] (1_eq9) to node[above] {on} (x2_eq9);
 \end{tikzpicture}
 ```
 
 The error term is treated as a latent variable
 and defined with the operation `by`.
 Its value is constrained to $1$.
-The regression of $y$ on $x$ is defined by operation `on`.
-It is labeled as `beta`.
-The variance of $x$ and the error variance
+The regression of $y$ on $x_1$ and $x_2$ is defined by operation `on`.
+The coefficients are labeled as `beta[1]` and `beta[2]` respectively.
+The variance of $x_1$, $x_2$ and the error variance
 are defined using the operation `with`.
-These are labeled `sigma[x]^2` and `sigma[varepsilon]^2` respectively.
-The intercept and the mean of $x$ are defined using the operation `on 1`.
-These are labeled `alpha` and `mu[x]` respectively.
+These are labeled `sigma[x1]^2`, `sigma[x2]^2`, and `sigma[varepsilon]^2` respectively.
+The intercept and the mean of $x_1$ and $x_2$ are defined using the operation `on 1`.
+These are labeled `beta[0]`, `mu[x1]`, and `mu[x2]` respectively.
 
 The `ramR::eq2ram` converts the equations to RAM notation.
 
@@ -860,11 +1002,14 @@ both symbolically and numerically.
 eq <- "
   # VARIABLE1 OPERATION VARIABLE2 LABEL
   e           by        y         1
-  y           on        x         beta
+  y           on        x1        beta1
+  y           on        x2        beta2
   e           with      e         sigma[varepsilon]^2
-  x           with      x         sigma[x]^2
-  y           on        1         alpha
-  x           on        1         mu[x]
+  x1          with      x1        sigma[x1]^2
+  x2          with      x2        sigma[x2]^2
+  y           on        1         beta0
+  x1          on        1         mu[x1]
+  x2          on        1         mu[x2]
 "
 ```
 
@@ -874,13 +1019,16 @@ ramR::eq2exp_sym(eq)
 
 ```{r}
 eq <- "
-  # VARIABLE1 OPERATION VARIABLE2 VALUE
-  e           by        y         1.00
-  y           on        x         1.00
-  e           with      e         1.00
-  x           with      x         0.25
-  y           on        1         0.00
-  x           on        1         0.50
+  # VARIABLE1 OPERATION VARIABLE2 LABEL
+  e           by        y         1
+  y           on        x1        2
+  y           on        x2        1
+  e           with      e         1
+  x1          with      x1        0.22222222222
+  x2          with      x2        0.22222222222
+  y           on        1         0
+  x1          on        1         0.33333333333
+  x2          on        1         0.33333333333
 "
 ```
 

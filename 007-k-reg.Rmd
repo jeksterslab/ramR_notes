@@ -1,0 +1,81 @@
+# $k$-Variable Regression Model {#ram-k-reg}
+
+```{tikz, ram-k-reg-01, echo=FALSE, fig.cap="$k$-Variable Regression Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 15mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 15mm,
+    align = center
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 7mm,
+    align = center
+  },
+  mean/.style={
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 7mm,
+    minimum height = 7mm
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+  \node[manifest] (y) {$y$};
+  \node[mean] (1) [above = of y] {$x_1$};
+  \node[manifest] (x_j) [right = of y] {$x_j$};
+  \node[manifest] (x_2) [above = of x_j] {$x_2$};
+  \node[manifest] (x_k) [below = of x_j] {$x_k$};
+  \node[error] (varepsilon) [left = of y] {$\varepsilon$};
+  \draw[path] (x_k) to node[above] {$\beta_k$} (y);
+  \draw[path] (x_j) to node[above] {$\beta_{j}$} (y);
+  \draw[path] (x_2) to node[above] {$\beta_2$} (y);
+  \draw[path] (1) to node[right] {$\beta_1$} (y);
+  \draw[path] (varepsilon) to node[above] {$1$} (y);
+  \draw[cov] (1) to[out=70,in=110,looseness=5] node[above] {$1$} (1);
+  \draw[cov] (x_2) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x_{2}}^{2}$} (x_2);
+  \draw[cov] (x_j) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x_{j}}^{2}$} (x_j);
+  \draw[cov] (x_k) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x_{k}}^{2}$} (x_k);
+  \draw[cov] (x_2) to[out=360,in=360,looseness=1] node[right] {$\sigma_{x_{2}, x_{k}}$} (x_k);
+  \draw[cov] (x_2) to[out=360,in=360,looseness=1] node[left] {$\sigma_{x_{2}, x_{j}}$} (x_j);
+  \draw[cov] (x_k) to[out=360,in=360,looseness=1] node[left] {$\sigma_{x_{k}, x_{j}}$} (x_j);
+  \draw[cov] (varepsilon) to[out=160,in=200,looseness=5] node[left] {$\sigma_{\varepsilon}^{2}$} (varepsilon);
+  \node[inv] (eq) [below = of y] {$\mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon}$};
+\end{tikzpicture}
+```
