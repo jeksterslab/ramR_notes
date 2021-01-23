@@ -30,9 +30,6 @@ remotes::install_github("jeksterslab/ramR")
 knitr::write_bib(
   c(
     .packages(),
-    "bookdown",
-    "knitr",
-    "rmarkdown",
     "ramR",
     "stats",
     "lavaan",
