@@ -261,13 +261,13 @@ Figure 5.1: One-Way Analysis of Variance
 <h2><span class="header-section-number">5.1</span> Symbolic</h2>
 <p>Let <span class="math inline">\(\left\{ y, x_1, x_2, \varepsilon \right\}\)</span> be the variables of interest.</p>
 <p><span class="math display">\[\begin{align*}\mathbf{A} &amp;=\left( \begin{array}{cccc} 0 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}\mathbf{S} &amp;=\left( \begin{array}{cccc} 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \sigma  _{x_{1}} ^{2} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \sigma  _{x_{2}} ^{2} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}\mathbf{C} &amp;=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \\\\ &amp;=\mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{cccc} 1 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)\left( \begin{array}{cccc} 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \sigma  _{x_{1}} ^{2} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \sigma  _{x_{2}} ^{2} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{cccc} 1 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)^{\mathsf{T}}\\ &amp;=\left( \begin{array}{cccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x_{1}} ^{2} &amp; \beta  _{2} \sigma  _{x_{2}} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} &amp; \sigma  _{x_{1}} ^{2} &amp; 0 &amp; 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x_{2}} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{S} &amp;=\left( \begin{array}{cccc} 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \sigma  _{x _{1}} ^{2} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \sigma  _{x _{2}} ^{2} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{C} &amp;=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \\\\ &amp;=\mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{cccc} 1 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)\left( \begin{array}{cccc} 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \sigma  _{x _{1}} ^{2} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \sigma  _{x _{2}} ^{2} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{cccc} 1 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)^{\mathsf{T}}\\ &amp;=\left( \begin{array}{cccc} \sigma  _{x _{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x _{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x _{1}} ^{2} &amp; \beta  _{2} \sigma  _{x _{2}} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x _{1}} ^{2} \beta  _{1} &amp; \sigma  _{x _{1}} ^{2} &amp; 0 &amp; 0 \\ \sigma  _{x _{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x _{2}} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{align*}\]</span></p>
 <p><span class="math display">\[\begin{align*}\mathbf{F} &amp;=\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}\mathbf{M} &amp;=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \mathbf{F}^{\mathsf{T}}\\ &amp;=\mathbf{F} \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \mathbf{F}^{\mathsf{T}} \\\\ &amp;=\mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{array} \right)\left( \begin{array}{cccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x_{1}} ^{2} &amp; \beta  _{2} \sigma  _{x_{2}} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} &amp; \sigma  _{x_{1}} ^{2} &amp; 0 &amp; 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x_{2}} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{array} \right)^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{ccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x_{1}} ^{2} &amp; \beta  _{2} \sigma  _{x_{2}} ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} &amp; \sigma  _{x_{1}} ^{2} &amp; 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x_{2}} ^{2} \end{array} \right)\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}\mathbf{v} &amp;=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &amp;=\left[\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{cccc} 0 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]^{\mathsf{-1}}\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}\mathbf{u} &amp;=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &amp;=\left[\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{cccc} 0 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}\mathbf{g} &amp;=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &amp;=\left[\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{cccc} 0 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]^{-1}\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{M} &amp;=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \mathbf{F}^{\mathsf{T}}\\ &amp;=\mathbf{F} \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \mathbf{F}^{\mathsf{T}} \\\\ &amp;=\mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{array} \right)\left( \begin{array}{cccc} \sigma  _{x _{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x _{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x _{1}} ^{2} &amp; \beta  _{2} \sigma  _{x _{2}} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x _{1}} ^{2} \beta  _{1} &amp; \sigma  _{x _{1}} ^{2} &amp; 0 &amp; 0 \\ \sigma  _{x _{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x _{2}} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{array} \right)^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{ccc} \sigma  _{x _{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x _{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x _{1}} ^{2} &amp; \beta  _{2} \sigma  _{x _{2}} ^{2} \\ \sigma  _{x _{1}} ^{2} \beta  _{1} &amp; \sigma  _{x _{1}} ^{2} &amp; 0 \\ \sigma  _{x _{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x _{2}} ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{v} &amp;=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &amp;=\left[\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{cccc} 0 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]^{\mathsf{-1}}\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x _{1}} + \beta  _{2} \mu  _{x _{2}} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{u} &amp;=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &amp;=\left[\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{cccc} 0 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x _{1}} + \beta  _{2} \mu  _{x _{2}} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{g} &amp;=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &amp;=\left[\left( \begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{cccc} 0 &amp; \beta  _{1} &amp; \beta  _{2} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]^{-1}\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x _{1}} + \beta  _{2} \mu  _{x _{2}} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \end{array} \right)\end{align*}\]</span></p>
 <div id="using-the-ramr-package-2" class="section level3" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> Using the <code>ramR</code> Package</h3>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="ram-anova.html#cb57-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
@@ -277,16 +277,16 @@ Figure 5.1: One-Way Analysis of Variance
 ## x2 &quot;0&quot; &quot;0&quot;       &quot;0&quot;       &quot;0&quot;
 ## e  &quot;0&quot; &quot;0&quot;       &quot;0&quot;       &quot;0&quot;</code></pre>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="ram-anova.html#cb59-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
-<pre><code>##    y   x1            x2            e                    
-## y  &quot;0&quot; &quot;0&quot;           &quot;0&quot;           &quot;0&quot;                  
-## x1 &quot;0&quot; &quot;sigma[x1]^2&quot; &quot;0&quot;           &quot;0&quot;                  
-## x2 &quot;0&quot; &quot;0&quot;           &quot;sigma[x2]^2&quot; &quot;0&quot;                  
-## e  &quot;0&quot; &quot;0&quot;           &quot;0&quot;           &quot;sigma[varepsilon]^2&quot;</code></pre>
+<pre><code>##    y   x1              x2              e                    
+## y  &quot;0&quot; &quot;0&quot;             &quot;0&quot;             &quot;0&quot;                  
+## x1 &quot;0&quot; &quot;sigma[x[1]]^2&quot; &quot;0&quot;             &quot;0&quot;                  
+## x2 &quot;0&quot; &quot;0&quot;             &quot;sigma[x[2]]^2&quot; &quot;0&quot;                  
+## e  &quot;0&quot; &quot;0&quot;             &quot;0&quot;             &quot;sigma[varepsilon]^2&quot;</code></pre>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="ram-anova.html#cb61-1" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div>
-<pre><code>##    u        
-## y  &quot;beta[0]&quot;
-## x1 &quot;mu[x1]&quot; 
-## x2 &quot;mu[x2]&quot; 
+<pre><code>##    u         
+## y  &quot;beta[0]&quot; 
+## x1 &quot;mu[x[1]]&quot;
+## x2 &quot;mu[x[2]]&quot;
 ## e  &quot;0&quot;</code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="ram-anova.html#cb63-1" aria-hidden="true" tabindex="-1"></a>filter</span></code></pre></div>
 <pre><code>##    y x1 x2 e
@@ -296,33 +296,33 @@ Figure 5.1: One-Way Analysis of Variance
 <p>The covariance expectations
 can be symbolically derived using the <code>ramR::C_sym()</code> function.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="ram-anova.html#cb65-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">C_sym</span>(A, S)</span></code></pre></div>
-<pre><code>## {{sigma[x1]^2*beta[1]^2+sigma[x2]^2*beta[2]^2+sigma[varepsilon]^2,                                             beta[1]*sigma[x1]^2,                                             beta[2]*sigma[x2]^2,                                             sigma[varepsilon]^2},
-##  {                                            sigma[x1]^2*beta[1],                                                     sigma[x1]^2,                                                               0,                                                               0},
-##  {                                            sigma[x2]^2*beta[2],                                                               0,                                                     sigma[x2]^2,                                                               0},
-##  {                                            sigma[varepsilon]^2,                                                               0,                                                               0,                                             sigma[varepsilon]^2}}</code></pre>
-<p><span class="math display">\[\begin{equation*}\mathbf{C} =\left( \begin{array}{cccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x_{1}} ^{2} &amp; \beta  _{2} \sigma  _{x_{2}} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} &amp; \sigma  _{x_{1}} ^{2} &amp; 0 &amp; 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x_{2}} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{equation*}\]</span></p>
+<pre><code>## {{sigma[x[1]]^2*beta[1]^2+sigma[x[2]]^2*beta[2]^2+sigma[varepsilon]^2,                                               beta[1]*sigma[x[1]]^2,                                               beta[2]*sigma[x[2]]^2,                                                 sigma[varepsilon]^2},
+##  {                                              sigma[x[1]]^2*beta[1],                                                       sigma[x[1]]^2,                                                                   0,                                                                   0},
+##  {                                              sigma[x[2]]^2*beta[2],                                                                   0,                                                       sigma[x[2]]^2,                                                                   0},
+##  {                                                sigma[varepsilon]^2,                                                                   0,                                                                   0,                                                 sigma[varepsilon]^2}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{C} =\left( \begin{array}{cccc} \sigma  _{x _{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x _{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x _{1}} ^{2} &amp; \beta  _{2} \sigma  _{x _{2}} ^{2} &amp; \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x _{1}} ^{2} \beta  _{1} &amp; \sigma  _{x _{1}} ^{2} &amp; 0 &amp; 0 \\ \sigma  _{x _{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x _{2}} ^{2} &amp; 0 \\ \sigma  _{\varepsilon } ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{equation*}\]</span></p>
 <p>The covariance expectations for the observed variables
 can be symbolically derived using the <code>ramR::M_sym()</code> function.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="ram-anova.html#cb67-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">M_sym</span>(A, S, filter)</span></code></pre></div>
-<pre><code>## {{sigma[x1]^2*beta[1]^2+sigma[x2]^2*beta[2]^2+sigma[varepsilon]^2,                                             beta[1]*sigma[x1]^2,                                             beta[2]*sigma[x2]^2},
-##  {                                            sigma[x1]^2*beta[1],                                                     sigma[x1]^2,                                                               0},
-##  {                                            sigma[x2]^2*beta[2],                                                               0,                                                     sigma[x2]^2}}</code></pre>
-<p><span class="math display">\[\begin{equation*}\mathbf{M} =\left( \begin{array}{ccc} \sigma  _{x_{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x_{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x_{1}} ^{2} &amp; \beta  _{2} \sigma  _{x_{2}} ^{2} \\ \sigma  _{x_{1}} ^{2} \beta  _{1} &amp; \sigma  _{x_{1}} ^{2} &amp; 0 \\ \sigma  _{x_{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x_{2}} ^{2} \end{array} \right)\end{equation*}\]</span></p>
+<pre><code>## {{sigma[x[1]]^2*beta[1]^2+sigma[x[2]]^2*beta[2]^2+sigma[varepsilon]^2,                                               beta[1]*sigma[x[1]]^2,                                               beta[2]*sigma[x[2]]^2},
+##  {                                              sigma[x[1]]^2*beta[1],                                                       sigma[x[1]]^2,                                                                   0},
+##  {                                              sigma[x[2]]^2*beta[2],                                                                   0,                                                       sigma[x[2]]^2}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{M} =\left( \begin{array}{ccc} \sigma  _{x _{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x _{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} &amp; \beta  _{1} \sigma  _{x _{1}} ^{2} &amp; \beta  _{2} \sigma  _{x _{2}} ^{2} \\ \sigma  _{x _{1}} ^{2} \beta  _{1} &amp; \sigma  _{x _{1}} ^{2} &amp; 0 \\ \sigma  _{x _{2}} ^{2} \beta  _{2} &amp; 0 &amp; \sigma  _{x _{2}} ^{2} \end{array} \right)\end{equation*}\]</span></p>
 <p>The mean expectations
 can be symbolically derived using the <code>ramR::v_sym()</code> function.</p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="ram-anova.html#cb69-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">v_sym</span>(A, u)</span></code></pre></div>
-<pre><code>## {{beta[0]+beta[1]*mu[x1]+beta[2]*mu[x2]},
-##  {                               mu[x1]},
-##  {                               mu[x2]},
-##  {                                    0}}</code></pre>
-<p><span class="math display">\[\begin{equation*}\mathbf{v} =\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \\ 0 \end{array} \right)\end{equation*}\]</span></p>
+<pre><code>## {{beta[0]+beta[1]*mu[x[1]]+beta[2]*mu[x[2]]},
+##  {                                 mu[x[1]]},
+##  {                                 mu[x[2]]},
+##  {                                        0}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{v} =\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x _{1}} + \beta  _{2} \mu  _{x _{2}} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\end{equation*}\]</span></p>
 <p>The mean expectations for the observed variables
 can be symbolically derived using the <code>ramR::g_sym()</code> function.</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="ram-anova.html#cb71-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">g_sym</span>(A, u, filter)</span></code></pre></div>
-<pre><code>## {{beta[0]+beta[1]*mu[x1]+beta[2]*mu[x2]},
-##  {                               mu[x1]},
-##  {                               mu[x2]}}</code></pre>
-<p><span class="math display">\[\begin{equation*}\mathbf{g} =\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x_{1}} + \beta  _{2} \mu  _{x_{2}} \\ \mu  _{x_{1}} \\ \mu  _{x_{2}} \end{array} \right)\end{equation*}\]</span></p>
+<pre><code>## {{beta[0]+beta[1]*mu[x[1]]+beta[2]*mu[x[2]]},
+##  {                                 mu[x[1]]},
+##  {                                 mu[x[2]]}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{g} =\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x _{1}} + \beta  _{2} \mu  _{x _{2}} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \end{array} \right)\end{equation*}\]</span></p>
 </div>
 </div>
 <div id="numerical-example-1" class="section level2" number="5.2">
@@ -670,8 +670,8 @@ Note, however, that the <code>u</code> vector in the RAM notation is
 ## AIC:      -664.8302               8335.170                 8335.266
 ## BIC:    -24531.8162               8377.676                 8352.262
 ## To get additional fit indices, see help(mxRefModels)
-## timestamp: 2021-01-24 00:22:39 
-## Wall clock time: 0.04179001 secs 
+## timestamp: 2021-01-24 17:35:16 
+## Wall clock time: 0.03226876 secs 
 ## optimizer:  SLSQP 
 ## OpenMx version number: 2.18.1 
 ## Need help?  See help(mxSummary)</code></pre>
@@ -743,14 +743,14 @@ can be expressed in the following equations</p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="ram-anova.html#cb107-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
 <span id="cb107-2"><a href="ram-anova.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
 <span id="cb107-3"><a href="ram-anova.html#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1</span></span>
-<span id="cb107-4"><a href="ram-anova.html#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x1        beta1</span></span>
-<span id="cb107-5"><a href="ram-anova.html#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x2        beta2</span></span>
+<span id="cb107-4"><a href="ram-anova.html#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x1        beta[1]</span></span>
+<span id="cb107-5"><a href="ram-anova.html#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x2        beta[2]</span></span>
 <span id="cb107-6"><a href="ram-anova.html#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="st">  e           with      e         sigma[varepsilon]^2</span></span>
-<span id="cb107-7"><a href="ram-anova.html#cb107-7" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          with      x1        sigma[x1]^2</span></span>
-<span id="cb107-8"><a href="ram-anova.html#cb107-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          with      x2        sigma[x2]^2</span></span>
-<span id="cb107-9"><a href="ram-anova.html#cb107-9" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         beta0</span></span>
-<span id="cb107-10"><a href="ram-anova.html#cb107-10" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          on        1         mu[x1]</span></span>
-<span id="cb107-11"><a href="ram-anova.html#cb107-11" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          on        1         mu[x2]</span></span>
+<span id="cb107-7"><a href="ram-anova.html#cb107-7" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          with      x1        sigma[x[1]]^2</span></span>
+<span id="cb107-8"><a href="ram-anova.html#cb107-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          with      x2        sigma[x[2]]^2</span></span>
+<span id="cb107-9"><a href="ram-anova.html#cb107-9" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         beta[0]</span></span>
+<span id="cb107-10"><a href="ram-anova.html#cb107-10" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          on        1         mu[x[1]]</span></span>
+<span id="cb107-11"><a href="ram-anova.html#cb107-11" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          on        1         mu[x[2]]</span></span>
 <span id="cb107-12"><a href="ram-anova.html#cb107-12" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
 <div class="figure"><span id="fig:ram-aov-02"></span>
 <img src="ramR_notes_files/figure-html/ram-aov-02-1.png" alt="One-Way Analysis of Variance's Structural Equations" width="672" />
@@ -765,39 +765,39 @@ The regression of <span class="math inline">\(y\)</span> on <span class="math in
 The coefficients are labeled as <code>beta[1]</code> and <code>beta[2]</code> respectively.
 The variance of <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span> and the error variance
 are defined using the operation <code>with</code>.
-These are labeled <code>sigma[x1]^2</code>, <code>sigma[x2]^2</code>, and <code>sigma[varepsilon]^2</code> respectively.
+These are labeled <code>sigma[x[1]]^2</code>, <code>sigma[x[2]]^2</code>, and <code>sigma[varepsilon]^2</code> respectively.
 The intercept and the mean of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are defined using the operation <code>on 1</code>.
-These are labeled <code>beta[0]</code>, <code>mu[x1]</code>, and <code>mu[x2]</code> respectively.</p>
+These are labeled <code>beta[0]</code>, <code>mu[x[1]]</code>, and <code>mu[x[2]]</code> respectively.</p>
 <p>The <code>ramR::eq2ram</code> converts the equations to RAM notation.</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="ram-anova.html#cb108-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">eq2ram</span>(eq)</span></code></pre></div>
 <pre><code>## $eq
 ##   var1   op var2               label
 ## 1    e   by    y                   1
-## 2    y   on   x1               beta1
-## 3    y   on   x2               beta2
+## 2    y   on   x1             beta[1]
+## 3    y   on   x2             beta[2]
 ## 4    e with    e sigma[varepsilon]^2
-## 5   x1 with   x1         sigma[x1]^2
-## 6   x2 with   x2         sigma[x2]^2
-## 7    y   on    1               beta0
-## 8   x1   on    1              mu[x1]
-## 9   x2   on    1              mu[x2]
+## 5   x1 with   x1       sigma[x[1]]^2
+## 6   x2 with   x2       sigma[x[2]]^2
+## 7    y   on    1             beta[0]
+## 8   x1   on    1            mu[x[1]]
+## 9   x2   on    1            mu[x[2]]
 ## 
 ## $variables
 ## [1] &quot;y&quot;  &quot;x1&quot; &quot;x2&quot; &quot;e&quot; 
 ## 
 ## $A
-##    y   x1      x2      e  
-## y  &quot;0&quot; &quot;beta1&quot; &quot;beta2&quot; &quot;1&quot;
-## x1 &quot;0&quot; &quot;0&quot;     &quot;0&quot;     &quot;0&quot;
-## x2 &quot;0&quot; &quot;0&quot;     &quot;0&quot;     &quot;0&quot;
-## e  &quot;0&quot; &quot;0&quot;     &quot;0&quot;     &quot;0&quot;
+##    y   x1        x2        e  
+## y  &quot;0&quot; &quot;beta[1]&quot; &quot;beta[2]&quot; &quot;1&quot;
+## x1 &quot;0&quot; &quot;0&quot;       &quot;0&quot;       &quot;0&quot;
+## x2 &quot;0&quot; &quot;0&quot;       &quot;0&quot;       &quot;0&quot;
+## e  &quot;0&quot; &quot;0&quot;       &quot;0&quot;       &quot;0&quot;
 ## 
 ## $S
-##    y   x1            x2            e                    
-## y  &quot;0&quot; &quot;0&quot;           &quot;0&quot;           &quot;0&quot;                  
-## x1 &quot;0&quot; &quot;sigma[x1]^2&quot; &quot;0&quot;           &quot;0&quot;                  
-## x2 &quot;0&quot; &quot;0&quot;           &quot;sigma[x2]^2&quot; &quot;0&quot;                  
-## e  &quot;0&quot; &quot;0&quot;           &quot;0&quot;           &quot;sigma[varepsilon]^2&quot;
+##    y   x1              x2              e                    
+## y  &quot;0&quot; &quot;0&quot;             &quot;0&quot;             &quot;0&quot;                  
+## x1 &quot;0&quot; &quot;sigma[x[1]]^2&quot; &quot;0&quot;             &quot;0&quot;                  
+## x2 &quot;0&quot; &quot;0&quot;             &quot;sigma[x[2]]^2&quot; &quot;0&quot;                  
+## e  &quot;0&quot; &quot;0&quot;             &quot;0&quot;             &quot;sigma[varepsilon]^2&quot;
 ## 
 ## $filter
 ##    y x1 x2 e
@@ -806,10 +806,10 @@ These are labeled <code>beta[0]</code>, <code>mu[x1]</code>, and <code>mu[x2]</c
 ## x2 0  0  1 0
 ## 
 ## $u
-##    u       
-## y  &quot;beta0&quot; 
-## x1 &quot;mu[x1]&quot;
-## x2 &quot;mu[x2]&quot;
+##    u         
+## y  &quot;beta[0]&quot; 
+## x1 &quot;mu[x[1]]&quot;
+## x2 &quot;mu[x[2]]&quot;
 ## e  &quot;0&quot;</code></pre>
 </div>
 <div id="equations-to-expectations-1" class="section level2" number="5.4">
@@ -820,36 +820,36 @@ both symbolically and numerically.</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="ram-anova.html#cb110-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
 <span id="cb110-2"><a href="ram-anova.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
 <span id="cb110-3"><a href="ram-anova.html#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1</span></span>
-<span id="cb110-4"><a href="ram-anova.html#cb110-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x1        beta1</span></span>
-<span id="cb110-5"><a href="ram-anova.html#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x2        beta2</span></span>
+<span id="cb110-4"><a href="ram-anova.html#cb110-4" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x1        beta[1]</span></span>
+<span id="cb110-5"><a href="ram-anova.html#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x2        beta[2]</span></span>
 <span id="cb110-6"><a href="ram-anova.html#cb110-6" aria-hidden="true" tabindex="-1"></a><span class="st">  e           with      e         sigma[varepsilon]^2</span></span>
-<span id="cb110-7"><a href="ram-anova.html#cb110-7" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          with      x1        sigma[x1]^2</span></span>
-<span id="cb110-8"><a href="ram-anova.html#cb110-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          with      x2        sigma[x2]^2</span></span>
-<span id="cb110-9"><a href="ram-anova.html#cb110-9" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         beta0</span></span>
-<span id="cb110-10"><a href="ram-anova.html#cb110-10" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          on        1         mu[x1]</span></span>
-<span id="cb110-11"><a href="ram-anova.html#cb110-11" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          on        1         mu[x2]</span></span>
+<span id="cb110-7"><a href="ram-anova.html#cb110-7" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          with      x1        sigma[x[1]]^2</span></span>
+<span id="cb110-8"><a href="ram-anova.html#cb110-8" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          with      x2        sigma[x[2]]^2</span></span>
+<span id="cb110-9"><a href="ram-anova.html#cb110-9" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         beta[0]</span></span>
+<span id="cb110-10"><a href="ram-anova.html#cb110-10" aria-hidden="true" tabindex="-1"></a><span class="st">  x1          on        1         mu[x[1]]</span></span>
+<span id="cb110-11"><a href="ram-anova.html#cb110-11" aria-hidden="true" tabindex="-1"></a><span class="st">  x2          on        1         mu[x[2]]</span></span>
 <span id="cb110-12"><a href="ram-anova.html#cb110-12" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="ram-anova.html#cb111-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">eq2exp_sym</span>(eq)</span></code></pre></div>
 <pre><code>## $variables
 ## [1] &quot;y&quot;  &quot;x1&quot; &quot;x2&quot; &quot;e&quot; 
 ## 
 ## $A
-## {{    0, beta1, beta2,     1},
-##  {    0,     0,     0,     0},
-##  {    0,     0,     0,     0},
-##  {    0,     0,     0,     0}} 
+## {{      0, beta[1], beta[2],       1},
+##  {      0,       0,       0,       0},
+##  {      0,       0,       0,       0},
+##  {      0,       0,       0,       0}} 
 ## 
 ## $S
 ## {{                  0,                   0,                   0,                   0},
-##  {                  0,         sigma[x1]^2,                   0,                   0},
-##  {                  0,                   0,         sigma[x2]^2,                   0},
+##  {                  0,       sigma[x[1]]^2,                   0,                   0},
+##  {                  0,                   0,       sigma[x[2]]^2,                   0},
 ##  {                  0,                   0,                   0, sigma[varepsilon]^2}} 
 ## 
 ## $u
-## {{ beta0},
-##  {mu[x1]},
-##  {mu[x2]},
-##  {     0}} 
+## {{ beta[0]},
+##  {mu[x[1]]},
+##  {mu[x[2]]},
+##  {       0}} 
 ## 
 ## $filter
 ## {{1, 0, 0, 0},
@@ -857,26 +857,26 @@ both symbolically and numerically.</p>
 ##  {0, 0, 1, 0}} 
 ## 
 ## $v
-## {{beta0+beta1*mu[x1]+beta2*mu[x2]},
-##  {                         mu[x1]},
-##  {                         mu[x2]},
-##  {                              0}} 
+## {{beta[0]+beta[1]*mu[x[1]]+beta[2]*mu[x[2]]},
+##  {                                 mu[x[1]]},
+##  {                                 mu[x[2]]},
+##  {                                        0}} 
 ## 
 ## $g
-## {{beta0+beta1*mu[x1]+beta2*mu[x2]},
-##  {                         mu[x1]},
-##  {                         mu[x2]}} 
+## {{beta[0]+beta[1]*mu[x[1]]+beta[2]*mu[x[2]]},
+##  {                                 mu[x[1]]},
+##  {                                 mu[x[2]]}} 
 ## 
 ## $C
-## {{sigma[x1]^2*beta1^2+sigma[x2]^2*beta2^2+sigma[varepsilon]^2,                                           beta1*sigma[x1]^2,                                           beta2*sigma[x2]^2,                                         sigma[varepsilon]^2},
-##  {                                          sigma[x1]^2*beta1,                                                 sigma[x1]^2,                                                           0,                                                           0},
-##  {                                          sigma[x2]^2*beta2,                                                           0,                                                 sigma[x2]^2,                                                           0},
-##  {                                        sigma[varepsilon]^2,                                                           0,                                                           0,                                         sigma[varepsilon]^2}} 
+## {{sigma[x[1]]^2*beta[1]^2+sigma[x[2]]^2*beta[2]^2+sigma[varepsilon]^2,                                               beta[1]*sigma[x[1]]^2,                                               beta[2]*sigma[x[2]]^2,                                                 sigma[varepsilon]^2},
+##  {                                              sigma[x[1]]^2*beta[1],                                                       sigma[x[1]]^2,                                                                   0,                                                                   0},
+##  {                                              sigma[x[2]]^2*beta[2],                                                                   0,                                                       sigma[x[2]]^2,                                                                   0},
+##  {                                                sigma[varepsilon]^2,                                                                   0,                                                                   0,                                                 sigma[varepsilon]^2}} 
 ## 
 ## $M
-## {{sigma[x1]^2*beta1^2+sigma[x2]^2*beta2^2+sigma[varepsilon]^2,                                           beta1*sigma[x1]^2,                                           beta2*sigma[x2]^2},
-##  {                                          sigma[x1]^2*beta1,                                                 sigma[x1]^2,                                                           0},
-##  {                                          sigma[x2]^2*beta2,                                                           0,                                                 sigma[x2]^2}}</code></pre>
+## {{sigma[x[1]]^2*beta[1]^2+sigma[x[2]]^2*beta[2]^2+sigma[varepsilon]^2,                                               beta[1]*sigma[x[1]]^2,                                               beta[2]*sigma[x[2]]^2},
+##  {                                              sigma[x[1]]^2*beta[1],                                                       sigma[x[1]]^2,                                                                   0},
+##  {                                              sigma[x[2]]^2*beta[2],                                                                   0,                                                       sigma[x[2]]^2}}</code></pre>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="ram-anova.html#cb113-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
 <span id="cb113-2"><a href="ram-anova.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
 <span id="cb113-3"><a href="ram-anova.html#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="st">  e           by        y         1</span></span>

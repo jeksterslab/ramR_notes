@@ -141,16 +141,16 @@ Let $\left\{ y, x_1, x_2, \varepsilon \right\}$ be the variables of interest.
 u <- matrix(
   data = c(
     paste(expression(beta[0])),
-    paste(expression(mu[x1])),
-    paste(expression(mu[x2])),
+    paste(expression(mu[x[1]])),
+    paste(expression(mu[x[2]])),
     0
   )
 )
 v <- matrix(
   data = c(
-    paste(expression(beta[0] + beta[1] * mu[x1] + beta[2] * mu[x2])),
-    paste(expression(mu[x1])),
-    paste(expression(mu[x2])),
+    paste(expression(beta[0] + beta[1] * mu[x[1]] + beta[2] * mu[x[2]])),
+    paste(expression(mu[x[1]])),
+    paste(expression(mu[x[2]])),
     0
   )
 )
@@ -163,8 +163,8 @@ I <- diag(dim(A)[1])
 A[1, ] <- c(0, paste(expression(beta[1])), paste(expression(beta[2])), 1)
 diag(S) <- c(
   0,
-  paste(expression(sigma[x1]^2)),
-  paste(expression(sigma[x2]^2)),
+  paste(expression(sigma[x[1]]^2)),
+  paste(expression(sigma[x[2]]^2)),
   paste(expression(sigma[varepsilon]^2))
 )
 filter <- diag(dim(A)[1] - 1)
@@ -869,14 +869,14 @@ can be expressed in the following equations
 eq <- "
   # VARIABLE1 OPERATION VARIABLE2 LABEL
   e           by        y         1
-  y           on        x1        beta1
-  y           on        x2        beta2
+  y           on        x1        beta[1]
+  y           on        x2        beta[2]
   e           with      e         sigma[varepsilon]^2
-  x1          with      x1        sigma[x1]^2
-  x2          with      x2        sigma[x2]^2
-  y           on        1         beta0
-  x1          on        1         mu[x1]
-  x2          on        1         mu[x2]
+  x1          with      x1        sigma[x[1]]^2
+  x2          with      x2        sigma[x[2]]^2
+  y           on        1         beta[0]
+  x1          on        1         mu[x[1]]
+  x2          on        1         mu[x[2]]
 "
 ```
 
@@ -985,9 +985,9 @@ The regression of $y$ on $x_1$ and $x_2$ is defined by operation `on`.
 The coefficients are labeled as `beta[1]` and `beta[2]` respectively.
 The variance of $x_1$, $x_2$ and the error variance
 are defined using the operation `with`.
-These are labeled `sigma[x1]^2`, `sigma[x2]^2`, and `sigma[varepsilon]^2` respectively.
+These are labeled `sigma[x[1]]^2`, `sigma[x[2]]^2`, and `sigma[varepsilon]^2` respectively.
 The intercept and the mean of $x_1$ and $x_2$ are defined using the operation `on 1`.
-These are labeled `beta[0]`, `mu[x1]`, and `mu[x2]` respectively.
+These are labeled `beta[0]`, `mu[x[1]]`, and `mu[x[2]]` respectively.
 
 The `ramR::eq2ram` converts the equations to RAM notation.
 
@@ -1005,14 +1005,14 @@ both symbolically and numerically.
 eq <- "
   # VARIABLE1 OPERATION VARIABLE2 LABEL
   e           by        y         1
-  y           on        x1        beta1
-  y           on        x2        beta2
+  y           on        x1        beta[1]
+  y           on        x2        beta[2]
   e           with      e         sigma[varepsilon]^2
-  x1          with      x1        sigma[x1]^2
-  x2          with      x2        sigma[x2]^2
-  y           on        1         beta0
-  x1          on        1         mu[x1]
-  x2          on        1         mu[x2]
+  x1          with      x1        sigma[x[1]]^2
+  x2          with      x2        sigma[x[2]]^2
+  y           on        1         beta[0]
+  x1          on        1         mu[x[1]]
+  x2          on        1         mu[x[2]]
 "
 ```
 
