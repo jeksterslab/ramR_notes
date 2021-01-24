@@ -1,0 +1,47 @@
+/*
+One-Way Analysis of Variance
+*/
+
+A : matrix(
+  [0, %beta[1], %beta[2], 1],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0]
+) ;
+
+S : matrix(
+  [0, 0, 0, 0],
+  [0, %sigma[x[1]]^2, 0, 0],
+  [0, 0, %sigma[x[2]]^2, 0],
+  [0, 0, 0, %sigma[%epsilon]^2]
+) ;
+
+F : matrix(
+  [1, 0, 0, 0],
+  [0, 1, 0, 0],
+  [0, 0, 1, 0]
+) ;
+
+I : matrix(
+  [1, 0, 0, 0],
+  [0, 1, 0, 0],
+  [0, 0, 1, 0],
+  [0, 0, 0, 1]
+) ;
+
+u : matrix(
+  [%beta[0]],
+  [%mu[x[1]]],
+  [%mu[x[2]]],
+  [0]
+) ;
+
+E : invert(I - A) ;
+
+C : E . S . transpose(E) ;
+
+M : F . C . transpose(F) ;
+
+v : E . u ;
+
+g : F . v ;

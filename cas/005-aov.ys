@@ -1,0 +1,38 @@
+// One-Way Analysis of Variance
+
+A := {
+  {0, beta[1], beta[2], 1},
+  {0, 0, 0, 0},
+  {0, 0, 0, 0},
+  {0, 0, 0, 0}
+} ;
+
+S := {
+  {0, 0, 0, 0},
+  {0, sigma[x[1]]^2, 0, 0},
+  {0, 0, sigma[x[2]]^2, 0},
+  {0, 0, 0, sigma[varepsilon]^2}
+} ;
+
+F := {
+  {1, 0, 0, 0},
+  {0, 1, 0, 0},
+  {0, 0, 1, 0}
+} ;
+
+u := {
+  {beta[0]},
+  {mu[x[1]]},
+  {mu[x[2]]},
+  {0}
+} ;
+
+E := Inverse(Identity(4) - A) ;
+
+C := E * S * Transpose(E) ;
+
+M := F * C * Transpose(F) ;
+
+v := E * u ;
+
+g := F * v ;
