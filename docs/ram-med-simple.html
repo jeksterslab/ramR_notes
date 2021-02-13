@@ -24,7 +24,7 @@
 <meta name="author" content="Ivan Jacob Agaloos Pesigan" />
 
 
-<meta name="date" content="2021-01-24" />
+<meta name="date" content="2021-02-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="ram-two-reg.html"><a href="ram-two-reg.html"><i class="fa fa-check"></i><b>6</b> Two-Variable Regression Model</a></li>
 <li class="chapter" data-level="7" data-path="ram-k-reg.html"><a href="ram-k-reg.html"><i class="fa fa-check"></i><b>7</b> <span class="math inline">\(k\)</span>-Variable Regression Model</a></li>
-<li class="chapter" data-level="8" data-path="ram-med-simple.html"><a href="ram-med-simple.html"><i class="fa fa-check"></i><b>8</b> The Simple Mediation Model</a></li>
+<li class="chapter" data-level="8" data-path="ram-med-simple.html"><a href="ram-med-simple.html"><i class="fa fa-check"></i><b>8</b> The Simple Mediation Model</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="ram-med-simple.html"><a href="ram-med-simple.html#symbolic-2"><i class="fa fa-check"></i><b>8.1</b> Symbolic</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="ram-med-simple.html"><a href="ram-med-simple.html#using-the-ramr-package-4"><i class="fa fa-check"></i><b>8.1.1</b> Using the <code>ramR</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="ram-med-simple.html"><a href="ram-med-simple.html#numerical-example-2"><i class="fa fa-check"></i><b>8.2</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="ram-med-simple.html"><a href="ram-med-simple.html#linear-regression-2"><i class="fa fa-check"></i><b>8.2.1</b> Linear Regression</a></li>
+<li class="chapter" data-level="8.2.2" data-path="ram-med-simple.html"><a href="ram-med-simple.html#structural-equation-modeling-2"><i class="fa fa-check"></i><b>8.2.2</b> Structural Equation Modeling</a></li>
+<li class="chapter" data-level="8.2.3" data-path="ram-med-simple.html"><a href="ram-med-simple.html#using-the-ramr-package-5"><i class="fa fa-check"></i><b>8.2.3</b> Using the <code>ramR</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ram-med-simple.html"><a href="ram-med-simple.html#equations-to-ram-2"><i class="fa fa-check"></i><b>8.3</b> Equations to RAM</a></li>
+<li class="chapter" data-level="8.4" data-path="ram-med-simple.html"><a href="ram-med-simple.html#equations-to-expectations-2"><i class="fa fa-check"></i><b>8.4</b> Equations to Expectations</a></li>
+</ul></li>
 <li class="chapter" data-level="9" data-path="ram-med-simple-std.html"><a href="ram-med-simple-std.html"><i class="fa fa-check"></i><b>9</b> The Standardized Simple Mediation Model</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -200,13 +214,638 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="ram-med-simple" class="section level1" number="8">
 <h1><span class="header-section-number">Chapter 8</span> The Simple Mediation Model</h1>
+<p>Let <span class="math inline">\(y\)</span>, <span class="math inline">\(m\)</span>, <span class="math inline">\(x\)</span>, <span class="math inline">\(\varepsilon_y\)</span>, and <span class="math inline">\(\varepsilon_m\)</span> be random variables
+whose associations are given by</p>
+<p><span class="math display">\[\begin{equation}
+  y = \beta_0 + \beta_1 x + \beta_2 m + \varepsilon_y
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+  m = \alpha_0 + \alpha_1 x + \varepsilon_m
+\end{equation}\]</span></p>
+<p>or combined</p>
+<p><span class="math display">\[\begin{equation}
+  \begin{split}
+    y
+    &amp;=
+    \beta_0
+    + \beta_1 x
+    + \beta_2 (\alpha_0 + \alpha_1 x + \varepsilon_m)
+    + \varepsilon_y \\
+    &amp;=
+    \beta_0
+    + \beta_1 x
+    + \beta_2 \alpha_0
+    + \alpha_1 \beta_2 x
+    + \beta_2 \varepsilon_m
+    + \varepsilon_y
+  \end{split}
+\end{equation}\]</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\beta_1\)</span> is the path from <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span></li>
+<li><span class="math inline">\(\beta_2\)</span> is the path from <span class="math inline">\(m\)</span> to <span class="math inline">\(y\)</span></li>
+<li><span class="math inline">\(\alpha_1\)</span> is the path from <span class="math inline">\(x\)</span> to <span class="math inline">\(m\)</span></li>
+<li><span class="math inline">\(\varepsilon_y\)</span> and <span class="math inline">\(\varepsilon_m\)</span> are uncorrelated error terms
+with means of zero and constant variances of <span class="math inline">\(\sigma_{\varepsilon_y}^{2}\)</span> and
+<span class="math inline">\(\sigma_{\varepsilon_m}^{2}\)</span> respectively</li>
+<li><span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\alpha_0\)</span> are intercepts</li>
+</ul>
 <div class="figure"><span id="fig:ram-med-simple-01"></span>
 <img src="ramR_notes_files/figure-html/ram-med-simple-01-1.png" alt="The Simple Mediation Model" width="672" />
 <p class="caption">
 Figure 8.1: The Simple Mediation Model
 </p>
 </div>
+<div class="figure"><span id="fig:ram-med-simple-02"></span>
+<img src="ramR_notes_files/figure-html/ram-med-simple-02-1.png" alt="The Simple Mediation Model with Mean Structure" width="672" />
+<p class="caption">
+Figure 8.2: The Simple Mediation Model with Mean Structure
+</p>
+</div>
+<div id="symbolic-2" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Symbolic</h2>
+<p>Let <span class="math inline">\(\left\{ y, m, x, \varepsilon_y, \varepsilon_m \right\}\)</span> be the variables of interest.</p>
+<p><span class="math display">\[\begin{align*}\mathbf{A} &amp;=\left( \begin{array}{ccccc} 0 &amp; \beta  _{2} &amp; \beta  _{1} &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; \alpha  _{1} &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{S} &amp;=\left( \begin{array}{ccccc} 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \sigma  _{x} ^{2} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon  _{y}} ^{2} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon  _{m}} ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{C} &amp;=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \\\\ &amp;=\mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \\\\ &amp;=\left( \begin{array}{ccccc} 1 &amp; \beta  _{2} &amp; \beta  _{1} + \beta  _{2} \alpha  _{1} &amp; 1 &amp; \beta  _{2} \\ 0 &amp; 1 &amp; \alpha  _{1} &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)\left( \begin{array}{ccccc} 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \sigma  _{x} ^{2} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon  _{y}} ^{2} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon  _{m}} ^{2} \end{array} \right)\left( \begin{array}{ccccc} 1 &amp; \beta  _{2} &amp; \beta  _{1} + \beta  _{2} \alpha  _{1} &amp; 1 &amp; \beta  _{2} \\ 0 &amp; 1 &amp; \alpha  _{1} &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)^{\mathsf{T}}\\ &amp;=\left( \begin{array}{ccccc} \sigma  _{x} ^{2} \beta  _{1} ^{2} + 2 \sigma  _{x} ^{2} \beta  _{1} \beta  _{2} \alpha  _{1} + \sigma  _{x} ^{2} \beta  _{2} ^{2} \alpha  _{1} ^{2} + \beta  _{2} ^{2} \sigma  _{\varepsilon  _{m}} ^{2} + \sigma  _{\varepsilon  _{y}} ^{2} &amp; \beta  _{1} \alpha  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} ^{2} \sigma  _{x} ^{2} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} &amp; \beta  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} \sigma  _{x} ^{2} &amp; \sigma  _{\varepsilon  _{y}} ^{2} &amp; \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} \\ \alpha  _{1} ^{2} \sigma  _{x} ^{2} \beta  _{2} + \alpha  _{1} \sigma  _{x} ^{2} \beta  _{1} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} &amp; \sigma  _{x} ^{2} \alpha  _{1} ^{2} + \sigma  _{\varepsilon  _{m}} ^{2} &amp; \alpha  _{1} \sigma  _{x} ^{2} &amp; 0 &amp; \sigma  _{\varepsilon  _{m}} ^{2} \\ \sigma  _{x} ^{2} \beta  _{1} + \sigma  _{x} ^{2} \beta  _{2} \alpha  _{1} &amp; \sigma  _{x} ^{2} \alpha  _{1} &amp; \sigma  _{x} ^{2} &amp; 0 &amp; 0 \\ \sigma  _{\varepsilon  _{y}} ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon  _{y}} ^{2} &amp; 0 \\ \sigma  _{\varepsilon  _{m}} ^{2} \beta  _{2} &amp; \sigma  _{\varepsilon  _{m}} ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon  _{m}} ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{F} &amp;=\left( \begin{array}{ccccc} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{M} &amp;=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \mathbf{F}^{\mathsf{T}} \\&amp;=\mathbf{F} \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \mathbf{F}^{\mathsf{T}} \\&amp;=\mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}} \\&amp;=\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  _{1} ^{2} + 2 \sigma  _{x} ^{2} \beta  _{1} \beta  _{2} \alpha  _{1} + \sigma  _{x} ^{2} \beta  _{2} ^{2} \alpha  _{1} ^{2} + \beta  _{2} ^{2} \sigma  _{\varepsilon  _{m}} ^{2} + \sigma  _{\varepsilon  _{y}} ^{2} &amp; \beta  _{1} \alpha  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} ^{2} \sigma  _{x} ^{2} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} &amp; \beta  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} \sigma  _{x} ^{2} \\ \alpha  _{1} ^{2} \sigma  _{x} ^{2} \beta  _{2} + \alpha  _{1} \sigma  _{x} ^{2} \beta  _{1} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} &amp; \sigma  _{x} ^{2} \alpha  _{1} ^{2} + \sigma  _{\varepsilon  _{m}} ^{2} &amp; \alpha  _{1} \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  _{1} + \sigma  _{x} ^{2} \beta  _{2} \alpha  _{1} &amp; \sigma  _{x} ^{2} \alpha  _{1} &amp; \sigma  _{x} ^{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{v} &amp;=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &amp;=\left[\left( \begin{array}{ccccc} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{ccccc} 0 &amp; \beta  _{2} &amp; \beta  _{1} &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; \alpha  _{1} &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]^{\mathsf{-1}}\left( \begin{array}{c} \beta  _{0} \\ \alpha  _{0} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} + \beta  _{2} \alpha  _{0} + \beta  _{2} \alpha  _{1} \mu  _{x} + \beta  _{1} \mu  _{x} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{u} &amp;=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &amp;=\left[\left( \begin{array}{ccccc} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{ccccc} 0 &amp; \beta  _{2} &amp; \beta  _{1} &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; \alpha  _{1} &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \alpha  _{0} + \beta  _{1} \alpha  _{1} \mu  _{x} + \beta  _{2} \mu  _{x} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \alpha  _{0} + \beta  _{1} \alpha  _{1} \mu  _{x} + \mu  _{x} \beta  _{2} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{g} &amp;=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &amp;=\left[\left( \begin{array}{ccccc} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)-\left( \begin{array}{ccccc} 0 &amp; \beta  _{2} &amp; \beta  _{1} &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; \alpha  _{1} &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\right]^{-1}\left( \begin{array}{c} \beta  _{0} \\ \alpha  _{0} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\\ &amp;=\left( \begin{array}{c} \beta  _{0} + \beta  _{2} \alpha  _{0} + \beta  _{2} \alpha  _{1} \mu  _{x} + \beta  _{1} \mu  _{x} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{align*}\]</span></p>
+<div id="using-the-ramr-package-4" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Using the <code>ramR</code> Package</h3>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="ram-med-simple.html#cb116-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<pre><code>##    y   m         x          ey  em 
+## y  &quot;0&quot; &quot;beta[2]&quot; &quot;beta[1]&quot;  &quot;1&quot; &quot;0&quot;
+## m  &quot;0&quot; &quot;0&quot;       &quot;alpha[1]&quot; &quot;0&quot; &quot;1&quot;
+## x  &quot;0&quot; &quot;0&quot;       &quot;0&quot;        &quot;0&quot; &quot;0&quot;
+## ey &quot;0&quot; &quot;0&quot;       &quot;0&quot;        &quot;0&quot; &quot;0&quot;
+## em &quot;0&quot; &quot;0&quot;       &quot;0&quot;        &quot;0&quot; &quot;0&quot;</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="ram-med-simple.html#cb118-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
+<pre><code>##    y   m   x            ey                       em                      
+## y  &quot;0&quot; &quot;0&quot; &quot;0&quot;          &quot;0&quot;                      &quot;0&quot;                     
+## m  &quot;0&quot; &quot;0&quot; &quot;0&quot;          &quot;0&quot;                      &quot;0&quot;                     
+## x  &quot;0&quot; &quot;0&quot; &quot;sigma[x]^2&quot; &quot;0&quot;                      &quot;0&quot;                     
+## ey &quot;0&quot; &quot;0&quot; &quot;0&quot;          &quot;sigma[varepsilon[y]]^2&quot; &quot;0&quot;                     
+## em &quot;0&quot; &quot;0&quot; &quot;0&quot;          &quot;0&quot;                      &quot;sigma[varepsilon[m]]^2&quot;</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="ram-med-simple.html#cb120-1" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div>
+<pre><code>##    u         
+## y  &quot;beta[0]&quot; 
+## m  &quot;alpha[0]&quot;
+## x  &quot;mu[x]&quot;   
+## ey &quot;0&quot;       
+## em &quot;0&quot;</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="ram-med-simple.html#cb122-1" aria-hidden="true" tabindex="-1"></a>filter</span></code></pre></div>
+<pre><code>##   y m x ey em
+## y 1 0 0  0  0
+## m 0 1 0  0  0
+## x 0 0 1  0  0</code></pre>
+<p>The covariance expectations
+can be symbolically derived using the <code>ramR::C()</code> function
+with <code>A</code> of class <code>yac.symbol</code>.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="ram-med-simple.html#cb124-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">C</span>(Ryacas<span class="sc">::</span><span class="fu">ysym</span>(A), S, <span class="at">simplify =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## {{sigma[x]^2*beta[1]^2+2*sigma[x]^2*beta[1]*beta[2]*alpha[1]+sigma[x]^2*beta[2]^2*alpha[1]^2+beta[2]^2*sigma[varepsilon[m]]^2+sigma[varepsilon[y]]^2,                                                           beta[1]*alpha[1]*sigma[x]^2+beta[2]*alpha[1]^2*sigma[x]^2+beta[2]*sigma[varepsilon[m]]^2,                                                                                                     beta[1]*sigma[x]^2+beta[2]*alpha[1]*sigma[x]^2,                                                                                                                             sigma[varepsilon[y]]^2,                                                                                                                     beta[2]*sigma[varepsilon[m]]^2},
+##  {                                                          alpha[1]^2*sigma[x]^2*beta[2]+alpha[1]*sigma[x]^2*beta[1]+beta[2]*sigma[varepsilon[m]]^2,                                                                                                       sigma[x]^2*alpha[1]^2+sigma[varepsilon[m]]^2,                                                                                                                                alpha[1]*sigma[x]^2,                                                                                                                                                  0,                                                                                                                             sigma[varepsilon[m]]^2},
+##  {                                                                                                    sigma[x]^2*beta[1]+sigma[x]^2*beta[2]*alpha[1],                                                                                                                                sigma[x]^2*alpha[1],                                                                                                                                         sigma[x]^2,                                                                                                                                                  0,                                                                                                                                                  0},
+##  {                                                                                                                            sigma[varepsilon[y]]^2,                                                                                                                                                  0,                                                                                                                                                  0,                                                                                                                             sigma[varepsilon[y]]^2,                                                                                                                                                  0},
+##  {                                                                                                                    sigma[varepsilon[m]]^2*beta[2],                                                                                                                             sigma[varepsilon[m]]^2,                                                                                                                                                  0,                                                                                                                                                  0,                                                                                                                             sigma[varepsilon[m]]^2}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{C} =\left( \begin{array}{ccccc} \sigma  _{x} ^{2} \beta  _{1} ^{2} + 2 \sigma  _{x} ^{2} \beta  _{1} \beta  _{2} \alpha  _{1} + \sigma  _{x} ^{2} \beta  _{2} ^{2} \alpha  _{1} ^{2} + \beta  _{2} ^{2} \sigma  _{\varepsilon  _{m}} ^{2} + \sigma  _{\varepsilon  _{y}} ^{2} &amp; \beta  _{1} \alpha  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} ^{2} \sigma  _{x} ^{2} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} &amp; \beta  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} \sigma  _{x} ^{2} &amp; \sigma  _{\varepsilon  _{y}} ^{2} &amp; \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} \\ \alpha  _{1} ^{2} \sigma  _{x} ^{2} \beta  _{2} + \alpha  _{1} \sigma  _{x} ^{2} \beta  _{1} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} &amp; \sigma  _{x} ^{2} \alpha  _{1} ^{2} + \sigma  _{\varepsilon  _{m}} ^{2} &amp; \alpha  _{1} \sigma  _{x} ^{2} &amp; 0 &amp; \sigma  _{\varepsilon  _{m}} ^{2} \\ \sigma  _{x} ^{2} \beta  _{1} + \sigma  _{x} ^{2} \beta  _{2} \alpha  _{1} &amp; \sigma  _{x} ^{2} \alpha  _{1} &amp; \sigma  _{x} ^{2} &amp; 0 &amp; 0 \\ \sigma  _{\varepsilon  _{y}} ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon  _{y}} ^{2} &amp; 0 \\ \sigma  _{\varepsilon  _{m}} ^{2} \beta  _{2} &amp; \sigma  _{\varepsilon  _{m}} ^{2} &amp; 0 &amp; 0 &amp; \sigma  _{\varepsilon  _{m}} ^{2} \end{array} \right)\end{equation*}\]</span></p>
+<p>The covariance expectations for the observed variables
+can be symbolically derived using the <code>ramR::M()</code> function
+with <code>A</code> of class <code>yac.symbol</code>.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="ram-med-simple.html#cb126-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">M</span>(Ryacas<span class="sc">::</span><span class="fu">ysym</span>(A), S, filter, <span class="at">simplify =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## {{sigma[x]^2*beta[1]^2+2*sigma[x]^2*beta[1]*beta[2]*alpha[1]+sigma[x]^2*beta[2]^2*alpha[1]^2+beta[2]^2*sigma[varepsilon[m]]^2+sigma[varepsilon[y]]^2,                                                           beta[1]*alpha[1]*sigma[x]^2+beta[2]*alpha[1]^2*sigma[x]^2+beta[2]*sigma[varepsilon[m]]^2,                                                                                                     beta[1]*sigma[x]^2+beta[2]*alpha[1]*sigma[x]^2},
+##  {                                                          alpha[1]^2*sigma[x]^2*beta[2]+alpha[1]*sigma[x]^2*beta[1]+beta[2]*sigma[varepsilon[m]]^2,                                                                                                       sigma[x]^2*alpha[1]^2+sigma[varepsilon[m]]^2,                                                                                                                                alpha[1]*sigma[x]^2},
+##  {                                                                                                    sigma[x]^2*beta[1]+sigma[x]^2*beta[2]*alpha[1],                                                                                                                                sigma[x]^2*alpha[1],                                                                                                                                         sigma[x]^2}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{M} =\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  _{1} ^{2} + 2 \sigma  _{x} ^{2} \beta  _{1} \beta  _{2} \alpha  _{1} + \sigma  _{x} ^{2} \beta  _{2} ^{2} \alpha  _{1} ^{2} + \beta  _{2} ^{2} \sigma  _{\varepsilon  _{m}} ^{2} + \sigma  _{\varepsilon  _{y}} ^{2} &amp; \beta  _{1} \alpha  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} ^{2} \sigma  _{x} ^{2} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} &amp; \beta  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} \sigma  _{x} ^{2} \\ \alpha  _{1} ^{2} \sigma  _{x} ^{2} \beta  _{2} + \alpha  _{1} \sigma  _{x} ^{2} \beta  _{1} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} &amp; \sigma  _{x} ^{2} \alpha  _{1} ^{2} + \sigma  _{\varepsilon  _{m}} ^{2} &amp; \alpha  _{1} \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  _{1} + \sigma  _{x} ^{2} \beta  _{2} \alpha  _{1} &amp; \sigma  _{x} ^{2} \alpha  _{1} &amp; \sigma  _{x} ^{2} \end{array} \right)\end{equation*}\]</span></p>
+<p>The mean expectations
+can be symbolically derived using the <code>ramR::v()</code> function
+with <code>A</code> of class <code>yac.symbol</code>.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="ram-med-simple.html#cb128-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">v</span>(Ryacas<span class="sc">::</span><span class="fu">ysym</span>(A), u, <span class="at">simplify =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## {{beta[0]+beta[2]*alpha[0]+beta[2]*alpha[1]*mu[x]+beta[1]*mu[x]},
+##  {                                      alpha[0]+alpha[1]*mu[x]},
+##  {                                                        mu[x]},
+##  {                                                            0},
+##  {                                                            0}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{v} =\left( \begin{array}{c} \beta  _{0} + \beta  _{2} \alpha  _{0} + \beta  _{2} \alpha  _{1} \mu  _{x} + \beta  _{1} \mu  _{x} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\end{equation*}\]</span></p>
+<p>The mean expectations for the observed variables
+can be symbolically derived using the <code>ramR::g()</code> function
+with <code>A</code> of class <code>yac.symbol</code>.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="ram-med-simple.html#cb130-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">g</span>(Ryacas<span class="sc">::</span><span class="fu">ysym</span>(A), u, filter, <span class="at">simplify =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## {{beta[0]+beta[2]*alpha[0]+beta[2]*alpha[1]*mu[x]+beta[1]*mu[x]},
+##  {                                      alpha[0]+alpha[1]*mu[x]},
+##  {                                                        mu[x]}}</code></pre>
+<p><span class="math display">\[\begin{equation*}\mathbf{g} =\left( \begin{array}{c} \beta  _{0} + \beta  _{2} \alpha  _{0} + \beta  _{2} \alpha  _{1} \mu  _{x} + \beta  _{1} \mu  _{x} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{equation*}\]</span></p>
+</div>
+</div>
+<div id="numerical-example-2" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Numerical Example</h2>
+<p>Let <code>df</code> be a random sample from a population with the following parameters</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\beta_1\)</span></td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\beta_2\)</span></td>
+<td align="left">0.5</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\alpha_1\)</span></td>
+<td align="left">0.5</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\sigma_{\varepsilon_y}^{2}\)</span></td>
+<td align="left">168.75</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\sigma_{\varepsilon_m}^{2}\)</span></td>
+<td align="left">168.75</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\sigma_{x}^{2}\)</span></td>
+<td align="left">225</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\beta_0\)</span></td>
+<td align="left">50</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\alpha_0\)</span></td>
+<td align="left">50</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\mu_x\)</span></td>
+<td align="left">100</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="ram-med-simple.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
+<pre><code>##           y         m         x
+## 1 107.32121  80.22215  64.60716
+## 2 109.83608 109.42737 100.20734
+## 3  97.41131 107.89265  79.57780
+## 4  87.75538 106.43004  80.82994
+## 5  80.77481 104.18033  99.07128
+## 6  97.27327  98.70669 108.24974</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="ram-med-simple.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code></pre></div>
+<pre><code>##        y                m                x         
+##  Min.   : 47.09   Min.   : 55.30   Min.   : 45.16  
+##  1st Qu.: 90.02   1st Qu.: 90.39   1st Qu.: 90.09  
+##  Median :100.34   Median : 99.84   Median :100.14  
+##  Mean   :100.22   Mean   :100.36   Mean   :100.32  
+##  3rd Qu.:110.30   3rd Qu.:110.40   3rd Qu.:110.29  
+##  Max.   :149.73   Max.   :150.48   Max.   :156.91</code></pre>
+<p><img src="ramR_notes_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
+<div id="linear-regression-2" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Linear Regression</h3>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="ram-med-simple.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> m, <span class="at">data =</span> df))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x + m, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -42.413  -8.837  -0.045   8.804  39.148 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 48.47917    3.19559  15.171   &lt;2e-16 ***
+## x            0.04486    0.03101   1.447    0.148    
+## m            0.47072    0.03136  15.012   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 12.98 on 997 degrees of freedom
+## Multiple R-squared:  0.2464, Adjusted R-squared:  0.2449 
+## F-statistic:   163 on 2 and 997 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="ram-med-simple.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(m <span class="sc">~</span> x, <span class="at">data =</span> df))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = m ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -43.182  -9.426   0.280   8.705  38.824 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 52.04456    2.77350   18.77   &lt;2e-16 ***
+## x            0.48163    0.02734   17.62   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 13.1 on 998 degrees of freedom
+## Multiple R-squared:  0.2372, Adjusted R-squared:  0.2365 
+## F-statistic: 310.4 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="structural-equation-modeling-2" class="section level3" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Structural Equation Modeling</h3>
+<div id="lavaan-lavaan2012-2" class="section level4" number="8.2.2.1">
+<h4><span class="header-section-number">8.2.2.1</span> lavaan <span class="citation">(<a href="references.html#ref-lavaan2012" role="doc-biblioref">Rosseel 2012</a>)</span></h4>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="ram-med-simple.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Covariance Structure</span></span>
+<span id="cb140-2"><a href="ram-med-simple.html#cb140-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb140-3"><a href="ram-med-simple.html#cb140-3" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ beta1 * x + beta2 * m</span></span>
+<span id="cb140-4"><a href="ram-med-simple.html#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="st">  m ~ alpha1 * x</span></span>
+<span id="cb140-5"><a href="ram-med-simple.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="st">  indirect := alpha1 * beta2</span></span>
+<span id="cb140-6"><a href="ram-med-simple.html#cb140-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span>
+<span id="cb140-7"><a href="ram-med-simple.html#cb140-7" aria-hidden="true" tabindex="-1"></a><span class="co"># With Mean Structure</span></span>
+<span id="cb140-8"><a href="ram-med-simple.html#cb140-8" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb140-9"><a href="ram-med-simple.html#cb140-9" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ beta1 * x + beta2 * m</span></span>
+<span id="cb140-10"><a href="ram-med-simple.html#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="st">  m ~ alpha1 * x</span></span>
+<span id="cb140-11"><a href="ram-med-simple.html#cb140-11" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~~ sigma2ey * y</span></span>
+<span id="cb140-12"><a href="ram-med-simple.html#cb140-12" aria-hidden="true" tabindex="-1"></a><span class="st">  m ~~ sigma2em * m</span></span>
+<span id="cb140-13"><a href="ram-med-simple.html#cb140-13" aria-hidden="true" tabindex="-1"></a><span class="st">  x ~~ sigma2x * x</span></span>
+<span id="cb140-14"><a href="ram-med-simple.html#cb140-14" aria-hidden="true" tabindex="-1"></a><span class="st">  y ~ beta0 * 1</span></span>
+<span id="cb140-15"><a href="ram-med-simple.html#cb140-15" aria-hidden="true" tabindex="-1"></a><span class="st">  m ~ alpha0 * 1</span></span>
+<span id="cb140-16"><a href="ram-med-simple.html#cb140-16" aria-hidden="true" tabindex="-1"></a><span class="st">  x ~ mux * 1</span></span>
+<span id="cb140-17"><a href="ram-med-simple.html#cb140-17" aria-hidden="true" tabindex="-1"></a><span class="st">  indirect := alpha1 * beta2</span></span>
+<span id="cb140-18"><a href="ram-med-simple.html#cb140-18" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span>
+<span id="cb140-19"><a href="ram-med-simple.html#cb140-19" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> lavaan<span class="sc">::</span><span class="fu">sem</span>(</span>
+<span id="cb140-20"><a href="ram-med-simple.html#cb140-20" aria-hidden="true" tabindex="-1"></a>  model,</span>
+<span id="cb140-21"><a href="ram-med-simple.html#cb140-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb140-22"><a href="ram-med-simple.html#cb140-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">meanstructure =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb140-23"><a href="ram-med-simple.html#cb140-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">fixed.x =</span> <span class="cn">FALSE</span></span>
+<span id="cb140-24"><a href="ram-med-simple.html#cb140-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb140-25"><a href="ram-med-simple.html#cb140-25" aria-hidden="true" tabindex="-1"></a>lavaan<span class="sc">::</span><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 28 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                          9
+##                                                       
+##   Number of observations                          1000
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   y ~                                                 
+##     x       (bet1)    0.045    0.031    1.449    0.147
+##     m       (bet2)    0.471    0.031   15.034    0.000
+##   m ~                                                 
+##     x       (alp1)    0.482    0.027   17.636    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .y       (bet0)   48.479    3.191   15.193    0.000
+##    .m       (alp0)   52.045    2.771   18.784    0.000
+##     x        (mux)  100.320    0.479  209.300    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .y      (sgm2y)  167.964    7.512   22.361    0.000
+##    .m      (sgm2m)  171.335    7.662   22.361    0.000
+##     x      (sgm2x)  229.740   10.274   22.361    0.000
+## 
+## Defined Parameters:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##     indirect          0.227    0.020   11.441    0.000</code></pre>
+</div>
+</div>
+<div id="using-the-ramr-package-5" class="section level3" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> Using the <code>ramR</code> Package</h3>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="ram-med-simple.html#cb142-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<pre><code>##    y         m          x ey em
+## y  0 0.4707226 0.04486201  1  0
+## m  0 0.0000000 0.48162865  0  1
+## x  0 0.0000000 0.00000000  0  0
+## ey 0 0.0000000 0.00000000  0  0
+## em 0 0.0000000 0.00000000  0  0</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="ram-med-simple.html#cb144-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
+<pre><code>##    y m        x      ey       em
+## y  0 0   0.0000   0.000   0.0000
+## m  0 0   0.0000   0.000   0.0000
+## x  0 0 229.9701   0.000   0.0000
+## ey 0 0   0.0000 168.469   0.0000
+## em 0 0   0.0000   0.000 171.6784</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="ram-med-simple.html#cb146-1" aria-hidden="true" tabindex="-1"></a>u</span></code></pre></div>
+<pre><code>##            u
+## y   48.47917
+## m   52.04456
+## x  100.31982
+## ey   0.00000
+## em   0.00000</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="ram-med-simple.html#cb148-1" aria-hidden="true" tabindex="-1"></a>filter</span></code></pre></div>
+<pre><code>##   y m x ey em
+## y 1 0 0  0  0
+## m 0 1 0  0  0
+## x 0 0 1  0  0</code></pre>
+<p>The covariance expectations
+can be numerically derived using the <code>ramR::C()</code> function.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="ram-med-simple.html#cb150-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">C</span>(A, S)</span></code></pre></div>
+<pre><code>##            y        m         x      ey        em
+## y  223.47047 110.8927  62.45425 168.469  80.81291
+## m  110.89267 225.0237 110.76020   0.000 171.67843
+## x   62.45425 110.7602 229.97013   0.000   0.00000
+## ey 168.46896   0.0000   0.00000 168.469   0.00000
+## em  80.81291 171.6784   0.00000   0.000 171.67843</code></pre>
+<p>The covariance expectations for the observed variables
+can be numerically derived using the <code>ramR::M()</code> function.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="ram-med-simple.html#cb152-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">M</span>(A, S, filter)</span></code></pre></div>
+<pre><code>##           y        m         x
+## y 223.47047 110.8927  62.45425
+## m 110.89267 225.0237 110.76020
+## x  62.45425 110.7602 229.97013</code></pre>
+<p>The mean expectations
+can be numerically derived using the <code>ramR::v()</code> function.</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="ram-med-simple.html#cb154-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">v</span>(A, u)</span></code></pre></div>
+<pre><code>##           v
+## y  100.2221
+## m  100.3615
+## x  100.3198
+## ey   0.0000
+## em   0.0000</code></pre>
+<p>The mean expectations for the observed variables
+can be numerically derived using the <code>ramR::v()</code> function.</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="ram-med-simple.html#cb156-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">g</span>(A, u, filter)</span></code></pre></div>
+<pre><code>##          g
+## y 100.2221
+## m 100.3615
+## x 100.3198</code></pre>
+</div>
+</div>
+<div id="equations-to-ram-2" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Equations to RAM</h2>
+<p>The <code>ramR</code> package has a utility function
+to convert structural equations to RAM notation.
+The simple mediation model
+can be expressed in the following equations</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="ram-med-simple.html#cb158-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb158-2"><a href="ram-med-simple.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
+<span id="cb158-3"><a href="ram-med-simple.html#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="st">  ey          by        y         1</span></span>
+<span id="cb158-4"><a href="ram-med-simple.html#cb158-4" aria-hidden="true" tabindex="-1"></a><span class="st">  em          by        m         1</span></span>
+<span id="cb158-5"><a href="ram-med-simple.html#cb158-5" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x         beta[1]</span></span>
+<span id="cb158-6"><a href="ram-med-simple.html#cb158-6" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        m         beta[2]</span></span>
+<span id="cb158-7"><a href="ram-med-simple.html#cb158-7" aria-hidden="true" tabindex="-1"></a><span class="st">  m           on        x         alpha[1]</span></span>
+<span id="cb158-8"><a href="ram-med-simple.html#cb158-8" aria-hidden="true" tabindex="-1"></a><span class="st">  ey          with      ey        sigma[varepsilon[y]]^2</span></span>
+<span id="cb158-9"><a href="ram-med-simple.html#cb158-9" aria-hidden="true" tabindex="-1"></a><span class="st">  em          with      em        sigma[varepsilon[m]]^2</span></span>
+<span id="cb158-10"><a href="ram-med-simple.html#cb158-10" aria-hidden="true" tabindex="-1"></a><span class="st">  x           with      x         sigma[x]^2</span></span>
+<span id="cb158-11"><a href="ram-med-simple.html#cb158-11" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         beta[0]</span></span>
+<span id="cb158-12"><a href="ram-med-simple.html#cb158-12" aria-hidden="true" tabindex="-1"></a><span class="st">  m           on        1         alpha[0]</span></span>
+<span id="cb158-13"><a href="ram-med-simple.html#cb158-13" aria-hidden="true" tabindex="-1"></a><span class="st">  x           on        1         mu[x]</span></span>
+<span id="cb158-14"><a href="ram-med-simple.html#cb158-14" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<p>The <code>ramR::Eq2RAM</code> converts the equations to RAM notation.</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="ram-med-simple.html#cb159-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">Eq2RAM</span>(eq)</span></code></pre></div>
+<pre><code>## $par.table
+##    lhs   op rhs              par.label par.index
+## 1   ey   by   y                      1         1
+## 2   em   by   m                      1         1
+## 3    y   on   x                beta[1]        p1
+## 4    y   on   m                beta[2]        p2
+## 5    m   on   x               alpha[1]        p3
+## 6   ey with  ey sigma[varepsilon[y]]^2        p4
+## 7   em with  em sigma[varepsilon[m]]^2        p5
+## 8    x with   x             sigma[x]^2        p6
+## 9    y   on   1                beta[0]        p7
+## 10   m   on   1               alpha[0]        p8
+## 11   x   on   1                  mu[x]        p9
+## 
+## $variables
+## [1] &quot;y&quot;  &quot;m&quot;  &quot;x&quot;  &quot;ey&quot; &quot;em&quot;
+## 
+## $g.variables
+## [1] &quot;y&quot; &quot;m&quot; &quot;x&quot;
+## 
+## $h.variables
+## [1] &quot;ey&quot; &quot;em&quot;
+## 
+## $A
+##    y   m         x          ey  em 
+## y  &quot;0&quot; &quot;beta[2]&quot; &quot;beta[1]&quot;  &quot;1&quot; &quot;0&quot;
+## m  &quot;0&quot; &quot;0&quot;       &quot;alpha[1]&quot; &quot;0&quot; &quot;1&quot;
+## x  &quot;0&quot; &quot;0&quot;       &quot;0&quot;        &quot;0&quot; &quot;0&quot;
+## ey &quot;0&quot; &quot;0&quot;       &quot;0&quot;        &quot;0&quot; &quot;0&quot;
+## em &quot;0&quot; &quot;0&quot;       &quot;0&quot;        &quot;0&quot; &quot;0&quot;
+## 
+## $S
+##    y   m   x            ey                       em                      
+## y  &quot;0&quot; &quot;0&quot; &quot;0&quot;          &quot;0&quot;                      &quot;0&quot;                     
+## m  &quot;0&quot; &quot;0&quot; &quot;0&quot;          &quot;0&quot;                      &quot;0&quot;                     
+## x  &quot;0&quot; &quot;0&quot; &quot;sigma[x]^2&quot; &quot;0&quot;                      &quot;0&quot;                     
+## ey &quot;0&quot; &quot;0&quot; &quot;0&quot;          &quot;sigma[varepsilon[y]]^2&quot; &quot;0&quot;                     
+## em &quot;0&quot; &quot;0&quot; &quot;0&quot;          &quot;0&quot;                      &quot;sigma[varepsilon[m]]^2&quot;
+## 
+## $u
+##    u         
+## y  &quot;beta[0]&quot; 
+## m  &quot;alpha[0]&quot;
+## x  &quot;mu[x]&quot;   
+## ey &quot;0&quot;       
+## em &quot;0&quot;       
+## 
+## $Filter
+##   y m x ey em
+## y 1 0 0  0  0
+## m 0 1 0  0  0
+## x 0 0 1  0  0</code></pre>
+</div>
+<div id="equations-to-expectations-2" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Equations to Expectations</h2>
+<p>The <code>ramR</code> package has a utility function
+to convert structural equations to expectations
+both symbolically and numerically.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="ram-med-simple.html#cb161-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb161-2"><a href="ram-med-simple.html#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
+<span id="cb161-3"><a href="ram-med-simple.html#cb161-3" aria-hidden="true" tabindex="-1"></a><span class="st">  ey          by        y         1</span></span>
+<span id="cb161-4"><a href="ram-med-simple.html#cb161-4" aria-hidden="true" tabindex="-1"></a><span class="st">  em          by        m         1</span></span>
+<span id="cb161-5"><a href="ram-med-simple.html#cb161-5" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x         beta[1]</span></span>
+<span id="cb161-6"><a href="ram-med-simple.html#cb161-6" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        m         beta[2]</span></span>
+<span id="cb161-7"><a href="ram-med-simple.html#cb161-7" aria-hidden="true" tabindex="-1"></a><span class="st">  m           on        x         alpha[1]</span></span>
+<span id="cb161-8"><a href="ram-med-simple.html#cb161-8" aria-hidden="true" tabindex="-1"></a><span class="st">  ey          with      ey        sigma[varepsilon[y]]^2</span></span>
+<span id="cb161-9"><a href="ram-med-simple.html#cb161-9" aria-hidden="true" tabindex="-1"></a><span class="st">  em          with      em        sigma[varepsilon[m]]^2</span></span>
+<span id="cb161-10"><a href="ram-med-simple.html#cb161-10" aria-hidden="true" tabindex="-1"></a><span class="st">  x           with      x         sigma[x]^2</span></span>
+<span id="cb161-11"><a href="ram-med-simple.html#cb161-11" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         beta[0]</span></span>
+<span id="cb161-12"><a href="ram-med-simple.html#cb161-12" aria-hidden="true" tabindex="-1"></a><span class="st">  m           on        1         alpha[0]</span></span>
+<span id="cb161-13"><a href="ram-med-simple.html#cb161-13" aria-hidden="true" tabindex="-1"></a><span class="st">  x           on        1         mu[x]</span></span>
+<span id="cb161-14"><a href="ram-med-simple.html#cb161-14" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="ram-med-simple.html#cb162-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">Eq2Expectations</span>(eq)</span></code></pre></div>
+<pre><code>## $par.table
+##    lhs   op rhs              par.label par.index
+## 1   ey   by   y                      1         1
+## 2   em   by   m                      1         1
+## 3    y   on   x                beta[1]        p1
+## 4    y   on   m                beta[2]        p2
+## 5    m   on   x               alpha[1]        p3
+## 6   ey with  ey sigma[varepsilon[y]]^2        p4
+## 7   em with  em sigma[varepsilon[m]]^2        p5
+## 8    x with   x             sigma[x]^2        p6
+## 9    y   on   1                beta[0]        p7
+## 10   m   on   1               alpha[0]        p8
+## 11   x   on   1                  mu[x]        p9
+## 
+## $variables
+## [1] &quot;y&quot;  &quot;m&quot;  &quot;x&quot;  &quot;ey&quot; &quot;em&quot;
+## 
+## $g.variables
+## [1] &quot;y&quot; &quot;m&quot; &quot;x&quot;
+## 
+## $h.variables
+## [1] &quot;ey&quot; &quot;em&quot;
+## 
+## $A
+## {{       0,  beta[2],  beta[1],        1,        0},
+##  {       0,        0, alpha[1],        0,        1},
+##  {       0,        0,        0,        0,        0},
+##  {       0,        0,        0,        0,        0},
+##  {       0,        0,        0,        0,        0}} 
+## 
+## $S
+## {{                     0,                      0,                      0,                      0,                      0},
+##  {                     0,                      0,                      0,                      0,                      0},
+##  {                     0,                      0,             sigma[x]^2,                      0,                      0},
+##  {                     0,                      0,                      0, sigma[varepsilon[y]]^2,                      0},
+##  {                     0,                      0,                      0,                      0, sigma[varepsilon[m]]^2}} 
+## 
+## $u
+## {{ beta[0]},
+##  {alpha[0]},
+##  {   mu[x]},
+##  {       0},
+##  {       0}} 
+## 
+## $Filter
+## {{1, 0, 0, 0, 0},
+##  {0, 1, 0, 0, 0},
+##  {0, 0, 1, 0, 0}} 
+## 
+## $v
+## {{beta[0]+beta[2]*alpha[0]+(beta[1]+beta[2]*alpha[1])*mu[x]},
+##  {                                  alpha[0]+alpha[1]*mu[x]},
+##  {                                                    mu[x]},
+##  {                                                        0},
+##  {                                                        0}} 
+## 
+## $g
+## {{beta[0]+beta[2]*alpha[0]+(beta[1]+beta[2]*alpha[1])*mu[x]},
+##  {                                  alpha[0]+alpha[1]*mu[x]},
+##  {                                                    mu[x]}} 
+## 
+## $C
+## {{sigma[x]^2*(beta[1]+beta[2]*alpha[1])^2+sigma[varepsilon[y]]^2+sigma[varepsilon[m]]^2*beta[2]^2,                   (beta[1]+beta[2]*alpha[1])*sigma[x]^2*alpha[1]+beta[2]*sigma[varepsilon[m]]^2,                                                           (beta[1]+beta[2]*alpha[1])*sigma[x]^2,                                                                          sigma[varepsilon[y]]^2,                                                                  beta[2]*sigma[varepsilon[m]]^2},
+##  {                  alpha[1]*sigma[x]^2*(beta[1]+beta[2]*alpha[1])+sigma[varepsilon[m]]^2*beta[2],                                                    sigma[x]^2*alpha[1]^2+sigma[varepsilon[m]]^2,                                                                             alpha[1]*sigma[x]^2,                                                                                               0,                                                                          sigma[varepsilon[m]]^2},
+##  {                                                          sigma[x]^2*(beta[1]+beta[2]*alpha[1]),                                                                             sigma[x]^2*alpha[1],                                                                                      sigma[x]^2,                                                                                               0,                                                                                               0},
+##  {                                                                         sigma[varepsilon[y]]^2,                                                                                               0,                                                                                               0,                                                                          sigma[varepsilon[y]]^2,                                                                                               0},
+##  {                                                                 sigma[varepsilon[m]]^2*beta[2],                                                                          sigma[varepsilon[m]]^2,                                                                                               0,                                                                                               0,                                                                          sigma[varepsilon[m]]^2}} 
+## 
+## $M
+## {{sigma[x]^2*(beta[1]+beta[2]*alpha[1])^2+sigma[varepsilon[y]]^2+sigma[varepsilon[m]]^2*beta[2]^2,                   (beta[1]+beta[2]*alpha[1])*sigma[x]^2*alpha[1]+beta[2]*sigma[varepsilon[m]]^2,                                                           (beta[1]+beta[2]*alpha[1])*sigma[x]^2},
+##  {                  alpha[1]*sigma[x]^2*(beta[1]+beta[2]*alpha[1])+sigma[varepsilon[m]]^2*beta[2],                                                    sigma[x]^2*alpha[1]^2+sigma[varepsilon[m]]^2,                                                                             alpha[1]*sigma[x]^2},
+##  {                                                          sigma[x]^2*(beta[1]+beta[2]*alpha[1]),                                                                             sigma[x]^2*alpha[1],                                                                                      sigma[x]^2}}</code></pre>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="ram-med-simple.html#cb164-1" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb164-2"><a href="ram-med-simple.html#cb164-2" aria-hidden="true" tabindex="-1"></a><span class="st">  # VARIABLE1 OPERATION VARIABLE2 LABEL</span></span>
+<span id="cb164-3"><a href="ram-med-simple.html#cb164-3" aria-hidden="true" tabindex="-1"></a><span class="st">  ey          by        y         1</span></span>
+<span id="cb164-4"><a href="ram-med-simple.html#cb164-4" aria-hidden="true" tabindex="-1"></a><span class="st">  em          by        m         1</span></span>
+<span id="cb164-5"><a href="ram-med-simple.html#cb164-5" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        x         0.00</span></span>
+<span id="cb164-6"><a href="ram-med-simple.html#cb164-6" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        m         0.50</span></span>
+<span id="cb164-7"><a href="ram-med-simple.html#cb164-7" aria-hidden="true" tabindex="-1"></a><span class="st">  m           on        x         0.50</span></span>
+<span id="cb164-8"><a href="ram-med-simple.html#cb164-8" aria-hidden="true" tabindex="-1"></a><span class="st">  ey          with      ey        168.75</span></span>
+<span id="cb164-9"><a href="ram-med-simple.html#cb164-9" aria-hidden="true" tabindex="-1"></a><span class="st">  em          with      em        168.75</span></span>
+<span id="cb164-10"><a href="ram-med-simple.html#cb164-10" aria-hidden="true" tabindex="-1"></a><span class="st">  x           with      x         225</span></span>
+<span id="cb164-11"><a href="ram-med-simple.html#cb164-11" aria-hidden="true" tabindex="-1"></a><span class="st">  y           on        1         50</span></span>
+<span id="cb164-12"><a href="ram-med-simple.html#cb164-12" aria-hidden="true" tabindex="-1"></a><span class="st">  m           on        1         50</span></span>
+<span id="cb164-13"><a href="ram-med-simple.html#cb164-13" aria-hidden="true" tabindex="-1"></a><span class="st">  x           on        1         100</span></span>
+<span id="cb164-14"><a href="ram-med-simple.html#cb164-14" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="ram-med-simple.html#cb165-1" aria-hidden="true" tabindex="-1"></a>ramR<span class="sc">::</span><span class="fu">Eq2Expectations</span>(eq)</span></code></pre></div>
+<pre><code>## $par.table
+##    lhs   op rhs par.label par.index
+## 1   ey   by   y      1.00      1.00
+## 2   em   by   m      1.00      1.00
+## 3    y   on   x      0.00      0.00
+## 4    y   on   m      0.50      0.50
+## 5    m   on   x      0.50      0.50
+## 6   ey with  ey    168.75    168.75
+## 7   em with  em    168.75    168.75
+## 8    x with   x    225.00    225.00
+## 9    y   on   1     50.00     50.00
+## 10   m   on   1     50.00     50.00
+## 11   x   on   1    100.00    100.00
+## 
+## $variables
+## [1] &quot;y&quot;  &quot;m&quot;  &quot;x&quot;  &quot;ey&quot; &quot;em&quot;
+## 
+## $g.variables
+## [1] &quot;y&quot; &quot;m&quot; &quot;x&quot;
+## 
+## $h.variables
+## [1] &quot;ey&quot; &quot;em&quot;
+## 
+## $A
+##    y   m   x ey em
+## y  0 0.5 0.0  1  0
+## m  0 0.0 0.5  0  1
+## x  0 0.0 0.0  0  0
+## ey 0 0.0 0.0  0  0
+## em 0 0.0 0.0  0  0
+## 
+## $S
+##    y m   x     ey     em
+## y  0 0   0   0.00   0.00
+## m  0 0   0   0.00   0.00
+## x  0 0 225   0.00   0.00
+## ey 0 0   0 168.75   0.00
+## em 0 0   0   0.00 168.75
+## 
+## $u
+##      u
+## y   50
+## m   50
+## x  100
+## ey   0
+## em   0
+## 
+## $Filter
+##   y m x ey em
+## y 1 0 0  0  0
+## m 0 1 0  0  0
+## x 0 0 1  0  0
+## 
+## $v
+##      v
+## y  100
+## m  100
+## x  100
+## ey   0
+## em   0
+## 
+## $g
+##     g
+## y 100
+## m 100
+## x 100
+## 
+## $C
+##          y      m      x     ey      em
+## y  225.000 112.50  56.25 168.75  84.375
+## m  112.500 225.00 112.50   0.00 168.750
+## x   56.250 112.50 225.00   0.00   0.000
+## ey 168.750   0.00   0.00 168.75   0.000
+## em  84.375 168.75   0.00   0.00 168.750
+## 
+## $M
+##        y     m      x
+## y 225.00 112.5  56.25
+## m 112.50 225.0 112.50
+## x  56.25 112.5 225.00</code></pre>
 
+</div>
 </div>
             </section>
 

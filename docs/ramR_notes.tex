@@ -125,7 +125,7 @@
 
 \title{Reticular Action Model (RAM) Notation Notes}
 \author{Ivan Jacob Agaloos Pesigan}
-\date{2021-01-24}
+\date{2021-02-14}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -215,7 +215,8 @@ for the html deployment.
   \item
     \(u_i\) represent the residual of \(v_i\)
   \item
-    if all regression coefficients on other variables are zero,
+    if all regression coefficients on other variables are zero
+    (i.e., \(i^{\mathrm{th}}\) row of \(\mathbf{A}\) consists of zeros),
     then the variable \(v_i\) is considered the same as its own residual \(u_i\)
   \end{itemize}
 \end{itemize}
@@ -543,7 +544,7 @@ Let \(\left\{ y, x, \varepsilon \right\}\) be the variables of interest.
 
 \begin{align*}\mathbf{v} &=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &=\left[\left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{ccc} 0 & \beta  & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right)\right]^{\mathsf{-1}}\left( \begin{array}{c} \alpha  \\ \mu  _{x} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\end{align*}
 
-\begin{align*}\mathbf{u} &=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &=\left[\left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{ccc} 0 & \beta  & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right)\right]\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \alpha  \\ \mu  _{x} \\ 0 \end{array} \right)\end{align*}
+\begin{align*}\mathbf{u} &=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &=\left[\left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{ccc} 0 & \beta  & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right)\right]\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\end{align*}
 
 \begin{align*}\mathbf{g} &=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &=\left[\left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{ccc} 0 & \beta  & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right)\right]^{-1}\left( \begin{array}{c} \alpha  \\ \mu  _{x} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{align*}
 
@@ -591,7 +592,7 @@ Let \(\left\{ y, x, \varepsilon \right\}\) be the variables of interest.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{filter}
+\NormalTok{Filter}
 \end{Highlighting}
 \end{Shaded}
 
@@ -602,11 +603,12 @@ Let \(\left\{ y, x, \varepsilon \right\}\) be the variables of interest.
 \end{verbatim}
 
 The covariance expectations
-can be symbolically derived using the \texttt{ramR::C\_sym()} function.
+can be symbolically derived using the \texttt{ramR::C()} function
+with \texttt{A} of class \texttt{yac.symbol}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C\_sym}\NormalTok{(A, S)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), S)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -619,11 +621,12 @@ can be symbolically derived using the \texttt{ramR::C\_sym()} function.
 \begin{equation*}\mathbf{C} =\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  \sigma  _{x} ^{2} & \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x} ^{2} \beta  & \sigma  _{x} ^{2} & 0 \\ \sigma  _{\varepsilon } ^{2} & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{equation*}
 
 The covariance expectations for the observed variables
-can be symbolically derived using the \texttt{ramR::M\_sym()} function.
+can be symbolically derived using the \texttt{ramR::M()} function
+with \texttt{A} of class \texttt{yac.symbol}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M\_sym}\NormalTok{(A, S, filter)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), S, Filter)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -635,11 +638,12 @@ can be symbolically derived using the \texttt{ramR::M\_sym()} function.
 \begin{equation*}\mathbf{M} =\left( \begin{array}{cc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  & \sigma  _{x} ^{2} \end{array} \right)\end{equation*}
 
 The mean expectations
-can be symbolically derived using the \texttt{ramR::v\_sym()} function.
+can be symbolically derived using the \texttt{ramR::v()} function
+with \texttt{A} of class \texttt{yac.symbol}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v\_sym}\NormalTok{(A, u)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), u)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -652,11 +656,12 @@ can be symbolically derived using the \texttt{ramR::v\_sym()} function.
 \begin{equation*}\mathbf{v} =\left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\end{equation*}
 
 The mean expectations for the observed variables
-can be symbolically derived using the \texttt{ramR::g\_sym()} function.
+can be symbolically derived using the \texttt{ramR::g()} function
+with \texttt{A} of class \texttt{yac.symbol}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g\_sym}\NormalTok{(A, u, filter)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), u, Filter)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -996,8 +1001,8 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 ## RMSEA:  0  [95% CI (NA, NA)]
 ## Prob(RMSEA <= 0.05): NA
 ## To get additional fit indices, see help(mxRefModels)
-## timestamp: 2021-01-24 17:35:20 
-## Wall clock time: 0.03866959 secs 
+## timestamp: 2021-02-14 03:27:22 
+## Wall clock time: 0.04273891 secs 
 ## optimizer:  SLSQP 
 ## OpenMx version number: 2.18.1 
 ## Need help?  See help(mxSummary)
@@ -1047,7 +1052,7 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{filter}
+\NormalTok{Filter}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1058,11 +1063,11 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 \end{verbatim}
 
 The covariance expectations
-can be numerically derived using the \texttt{ramR::C\_num()} function.
+can be numerically derived using the \texttt{ramR::C()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C\_num}\NormalTok{(A, S)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C}\NormalTok{(A, S)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1074,11 +1079,11 @@ can be numerically derived using the \texttt{ramR::C\_num()} function.
 \end{verbatim}
 
 The covariance expectations for the observed variables
-can be numerically derived using the \texttt{ramR::M\_num()} function.
+can be numerically derived using the \texttt{ramR::M()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M\_num}\NormalTok{(A, S, filter)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M}\NormalTok{(A, S, Filter)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1089,11 +1094,11 @@ can be numerically derived using the \texttt{ramR::M\_num()} function.
 \end{verbatim}
 
 The mean expectations
-can be numerically derived using the \texttt{ramR::v\_num()} function.
+can be numerically derived using the \texttt{ramR::v()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v\_num}\NormalTok{(A, u)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v}\NormalTok{(A, u)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1105,11 +1110,11 @@ can be numerically derived using the \texttt{ramR::v\_num()} function.
 \end{verbatim}
 
 The mean expectations for the observed variables
-can be numerically derived using the \texttt{ramR::v\_num()} function.
+can be numerically derived using the \texttt{ramR::g()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g\_num}\NormalTok{(A, u, filter)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g}\NormalTok{(A, u, Filter)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1129,13 +1134,13 @@ The Student's \(t\)-test can be expressed in the following equations
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
-\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
-\StringTok{  e           by        y         1}
-\StringTok{  y           on        x         beta}
-\StringTok{  e           with      e         sigma[varepsilon]\^{}2}
-\StringTok{  x           with      x         sigma[x]\^{}2}
-\StringTok{  y           on        1         alpha}
-\StringTok{  x           on        1         mu[x]}
+\StringTok{  \# LHS OPERATION RHS LABEL}
+\StringTok{  e     by        y   1}
+\StringTok{  y     on        x   beta}
+\StringTok{  e     with      e   sigma[varepsilon]\^{}2}
+\StringTok{  x     with      x   sigma[x]\^{}2}
+\StringTok{  y     on        1   alpha}
+\StringTok{  x     on        1   mu[x]}
 \StringTok{"}
 \end{Highlighting}
 \end{Shaded}
@@ -1157,26 +1162,32 @@ These are labeled \texttt{sigma{[}x{]}\^{}2} and \texttt{sigma{[}varepsilon{]}\^
 The intercept and the mean of \(x\) are defined using the operation \texttt{on\ 1}.
 These are labeled \texttt{alpha} and \texttt{mu{[}x{]}} respectively.
 
-The \texttt{ramR::eq2ram} converts the equations to RAM notation.
+The \texttt{ramR::Eq2RAM} converts the equations to RAM notation.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2ram}\NormalTok{(eq)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{Eq2RAM}\NormalTok{(eq)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## $eq
-##   var1   op var2               label
-## 1    e   by    y                   1
-## 2    y   on    x                beta
-## 3    e with    e sigma[varepsilon]^2
-## 4    x with    x          sigma[x]^2
-## 5    y   on    1               alpha
-## 6    x   on    1               mu[x]
+## $par.table
+##   lhs   op rhs           par.label par.index
+## 1   e   by   y                   1         1
+## 2   y   on   x                beta        p1
+## 3   e with   e sigma[varepsilon]^2        p2
+## 4   x with   x          sigma[x]^2        p3
+## 5   y   on   1               alpha        p4
+## 6   x   on   1               mu[x]        p5
 ## 
 ## $variables
 ## [1] "y" "x" "e"
+## 
+## $g.variables
+## [1] "y" "x"
+## 
+## $h.variables
+## [1] "e"
 ## 
 ## $A
 ##   y   x      e  
@@ -1190,16 +1201,16 @@ The \texttt{ramR::eq2ram} converts the equations to RAM notation.
 ## x "0" "sigma[x]^2" "0"                  
 ## e "0" "0"          "sigma[varepsilon]^2"
 ## 
-## $filter
-##   y x e
-## y 1 0 0
-## x 0 1 0
-## 
 ## $u
 ##   u      
 ## y "alpha"
 ## x "mu[x]"
-## e "0"
+## e "0"    
+## 
+## $Filter
+##   y x e
+## y 1 0 0
+## x 0 1 0
 \end{verbatim}
 
 \hypertarget{equations-to-expectations}{%
@@ -1212,26 +1223,41 @@ both symbolically and numerically.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
-\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
-\StringTok{  e           by        y         1}
-\StringTok{  y           on        x         beta}
-\StringTok{  e           with      e         sigma[varepsilon]\^{}2}
-\StringTok{  x           with      x         sigma[x]\^{}2}
-\StringTok{  y           on        1         alpha}
-\StringTok{  x           on        1         mu[x]}
+\StringTok{  \# LHS OPERATION RHS LABEL}
+\StringTok{  e     by        y   1}
+\StringTok{  y     on        x   beta}
+\StringTok{  e     with      e   sigma[varepsilon]\^{}2}
+\StringTok{  x     with      x   sigma[x]\^{}2}
+\StringTok{  y     on        1   alpha}
+\StringTok{  x     on        1   mu[x]}
 \StringTok{"}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2exp\_sym}\NormalTok{(eq)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{Eq2Expectations}\NormalTok{(eq)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
+## $par.table
+##   lhs   op rhs           par.label par.index
+## 1   e   by   y                   1         1
+## 2   y   on   x                beta        p1
+## 3   e with   e sigma[varepsilon]^2        p2
+## 4   x with   x          sigma[x]^2        p3
+## 5   y   on   1               alpha        p4
+## 6   x   on   1               mu[x]        p5
+## 
 ## $variables
 ## [1] "y" "x" "e"
+## 
+## $g.variables
+## [1] "y" "x"
+## 
+## $h.variables
+## [1] "e"
 ## 
 ## $A
 ## {{   0, beta,    1},
@@ -1248,7 +1274,7 @@ both symbolically and numerically.
 ##  {mu[x]},
 ##  {    0}} 
 ## 
-## $filter
+## $Filter
 ## {{1, 0, 0},
 ##  {0, 1, 0}} 
 ## 
@@ -1274,26 +1300,41 @@ both symbolically and numerically.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
-\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 VALUE}
-\StringTok{  e           by        y         1.00}
-\StringTok{  y           on        x         1.00}
-\StringTok{  e           with      e         1.00}
-\StringTok{  x           with      x         0.25}
-\StringTok{  y           on        1         0.00}
-\StringTok{  x           on        1         0.50}
+\StringTok{  \# LHS OPERATION RHS VALUE}
+\StringTok{  e     by        y   1.00}
+\StringTok{  y     on        x   1.00}
+\StringTok{  e     with      e   1.00}
+\StringTok{  x     with      x   0.25}
+\StringTok{  y     on        1   0.00}
+\StringTok{  x     on        1   0.50}
 \StringTok{"}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2exp\_num}\NormalTok{(eq)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{Eq2Expectations}\NormalTok{(eq)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
+## $par.table
+##   lhs   op rhs par.label par.index
+## 1   e   by   y      1.00      1.00
+## 2   y   on   x      1.00      1.00
+## 3   e with   e      1.00      1.00
+## 4   x with   x      0.25      0.25
+## 5   y   on   1      0.00      0.00
+## 6   x   on   1      0.50      0.50
+## 
 ## $variables
 ## [1] "y" "x" "e"
+## 
+## $g.variables
+## [1] "y" "x"
+## 
+## $h.variables
+## [1] "e"
 ## 
 ## $A
 ##   y x e
@@ -1313,7 +1354,7 @@ both symbolically and numerically.
 ## x 0.5
 ## e 0.0
 ## 
-## $filter
+## $Filter
 ##   y x e
 ## y 1 0 0
 ## x 0 1 0
@@ -1365,7 +1406,7 @@ $x = 2$ & 0 & 1\\
 \hline
 \end{tabular}
 
-\(\varepsilon\) be the stochastic error term
+\(\varepsilon\) is the stochastic error term
 with mean 0 and constant variance of \(\sigma_{\varepsilon}^{2}\)
 across the values of the regressors.
 The associations of the variables are given by
@@ -1415,7 +1456,7 @@ Let \(\left\{ y, x_1, x_2, \varepsilon \right\}\) be the variables of interest.
 
 \begin{align*}\mathbf{v} &=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &=\left[\left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{cccc} 0 & \beta  _{1} & \beta  _{2} & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right)\right]^{\mathsf{-1}}\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x _{1}} + \beta  _{2} \mu  _{x _{2}} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\end{align*}
 
-\begin{align*}\mathbf{u} &=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &=\left[\left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{cccc} 0 & \beta  _{1} & \beta  _{2} & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right)\right]\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x _{1}} + \beta  _{2} \mu  _{x _{2}} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\end{align*}
+\begin{align*}\mathbf{u} &=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &=\left[\left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{cccc} 0 & \beta  _{1} & \beta  _{2} & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right)\right]\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x _{1}} + \beta  _{2} \mu  _{x _{2}} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x _{1}} + \beta  _{2} \mu  _{x _{2}} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\end{align*}
 
 \begin{align*}\mathbf{g} &=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &=\left[\left( \begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{cccc} 0 & \beta  _{1} & \beta  _{2} & 1 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right)\right]^{-1}\left( \begin{array}{c} \beta  _{0} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x _{1}} + \beta  _{2} \mu  _{x _{2}} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \end{array} \right)\end{align*}
 
@@ -1466,7 +1507,7 @@ Let \(\left\{ y, x_1, x_2, \varepsilon \right\}\) be the variables of interest.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{filter}
+\NormalTok{Filter}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1478,11 +1519,12 @@ Let \(\left\{ y, x_1, x_2, \varepsilon \right\}\) be the variables of interest.
 \end{verbatim}
 
 The covariance expectations
-can be symbolically derived using the \texttt{ramR::C\_sym()} function.
+can be symbolically derived using the \texttt{ramR::C()} function
+with \texttt{A} of class \texttt{yac.symbol}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C\_sym}\NormalTok{(A, S)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), S)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1496,11 +1538,12 @@ can be symbolically derived using the \texttt{ramR::C\_sym()} function.
 \begin{equation*}\mathbf{C} =\left( \begin{array}{cccc} \sigma  _{x _{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x _{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  _{1} \sigma  _{x _{1}} ^{2} & \beta  _{2} \sigma  _{x _{2}} ^{2} & \sigma  _{\varepsilon } ^{2} \\ \sigma  _{x _{1}} ^{2} \beta  _{1} & \sigma  _{x _{1}} ^{2} & 0 & 0 \\ \sigma  _{x _{2}} ^{2} \beta  _{2} & 0 & \sigma  _{x _{2}} ^{2} & 0 \\ \sigma  _{\varepsilon } ^{2} & 0 & 0 & \sigma  _{\varepsilon } ^{2} \end{array} \right)\end{equation*}
 
 The covariance expectations for the observed variables
-can be symbolically derived using the \texttt{ramR::M\_sym()} function.
+can be symbolically derived using the \texttt{ramR::M()} function
+with \texttt{A} of class \texttt{yac.symbol}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M\_sym}\NormalTok{(A, S, filter)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), S, Filter)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1513,11 +1556,12 @@ can be symbolically derived using the \texttt{ramR::M\_sym()} function.
 \begin{equation*}\mathbf{M} =\left( \begin{array}{ccc} \sigma  _{x _{1}} ^{2} \beta  _{1} ^{2} + \sigma  _{x _{2}} ^{2} \beta  _{2} ^{2} + \sigma  _{\varepsilon } ^{2} & \beta  _{1} \sigma  _{x _{1}} ^{2} & \beta  _{2} \sigma  _{x _{2}} ^{2} \\ \sigma  _{x _{1}} ^{2} \beta  _{1} & \sigma  _{x _{1}} ^{2} & 0 \\ \sigma  _{x _{2}} ^{2} \beta  _{2} & 0 & \sigma  _{x _{2}} ^{2} \end{array} \right)\end{equation*}
 
 The mean expectations
-can be symbolically derived using the \texttt{ramR::v\_sym()} function.
+can be symbolically derived using the \texttt{ramR::v()} function
+with \texttt{A} of class \texttt{yac.symbol}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v\_sym}\NormalTok{(A, u)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), u)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1531,11 +1575,12 @@ can be symbolically derived using the \texttt{ramR::v\_sym()} function.
 \begin{equation*}\mathbf{v} =\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \mu  _{x _{1}} + \beta  _{2} \mu  _{x _{2}} \\ \mu  _{x _{1}} \\ \mu  _{x _{2}} \\ 0 \end{array} \right)\end{equation*}
 
 The mean expectations for the observed variables
-can be symbolically derived using the \texttt{ramR::g\_sym()} function.
+can be symbolically derived using the \texttt{ramR::g()} function
+with \texttt{A} of class \texttt{yac.symbol}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g\_sym}\NormalTok{(A, u, filter)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), u, Filter)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1936,8 +1981,8 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 ## AIC:      -664.8302               8335.170                 8335.266
 ## BIC:    -24531.8162               8377.676                 8352.262
 ## To get additional fit indices, see help(mxRefModels)
-## timestamp: 2021-01-24 17:35:22 
-## Wall clock time: 0.03303933 secs 
+## timestamp: 2021-02-14 03:27:24 
+## Wall clock time: 0.03658605 secs 
 ## optimizer:  SLSQP 
 ## OpenMx version number: 2.18.1 
 ## Need help?  See help(mxSummary)
@@ -1990,7 +2035,7 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{filter}
+\NormalTok{Filter}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2002,11 +2047,11 @@ Note, however, that the \texttt{u} vector in the RAM notation is
 \end{verbatim}
 
 The covariance expectations
-can be numerically derived using the \texttt{ramR::C\_num()} function.
+can be numerically derived using the \texttt{ramR::C()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C\_num}\NormalTok{(A, S)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C}\NormalTok{(A, S)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2019,11 +2064,11 @@ can be numerically derived using the \texttt{ramR::C\_num()} function.
 \end{verbatim}
 
 The covariance expectations for the observed variables
-can be numerically derived using the \texttt{ramR::M\_num()} function.
+can be numerically derived using the \texttt{ramR::M()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M\_num}\NormalTok{(A, S, filter)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M}\NormalTok{(A, S, Filter)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2035,11 +2080,11 @@ can be numerically derived using the \texttt{ramR::M\_num()} function.
 \end{verbatim}
 
 The mean expectations
-can be numerically derived using the \texttt{ramR::v\_num()} function.
+can be numerically derived using the \texttt{ramR::v()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v\_num}\NormalTok{(A, u)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v}\NormalTok{(A, u)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2052,11 +2097,11 @@ can be numerically derived using the \texttt{ramR::v\_num()} function.
 \end{verbatim}
 
 The mean expectations for the observed variables
-can be numerically derived using the \texttt{ramR::v\_num()} function.
+can be numerically derived using the \texttt{ramR::v()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g\_num}\NormalTok{(A, u, filter)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g}\NormalTok{(A, u, Filter)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2109,29 +2154,35 @@ These are labeled \texttt{sigma{[}x{[}1{]}{]}\^{}2}, \texttt{sigma{[}x{[}2{]}{]}
 The intercept and the mean of \(x_1\) and \(x_2\) are defined using the operation \texttt{on\ 1}.
 These are labeled \texttt{beta{[}0{]}}, \texttt{mu{[}x{[}1{]}{]}}, and \texttt{mu{[}x{[}2{]}{]}} respectively.
 
-The \texttt{ramR::eq2ram} converts the equations to RAM notation.
+The \texttt{ramR::Eq2RAM} converts the equations to RAM notation.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2ram}\NormalTok{(eq)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{Eq2RAM}\NormalTok{(eq)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## $eq
-##   var1   op var2               label
-## 1    e   by    y                   1
-## 2    y   on   x1             beta[1]
-## 3    y   on   x2             beta[2]
-## 4    e with    e sigma[varepsilon]^2
-## 5   x1 with   x1       sigma[x[1]]^2
-## 6   x2 with   x2       sigma[x[2]]^2
-## 7    y   on    1             beta[0]
-## 8   x1   on    1            mu[x[1]]
-## 9   x2   on    1            mu[x[2]]
+## $par.table
+##   lhs   op rhs           par.label par.index
+## 1   e   by   y                   1         1
+## 2   y   on  x1             beta[1]        p1
+## 3   y   on  x2             beta[2]        p2
+## 4   e with   e sigma[varepsilon]^2        p3
+## 5  x1 with  x1       sigma[x[1]]^2        p4
+## 6  x2 with  x2       sigma[x[2]]^2        p5
+## 7   y   on   1             beta[0]        p6
+## 8  x1   on   1            mu[x[1]]        p7
+## 9  x2   on   1            mu[x[2]]        p8
 ## 
 ## $variables
 ## [1] "y"  "x1" "x2" "e" 
+## 
+## $g.variables
+## [1] "y"  "x1" "x2"
+## 
+## $h.variables
+## [1] "e"
 ## 
 ## $A
 ##    y   x1        x2        e  
@@ -2147,18 +2198,18 @@ The \texttt{ramR::eq2ram} converts the equations to RAM notation.
 ## x2 "0" "0"             "sigma[x[2]]^2" "0"                  
 ## e  "0" "0"             "0"             "sigma[varepsilon]^2"
 ## 
-## $filter
-##    y x1 x2 e
-## y  1  0  0 0
-## x1 0  1  0 0
-## x2 0  0  1 0
-## 
 ## $u
 ##    u         
 ## y  "beta[0]" 
 ## x1 "mu[x[1]]"
 ## x2 "mu[x[2]]"
-## e  "0"
+## e  "0"       
+## 
+## $Filter
+##    y x1 x2 e
+## y  1  0  0 0
+## x1 0  1  0 0
+## x2 0  0  1 0
 \end{verbatim}
 
 \hypertarget{equations-to-expectations-1}{%
@@ -2187,13 +2238,31 @@ both symbolically and numerically.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2exp\_sym}\NormalTok{(eq)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{Eq2Expectations}\NormalTok{(eq)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
+## $par.table
+##   lhs   op rhs           par.label par.index
+## 1   e   by   y                   1         1
+## 2   y   on  x1             beta[1]        p1
+## 3   y   on  x2             beta[2]        p2
+## 4   e with   e sigma[varepsilon]^2        p3
+## 5  x1 with  x1       sigma[x[1]]^2        p4
+## 6  x2 with  x2       sigma[x[2]]^2        p5
+## 7   y   on   1             beta[0]        p6
+## 8  x1   on   1            mu[x[1]]        p7
+## 9  x2   on   1            mu[x[2]]        p8
+## 
 ## $variables
 ## [1] "y"  "x1" "x2" "e" 
+## 
+## $g.variables
+## [1] "y"  "x1" "x2"
+## 
+## $h.variables
+## [1] "e"
 ## 
 ## $A
 ## {{      0, beta[1], beta[2],       1},
@@ -2213,7 +2282,7 @@ both symbolically and numerically.
 ##  {mu[x[2]]},
 ##  {       0}} 
 ## 
-## $filter
+## $Filter
 ## {{1, 0, 0, 0},
 ##  {0, 1, 0, 0},
 ##  {0, 0, 1, 0}} 
@@ -2260,13 +2329,31 @@ both symbolically and numerically.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{eq2exp\_num}\NormalTok{(eq)}
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{Eq2Expectations}\NormalTok{(eq)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
+## $par.table
+##   lhs   op rhs par.label par.index
+## 1   e   by   y 1.0000000 1.0000000
+## 2   y   on  x1 2.0000000 2.0000000
+## 3   y   on  x2 1.0000000 1.0000000
+## 4   e with   e 1.0000000 1.0000000
+## 5  x1 with  x1 0.2222222 0.2222222
+## 6  x2 with  x2 0.2222222 0.2222222
+## 7   y   on   1 0.0000000 0.0000000
+## 8  x1   on   1 0.3333333 0.3333333
+## 9  x2   on   1 0.3333333 0.3333333
+## 
 ## $variables
 ## [1] "y"  "x1" "x2" "e" 
+## 
+## $g.variables
+## [1] "y"  "x1" "x2"
+## 
+## $h.variables
+## [1] "e"
 ## 
 ## $A
 ##    y x1 x2 e
@@ -2289,7 +2376,7 @@ both symbolically and numerically.
 ## x2 0.3333333
 ## e  0.0000000
 ## 
-## $filter
+## $Filter
 ##    y x1 x2 e
 ## y  1  0  0 0
 ## x1 0  1  0 0
@@ -2343,11 +2430,860 @@ both symbolically and numerically.
 \hypertarget{ram-med-simple}{%
 \chapter{The Simple Mediation Model}\label{ram-med-simple}}
 
+Let \(y\), \(m\), \(x\), \(\varepsilon_y\), and \(\varepsilon_m\) be random variables
+whose associations are given by
+
+\begin{equation}
+  y = \beta_0 + \beta_1 x + \beta_2 m + \varepsilon_y
+\end{equation}
+
+\begin{equation}
+  m = \alpha_0 + \alpha_1 x + \varepsilon_m
+\end{equation}
+
+or combined
+
+\begin{equation}
+  \begin{split}
+    y
+    &=
+    \beta_0
+    + \beta_1 x
+    + \beta_2 (\alpha_0 + \alpha_1 x + \varepsilon_m)
+    + \varepsilon_y \\
+    &=
+    \beta_0
+    + \beta_1 x
+    + \beta_2 \alpha_0
+    + \alpha_1 \beta_2 x
+    + \beta_2 \varepsilon_m
+    + \varepsilon_y
+  \end{split}
+\end{equation}
+
+where
+
+\begin{itemize}
+\tightlist
+\item
+  \(\beta_1\) is the path from \(x\) on \(y\)
+\item
+  \(\beta_2\) is the path from \(m\) to \(y\)
+\item
+  \(\alpha_1\) is the path from \(x\) to \(m\)
+\item
+  \(\varepsilon_y\) and \(\varepsilon_m\) are uncorrelated error terms
+  with means of zero and constant variances of \(\sigma_{\varepsilon_y}^{2}\) and
+  \(\sigma_{\varepsilon_m}^{2}\) respectively
+\item
+  \(\beta_0\) and \(\alpha_0\) are intercepts
+\end{itemize}
+
 \begin{figure}
 \centering
 \includegraphics{ramR_notes_files/figure-latex/ram-med-simple-01-1.pdf}
 \caption{\label{fig:ram-med-simple-01}The Simple Mediation Model}
 \end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{ramR_notes_files/figure-latex/ram-med-simple-02-1.pdf}
+\caption{\label{fig:ram-med-simple-02}The Simple Mediation Model with Mean Structure}
+\end{figure}
+
+\hypertarget{symbolic-2}{%
+\section{Symbolic}\label{symbolic-2}}
+
+Let \(\left\{ y, m, x, \varepsilon_y, \varepsilon_m \right\}\) be the variables of interest.
+
+\begin{align*}\mathbf{A} &=\left( \begin{array}{ccccc} 0 & \beta  _{2} & \beta  _{1} & 1 & 0 \\ 0 & 0 & \alpha  _{1} & 0 & 1 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{S} &=\left( \begin{array}{ccccc} 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & \sigma  _{x} ^{2} & 0 & 0 \\ 0 & 0 & 0 & \sigma  _{\varepsilon  _{y}} ^{2} & 0 \\ 0 & 0 & 0 & 0 & \sigma  _{\varepsilon  _{m}} ^{2} \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{C} &=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \\\\ &=\mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \\\\ &=\left( \begin{array}{ccccc} 1 & \beta  _{2} & \beta  _{1} + \beta  _{2} \alpha  _{1} & 1 & \beta  _{2} \\ 0 & 1 & \alpha  _{1} & 0 & 1 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{array} \right)\left( \begin{array}{ccccc} 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & \sigma  _{x} ^{2} & 0 & 0 \\ 0 & 0 & 0 & \sigma  _{\varepsilon  _{y}} ^{2} & 0 \\ 0 & 0 & 0 & 0 & \sigma  _{\varepsilon  _{m}} ^{2} \end{array} \right)\left( \begin{array}{ccccc} 1 & \beta  _{2} & \beta  _{1} + \beta  _{2} \alpha  _{1} & 1 & \beta  _{2} \\ 0 & 1 & \alpha  _{1} & 0 & 1 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{array} \right)^{\mathsf{T}}\\ &=\left( \begin{array}{ccccc} \sigma  _{x} ^{2} \beta  _{1} ^{2} + 2 \sigma  _{x} ^{2} \beta  _{1} \beta  _{2} \alpha  _{1} + \sigma  _{x} ^{2} \beta  _{2} ^{2} \alpha  _{1} ^{2} + \beta  _{2} ^{2} \sigma  _{\varepsilon  _{m}} ^{2} + \sigma  _{\varepsilon  _{y}} ^{2} & \beta  _{1} \alpha  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} ^{2} \sigma  _{x} ^{2} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} & \beta  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} \sigma  _{x} ^{2} & \sigma  _{\varepsilon  _{y}} ^{2} & \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} \\ \alpha  _{1} ^{2} \sigma  _{x} ^{2} \beta  _{2} + \alpha  _{1} \sigma  _{x} ^{2} \beta  _{1} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} & \sigma  _{x} ^{2} \alpha  _{1} ^{2} + \sigma  _{\varepsilon  _{m}} ^{2} & \alpha  _{1} \sigma  _{x} ^{2} & 0 & \sigma  _{\varepsilon  _{m}} ^{2} \\ \sigma  _{x} ^{2} \beta  _{1} + \sigma  _{x} ^{2} \beta  _{2} \alpha  _{1} & \sigma  _{x} ^{2} \alpha  _{1} & \sigma  _{x} ^{2} & 0 & 0 \\ \sigma  _{\varepsilon  _{y}} ^{2} & 0 & 0 & \sigma  _{\varepsilon  _{y}} ^{2} & 0 \\ \sigma  _{\varepsilon  _{m}} ^{2} \beta  _{2} & \sigma  _{\varepsilon  _{m}} ^{2} & 0 & 0 & \sigma  _{\varepsilon  _{m}} ^{2} \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{F} &=\left( \begin{array}{ccccc} 1 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{M} &=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S} \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \mathbf{F}^{\mathsf{T}} \\&=\mathbf{F} \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}} \mathbf{F}^{\mathsf{T}} \\&=\mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}} \\&=\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  _{1} ^{2} + 2 \sigma  _{x} ^{2} \beta  _{1} \beta  _{2} \alpha  _{1} + \sigma  _{x} ^{2} \beta  _{2} ^{2} \alpha  _{1} ^{2} + \beta  _{2} ^{2} \sigma  _{\varepsilon  _{m}} ^{2} + \sigma  _{\varepsilon  _{y}} ^{2} & \beta  _{1} \alpha  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} ^{2} \sigma  _{x} ^{2} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} & \beta  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} \sigma  _{x} ^{2} \\ \alpha  _{1} ^{2} \sigma  _{x} ^{2} \beta  _{2} + \alpha  _{1} \sigma  _{x} ^{2} \beta  _{1} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} & \sigma  _{x} ^{2} \alpha  _{1} ^{2} + \sigma  _{\varepsilon  _{m}} ^{2} & \alpha  _{1} \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  _{1} + \sigma  _{x} ^{2} \beta  _{2} \alpha  _{1} & \sigma  _{x} ^{2} \alpha  _{1} & \sigma  _{x} ^{2} \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{v} &=\left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &=\left[\left( \begin{array}{ccccc} 1 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{ccccc} 0 & \beta  _{2} & \beta  _{1} & 1 & 0 \\ 0 & 0 & \alpha  _{1} & 0 & 1 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \end{array} \right)\right]^{\mathsf{-1}}\left( \begin{array}{c} \beta  _{0} \\ \alpha  _{0} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \beta  _{0} + \beta  _{2} \alpha  _{0} + \beta  _{2} \alpha  _{1} \mu  _{x} + \beta  _{1} \mu  _{x} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{u} &=\left( \mathbf{I} - \mathbf{A} \right) \mathbf{v}\\ &=\left[\left( \begin{array}{ccccc} 1 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{ccccc} 0 & \beta  _{2} & \beta  _{1} & 1 & 0 \\ 0 & 0 & \alpha  _{1} & 0 & 1 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \end{array} \right)\right]\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \alpha  _{0} + \beta  _{1} \alpha  _{1} \mu  _{x} + \beta  _{2} \mu  _{x} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \beta  _{0} + \beta  _{1} \alpha  _{0} + \beta  _{1} \alpha  _{1} \mu  _{x} + \mu  _{x} \beta  _{2} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\end{align*}
+
+\begin{align*}\mathbf{g} &=\mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{u}\\ &=\left[\left( \begin{array}{ccccc} 1 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 1 \end{array} \right)-\left( \begin{array}{ccccc} 0 & \beta  _{2} & \beta  _{1} & 1 & 0 \\ 0 & 0 & \alpha  _{1} & 0 & 1 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \end{array} \right)\right]^{-1}\left( \begin{array}{c} \beta  _{0} \\ \alpha  _{0} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\\ &=\left( \begin{array}{c} \beta  _{0} + \beta  _{2} \alpha  _{0} + \beta  _{2} \alpha  _{1} \mu  _{x} + \beta  _{1} \mu  _{x} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{align*}
+
+\hypertarget{using-the-ramr-package-4}{%
+\subsection{\texorpdfstring{Using the \texttt{ramR} Package}{Using the ramR Package}}\label{using-the-ramr-package-4}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y   m         x          ey  em 
+## y  "0" "beta[2]" "beta[1]"  "1" "0"
+## m  "0" "0"       "alpha[1]" "0" "1"
+## x  "0" "0"       "0"        "0" "0"
+## ey "0" "0"       "0"        "0" "0"
+## em "0" "0"       "0"        "0" "0"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y   m   x            ey                       em                      
+## y  "0" "0" "0"          "0"                      "0"                     
+## m  "0" "0" "0"          "0"                      "0"                     
+## x  "0" "0" "sigma[x]^2" "0"                      "0"                     
+## ey "0" "0" "0"          "sigma[varepsilon[y]]^2" "0"                     
+## em "0" "0" "0"          "0"                      "sigma[varepsilon[m]]^2"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{u}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    u         
+## y  "beta[0]" 
+## m  "alpha[0]"
+## x  "mu[x]"   
+## ey "0"       
+## em "0"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{filter}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   y m x ey em
+## y 1 0 0  0  0
+## m 0 1 0  0  0
+## x 0 0 1  0  0
+\end{verbatim}
+
+The covariance expectations
+can be symbolically derived using the \texttt{ramR::C()} function
+with \texttt{A} of class \texttt{yac.symbol}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), S, }\AttributeTok{simplify =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{sigma[x]^2*beta[1]^2+2*sigma[x]^2*beta[1]*beta[2]*alpha[1]+sigma[x]^2*beta[2]^2*alpha[1]^2+beta[2]^2*sigma[varepsilon[m]]^2+sigma[varepsilon[y]]^2,                                                           beta[1]*alpha[1]*sigma[x]^2+beta[2]*alpha[1]^2*sigma[x]^2+beta[2]*sigma[varepsilon[m]]^2,                                                                                                     beta[1]*sigma[x]^2+beta[2]*alpha[1]*sigma[x]^2,                                                                                                                             sigma[varepsilon[y]]^2,                                                                                                                     beta[2]*sigma[varepsilon[m]]^2},
+##  {                                                          alpha[1]^2*sigma[x]^2*beta[2]+alpha[1]*sigma[x]^2*beta[1]+beta[2]*sigma[varepsilon[m]]^2,                                                                                                       sigma[x]^2*alpha[1]^2+sigma[varepsilon[m]]^2,                                                                                                                                alpha[1]*sigma[x]^2,                                                                                                                                                  0,                                                                                                                             sigma[varepsilon[m]]^2},
+##  {                                                                                                    sigma[x]^2*beta[1]+sigma[x]^2*beta[2]*alpha[1],                                                                                                                                sigma[x]^2*alpha[1],                                                                                                                                         sigma[x]^2,                                                                                                                                                  0,                                                                                                                                                  0},
+##  {                                                                                                                            sigma[varepsilon[y]]^2,                                                                                                                                                  0,                                                                                                                                                  0,                                                                                                                             sigma[varepsilon[y]]^2,                                                                                                                                                  0},
+##  {                                                                                                                    sigma[varepsilon[m]]^2*beta[2],                                                                                                                             sigma[varepsilon[m]]^2,                                                                                                                                                  0,                                                                                                                                                  0,                                                                                                                             sigma[varepsilon[m]]^2}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{C} =\left( \begin{array}{ccccc} \sigma  _{x} ^{2} \beta  _{1} ^{2} + 2 \sigma  _{x} ^{2} \beta  _{1} \beta  _{2} \alpha  _{1} + \sigma  _{x} ^{2} \beta  _{2} ^{2} \alpha  _{1} ^{2} + \beta  _{2} ^{2} \sigma  _{\varepsilon  _{m}} ^{2} + \sigma  _{\varepsilon  _{y}} ^{2} & \beta  _{1} \alpha  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} ^{2} \sigma  _{x} ^{2} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} & \beta  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} \sigma  _{x} ^{2} & \sigma  _{\varepsilon  _{y}} ^{2} & \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} \\ \alpha  _{1} ^{2} \sigma  _{x} ^{2} \beta  _{2} + \alpha  _{1} \sigma  _{x} ^{2} \beta  _{1} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} & \sigma  _{x} ^{2} \alpha  _{1} ^{2} + \sigma  _{\varepsilon  _{m}} ^{2} & \alpha  _{1} \sigma  _{x} ^{2} & 0 & \sigma  _{\varepsilon  _{m}} ^{2} \\ \sigma  _{x} ^{2} \beta  _{1} + \sigma  _{x} ^{2} \beta  _{2} \alpha  _{1} & \sigma  _{x} ^{2} \alpha  _{1} & \sigma  _{x} ^{2} & 0 & 0 \\ \sigma  _{\varepsilon  _{y}} ^{2} & 0 & 0 & \sigma  _{\varepsilon  _{y}} ^{2} & 0 \\ \sigma  _{\varepsilon  _{m}} ^{2} \beta  _{2} & \sigma  _{\varepsilon  _{m}} ^{2} & 0 & 0 & \sigma  _{\varepsilon  _{m}} ^{2} \end{array} \right)\end{equation*}
+
+The covariance expectations for the observed variables
+can be symbolically derived using the \texttt{ramR::M()} function
+with \texttt{A} of class \texttt{yac.symbol}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), S, filter, }\AttributeTok{simplify =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{sigma[x]^2*beta[1]^2+2*sigma[x]^2*beta[1]*beta[2]*alpha[1]+sigma[x]^2*beta[2]^2*alpha[1]^2+beta[2]^2*sigma[varepsilon[m]]^2+sigma[varepsilon[y]]^2,                                                           beta[1]*alpha[1]*sigma[x]^2+beta[2]*alpha[1]^2*sigma[x]^2+beta[2]*sigma[varepsilon[m]]^2,                                                                                                     beta[1]*sigma[x]^2+beta[2]*alpha[1]*sigma[x]^2},
+##  {                                                          alpha[1]^2*sigma[x]^2*beta[2]+alpha[1]*sigma[x]^2*beta[1]+beta[2]*sigma[varepsilon[m]]^2,                                                                                                       sigma[x]^2*alpha[1]^2+sigma[varepsilon[m]]^2,                                                                                                                                alpha[1]*sigma[x]^2},
+##  {                                                                                                    sigma[x]^2*beta[1]+sigma[x]^2*beta[2]*alpha[1],                                                                                                                                sigma[x]^2*alpha[1],                                                                                                                                         sigma[x]^2}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{M} =\left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  _{1} ^{2} + 2 \sigma  _{x} ^{2} \beta  _{1} \beta  _{2} \alpha  _{1} + \sigma  _{x} ^{2} \beta  _{2} ^{2} \alpha  _{1} ^{2} + \beta  _{2} ^{2} \sigma  _{\varepsilon  _{m}} ^{2} + \sigma  _{\varepsilon  _{y}} ^{2} & \beta  _{1} \alpha  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} ^{2} \sigma  _{x} ^{2} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} & \beta  _{1} \sigma  _{x} ^{2} + \beta  _{2} \alpha  _{1} \sigma  _{x} ^{2} \\ \alpha  _{1} ^{2} \sigma  _{x} ^{2} \beta  _{2} + \alpha  _{1} \sigma  _{x} ^{2} \beta  _{1} + \beta  _{2} \sigma  _{\varepsilon  _{m}} ^{2} & \sigma  _{x} ^{2} \alpha  _{1} ^{2} + \sigma  _{\varepsilon  _{m}} ^{2} & \alpha  _{1} \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  _{1} + \sigma  _{x} ^{2} \beta  _{2} \alpha  _{1} & \sigma  _{x} ^{2} \alpha  _{1} & \sigma  _{x} ^{2} \end{array} \right)\end{equation*}
+
+The mean expectations
+can be symbolically derived using the \texttt{ramR::v()} function
+with \texttt{A} of class \texttt{yac.symbol}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), u, }\AttributeTok{simplify =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{beta[0]+beta[2]*alpha[0]+beta[2]*alpha[1]*mu[x]+beta[1]*mu[x]},
+##  {                                      alpha[0]+alpha[1]*mu[x]},
+##  {                                                        mu[x]},
+##  {                                                            0},
+##  {                                                            0}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{v} =\left( \begin{array}{c} \beta  _{0} + \beta  _{2} \alpha  _{0} + \beta  _{2} \alpha  _{1} \mu  _{x} + \beta  _{1} \mu  _{x} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \\ 0 \\ 0 \end{array} \right)\end{equation*}
+
+The mean expectations for the observed variables
+can be symbolically derived using the \texttt{ramR::g()} function
+with \texttt{A} of class \texttt{yac.symbol}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g}\NormalTok{(Ryacas}\SpecialCharTok{::}\FunctionTok{ysym}\NormalTok{(A), u, filter, }\AttributeTok{simplify =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## {{beta[0]+beta[2]*alpha[0]+beta[2]*alpha[1]*mu[x]+beta[1]*mu[x]},
+##  {                                      alpha[0]+alpha[1]*mu[x]},
+##  {                                                        mu[x]}}
+\end{verbatim}
+
+\begin{equation*}\mathbf{g} =\left( \begin{array}{c} \beta  _{0} + \beta  _{2} \alpha  _{0} + \beta  _{2} \alpha  _{1} \mu  _{x} + \beta  _{1} \mu  _{x} \\ \alpha  _{0} + \alpha  _{1} \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{equation*}
+
+\hypertarget{numerical-example-2}{%
+\section{Numerical Example}\label{numerical-example-2}}
+
+Let \texttt{df} be a random sample from a population with the following parameters
+
+\begin{tabular}{l|l}
+\hline
+Parameter & Value\\
+\hline
+$\beta_1$ & 0\\
+\hline
+$\beta_2$ & 0.5\\
+\hline
+$\alpha_1$ & 0.5\\
+\hline
+$\sigma_{\varepsilon_y}^{2}$ & 168.75\\
+\hline
+$\sigma_{\varepsilon_m}^{2}$ & 168.75\\
+\hline
+$\sigma_{x}^{2}$ & 225\\
+\hline
+$\beta_0$ & 50\\
+\hline
+$\alpha_0$ & 50\\
+\hline
+$\mu_x$ & 100\\
+\hline
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           y         m         x
+## 1 107.32121  80.22215  64.60716
+## 2 109.83608 109.42737 100.20734
+## 3  97.41131 107.89265  79.57780
+## 4  87.75538 106.43004  80.82994
+## 5  80.77481 104.18033  99.07128
+## 6  97.27327  98.70669 108.24974
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        y                m                x         
+##  Min.   : 47.09   Min.   : 55.30   Min.   : 45.16  
+##  1st Qu.: 90.02   1st Qu.: 90.39   1st Qu.: 90.09  
+##  Median :100.34   Median : 99.84   Median :100.14  
+##  Mean   :100.22   Mean   :100.36   Mean   :100.32  
+##  3rd Qu.:110.30   3rd Qu.:110.40   3rd Qu.:110.29  
+##  Max.   :149.73   Max.   :150.48   Max.   :156.91
+\end{verbatim}
+
+\includegraphics{ramR_notes_files/figure-latex/unnamed-chunk-129-1.pdf}
+
+\hypertarget{linear-regression-2}{%
+\subsection{Linear Regression}\label{linear-regression-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x }\SpecialCharTok{+}\NormalTok{ m, }\AttributeTok{data =}\NormalTok{ df))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y ~ x + m, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -42.413  -8.837  -0.045   8.804  39.148 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 48.47917    3.19559  15.171   <2e-16 ***
+## x            0.04486    0.03101   1.447    0.148    
+## m            0.47072    0.03136  15.012   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 12.98 on 997 degrees of freedom
+## Multiple R-squared:  0.2464, Adjusted R-squared:  0.2449 
+## F-statistic:   163 on 2 and 997 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(m }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = m ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -43.182  -9.426   0.280   8.705  38.824 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 52.04456    2.77350   18.77   <2e-16 ***
+## x            0.48163    0.02734   17.62   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 13.1 on 998 degrees of freedom
+## Multiple R-squared:  0.2372, Adjusted R-squared:  0.2365 
+## F-statistic: 310.4 on 1 and 998 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\hypertarget{structural-equation-modeling-2}{%
+\subsection{Structural Equation Modeling}\label{structural-equation-modeling-2}}
+
+\hypertarget{lavaan-lavaan2012-2}{%
+\subsubsection{\texorpdfstring{lavaan \citep{lavaan2012}}{lavaan {[}@lavaan2012{]}}}\label{lavaan-lavaan2012-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Covariance Structure}
+\NormalTok{model }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  y \textasciitilde{} beta1 * x + beta2 * m}
+\StringTok{  m \textasciitilde{} alpha1 * x}
+\StringTok{  indirect := alpha1 * beta2}
+\StringTok{"}
+\CommentTok{\# With Mean Structure}
+\NormalTok{model }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  y \textasciitilde{} beta1 * x + beta2 * m}
+\StringTok{  m \textasciitilde{} alpha1 * x}
+\StringTok{  y \textasciitilde{}\textasciitilde{} sigma2ey * y}
+\StringTok{  m \textasciitilde{}\textasciitilde{} sigma2em * m}
+\StringTok{  x \textasciitilde{}\textasciitilde{} sigma2x * x}
+\StringTok{  y \textasciitilde{} beta0 * 1}
+\StringTok{  m \textasciitilde{} alpha0 * 1}
+\StringTok{  x \textasciitilde{} mux * 1}
+\StringTok{  indirect := alpha1 * beta2}
+\StringTok{"}
+\NormalTok{fit }\OtherTok{\textless{}{-}}\NormalTok{ lavaan}\SpecialCharTok{::}\FunctionTok{sem}\NormalTok{(}
+\NormalTok{  model,}
+  \AttributeTok{data =}\NormalTok{ df,}
+  \AttributeTok{meanstructure =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{fixed.x =} \ConstantTok{FALSE}
+\NormalTok{)}
+\NormalTok{lavaan}\SpecialCharTok{::}\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## lavaan 0.6-7 ended normally after 28 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                          9
+##                                                       
+##   Number of observations                          1000
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##   y ~                                                 
+##     x       (bet1)    0.045    0.031    1.449    0.147
+##     m       (bet2)    0.471    0.031   15.034    0.000
+##   m ~                                                 
+##     x       (alp1)    0.482    0.027   17.636    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##    .y       (bet0)   48.479    3.191   15.193    0.000
+##    .m       (alp0)   52.045    2.771   18.784    0.000
+##     x        (mux)  100.320    0.479  209.300    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##    .y      (sgm2y)  167.964    7.512   22.361    0.000
+##    .m      (sgm2m)  171.335    7.662   22.361    0.000
+##     x      (sgm2x)  229.740   10.274   22.361    0.000
+## 
+## Defined Parameters:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##     indirect          0.227    0.020   11.441    0.000
+\end{verbatim}
+
+\hypertarget{using-the-ramr-package-5}{%
+\subsection{\texorpdfstring{Using the \texttt{ramR} Package}{Using the ramR Package}}\label{using-the-ramr-package-5}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y         m          x ey em
+## y  0 0.4707226 0.04486201  1  0
+## m  0 0.0000000 0.48162865  0  1
+## x  0 0.0000000 0.00000000  0  0
+## ey 0 0.0000000 0.00000000  0  0
+## em 0 0.0000000 0.00000000  0  0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y m        x      ey       em
+## y  0 0   0.0000   0.000   0.0000
+## m  0 0   0.0000   0.000   0.0000
+## x  0 0 229.9701   0.000   0.0000
+## ey 0 0   0.0000 168.469   0.0000
+## em 0 0   0.0000   0.000 171.6784
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{u}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            u
+## y   48.47917
+## m   52.04456
+## x  100.31982
+## ey   0.00000
+## em   0.00000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{filter}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   y m x ey em
+## y 1 0 0  0  0
+## m 0 1 0  0  0
+## x 0 0 1  0  0
+\end{verbatim}
+
+The covariance expectations
+can be numerically derived using the \texttt{ramR::C()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{C}\NormalTok{(A, S)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            y        m         x      ey        em
+## y  223.47047 110.8927  62.45425 168.469  80.81291
+## m  110.89267 225.0237 110.76020   0.000 171.67843
+## x   62.45425 110.7602 229.97013   0.000   0.00000
+## ey 168.46896   0.0000   0.00000 168.469   0.00000
+## em  80.81291 171.6784   0.00000   0.000 171.67843
+\end{verbatim}
+
+The covariance expectations for the observed variables
+can be numerically derived using the \texttt{ramR::M()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{M}\NormalTok{(A, S, filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           y        m         x
+## y 223.47047 110.8927  62.45425
+## m 110.89267 225.0237 110.76020
+## x  62.45425 110.7602 229.97013
+\end{verbatim}
+
+The mean expectations
+can be numerically derived using the \texttt{ramR::v()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{v}\NormalTok{(A, u)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           v
+## y  100.2221
+## m  100.3615
+## x  100.3198
+## ey   0.0000
+## em   0.0000
+\end{verbatim}
+
+The mean expectations for the observed variables
+can be numerically derived using the \texttt{ramR::v()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{g}\NormalTok{(A, u, filter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          g
+## y 100.2221
+## m 100.3615
+## x 100.3198
+\end{verbatim}
+
+\hypertarget{equations-to-ram-2}{%
+\section{Equations to RAM}\label{equations-to-ram-2}}
+
+The \texttt{ramR} package has a utility function
+to convert structural equations to RAM notation.
+The simple mediation model
+can be expressed in the following equations
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
+\StringTok{  ey          by        y         1}
+\StringTok{  em          by        m         1}
+\StringTok{  y           on        x         beta[1]}
+\StringTok{  y           on        m         beta[2]}
+\StringTok{  m           on        x         alpha[1]}
+\StringTok{  ey          with      ey        sigma[varepsilon[y]]\^{}2}
+\StringTok{  em          with      em        sigma[varepsilon[m]]\^{}2}
+\StringTok{  x           with      x         sigma[x]\^{}2}
+\StringTok{  y           on        1         beta[0]}
+\StringTok{  m           on        1         alpha[0]}
+\StringTok{  x           on        1         mu[x]}
+\StringTok{"}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{ramR::Eq2RAM} converts the equations to RAM notation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{Eq2RAM}\NormalTok{(eq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $par.table
+##    lhs   op rhs              par.label par.index
+## 1   ey   by   y                      1         1
+## 2   em   by   m                      1         1
+## 3    y   on   x                beta[1]        p1
+## 4    y   on   m                beta[2]        p2
+## 5    m   on   x               alpha[1]        p3
+## 6   ey with  ey sigma[varepsilon[y]]^2        p4
+## 7   em with  em sigma[varepsilon[m]]^2        p5
+## 8    x with   x             sigma[x]^2        p6
+## 9    y   on   1                beta[0]        p7
+## 10   m   on   1               alpha[0]        p8
+## 11   x   on   1                  mu[x]        p9
+## 
+## $variables
+## [1] "y"  "m"  "x"  "ey" "em"
+## 
+## $g.variables
+## [1] "y" "m" "x"
+## 
+## $h.variables
+## [1] "ey" "em"
+## 
+## $A
+##    y   m         x          ey  em 
+## y  "0" "beta[2]" "beta[1]"  "1" "0"
+## m  "0" "0"       "alpha[1]" "0" "1"
+## x  "0" "0"       "0"        "0" "0"
+## ey "0" "0"       "0"        "0" "0"
+## em "0" "0"       "0"        "0" "0"
+## 
+## $S
+##    y   m   x            ey                       em                      
+## y  "0" "0" "0"          "0"                      "0"                     
+## m  "0" "0" "0"          "0"                      "0"                     
+## x  "0" "0" "sigma[x]^2" "0"                      "0"                     
+## ey "0" "0" "0"          "sigma[varepsilon[y]]^2" "0"                     
+## em "0" "0" "0"          "0"                      "sigma[varepsilon[m]]^2"
+## 
+## $u
+##    u         
+## y  "beta[0]" 
+## m  "alpha[0]"
+## x  "mu[x]"   
+## ey "0"       
+## em "0"       
+## 
+## $Filter
+##   y m x ey em
+## y 1 0 0  0  0
+## m 0 1 0  0  0
+## x 0 0 1  0  0
+\end{verbatim}
+
+\hypertarget{equations-to-expectations-2}{%
+\section{Equations to Expectations}\label{equations-to-expectations-2}}
+
+The \texttt{ramR} package has a utility function
+to convert structural equations to expectations
+both symbolically and numerically.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
+\StringTok{  ey          by        y         1}
+\StringTok{  em          by        m         1}
+\StringTok{  y           on        x         beta[1]}
+\StringTok{  y           on        m         beta[2]}
+\StringTok{  m           on        x         alpha[1]}
+\StringTok{  ey          with      ey        sigma[varepsilon[y]]\^{}2}
+\StringTok{  em          with      em        sigma[varepsilon[m]]\^{}2}
+\StringTok{  x           with      x         sigma[x]\^{}2}
+\StringTok{  y           on        1         beta[0]}
+\StringTok{  m           on        1         alpha[0]}
+\StringTok{  x           on        1         mu[x]}
+\StringTok{"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{Eq2Expectations}\NormalTok{(eq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $par.table
+##    lhs   op rhs              par.label par.index
+## 1   ey   by   y                      1         1
+## 2   em   by   m                      1         1
+## 3    y   on   x                beta[1]        p1
+## 4    y   on   m                beta[2]        p2
+## 5    m   on   x               alpha[1]        p3
+## 6   ey with  ey sigma[varepsilon[y]]^2        p4
+## 7   em with  em sigma[varepsilon[m]]^2        p5
+## 8    x with   x             sigma[x]^2        p6
+## 9    y   on   1                beta[0]        p7
+## 10   m   on   1               alpha[0]        p8
+## 11   x   on   1                  mu[x]        p9
+## 
+## $variables
+## [1] "y"  "m"  "x"  "ey" "em"
+## 
+## $g.variables
+## [1] "y" "m" "x"
+## 
+## $h.variables
+## [1] "ey" "em"
+## 
+## $A
+## {{       0,  beta[2],  beta[1],        1,        0},
+##  {       0,        0, alpha[1],        0,        1},
+##  {       0,        0,        0,        0,        0},
+##  {       0,        0,        0,        0,        0},
+##  {       0,        0,        0,        0,        0}} 
+## 
+## $S
+## {{                     0,                      0,                      0,                      0,                      0},
+##  {                     0,                      0,                      0,                      0,                      0},
+##  {                     0,                      0,             sigma[x]^2,                      0,                      0},
+##  {                     0,                      0,                      0, sigma[varepsilon[y]]^2,                      0},
+##  {                     0,                      0,                      0,                      0, sigma[varepsilon[m]]^2}} 
+## 
+## $u
+## {{ beta[0]},
+##  {alpha[0]},
+##  {   mu[x]},
+##  {       0},
+##  {       0}} 
+## 
+## $Filter
+## {{1, 0, 0, 0, 0},
+##  {0, 1, 0, 0, 0},
+##  {0, 0, 1, 0, 0}} 
+## 
+## $v
+## {{beta[0]+beta[2]*alpha[0]+(beta[1]+beta[2]*alpha[1])*mu[x]},
+##  {                                  alpha[0]+alpha[1]*mu[x]},
+##  {                                                    mu[x]},
+##  {                                                        0},
+##  {                                                        0}} 
+## 
+## $g
+## {{beta[0]+beta[2]*alpha[0]+(beta[1]+beta[2]*alpha[1])*mu[x]},
+##  {                                  alpha[0]+alpha[1]*mu[x]},
+##  {                                                    mu[x]}} 
+## 
+## $C
+## {{sigma[x]^2*(beta[1]+beta[2]*alpha[1])^2+sigma[varepsilon[y]]^2+sigma[varepsilon[m]]^2*beta[2]^2,                   (beta[1]+beta[2]*alpha[1])*sigma[x]^2*alpha[1]+beta[2]*sigma[varepsilon[m]]^2,                                                           (beta[1]+beta[2]*alpha[1])*sigma[x]^2,                                                                          sigma[varepsilon[y]]^2,                                                                  beta[2]*sigma[varepsilon[m]]^2},
+##  {                  alpha[1]*sigma[x]^2*(beta[1]+beta[2]*alpha[1])+sigma[varepsilon[m]]^2*beta[2],                                                    sigma[x]^2*alpha[1]^2+sigma[varepsilon[m]]^2,                                                                             alpha[1]*sigma[x]^2,                                                                                               0,                                                                          sigma[varepsilon[m]]^2},
+##  {                                                          sigma[x]^2*(beta[1]+beta[2]*alpha[1]),                                                                             sigma[x]^2*alpha[1],                                                                                      sigma[x]^2,                                                                                               0,                                                                                               0},
+##  {                                                                         sigma[varepsilon[y]]^2,                                                                                               0,                                                                                               0,                                                                          sigma[varepsilon[y]]^2,                                                                                               0},
+##  {                                                                 sigma[varepsilon[m]]^2*beta[2],                                                                          sigma[varepsilon[m]]^2,                                                                                               0,                                                                                               0,                                                                          sigma[varepsilon[m]]^2}} 
+## 
+## $M
+## {{sigma[x]^2*(beta[1]+beta[2]*alpha[1])^2+sigma[varepsilon[y]]^2+sigma[varepsilon[m]]^2*beta[2]^2,                   (beta[1]+beta[2]*alpha[1])*sigma[x]^2*alpha[1]+beta[2]*sigma[varepsilon[m]]^2,                                                           (beta[1]+beta[2]*alpha[1])*sigma[x]^2},
+##  {                  alpha[1]*sigma[x]^2*(beta[1]+beta[2]*alpha[1])+sigma[varepsilon[m]]^2*beta[2],                                                    sigma[x]^2*alpha[1]^2+sigma[varepsilon[m]]^2,                                                                             alpha[1]*sigma[x]^2},
+##  {                                                          sigma[x]^2*(beta[1]+beta[2]*alpha[1]),                                                                             sigma[x]^2*alpha[1],                                                                                      sigma[x]^2}}
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{eq }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{  \# VARIABLE1 OPERATION VARIABLE2 LABEL}
+\StringTok{  ey          by        y         1}
+\StringTok{  em          by        m         1}
+\StringTok{  y           on        x         0.00}
+\StringTok{  y           on        m         0.50}
+\StringTok{  m           on        x         0.50}
+\StringTok{  ey          with      ey        168.75}
+\StringTok{  em          with      em        168.75}
+\StringTok{  x           with      x         225}
+\StringTok{  y           on        1         50}
+\StringTok{  m           on        1         50}
+\StringTok{  x           on        1         100}
+\StringTok{"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ramR}\SpecialCharTok{::}\FunctionTok{Eq2Expectations}\NormalTok{(eq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $par.table
+##    lhs   op rhs par.label par.index
+## 1   ey   by   y      1.00      1.00
+## 2   em   by   m      1.00      1.00
+## 3    y   on   x      0.00      0.00
+## 4    y   on   m      0.50      0.50
+## 5    m   on   x      0.50      0.50
+## 6   ey with  ey    168.75    168.75
+## 7   em with  em    168.75    168.75
+## 8    x with   x    225.00    225.00
+## 9    y   on   1     50.00     50.00
+## 10   m   on   1     50.00     50.00
+## 11   x   on   1    100.00    100.00
+## 
+## $variables
+## [1] "y"  "m"  "x"  "ey" "em"
+## 
+## $g.variables
+## [1] "y" "m" "x"
+## 
+## $h.variables
+## [1] "ey" "em"
+## 
+## $A
+##    y   m   x ey em
+## y  0 0.5 0.0  1  0
+## m  0 0.0 0.5  0  1
+## x  0 0.0 0.0  0  0
+## ey 0 0.0 0.0  0  0
+## em 0 0.0 0.0  0  0
+## 
+## $S
+##    y m   x     ey     em
+## y  0 0   0   0.00   0.00
+## m  0 0   0   0.00   0.00
+## x  0 0 225   0.00   0.00
+## ey 0 0   0 168.75   0.00
+## em 0 0   0   0.00 168.75
+## 
+## $u
+##      u
+## y   50
+## m   50
+## x  100
+## ey   0
+## em   0
+## 
+## $Filter
+##   y m x ey em
+## y 1 0 0  0  0
+## m 0 1 0  0  0
+## x 0 0 1  0  0
+## 
+## $v
+##      v
+## y  100
+## m  100
+## x  100
+## ey   0
+## em   0
+## 
+## $g
+##     g
+## y 100
+## m 100
+## x 100
+## 
+## $C
+##          y      m      x     ey      em
+## y  225.000 112.50  56.25 168.75  84.375
+## m  112.500 225.00 112.50   0.00 168.750
+## x   56.250 112.50 225.00   0.00   0.000
+## ey 168.750   0.00   0.00 168.75   0.000
+## em  84.375 168.75   0.00   0.00 168.750
+## 
+## $M
+##        y     m      x
+## y 225.00 112.5  56.25
+## m 112.50 225.0 112.50
+## x  56.25 112.5 225.00
+\end{verbatim}
 
 \hypertarget{ram-med-simple-std}{%
 \chapter{The Standardized Simple Mediation Model}\label{ram-med-simple-std}}

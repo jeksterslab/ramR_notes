@@ -38,7 +38,7 @@ knitr::kable(
 )
 ```
 
-$\varepsilon$ be the stochastic error term
+$\varepsilon$ is the stochastic error term
 with mean 0 and constant variance of $\sigma_{\varepsilon}^{2}$
 across the values of the regressors.
 The associations of the variables are given by
@@ -140,17 +140,17 @@ Let $\left\{ y, x_1, x_2, \varepsilon \right\}$ be the variables of interest.
 ```{r, echo=FALSE}
 u <- matrix(
   data = c(
-    paste(expression(beta[0])),
-    paste(expression(mu[x[1]])),
-    paste(expression(mu[x[2]])),
+    "beta[0]",
+    "mu[x[1]]",
+    "mu[x[2]]",
     0
   )
 )
 v <- matrix(
   data = c(
-    paste(expression(beta[0] + beta[1] * mu[x[1]] + beta[2] * mu[x[2]])),
-    paste(expression(mu[x[1]])),
-    paste(expression(mu[x[2]])),
+    "beta[0] + beta[1] * mu[x[1]] + beta[2] * mu[x[2]]",
+    "mu[x[1]]",
+    "mu[x[2]]",
     0
   )
 )
@@ -160,29 +160,28 @@ A <- S <- matrix(
   ncol = dim(u)[1]
 )
 I <- diag(dim(A)[1])
-A[1, ] <- c(0, paste(expression(beta[1])), paste(expression(beta[2])), 1)
+A[1, ] <- c(0, "beta[1]", "beta[2]", 1)
 diag(S) <- c(
   0,
-  paste(expression(sigma[x[1]]^2)),
-  paste(expression(sigma[x[2]]^2)),
-  paste(expression(sigma[varepsilon]^2))
+  "sigma[x[1]]^2",
+  "sigma[x[2]]^2",
+  "sigma[varepsilon]^2"
 )
-filter <- diag(dim(A)[1] - 1)
-filter <- cbind(filter, 0)
-rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- colnames(filter) <- c(
+Filter <- diag(dim(A)[1] - 1)
+Filter <- cbind(Filter, 0)
+rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- colnames(Filter) <- c(
   "y",
   "x1",
   "x2",
   "e"
 )
 colnames(u) <- "u"
-rownames(filter) <- c(
+rownames(Filter) <- c(
   "y",
   "x1",
   "x2"
 )
 ```
-
 
 ```{r, echo=FALSE, results = "asis"}
 cat(
@@ -227,7 +226,7 @@ cat(
 cat(
   "\\begin{align*}",
   "\\mathbf{F} &=",
-  Ryacas::tex(Ryacas::ysym(filter)),
+  Ryacas::tex(Ryacas::ysym(Filter)),
   "\\end{align*}",
   sep = ""
 )
@@ -243,7 +242,7 @@ cat(
   "\\\\ &=",
   "\\mathbf{F} \\mathbf{C} \\mathbf{F}^{\\mathsf{T}} \\\\",
   "\\\\ &=",
-  Ryacas::tex(Ryacas::ysym(filter)),
+  Ryacas::tex(Ryacas::ysym(Filter)),
   Ryacas::tex(
     solve(
       Ryacas::ysym(I) - Ryacas::ysym(A)
@@ -253,16 +252,16 @@ cat(
       )
     )
   ),
-  Ryacas::tex(Ryacas::ysym(filter)),
+  Ryacas::tex(Ryacas::ysym(Filter)),
   "^{\\mathsf{T}} \\\\",
   "\\\\ &=",
   Ryacas::tex(
-    Ryacas::ysym(filter) * solve(
+    Ryacas::ysym(Filter) * solve(
       Ryacas::ysym(I) - Ryacas::ysym(A)
     ) * Ryacas::ysym(S) * t(
       solve(Ryacas::ysym(I) - Ryacas::ysym(A))
     ) * t(
-      Ryacas::ysym(filter)
+      Ryacas::ysym(Filter)
     )
   ),
   "\\end{align*}",
@@ -283,7 +282,7 @@ cat(
   "\\right]^{\\mathsf{-1}}",
   Ryacas::tex(Ryacas::ysym(u)),
   "\\\\ &=",
-  Ryacas::tex(ramR::v_sym(A, u)),
+  Ryacas::tex(ramR::v(Ryacas::ysym(A), u, simplify = TRUE)),
   "\\end{align*}",
   sep = ""
 )
@@ -302,7 +301,7 @@ cat(
   "\\right]",
   Ryacas::tex(Ryacas::ysym(v)),
   "\\\\ &=",
-  Ryacas::tex(Ryacas::simplify(ramR::u_sym(A, v))),
+  Ryacas::tex(ramR::u(Ryacas::ysym(A), v, simplify = TRUE)),
   "\\end{align*}",
   sep = ""
 )
@@ -321,7 +320,7 @@ cat(
   "\\right]^{-1}",
   Ryacas::tex(Ryacas::ysym(u)),
   "\\\\ &=",
-  Ryacas::tex(ramR::g_sym(A, u, filter)),
+  Ryacas::tex(ramR::g(Ryacas::ysym(A), u, Filter, simplify = TRUE)),
   "\\end{align*}",
   sep = ""
 )
@@ -342,72 +341,76 @@ u
 ```
 
 ```{r}
-filter
+Filter
 ```
 
 The covariance expectations
-can be symbolically derived using the `ramR::C_sym()` function.
+can be symbolically derived using the `ramR::C()` function
+with `A` of class `yac.symbol`.
 
 ```{r}
-ramR::C_sym(A, S)
+ramR::C(Ryacas::ysym(A), S)
 ```
 
 ```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{C} =",
-  Ryacas::tex(ramR::C_sym(A, S)),
+  Ryacas::tex(ramR::C(Ryacas::ysym(A), S, simplify = TRUE)),
   "\\end{equation*}",
   sep = ""
 )
 ```
 
 The covariance expectations for the observed variables
-can be symbolically derived using the `ramR::M_sym()` function.
+can be symbolically derived using the `ramR::M()` function
+with `A` of class `yac.symbol`.
 
 ```{r}
-ramR::M_sym(A, S, filter)
+ramR::M(Ryacas::ysym(A), S, Filter)
 ```
 
 ```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{M} =",
-  Ryacas::tex(ramR::M_sym(A, S, filter)),
+  Ryacas::tex(ramR::M(Ryacas::ysym(A), S, Filter, simplify = TRUE)),
   "\\end{equation*}",
   sep = ""
 )
 ```
 
 The mean expectations
-can be symbolically derived using the `ramR::v_sym()` function.
+can be symbolically derived using the `ramR::v()` function
+with `A` of class `yac.symbol`.
 
 ```{r}
-ramR::v_sym(A, u)
+ramR::v(Ryacas::ysym(A), u)
 ```
 
 ```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{v} =",
-  Ryacas::tex(ramR::v_sym(A, u)),
+  Ryacas::tex(ramR::v(Ryacas::ysym(A), u, simplify = TRUE)),
   "\\end{equation*}",
   sep = ""
 )
 ```
 
 The mean expectations for the observed variables
-can be symbolically derived using the `ramR::g_sym()` function.
+can be symbolically derived using the `ramR::g()` function
+with `A` of class `yac.symbol`.
 
 ```{r}
-ramR::g_sym(A, u, filter)
+ramR::g(Ryacas::ysym(A), u, Filter)
 ```
 
 ```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{g} =",
-  Ryacas::tex(ramR::g_sym(A, u, filter)),
+  Ryacas::tex(ramR::g(Ryacas::ysym(A), u, Filter, simplify = TRUE)),
   "\\end{equation*}",
   sep = ""
 )
@@ -519,7 +522,7 @@ u <- matrix(
   ),
   ncol = 1
 )
-rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- colnames(filter) <- c(
+rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- c(
   "y",
   "x1",
   "x2",
@@ -647,7 +650,6 @@ summary(aov(y ~ x, data = df))
 ```
 
 ### Linear Regression
-
 
 ```{r}
 summary(lm(y ~ x, data = df))
@@ -827,35 +829,35 @@ u
 ```
 
 ```{r}
-filter
+Filter
 ```
 
 The covariance expectations
-can be numerically derived using the `ramR::C_num()` function.
+can be numerically derived using the `ramR::C()` function.
 
 ```{r}
-ramR::C_num(A, S)
+ramR::C(A, S)
 ```
 
 The covariance expectations for the observed variables
-can be numerically derived using the `ramR::M_num()` function.
+can be numerically derived using the `ramR::M()` function.
 
 ```{r}
-ramR::M_num(A, S, filter)
+ramR::M(A, S, Filter)
 ```
 
 The mean expectations
-can be numerically derived using the `ramR::v_num()` function.
+can be numerically derived using the `ramR::v()` function.
 
 ```{r}
-ramR::v_num(A, u)
+ramR::v(A, u)
 ```
 
 The mean expectations for the observed variables
-can be numerically derived using the `ramR::v_num()` function.
+can be numerically derived using the `ramR::v()` function.
 
 ```{r}
-ramR::g_num(A, u, filter)
+ramR::g(A, u, Filter)
 ```
 
 ## Equations to RAM
@@ -989,10 +991,10 @@ These are labeled `sigma[x[1]]^2`, `sigma[x[2]]^2`, and `sigma[varepsilon]^2` re
 The intercept and the mean of $x_1$ and $x_2$ are defined using the operation `on 1`.
 These are labeled `beta[0]`, `mu[x[1]]`, and `mu[x[2]]` respectively.
 
-The `ramR::eq2ram` converts the equations to RAM notation.
+The `ramR::Eq2RAM` converts the equations to RAM notation.
 
 ```{r}
-ramR::eq2ram(eq)
+ramR::Eq2RAM(eq)
 ```
 
 ## Equations to Expectations
@@ -1017,7 +1019,7 @@ eq <- "
 ```
 
 ```{r}
-ramR::eq2exp_sym(eq)
+ramR::Eq2Expectations(eq)
 ```
 
 ```{r}
@@ -1036,5 +1038,5 @@ eq <- "
 ```
 
 ```{r}
-ramR::eq2exp_num(eq)
+ramR::Eq2Expectations(eq)
 ```

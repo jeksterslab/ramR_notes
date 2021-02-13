@@ -1,10 +1,51 @@
 # The Simple Mediation Model {#ram-med-simple}
 
+Let $y$, $m$, $x$, $\varepsilon_y$, and $\varepsilon_m$ be random variables
+whose associations are given by
+
+\begin{equation}
+  y = \beta_0 + \beta_1 x + \beta_2 m + \varepsilon_y
+\end{equation}
+
+\begin{equation}
+  m = \alpha_0 + \alpha_1 x + \varepsilon_m
+\end{equation}
+
+or combined
+
+\begin{equation}
+  \begin{split}
+    y
+    &=
+    \beta_0
+    + \beta_1 x
+    + \beta_2 (\alpha_0 + \alpha_1 x + \varepsilon_m)
+    + \varepsilon_y \\
+    &=
+    \beta_0
+    + \beta_1 x
+    + \beta_2 \alpha_0
+    + \alpha_1 \beta_2 x
+    + \beta_2 \varepsilon_m
+    + \varepsilon_y
+  \end{split}
+\end{equation}
+
+where
+
+- $\beta_1$ is the path from $x$ on $y$
+- $\beta_2$ is the path from $m$ to $y$
+- $\alpha_1$ is the path from $x$ to $m$
+- $\varepsilon_y$ and $\varepsilon_m$ are uncorrelated error terms
+  with means of zero and constant variances of $\sigma_{\varepsilon_y}^{2}$ and
+  $\sigma_{\varepsilon_m}^{2}$ respectively
+- $\beta_0$ and $\alpha_0$ are intercepts
+
 ```{tikz, ram-med-simple-01, echo=FALSE, fig.cap="The Simple Mediation Model", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
 \usetikzlibrary{er, arrows, positioning}
 \begin{tikzpicture}[
   auto,
-  node distance = 20mm,
+  node distance = 15mm,
   manifest/.style = {
     rectangle,
     draw,
@@ -12,6 +53,14 @@
     inner sep = 0pt,
     minimum width = 15mm,
     minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 15mm,
+    align = center
   },
   inv/.style = {
     rectangle,
@@ -54,13 +103,652 @@
   \node[manifest] (y) [below right = of m] {$y$};
   \node[error] (epsilon_m) [right = of m] {$\varepsilon_m$};
   \node[error] (epsilon_y) [right = of y] {$\varepsilon_y$};
-  \draw [path] (x) to node {$\tau^{\prime}$} (y);
-  \draw [path] (x) to node {$\alpha$} (m);
-  \draw [path] (m) to node {$\beta$} (y);
+  \draw [path] (x) to node {$\beta_1$} (y);
+  \draw [path] (x) to node {$\alpha_1$} (m);
+  \draw [path] (m) to node {$\beta_2$} (y);
   \draw [path] (epsilon_m) to node {$1$} (m);
   \draw [path] (epsilon_y) to node {$1$} (y);
   \draw [cov] (x) to[out=170,in=190,looseness=5] node[left] {$\sigma^{2}_{x}$} (x);
   \draw [cov] (epsilon_m) to[out=70,in=110,looseness=5] node[above] {$\sigma^{2}_{\varepsilon_{m}}$} (epsilon_m);
   \draw [cov] (epsilon_y) to[out=70,in=110,looseness=5] node[above] {$\sigma^{2}_{\varepsilon_{y}}$} (epsilon_y);
 \end{tikzpicture}
+```
+
+```{tikz, ram-med-simple-02, echo=FALSE, fig.cap="The Simple Mediation Model with Mean Structure", fig.ext=if (knitr:::is_latex_output()) "pdf" else "png", cache=TRUE}
+\usetikzlibrary{er, arrows, positioning}
+\begin{tikzpicture}[
+  auto,
+  node distance = 15mm,
+  manifest/.style = {
+    rectangle,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  latent/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 15mm,
+    align = center
+  },
+  inv/.style = {
+    rectangle,
+    draw=none,
+    fill=none,
+    inner sep = 0pt,
+    minimum width = 15mm,
+    minimum height = 10mm
+  },
+  error/.style = {
+    ellipse,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum size = 7mm,
+    align = center
+  },
+  mean/.style={
+    regular polygon,
+    regular polygon sides = 3,
+    draw,
+    thick,
+    inner sep = 0pt,
+    minimum width = 7mm,
+    minimum height = 7mm
+  },
+  path/.style = {
+    ->,
+    thick,
+    >=stealth'
+  },
+  cov/.style = {
+    <->,
+    thick,
+    >=stealth'
+  },
+]
+  \node[manifest] (y) {$y$};
+  \node[manifest] (x) [above right = of y] {$x$};
+  \node[manifest] (m) [below right = of y] {$m$};
+  \node[inv] (inv) [right = of y] {};
+  \node[mean] (1) [right = of inv] {1};
+  \node[error] (varepsilon_y) [left = of y] {$\varepsilon_y$};
+  \node[error] (varepsilon_m) [below = of m] {$\varepsilon_m$};
+  \draw[path] (1) to node[above] {$\beta_0$} (y);
+  \draw[path] (1) to node[above] {$\mu_{x}$} (x);
+  \draw[path] (1) to node[below] {$\alpha_0$} (m);
+  \draw[path] (x) to node[above] {$\beta_1$} (y);
+  \draw[path] (x) to node[below left] {$\alpha_1$} (m);
+  \draw[path] (m) to node[below] {$\beta_2$} (y);
+  \draw[path] (varepsilon_y) to node[above] {$1$} (y);
+  \draw[path] (varepsilon_m) to node[right] {$1$} (m);
+  \draw[cov] (1) to[out=70,in=110,looseness=6] node[above] {$1$} (1);
+  \draw[cov] (x) to[out=70,in=110,looseness=5] node[above] {$\sigma_{x}^{2}$} (x);
+  \draw[cov] (varepsilon_y) to[out=70,in=110,looseness=5] node[above] {$\sigma_{\varepsilon_y}^{2}$} (varepsilon_y);
+  \draw[cov] (varepsilon_m) to[out=-70,in=-110,looseness=5] node[below] {$\sigma_{\varepsilon_m}^{2}$} (varepsilon_m);
+\end{tikzpicture}
+```
+
+## Symbolic
+
+Let $\left\{ y, m, x, \varepsilon_y, \varepsilon_m \right\}$ be the variables of interest.
+
+```{r, echo=FALSE}
+u <- matrix(
+  data = c(
+    "beta[0]",
+    "alpha[0]",
+    "mu[x]",
+    0,
+    0
+  )
+)
+v <- matrix(
+  data = c(
+    "beta[0] + beta[1] * alpha[0] + beta[1] * alpha[1] * mu[x] + beta[2] * mu[x]",
+    "alpha[0] + alpha[1] * mu[x]",
+    "mu[x]",
+    0,
+    0
+  )
+)
+A <- S <- matrix(
+  data = 0,
+  nrow = dim(u)[1],
+  ncol = dim(u)[1]
+)
+I <- diag(dim(A)[1])
+A[1, ] <- c(0, "beta[2]", "beta[1]", 1, 0)
+A[2, ] <- c(0, 0, "alpha[1]", 0, 1)
+diag(S) <- c(
+  0,
+  0,
+  "sigma[x]^2",
+  "sigma[varepsilon[y]]^2",
+  "sigma[varepsilon[m]]^2"
+)
+filter <- diag(dim(A)[1] - 2)
+filter <- cbind(filter, 0, 0)
+rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- colnames(filter) <- c(
+  "y",
+  "m",
+  "x",
+  "ey",
+  "em"
+)
+colnames(u) <- "u"
+rownames(filter) <- c(
+  "y",
+  "m",
+  "x"
+)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{align*}",
+  "\\mathbf{A} &=",
+  Ryacas::tex(Ryacas::ysym(A)),
+  "\\end{align*}",
+  sep = ""
+)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{align*}",
+  "\\mathbf{S} &=",
+  Ryacas::tex(Ryacas::ysym(S)),
+  "\\end{align*}",
+  sep = ""
+)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{align*}",
+  "\\mathbf{C} &=",
+  "\\left( \\mathbf{I} - \\mathbf{A} \\right)^{-1} \\mathbf{S} \\left[ \\left( \\mathbf{I} - \\mathbf{A} \\right)^{-1} \\right]^{\\mathsf{T}} \\\\",
+  "\\\\ &=",
+  "\\mathbf{E} \\mathbf{S} \\mathbf{E}^{\\mathsf{T}} \\\\",
+  "\\\\ &=",
+  Ryacas::tex(solve(Ryacas::ysym(I) - Ryacas::ysym(A))),
+  Ryacas::tex(Ryacas::ysym(S)),
+  Ryacas::tex(solve(Ryacas::ysym(I) - Ryacas::ysym(A))),
+  "^{\\mathsf{T}}",
+  "\\\\ &=",
+  Ryacas::tex(Ryacas::simplify(solve(Ryacas::ysym(I) - Ryacas::ysym(A)) * Ryacas::ysym(S) * t(solve(Ryacas::ysym(I) - Ryacas::ysym(A))))),
+  "\\end{align*}",
+  sep = ""
+)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{align*}",
+  "\\mathbf{F} &=",
+  Ryacas::tex(Ryacas::ysym(filter)),
+  "\\end{align*}",
+  sep = ""
+)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{align*}",
+  "\\mathbf{M} &=",
+  "\\mathbf{F} \\left( \\mathbf{I} - \\mathbf{A} \\right)^{-1} \\mathbf{S} \\left[ \\left( \\mathbf{I} - \\mathbf{A} \\right)^{-1} \\right]^{\\mathsf{T}} \\mathbf{F}^{\\mathsf{T}} \\\\",
+  "&=",
+  "\\mathbf{F} \\mathbf{E} \\mathbf{S} \\mathbf{E}^{\\mathsf{T}} \\mathbf{F}^{\\mathsf{T}} \\\\",
+  "&=",
+  "\\mathbf{F} \\mathbf{C} \\mathbf{F}^{\\mathsf{T}} \\\\",
+  "&=",
+  Ryacas::tex(
+    Ryacas::simplify(
+      Ryacas::ysym(filter) * solve(
+        Ryacas::ysym(I) - Ryacas::ysym(A)
+      ) * Ryacas::ysym(S) * t(
+        solve(Ryacas::ysym(I) - Ryacas::ysym(A))
+      ) * t(
+        Ryacas::ysym(filter)
+      )
+    )
+  ),
+  "\\end{align*}",
+  sep = ""
+)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{align*}",
+  "\\mathbf{v} &=",
+  "\\left( \\mathbf{I} - \\mathbf{A} \\right)^{-1} \\mathbf{u}",
+  "\\\\ &=",
+  "\\left[",
+  Ryacas::tex(Ryacas::ysym(I)),
+  "-",
+  Ryacas::tex(Ryacas::ysym(A)),
+  "\\right]^{\\mathsf{-1}}",
+  Ryacas::tex(Ryacas::ysym(u)),
+  "\\\\ &=",
+  Ryacas::tex(ramR::v(Ryacas::ysym(A), u, simplify = TRUE)),
+  "\\end{align*}",
+  sep = ""
+)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{align*}",
+  "\\mathbf{u} &=",
+  "\\left( \\mathbf{I} - \\mathbf{A} \\right) \\mathbf{v}",
+  "\\\\ &=",
+  "\\left[",
+  Ryacas::tex(Ryacas::ysym(I)),
+  "-",
+  Ryacas::tex(Ryacas::ysym(A)),
+  "\\right]",
+  Ryacas::tex(Ryacas::ysym(v)),
+  "\\\\ &=",
+  Ryacas::tex(ramR::u(Ryacas::ysym(A), v, simplify = TRUE)),
+  "\\end{align*}",
+  sep = ""
+)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{align*}",
+  "\\mathbf{g} &=",
+  "\\mathbf{F} \\left( \\mathbf{I} - \\mathbf{A} \\right)^{-1} \\mathbf{u}",
+  "\\\\ &=",
+  "\\left[",
+  Ryacas::tex(Ryacas::ysym(I)),
+  "-",
+  Ryacas::tex(Ryacas::ysym(A)),
+  "\\right]^{-1}",
+  Ryacas::tex(Ryacas::ysym(u)),
+  "\\\\ &=",
+  Ryacas::tex(ramR::g(Ryacas::ysym(A), u, filter, simplify = TRUE)),
+  "\\end{align*}",
+  sep = ""
+)
+```
+
+
+### Using the `ramR` Package
+
+```{r}
+A
+```
+
+```{r}
+S
+```
+
+```{r}
+u
+```
+
+```{r}
+filter
+```
+
+The covariance expectations
+can be symbolically derived using the `ramR::C()` function
+with `A` of class `yac.symbol`.
+
+```{r}
+ramR::C(Ryacas::ysym(A), S, simplify = TRUE)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
+  "\\mathbf{C} =",
+  Ryacas::tex(ramR::C(Ryacas::ysym(A), S, simplify = TRUE)),
+  "\\end{equation*}",
+  sep = ""
+)
+```
+
+The covariance expectations for the observed variables
+can be symbolically derived using the `ramR::M()` function
+with `A` of class `yac.symbol`.
+
+```{r}
+ramR::M(Ryacas::ysym(A), S, filter, simplify = TRUE)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
+  "\\mathbf{M} =",
+  Ryacas::tex(ramR::M(Ryacas::ysym(A), S, filter, simplify = TRUE)),
+  "\\end{equation*}",
+  sep = ""
+)
+```
+
+The mean expectations
+can be symbolically derived using the `ramR::v()` function
+with `A` of class `yac.symbol`.
+
+```{r}
+ramR::v(Ryacas::ysym(A), u, simplify = TRUE)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
+  "\\mathbf{v} =",
+  Ryacas::tex(ramR::v(Ryacas::ysym(A), u, simplify = TRUE)),
+  "\\end{equation*}",
+  sep = ""
+)
+```
+
+The mean expectations for the observed variables
+can be symbolically derived using the `ramR::g()` function
+with `A` of class `yac.symbol`.
+
+```{r}
+ramR::g(Ryacas::ysym(A), u, filter, simplify = TRUE)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
+  "\\mathbf{g} =",
+  Ryacas::tex(ramR::g(Ryacas::ysym(A), u, filter, simplify = TRUE)),
+  "\\end{equation*}",
+  sep = ""
+)
+```
+
+## Numerical Example
+
+```{r, echo=FALSE}
+# Population
+sigma2y_pop <- sigma2m_pop <- sigma2x_pop <- 225
+mu_y_pop <- mu_m_pop <- mu_x_pop <- 100
+alpha_1_pop <- 0.50
+beta_1_pop <- 0.00
+beta_2_pop <- 0.50
+sigma2em_pop <- sigma2m_pop - sigma2x_pop * alpha_1_pop^2
+sigma2ey_pop <- sigma2y_pop - sigma2x_pop * beta_2_pop^2 - 2 * sigma2x_pop * beta_2_pop * beta_1_pop * alpha_1_pop - sigma2x_pop * beta_1_pop^2 * alpha_1_pop^2 + beta_1_pop^2 * sigma2em_pop
+alpha_0_pop <- mu_m_pop - alpha_1_pop * mu_x_pop
+beta_0_pop <- mu_y_pop - beta_1_pop * alpha_0_pop - beta_1_pop * alpha_1_pop * mu_x_pop - beta_2_pop * mu_x_pop
+eq <- paste(
+  "ey by y 1", "\n",
+  "em by m 1", "\n",
+  "y on x", beta_1_pop, "\n",
+  "y on m", beta_2_pop, "\n",
+  "m on x", alpha_1_pop, "\n",
+  "ey with ey", sigma2ey_pop, "\n",
+  "em with em", sigma2em_pop, "\n",
+  "x with x", sigma2x_pop, "\n",
+  "y on 1", beta_0_pop, "\n",
+  "m on 1", alpha_0_pop, "\n",
+  "x on 1", mu_x_pop
+)
+set.seed(42)
+data <- ramR::Eq2Data(eq, n = 1000)
+df <- as.data.frame(data)
+mod1 <- lm(y ~ x + m, data = df)
+mod2 <- lm(m ~ x, data = df)
+coef1 <- coef(mod1)
+coef2 <- coef(mod2)
+beta_0 <- coef1[1]
+beta_1 <- coef1[2]
+beta_2 <- coef1[3]
+alpha_0 <- coef2[1]
+alpha_1 <- coef2[2]
+sigma2ey <- summary(mod1)$sigma^2
+sigma2em <- summary(mod2)$sigma^2
+sigma2x <- var(df$x)
+mu_x <- mean(df$x)
+A <- S <- matrix(
+  data = 0,
+  nrow = 5,
+  ncol = 5
+)
+A[1, ] <- c(0, beta_2, beta_1, 1, 0)
+A[2, ] <- c(0, 0, alpha_1, 0, 1)
+diag(S) <- c(
+  0,
+  0,
+  sigma2x,
+  sigma2ey,
+  sigma2em
+)
+u <- matrix(
+  data = c(
+    beta_0,
+    alpha_0,
+    mu_x,
+    0,
+    0
+  ),
+  ncol = 1
+)
+rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- c(
+  "y",
+  "m",
+  "x",
+  "ey",
+  "em"
+)
+colnames(u) <- "u"
+```
+
+Let `df` be a random sample from a population with the following parameters
+
+```{r, echo = FALSE}
+Parameter <- c(
+  "$\\beta_1$",
+  "$\\beta_2$",
+  "$\\alpha_1$",
+  "$\\sigma_{\\varepsilon_y}^{2}$",
+  "$\\sigma_{\\varepsilon_m}^{2}$",
+  "$\\sigma_{x}^{2}$",
+  "$\\beta_0$",
+  "$\\alpha_0$",
+  "$\\mu_x$"
+)
+Value <- c(
+  beta_1_pop,
+  beta_2_pop,
+  alpha_1_pop,
+  sigma2ey_pop,
+  sigma2em_pop,
+  sigma2x_pop,
+  beta_0_pop,
+  alpha_0_pop,
+  mu_x_pop
+)
+knitr::kable(
+  cbind(
+    Parameter,
+    Value
+  ),
+  escape = FALSE
+)
+```
+
+```{r}
+head(df)
+summary(df)
+```
+
+```{r, echo=FALSE}
+pairs(df)
+```
+
+### Linear Regression
+
+```{r}
+summary(lm(y ~ x + m, data = df))
+summary(lm(m ~ x, data = df))
+```
+
+### Structural Equation Modeling
+
+#### lavaan [@lavaan2012]
+
+```{r}
+# Covariance Structure
+model <- "
+  y ~ beta1 * x + beta2 * m
+  m ~ alpha1 * x
+  indirect := alpha1 * beta2
+"
+# With Mean Structure
+model <- "
+  y ~ beta1 * x + beta2 * m
+  m ~ alpha1 * x
+  y ~~ sigma2ey * y
+  m ~~ sigma2em * m
+  x ~~ sigma2x * x
+  y ~ beta0 * 1
+  m ~ alpha0 * 1
+  x ~ mux * 1
+  indirect := alpha1 * beta2
+"
+fit <- lavaan::sem(
+  model,
+  data = df,
+  meanstructure = TRUE,
+  fixed.x = FALSE
+)
+lavaan::summary(fit)
+```
+
+### Using the `ramR` Package
+
+```{r}
+A
+```
+
+```{r}
+S
+```
+
+```{r}
+u
+```
+
+```{r}
+filter
+```
+
+The covariance expectations
+can be numerically derived using the `ramR::C()` function.
+
+```{r}
+ramR::C(A, S)
+```
+
+The covariance expectations for the observed variables
+can be numerically derived using the `ramR::M()` function.
+
+```{r}
+ramR::M(A, S, filter)
+```
+
+The mean expectations
+can be numerically derived using the `ramR::v()` function.
+
+```{r}
+ramR::v(A, u)
+```
+
+The mean expectations for the observed variables
+can be numerically derived using the `ramR::v()` function.
+
+```{r}
+ramR::g(A, u, filter)
+```
+
+## Equations to RAM
+
+The `ramR` package has a utility function
+to convert structural equations to RAM notation.
+The simple mediation model
+can be expressed in the following equations
+
+```{r}
+eq <- "
+  # VARIABLE1 OPERATION VARIABLE2 LABEL
+  ey          by        y         1
+  em          by        m         1
+  y           on        x         beta[1]
+  y           on        m         beta[2]
+  m           on        x         alpha[1]
+  ey          with      ey        sigma[varepsilon[y]]^2
+  em          with      em        sigma[varepsilon[m]]^2
+  x           with      x         sigma[x]^2
+  y           on        1         beta[0]
+  m           on        1         alpha[0]
+  x           on        1         mu[x]
+"
+```
+
+The `ramR::Eq2RAM` converts the equations to RAM notation.
+
+```{r}
+ramR::Eq2RAM(eq)
+```
+
+## Equations to Expectations
+
+The `ramR` package has a utility function
+to convert structural equations to expectations
+both symbolically and numerically.
+
+```{r}
+eq <- "
+  # VARIABLE1 OPERATION VARIABLE2 LABEL
+  ey          by        y         1
+  em          by        m         1
+  y           on        x         beta[1]
+  y           on        m         beta[2]
+  m           on        x         alpha[1]
+  ey          with      ey        sigma[varepsilon[y]]^2
+  em          with      em        sigma[varepsilon[m]]^2
+  x           with      x         sigma[x]^2
+  y           on        1         beta[0]
+  m           on        1         alpha[0]
+  x           on        1         mu[x]
+"
+```
+
+```{r}
+ramR::Eq2Expectations(eq)
+```
+
+```{r}
+eq <- "
+  # VARIABLE1 OPERATION VARIABLE2 LABEL
+  ey          by        y         1
+  em          by        m         1
+  y           on        x         0.00
+  y           on        m         0.50
+  m           on        x         0.50
+  ey          with      ey        168.75
+  em          with      em        168.75
+  x           with      x         225
+  y           on        1         50
+  m           on        1         50
+  x           on        1         100
+"
+```
+
+```{r}
+ramR::Eq2Expectations(eq)
 ```

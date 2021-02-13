@@ -101,15 +101,15 @@ Let $\left\{ y, x, \varepsilon \right\}$ be the variables of interest.
 ```{r, echo=FALSE}
 u <- matrix(
   data = c(
-    paste(expression(alpha)),
-    paste(expression(mu[x])),
+    "alpha",
+    "mu[x]",
     0
   )
 )
 v <- matrix(
   data = c(
-    paste(expression(alpha + beta * mu[x])),
-    paste(expression(mu[x])),
+    "alpha + beta * mu[x]",
+    "mu[x]",
     0
   )
 )
@@ -119,21 +119,21 @@ A <- S <- matrix(
   ncol = dim(u)[1]
 )
 I <- diag(dim(A)[1])
-A[1, ] <- c(0, paste(expression(beta)), 1)
+A[1, ] <- c(0, "beta", 1)
 diag(S) <- c(
   0,
-  paste(expression(sigma[x]^2)),
-  paste(expression(sigma[varepsilon]^2))
+  "sigma[x]^2",
+  "sigma[varepsilon]^2"
 )
-filter <- diag(dim(A)[1] - 1)
-filter <- cbind(filter, 0)
-rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- colnames(filter) <- c(
+Filter <- diag(dim(A)[1] - 1)
+Filter <- cbind(Filter, 0)
+rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- colnames(Filter) <- c(
   "y",
   "x",
   "e"
 )
 colnames(u) <- "u"
-rownames(filter) <- c(
+rownames(Filter) <- c(
   "y",
   "x"
 )
@@ -182,7 +182,7 @@ cat(
 cat(
   "\\begin{align*}",
   "\\mathbf{F} &=",
-  Ryacas::tex(Ryacas::ysym(filter)),
+  Ryacas::tex(Ryacas::ysym(Filter)),
   "\\end{align*}",
   sep = ""
 )
@@ -198,7 +198,7 @@ cat(
   "\\\\ &=",
   "\\mathbf{F} \\mathbf{C} \\mathbf{F}^{\\mathsf{T}} \\\\",
   "\\\\ &=",
-  Ryacas::tex(Ryacas::ysym(filter)),
+  Ryacas::tex(Ryacas::ysym(Filter)),
   Ryacas::tex(
     solve(
       Ryacas::ysym(I) - Ryacas::ysym(A)
@@ -208,16 +208,16 @@ cat(
       )
     )
   ),
-  Ryacas::tex(Ryacas::ysym(filter)),
+  Ryacas::tex(Ryacas::ysym(Filter)),
   "^{\\mathsf{T}} \\\\",
   "\\\\ &=",
   Ryacas::tex(
-    Ryacas::ysym(filter) * solve(
+    Ryacas::ysym(Filter) * solve(
       Ryacas::ysym(I) - Ryacas::ysym(A)
     ) * Ryacas::ysym(S) * t(
       solve(Ryacas::ysym(I) - Ryacas::ysym(A))
     ) * t(
-      Ryacas::ysym(filter)
+      Ryacas::ysym(Filter)
     )
   ),
   "\\end{align*}",
@@ -238,7 +238,7 @@ cat(
   "\\right]^{\\mathsf{-1}}",
   Ryacas::tex(Ryacas::ysym(u)),
   "\\\\ &=",
-  Ryacas::tex(ramR::v_sym(A, u)),
+  Ryacas::tex(ramR::v(Ryacas::ysym(A), u, simplify = TRUE)),
   "\\end{align*}",
   sep = ""
 )
@@ -257,7 +257,7 @@ cat(
   "\\right]",
   Ryacas::tex(Ryacas::ysym(v)),
   "\\\\ &=",
-  Ryacas::tex(ramR::u_sym(A, v)),
+  Ryacas::tex(ramR::u(Ryacas::ysym(A), v, simplify = TRUE)),
   "\\end{align*}",
   sep = ""
 )
@@ -276,7 +276,7 @@ cat(
   "\\right]^{-1}",
   Ryacas::tex(Ryacas::ysym(u)),
   "\\\\ &=",
-  Ryacas::tex(ramR::g_sym(A, u, filter)),
+  Ryacas::tex(ramR::g(Ryacas::ysym(A), u, Filter, simplify = TRUE)),
   "\\end{align*}",
   sep = ""
 )
@@ -297,72 +297,77 @@ u
 ```
 
 ```{r}
-filter
+Filter
 ```
 
 The covariance expectations
-can be symbolically derived using the `ramR::C_sym()` function.
+can be symbolically derived using the `ramR::C()` function
+with `A` of class `yac.symbol`.
 
 ```{r}
-ramR::C_sym(A, S)
+ramR::C(Ryacas::ysym(A), S)
 ```
 
 ```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{C} =",
-  Ryacas::tex(ramR::C_sym(A, S)),
+  Ryacas::tex(ramR::C(Ryacas::ysym(A), S, simplify = TRUE)),
   "\\end{equation*}",
   sep = ""
 )
 ```
 
 The covariance expectations for the observed variables
-can be symbolically derived using the `ramR::M_sym()` function.
+can be symbolically derived using the `ramR::M()` function
+with `A` of class `yac.symbol`.
 
 ```{r}
-ramR::M_sym(A, S, filter)
+ramR::M(Ryacas::ysym(A), S, Filter)
 ```
 
 ```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{M} =",
-  Ryacas::tex(ramR::M_sym(A, S, filter)),
+  Ryacas::tex(ramR::M(Ryacas::ysym(A), S, Filter, simplify = TRUE)),
   "\\end{equation*}",
   sep = ""
 )
 ```
 
 The mean expectations
-can be symbolically derived using the `ramR::v_sym()` function.
+can be symbolically derived using the `ramR::v()` function
+with `A` of class `yac.symbol`.
 
 ```{r}
-ramR::v_sym(A, u)
+ramR::v(Ryacas::ysym(A), u)
 ```
 
 ```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{v} =",
-  Ryacas::tex(ramR::v_sym(A, u)),
+  Ryacas::tex(ramR::v(Ryacas::ysym(A), u, simplify = TRUE)),
   "\\end{equation*}",
   sep = ""
 )
 ```
 
 The mean expectations for the observed variables
-can be symbolically derived using the `ramR::g_sym()` function.
+can be symbolically derived using the `ramR::g()` function
+with `A` of class `yac.symbol`.
+
 
 ```{r}
-ramR::g_sym(A, u, filter)
+ramR::g(Ryacas::ysym(A), u, Filter)
 ```
 
 ```{r, echo=FALSE, results = "asis"}
 cat(
   "\\begin{equation*}",
   "\\mathbf{g} =",
-  Ryacas::tex(ramR::g_sym(A, u, filter)),
+  Ryacas::tex(ramR::g(Ryacas::ysym(A), u, Filter, simplify = TRUE)),
   "\\end{equation*}",
   sep = ""
 )
@@ -442,7 +447,7 @@ u <- matrix(
   ),
   ncol = 1
 )
-rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- colnames(filter) <- c(
+rownames(u) <- rownames(v) <- rownames(A) <- rownames(S) <- colnames(A) <- colnames(S) <- c(
   "y",
   "x",
   "e"
@@ -698,35 +703,35 @@ u
 ```
 
 ```{r}
-filter
+Filter
 ```
 
 The covariance expectations
-can be numerically derived using the `ramR::C_num()` function.
+can be numerically derived using the `ramR::C()` function.
 
 ```{r}
-ramR::C_num(A, S)
+ramR::C(A, S)
 ```
 
 The covariance expectations for the observed variables
-can be numerically derived using the `ramR::M_num()` function.
+can be numerically derived using the `ramR::M()` function.
 
 ```{r}
-ramR::M_num(A, S, filter)
+ramR::M(A, S, Filter)
 ```
 
 The mean expectations
-can be numerically derived using the `ramR::v_num()` function.
+can be numerically derived using the `ramR::v()` function.
 
 ```{r}
-ramR::v_num(A, u)
+ramR::v(A, u)
 ```
 
 The mean expectations for the observed variables
-can be numerically derived using the `ramR::v_num()` function.
+can be numerically derived using the `ramR::g()` function.
 
 ```{r}
-ramR::g_num(A, u, filter)
+ramR::g(A, u, Filter)
 ```
 
 ## Equations to RAM
@@ -737,13 +742,13 @@ The Student's $t$-test can be expressed in the following equations
 
 ```{r}
 eq <- "
-  # VARIABLE1 OPERATION VARIABLE2 LABEL
-  e           by        y         1
-  y           on        x         beta
-  e           with      e         sigma[varepsilon]^2
-  x           with      x         sigma[x]^2
-  y           on        1         alpha
-  x           on        1         mu[x]
+  # LHS OPERATION RHS LABEL
+  e     by        y   1
+  y     on        x   beta
+  e     with      e   sigma[varepsilon]^2
+  x     with      x   sigma[x]^2
+  y     on        1   alpha
+  x     on        1   mu[x]
 "
 ```
 
@@ -844,10 +849,10 @@ These are labeled `sigma[x]^2` and `sigma[varepsilon]^2` respectively.
 The intercept and the mean of $x$ are defined using the operation `on 1`.
 These are labeled `alpha` and `mu[x]` respectively.
 
-The `ramR::eq2ram` converts the equations to RAM notation.
+The `ramR::Eq2RAM` converts the equations to RAM notation.
 
 ```{r}
-ramR::eq2ram(eq)
+ramR::Eq2RAM(eq)
 ```
 
 ## Equations to Expectations
@@ -858,32 +863,32 @@ both symbolically and numerically.
 
 ```{r}
 eq <- "
-  # VARIABLE1 OPERATION VARIABLE2 LABEL
-  e           by        y         1
-  y           on        x         beta
-  e           with      e         sigma[varepsilon]^2
-  x           with      x         sigma[x]^2
-  y           on        1         alpha
-  x           on        1         mu[x]
+  # LHS OPERATION RHS LABEL
+  e     by        y   1
+  y     on        x   beta
+  e     with      e   sigma[varepsilon]^2
+  x     with      x   sigma[x]^2
+  y     on        1   alpha
+  x     on        1   mu[x]
 "
 ```
 
 ```{r}
-ramR::eq2exp_sym(eq)
+ramR::Eq2Expectations(eq)
 ```
 
 ```{r}
 eq <- "
-  # VARIABLE1 OPERATION VARIABLE2 VALUE
-  e           by        y         1.00
-  y           on        x         1.00
-  e           with      e         1.00
-  x           with      x         0.25
-  y           on        1         0.00
-  x           on        1         0.50
+  # LHS OPERATION RHS VALUE
+  e     by        y   1.00
+  y     on        x   1.00
+  e     with      e   1.00
+  x     with      x   0.25
+  y     on        1   0.00
+  x     on        1   0.50
 "
 ```
 
 ```{r}
-ramR::eq2exp_num(eq)
+ramR::Eq2Expectations(eq)
 ```

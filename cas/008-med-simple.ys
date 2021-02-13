@@ -1,0 +1,49 @@
+// Simple Mediation Model
+
+A := {
+  {0, beta[1],  beta[2], 1, 0},
+  {0,       0, alpha[1], 0, 1},
+  {0,       0,        0, 0, 0},
+  {0,       0,        0, 0, 0},
+  {0,       0,        0, 0, 0}
+} ;
+
+S := {
+  {0, 0,          0,                      0,                      0},
+  {0, 0,          0,                      0,                      0},
+  {0, 0, sigma[x]^2,                      0,                      0},
+  {0, 0,          0, sigma[varepsilon[y]]^2,                      0},
+  {0, 0,          0,                      0, sigma[varepsilon[m]]^2}
+} ;
+
+F := {
+  {1, 0, 0, 0, 0},
+  {0, 1, 0, 0, 0},
+  {0, 0, 1, 0, 0}
+} ;
+
+u := {
+  {beta[0]},
+  {alpha[0]},
+  {mu[x]},
+  {0},
+  {0}
+} ;
+
+E := Inverse(Identity(5) - A) ;
+
+C := E * S * Transpose(E) ;
+
+Simplify(C) ;
+
+M := F * C * Transpose(F) ;
+
+Simplify(M) ;
+
+v := E * u ;
+
+Simplify(v) ;
+
+g := F * v ;
+
+Simplify(g) ;

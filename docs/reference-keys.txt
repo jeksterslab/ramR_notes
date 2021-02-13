@@ -18,6 +18,7 @@ fig:ram-aov-02
 fig:ram-two-reg-01
 fig:ram-k-reg-01
 fig:ram-med-simple-01
+fig:ram-med-simple-02
 fig:ram-med-simple-std-01
 description
 ram-matrix-notation
@@ -51,4 +52,13 @@ equations-to-expectations-1
 ram-two-reg
 ram-k-reg
 ram-med-simple
+symbolic-2
+using-the-ramr-package-4
+numerical-example-2
+linear-regression-2
+structural-equation-modeling-2
+lavaan-lavaan2012-2
+using-the-ramr-package-5
+equations-to-ram-2
+equations-to-expectations-2
 ram-med-simple-std

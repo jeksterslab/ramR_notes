@@ -20,7 +20,8 @@
     of each of the $t$ variables $\mathbf{v}$ on the other $t - 1$ variables
   - diagonal $a_{i,i}$ is zero
   - $u_i$ represent the residual of $v_i$
-  - if all regression coefficients on other variables are zero,
+  - if all regression coefficients on other variables are zero
+    (i.e., $i^{\mathrm{th}}$ row of $\mathbf{A}$ consists of zeros),
     then the variable $v_i$ is considered the same as its own residual $u_i$
 
 ```{definition, echo = TRUE}
